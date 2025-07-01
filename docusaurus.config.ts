@@ -1,5 +1,5 @@
-import {themes as prismThemes} from 'prism-react-renderer';
-import type {Config} from '@docusaurus/types';
+import { themes as prismThemes } from 'prism-react-renderer';
+import type { Config } from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
@@ -97,36 +97,15 @@ const config: Config = {
       style: 'dark',
       links: [
         {
-          title: 'Tutorials',
+          title: 'Community',
           items: [
             {
-              label: 'Create Documents',
-              to: '/tutorial-basics/create-a-document',
+              label: 'Instagram',
+              href: 'https://twitter.com/davincibot_pulv',
             },
             {
-              label: 'Create Pages',
-              to: '/tutorial-basics/create-a-page',
-            },
-            {
-              label: 'Markdown Features',
-              to: '/tutorial-basics/markdown-features',
-            },
-          ],
-        },
-        {
-          title: 'Advanced',
-          items: [
-            {
-              label: 'Deploy Your Site',
-              to: '/tutorial-basics/deploy-your-site',
-            },
-            {
-              label: 'Manage Versions',
-              to: '/tutorial-extras/manage-docs-versions',
-            },
-            {
-              label: 'Translate Site',
-              to: '/tutorial-extras/translate-your-site',
+              label: 'LinkedIn',
+              href: 'https://www.linkedin.com/company/davincibot/',
             },
           ],
         },
@@ -135,7 +114,11 @@ const config: Config = {
           items: [
             {
               label: 'GitHub',
-              href: 'https://github.com/your-repo/docvb',
+              href: 'https://github.com/davincibot/docvb',
+            },
+            {
+              label: 'davincibot.fr',
+              href: 'https://davincibot.fr',
             },
             {
               label: 'Documentation',

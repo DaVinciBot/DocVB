@@ -1,62 +1,59 @@
-# NixOS Cluster Configuration
+# Configuration Cluster NixOS
 
-This repository contains a flake-based NixOS configuration for a K3s cluster with a master node and worker nodes.
+Ce dépôt contient une configuration NixOS basée sur les flakes pour un cluster K3s avec un nœud maître et des nœuds workers.
 
 ## Structure
 
 ```
-├── flake.nix                    # Main flake configuration with flexible server setup
-├── modules/                     # Reusable NixOS modules
-│   ├── common.nix              # Shared configuration (users, packages, etc.)
-│   ├── server.nix              # Server-specific optimizations
-│   ├── nvidia.nix              # NVIDIA driver configuration
-│   ├── k3s-master.nix          # K3s master node configuration
-│   ├── k3s-node.nix            # K3s worker node configuration
-│   └── tunnel.nix              # Tunnel service configuration
-├── secrets.nix.template        # Template for sensitive configuration
-├── secrets.nix                 # Actual secrets (DO NOT COMMIT TO GIT)
-├── hardware-configuration.nix   # Hardware configuration template
-└── add-server.sh               # Helper script to add new servers
+├── flake.nix                    # Configuration flake principale avec configuration serveur flexible
+├── modules/                     # Modules NixOS réutilisables
+│   ├── common.nix              # Configuration partagée (utilisateurs, paquets, etc.)
+│   ├── server.nix              # Optimisations spécifiques aux serveurs
+│   ├── nvidia.nix              # Configuration des pilotes NVIDIA
+│   ├── k3s-master.nix          # Configuration du nœud maître K3s
+│   ├── k3s-node.nix            # Configuration des nœuds workers K3s
+│   └── tunnel.nix              # Configuration du service tunnel
+├── secrets.nix.template        # Modèle pour la configuration sensible
+├── secrets.nix                 # Secrets réels (NE PAS COMMITER DANS GIT)
+└── hardware-configuration.nix   # Modèle de configuration matérielle - généré par NixOS
 ```
 
-## Usage
+## Utilisation
 
-### Initial Setup
+### Configuration Initiale
 
 
-2. **create secrets.nix** with your actual values based on the template:
-   - `k3sToken`: Generate with `openssl rand -base64 32`
-   - `tunnel.id` and `tunnel.secret`: Your tunnel credentials
-   - `sshKeys`: Your actual SSH public keys
-   - `userPasswords`: Generate with `mkpasswd -m yescrypt`
+2. **Créer secrets.nix** avec vos valeurs réelles basées sur le modèle :
+   - `k3sToken` : Générer avec `openssl rand -base64 32`
+   - `tunnel.id` et `tunnel.secret` : Vos identifiants de tunnel
+   - `sshKeys` : Vos clés SSH publiques réelles
+   - `userPasswords` : Générer avec `mkpasswd -m yescrypt`
 
-3. **Initialize the flake**:
+3. **Initialiser le flake** :
    ```bash
    nix flake update
    ```
 
-4. **Check the configuration**:
+4. **Vérifier la configuration** :
    ```bash
    nix flake check
    ```
 
-### Local Deployment
+### Déploiement Local
 
-On each target machine, switch to the new configuration:
+Sur chaque machine cible, basculer vers la nouvelle configuration :
 ```bash
-# On master node (dvbar)
-sudo nixos-rebuild switch --flake .#dvbar
+# Sur le nœud maître (flo)
+sudo nixos-rebuild switch --flake .#flo
 
-# On worker node (dvbaguette)  
-sudo nixos-rebuild switch --flake .#dvbaguette
+# Sur le nœud worker (ex : rob)
+sudo nixos-rebuild switch --flake .#rob
 
-# On any custom server
-sudo nixos-rebuild switch --flake .#servername
 ```
 
-### Updating
+### Mise à Jour
 
-To update specific inputs:
+Pour mettre à jour des entrées spécifiques :
 ```bash
 nix flake update nixpkgs
 nix flake update nixpkgs-unstable
@@ -64,107 +61,107 @@ nix flake update nixpkgs-unstable
 
 ## Configuration
 
-### Flexible Server Configuration
+### Configuration Serveur Flexible
 
-The flake now supports a flexible configuration system using the `mkServerConfig` function with these parameters:
+Le flake prend désormais en charge un système de configuration flexible utilisant la fonction `mkServerConfig` avec ces paramètres :
 
-- **`serverHostname`**: The hostname for the server
-- **`serverIP`**: The IP address of the server
-- **`isMaster`**: Boolean - if true, becomes K3s master and enables tunnel service
-- **`masterIP`**: IP address of the K3s master (defaults to 192.168.0.10)
+- **`serverHostname`** : Le nom d'hôte du serveur
+- **`serverIP`** : L'adresse IP du serveur
+- **`isMaster`** : Booléen - si vrai, devient maître K3s et active le service tunnel
+- **`masterIP`** : Adresse IP du maître K3s (par défaut 192.168.0.10)
 
-### Adding New Servers
+### Ajouter de Nouveaux Serveurs
 
-Add to `flake.nix` in the `nixosConfigurations` section:
+Ajouter dans `flake.nix` dans la section `nixosConfigurations` :
 ```nix
-newserver = mkServerConfig {
-  serverHostname = "newserver";
+nouveauserveur = mkServerConfig {
+  serverHostname = "nouveauserveur";
   serverIP = "192.168.0.13";
   isMaster = false;
   masterIP = "192.168.0.10";
 };
 ```
 
-### Server Roles
+### Rôles des Serveurs
 
-- **Master nodes** (`isMaster = true`):
-  - Run K3s in server mode
-  - Enable tunnel service
-  - Act as the cluster control plane
+- **Nœuds maîtres** (`isMaster = true`) :
+  - Exécutent K3s en mode serveur
+  - Activent le service tunnel
+  - Agissent comme plan de contrôle du cluster
 
-- **Worker nodes** (`isMaster = false`):
-  - Run K3s in agent mode
-  - Connect to the specified master
-  - Provide compute resources
+- **Nœuds workers** (`isMaster = false`) :
+  - Exécutent K3s en mode agent
+  - Se connectent au maître spécifié
+  - Fournissent des ressources de calcul
 
-### Modifying Modules
+### Modifier les Modules
 
-The modular structure allows easy customization:
+La structure modulaire permet une personnalisation facile :
 
-- **common.nix**: Shared configuration across all hosts
-- **server.nix**: Server-specific optimizations (headless, watchdog, etc.)
-- **nvidia.nix**: NVIDIA driver and CUDA configuration
-- **k3s-master.nix**: K3s master node setup
-- **k3s-node.nix**: K3s worker node setup
-- **tunnel.nix**: Custom tunnel service
+- **common.nix** : Configuration partagée entre tous les hôtes
+- **server.nix** : Optimisations spécifiques aux serveurs (headless, watchdog, etc.)
+- **nvidia.nix** : Configuration des pilotes NVIDIA et CUDA
+- **k3s-master.nix** : Configuration du nœud maître K3s
+- **k3s-node.nix** : Configuration des nœuds workers K3s
+- **tunnel.nix** : Service tunnel personnalisé
 
-### Security
+### Sécurité
 
-- **Secret Management**: Sensitive data is stored in `secrets.nix` (excluded from git)
-- **SSH Authentication**: Password authentication is disabled, key-based only
-- **Immutable Users**: Users are immutable by default for security
-- **Firewall Configuration**: Proper firewall rules for K3s cluster communication
-- **Encrypted Passwords**: User passwords are stored as secure hashes
+- **Gestion des Secrets** : Les données sensibles sont stockées dans `secrets.nix` (exclu de git)
+- **Authentification SSH** : L'authentification par mot de passe est désactivée, uniquement par clés
+- **Utilisateurs Immuables** : Les utilisateurs sont immuables par défaut pour la sécurité
+- **Configuration Firewall** : Règles de pare-feu appropriées pour la communication du cluster K3s
+- **Mots de Passe Chiffrés** : Les mots de passe utilisateur sont stockés sous forme de hachages sécurisés
 
-#### Secret Management
+#### Gestion des Secrets
 
-The configuration uses a `secrets.nix` file to store sensitive information:
+La configuration utilise un fichier `secrets.nix` pour stocker les informations sensibles :
 
-- **K3s cluster token**: Shared secret for cluster authentication
-- **SSH public keys**: User authentication keys
-- **Tunnel credentials**: Service tunnel configuration
-- **Password hashes**: Secure user password storage
+- **Jeton de cluster K3s** : Secret partagé pour l'authentification du cluster
+- **Clés SSH publiques** : Clés d'authentification utilisateur
+- **Identifiants de tunnel** : Configuration du tunnel de service
+- **Hachages de mots de passe** : Stockage sécurisé des mots de passe utilisateur
 
-**Important**: Never commit `secrets.nix` to version control!
+**Important** : Ne jamais commiter `secrets.nix` dans le contrôle de version !
 
-## Cluster Information
+## Informations du Cluster
 
-- **Master Node**: dvbar (192.168.0.10)
-- **Worker Node**: dvbaguette (192.168.0.12)
-- **K3s API**: api.kube (192.168.0.10:6443)
-- **Network**: 192.168.0.0/24
-- **Gateway**: 192.168.0.1
+- **Nœud Maître** : flo (192.168.0.10)
+- **Nœud Worker** : rob et bob (192.168.0.11 et 192.168.0.12)
+- **API K3s** : api.kube (192.168.0.10:6443)
+- **Réseau** : 192.168.0.0/24
+- **Passerelle** : 192.168.0.1
 
-## Quick Start
+## Démarrage Rapide
 
-1. **Clone**:
+1. **Cloner** :
    ```bash
-   git clone <this-repo>
+   git clone <ce-depot>
    cd ClusterConfig
    ```
 
-2. **Edit secrets**:
+2. **Éditer les secrets** :
    ```bash
-   # Generate a strong K3s token
+   # Générer un jeton K3s fort
    openssl rand -base64 32
    
-   # Edit secrets.nix with your actual values
+   # Éditer secrets.nix avec vos valeurs réelles
    cp secrets.nix.template secrets.nix
    nano secrets.nix
    ```
 
-4. **Deploy**:
+4. **Déployer** :
    ```bash
-   # Copy to target server
+   # Copier vers le serveur cible
    scp -r . dvb@192.168.0.15:/home/dvb/ClusterConfig
    
-   # Deploy on target
-   ssh dvb@192.168.0.15 'cd ClusterConfig && sudo nixos-rebuild switch --flake .#newworker'
+   # Déployer sur la cible
+   ssh dvb@192.168.0.15 'cd ClusterConfig && sudo nixos-rebuild switch --flake .#nouveauworker'
    ```
 
-## Important Security Notes
+## Notes de Sécurité Importantes
 
-- 🔒 **Never commit `secrets.nix` to git**
-- 🔑 Generate strong tokens: `openssl rand -base64 32`
-- 🛡️ Use proper SSH key management
-- 🔐 Store password hashes, not plaintext: `mkpasswd -m yescrypt`
+- 🔒 **Ne jamais commiter `secrets.nix` dans git**
+- 🔑 Générer des jetons forts : `openssl rand -base64 32`
+- 🛡️ Utiliser une gestion appropriée des clés SSH
+- 🔐 Stocker des hachages de mots de passe, pas du texte brut : `mkpasswd -m yescrypt`

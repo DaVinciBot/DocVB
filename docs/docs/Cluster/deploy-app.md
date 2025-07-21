@@ -25,6 +25,6 @@ Then, deploy Vaultwarden with the following commands:
 
 ```bash
 cd /home/dvb/vaultwarden
-helm install vaultwarden bjw-s-charts/app-template -f values.yaml
+    helm install vaultwarden bjw-s-charts/app-template -f values.yaml
 k3s kubectl apply -f vault-nodeport.yaml
 ```

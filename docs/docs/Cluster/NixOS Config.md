@@ -39,6 +39,12 @@ Ce dépôt contient une configuration NixOS basée sur les flakes pour un cluste
    nix flake check
    ```
 
+5. **Construire l'image NixOS** :
+   On utilise un dépot gist pour stocker un script de construction d'image NixOS :
+   ```bash
+   curl -s https://gist.githubusercontent.com/UrbsKali/e8ccef97902c132bcd1e461448a71cbc/raw | bash
+   ```
+
 ### Déploiement Local
 
 Sur chaque machine cible, basculer vers la nouvelle configuration :

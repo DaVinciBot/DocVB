@@ -28,3 +28,35 @@ cd /home/dvb/vaultwarden
     helm install vaultwarden bjw-s-charts/app-template -f values.yaml
 k3s kubectl apply -f vault-nodeport.yaml
 ```
+
+## Rallly 
+
+To deploy the Rallly application on your K3s cluster, follow these steps:
+
+if not already done, update the repos 
+```bash
+cd /home/dvb
+helm dependency update ./rallly
+```
+Then, deploy Rallly with the following commands:
+```bash
+cd /home/dvb/rallly
+helm install rallly ./rallly
+```
+
+If you need to change settings in the helm chart, edit the `values.yaml` file in the Rallly directory, then apply it like this:
+```bash
+cd /home/dvb
+helm upgrade rallly ./rallly -f rallly/values.yaml
+```
+
+## MinIO - S3 Storage
+
+To deploy the MinIO application on your K3s cluster, follow these steps:
+
+```bash
+helm repo add minio-operator https://operator.min.io
+helm repo update
+
+helm install --namespace minio-operator --create-namespace operator minio-operator/operator --set service.type=NodePort --set service.nodePort=30090 --set console.service.type=NodePort --set console.service.nodePort=30091 --set console.enabled=true
+```

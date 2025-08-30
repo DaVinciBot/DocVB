@@ -35,7 +35,7 @@
   
   /* Enhanced Glassmorphism Variables */
   --glass-bg-primary: rgba(255, 255, 255, 0.25);
-  --glass-bg-secondary: rgba(217, 224, 255, 0.2);
+  --glass-bg-secondary: rgba(217, 224, 255, 0.6);
   --glass-border: rgba(217, 224, 255, 0.3);
   --glass-border-hover: rgba(9, 88, 239, 0.4);
   --glass-shadow: 0 8px 32px rgba(9, 88, 239, 0.15);
@@ -43,9 +43,9 @@
   --glass-backdrop: blur(20px);
   
   /* Ultra-rounded corners */
-  --ifm-border-radius: 28px;
-  --ifm-card-border-radius: 32px;
-  --ifm-button-border-radius: 50px;
+  --ifm-border-radius: 25px;
+  --ifm-card-border-radius: 25px;
+  --ifm-button-border-radius: 25px;
   
   /* Typography improvements */
   --ifm-font-weight-light: 300;
@@ -139,6 +139,9 @@ body {
   border-radius: 0 32px 32px 0;
   margin: 1rem 0;
   box-shadow: var(--glass-shadow);
+  /* Clip inner hover backgrounds/shadows to the rounded edge */
+  overflow: hidden;
+  clip-path: inset(0 round 0 32px 32px 0);
 }
 
 .menu {
@@ -160,8 +163,8 @@ body {
 }
 
 .menu__link--active {
-  background: linear-gradient(135deg, var(--dv-main-blue), var(--ifm-color-primary));
-  color: white;
+  background: var(--glass-bg-secondary);
+  /* color: rgb(190, 0, 0); */
   border-radius: var(--ifm-border-radius);
   font-weight: var(--ifm-font-weight-semibold);
   box-shadow: var(--glass-shadow);
@@ -201,6 +204,9 @@ body {
   margin: 2rem 0;
   box-shadow: var(--glass-shadow);
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  /* Ensure child elements' effects don't bleed past the rounding */
+  overflow: hidden;
+  clip-path: inset(0 round var(--ifm-card-border-radius));
 }
 
 .markdown:hover {
@@ -240,13 +246,13 @@ body {
 .button--primary {
   background: linear-gradient(135deg, var(--dv-main-blue) 0%, var(--ifm-color-primary) 100%);
   box-shadow: 0 8px 32px rgba(2, 50, 255, 0.3);
-  color: white;
+  color: rgb(39, 39, 39);
 }
 
 .button--primary:hover {
   transform: translateY(-3px);
   box-shadow: 0 12px 40px rgba(2, 50, 255, 0.4);
-  color: white;
+  color: rgb(61, 61, 61);
 }
 
 .button--secondary {
@@ -264,13 +270,53 @@ body {
 }
 
 /* Enhanced Code Blocks */
-.prism-code {
+/*
+  Docusaurus renders fenced code blocks inside a `.theme-code-block` wrapper
+  with a <pre.prism-code> child. When the block has rounded corners, native
+  scrollbars can visually "escape" the radius unless the scrolling element
+  is clipped by a parent. The rules below ensure scrollbars are clipped and
+  the glassmorphism styling is applied consistently across languages.
+*/
+.theme-code-block {
+  background: var(--glass-bg-primary);
+  backdrop-filter: var(--glass-backdrop);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+  border-radius: var(--ifm-card-border-radius);
+  /* This clips the pre/prism scrollbar to the rounded corners */
+  overflow: hidden;
+}
+
+/* Ensure the scrolling element inherits rounding and doesn't redraw borders */
+.theme-code-block pre.prism-code {
+  margin: 0 !important;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  border-radius: inherit;
+  overflow: auto;
+}
+
+/* Fallback for any raw Prism blocks not wrapped by .theme-code-block */
+pre[class*="language-"] {
+  background: var(--glass-bg-primary);
+  backdrop-filter: var(--glass-backdrop);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+  border-radius: var(--ifm-card-border-radius);
+  overflow: auto;
+}
+
+/* Keep previous .language-text style for plain text code blocks */
+.language-text {
   border-radius: var(--ifm-card-border-radius);
   background: var(--glass-bg-primary);
   backdrop-filter: var(--glass-backdrop);
   border: 1px solid var(--glass-border);
   box-shadow: var(--glass-shadow);
 }
+
+
 
 /* Enhanced Admonitions */
 .alert {
@@ -301,6 +347,9 @@ table {
   padding: 1.5rem;
   box-shadow: var(--glass-shadow);
   margin: 1rem 0;
+  /* Clip inner hover backgrounds/shadows to the rounded corners */
+  overflow: hidden;
+  clip-path: inset(0 round var(--ifm-card-border-radius));
 }
 
 .table-of-contents__link:hover {
@@ -311,7 +360,7 @@ table {
 
 /* Enhanced Footer */
 .footer {
-  background: linear-gradient(135deg, var(--dv-dark-blue) 0%, var(--dv-blue-gray) 100%);
+  background: var(--dv-dark-blue);
   border-radius: 32px 32px 0 0;
   margin-top: 4rem;
   border-top: 1px solid var(--glass-border);
@@ -345,7 +394,7 @@ table {
 
 /* Enhanced scrollbar */
 ::-webkit-scrollbar {
-  width: 12px;
+  width: 8px;
 }
 
 ::-webkit-scrollbar-track {
@@ -356,7 +405,6 @@ table {
 ::-webkit-scrollbar-thumb {
   background: linear-gradient(135deg, var(--ifm-color-primary), var(--ifm-color-primary-light));
   border-radius: 10px;
-  border: 2px solid var(--glass-bg-primary);
 }
 
 ::-webkit-scrollbar-thumb:hover {

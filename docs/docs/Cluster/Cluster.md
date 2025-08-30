@@ -1,8 +1,3 @@
----
-sidebar_position: 1
----
-## Overview
-
 Le cluster k3s de DaVinciBot est une manière d'économiser du budget sur les services en ligne en self-hostant des applications. Cela permet de réduire les coûts tout en gardant un contrôle total sur l'infrastructure.
 
 Certains services, comme le SMTP, sont gérés en externe pour des raisons de sécurité et de fiabilité.

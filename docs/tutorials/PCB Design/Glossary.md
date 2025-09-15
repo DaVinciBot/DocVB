@@ -1,4 +1,4 @@
-# Glossaire de la conception de PCB
+# Glossaire
 
 - **CEM (compatibilité électromagnétique)** : capacité des appareils électroniques à fonctionner sans causer ni subir d'interférences électromagnétiques. En anglais EMC (Electromagnetic Compatibility).
 - **EMI (interférences électromagnétiques)** : énergie électromagnétique indésirable pouvant perturber

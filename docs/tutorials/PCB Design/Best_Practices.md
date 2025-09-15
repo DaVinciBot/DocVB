@@ -1,4 +1,4 @@
-# Meilleures pratiques en matière de CEM pour la conception de circuits imprimés
+# Meilleures pratiques pour l'EMC
 
 ## Introduction
 

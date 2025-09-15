@@ -1,46 +1,49 @@
-# Best Practices for PCB Design to Optimize EMC Performance
+# Meilleures pratiques en matière de CEM pour la conception de circuits imprimés
 
-In PCB design there are guidelines to optimize EMC performance:
+## Introduction
 
-- Always consider and determine where and how the return currents are flowing.
-- Do not route signals over ground gaps.
-- Partition mixed-signal PCBs with separate analog and digital sections
-- Do not split the current return plane; use one solid plane under both analog and digital
-sections of the board.
-- Route digital signals only in the digital section of the board (for all digital related layers).
-- Route analog signals only in the analog section of the board (for all analog related
-layers).
-- In case ground or power planes are split for a specific reason (i.e. mechanical and or
-electrical), do not run any traces across the split on an adjacent layer.
-- Traces (analog or digital) that must go over a power plane split must be on a layer
-adjacent to a solid ground plane (analog or digital).
-- A/D and D/A converters, as well as most other mixed-signal ICs, should be considered
-as analog devices with a digital section, not digital devices with an analog section.
-- The AGND and DGND designation on the pins of a mixed signal IC refers to where the
-pins are connected internally, and it does not imply where or how they should be
-connected externally. On most mixed-signal ICs, both the AGND and DGND pins
-should be connected to the analog return plane.
-- The digital decoupling capacitor should be connected directly to the digital ground pin.
-- The decoupling capacitors are needed to supply, through a low-inductance path, some
-or all of the transient power supply current required when an IC logic gate switches.
-- Decoupling capacitors are needed to short out, or at least reduce the noise injected
-back into the power ground system.
-- Decoupling is not the process of placing a capacitor adjacent to an IC to supply the
-transient switching current; rather it is the process of placing an L-C network adjacent
-to the IC to supply the transient switching current.
-- The value of the decoupling capacitor(s) is important for the low-frequency decoupling
-effectiveness.
-- The value of the decoupling capacitor(s) is not important at high frequencies. At high
-frequencies, the most important criteria is to reduce the inductance in series with the
-decoupling capacitors.
-- Effective high-frequency decoupling requires the use of a large number of capacitors.
-- Place decoupling capacitors as close as possible to the device.
-- Route RFI and RFO signals symmetrically, and avoid long signal traces for the
-matching network. Keep the traces between RFO1 and RFO2 close to each other, and
-do the same for RFI1 and RFI2.
-- The matching components need be placed close to each other, and symmetrically
+Lors de la conception de circuits imprimés, il est essentiel de suivre les meilleures pratiques afin de garantir des performances CEM optimales. Ce document présente les principales directives et recommandations destinées à aider les concepteurs à minimiser les interférences électromagnétiques (EMI) et à améliorer les performances globales de leurs conceptions de circuits imprimés.
 
-### SOurces and Further Reading
+## Meilleures pratiques
 
-- ST Application Note AN4835: [PCB Design Guidelines to Optimize EMC Performance](https://www.st.com/resource/en/application_note/dm00224591-pcb-design-guidelines-to-optimize-emc-performance-stmicroelectronics.pdf)
-- ST Application Note AN5240: [How to Design a PCB for ST25R NFC/RFID Products](https://www.st.com/resource/en/application_note/an5240-layout-recommendations-for-the-design-of-boards-with-the-st25r391616b-1717b-18-19b-and-2020b-devices-stmicroelectronics.pdf)
+En matière de conception de circuits imprimés, il existe des directives permettant d'optimiser les performances CEM :
+
+- Toujours tenir compte et déterminer où et comment les courants de retour circulent.
+- Ne faites pas passer les signaux au-dessus des espaces de masse.
+- Divisez les circuits imprimés à signaux mixtes en sections analogiques et numériques distinctes.
+- Ne divisez pas le plan de retour de courant ; utilisez un plan solide sous les sections analogiques et numériques
+de la carte.
+- Acheminez les signaux numériques uniquement dans la section numérique de la carte (pour toutes les couches liées au numérique).
+- Si les plans de masse ou d'alimentation sont divisés pour une raison spécifique (c'est-à-dire mécanique et/ou
+électrique), ne faites passer aucune trace à travers la division sur une couche adjacente.
+- Les traces (analogiques ou numériques) qui doivent passer au-dessus d'une division de plan d'alimentation doivent se trouver sur une couche
+adjacente à un plan de masse solide (analogique ou numérique).
+- Les convertisseurs A/N et N/A, ainsi que la plupart des autres circuits intégrés à signaux mixtes, doivent être considérés
+comme des dispositifs analogiques avec une section numérique, et non comme des dispositifs numériques avec une section analogique.
+- Les désignations AGND et DGND sur les broches d'un circuit intégré à signaux mixtes font référence à l'endroit où les
+broches sont connectées en interne, et n'impliquent pas où ni comment elles doivent être
+connectées en externe. Sur la plupart des circuits intégrés à signaux mixtes, les broches AGND et DGND
+doivent être connectées au plan de retour analogique.
+- Le condensateur de découplage numérique doit être connecté directement à la broche de masse numérique.
+- Les condensateurs de découplage sont nécessaires pour fournir, via un chemin à faible inductance, une partie
+ou la totalité du courant d'alimentation transitoire requis lors de la commutation d'une porte logique du circuit intégré.
+- Les condensateurs de découplage sont nécessaires pour court-circuiter, ou au moins réduire, le bruit réinjecté
+dans le système de masse d'alimentation.
+- Le découplage n'est pas le processus qui consiste à placer un condensateur à côté d'un circuit intégré pour fournir le
+courant de commutation transitoire ; il s'agit plutôt du processus qui consiste à placer un réseau L-C à côté
+du circuit intégré pour fournir le courant de commutation transitoire.
+- La valeur du ou des condensateurs de découplage est importante pour l'efficacité du découplage à basse fréquence.
+
+- La valeur du ou des condensateurs de découplage n'est pas importante à haute fréquence. À haute
+fréquence, le critère le plus important est de réduire l'inductance en série avec les
+condensateurs de découplage.
+- Un découplage haute fréquence efficace nécessite l'utilisation d'un grand nombre de condensateurs.
+- Placez les condensateurs de découplage aussi près que possible du dispositif.
+- Acheminez les signaux RFI et RFO de manière symétrique et évitez les longues traces de signaux pour le
+réseau d'adaptation. Maintenez les traces entre RFO1 et RFO2 proches les unes des autres et
+procédez de même pour RFI1 et RFI2.
+- Les composants d'adaptation doivent être placés à proximité les uns des autres et de manière symétrique
+
+## Sources et lectures complémentaires
+
+- Note d'application ST AN5240 : [Comment concevoir un circuit imprimé pour les produits NFC/RFID ST25R](https://www.st.com/resource/en/application_note/an5240-layout-recommendations-for-the-design-of-boards-with-the-st25r391616b-1717b-18-19b-and-2020b-devices-stmicroelectronics.pdf)

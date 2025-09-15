@@ -27,6 +27,7 @@
   --dv-blue-peps: #0232FF;
   --dv-main-blue: #0232FF;
   --dv-dark-blue: #010128;
+  --dv-dark-blue-bg-sidebar: #D9E0FFf2;
   
   /* Glassmorphism Background System */
   --ifm-background-color: linear-gradient(135deg, #f0f4ff 0%, #e8f0ff 50%, #dae6ff 100%);
@@ -84,6 +85,9 @@
   --glass-shadow-hover: 0 20px 60px rgba(1, 1, 40, 0.6);
   
   --docusaurus-highlighted-code-line-bg: rgba(118, 162, 246, 0.2);
+
+    --dv-dark-blue-bg-sidebar: rgba(1, 1, 40, 0.95);
+
 }
 
 /* Global Enhancements */
@@ -554,5 +558,44 @@ a:hover {
   
   h1 {
     font-size: 2rem;
+  }
+}
+
+/* --- Mobile Docs Sidebar Fix -------------------------------------------------
+  The custom glassmorphism styles added earlier introduce margin, clipping and
+  shadow to `.theme-doc-sidebar-container`. On small screens Docusaurus switches
+  to a different layout where the docs sidebar should occupy the full height
+  beneath (or overlaying) the navbar. The extra margin + rounded clipping can
+  cause part of the sidebar to sit hidden behind the sticky navbar, making it
+  look like it is "stuck" to the top bar and not visible in the page body.
+
+  We normalize its positioning/size on narrow viewports and ensure it scrolls.
+----------------------------------------------------------------------------- */
+@media screen and (max-width: 996px) {
+  .navbar-sidebar__backdrop {
+    /* Ensure the backdrop behind the sidebar is also full height */
+    top: var(--ifm-navbar-height) !important;
+    height: calc(100vh - var(--ifm-navbar-height));
+  }
+
+  .navbar-sidebar {
+    background-color: var(--dv-dark-blue-bg-sidebar);
+    margin: 0 !important;
+    /* Full height below the navbar */
+    top: var(--ifm-navbar-height) !important;
+    height: calc(100vh - var(--ifm-navbar-height));
+    /* Allow internal scrolling of long menus */
+    overflow-y: auto;
+    /* Avoid clipping inner focus rings / menu hover states on mobile */
+    clip-path: none;
+    border-radius: 0 24px 24px 0;
+    /* Layer it above main content but below the navbar (z=1000) */
+    z-index: 900;
+  }
+
+  /* Provide a little breathing room inside when margin is removed */
+  .navbar-sidebar .menu {
+    padding-top: 1rem;
+    padding-bottom: 2rem;
   }
 }

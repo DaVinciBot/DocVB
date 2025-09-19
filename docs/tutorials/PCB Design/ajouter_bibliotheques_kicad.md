@@ -1,4 +1,4 @@
-# Formation: Rechercher et ajouter des bibliothèques d'empreintes et de symboles dans KiCad 9.0
+# Comment ajouter des bibliothèques
 
 Cette formation pas-à-pas couvre comment trouver, installer et gérer des bibliothèques de symboles (schéma) et d'empreintes (PCB) dans KiCad 9.0, au niveau global et au niveau projet.
 

@@ -2,7 +2,7 @@
 
 You must be on the master node, currently `flo` - 192.168.0.10, as it is the only node with helm installed.
 
-## Stirling PDF 
+## Stirling PDF
 
 To deploy the Stirling PDF application on your K3s cluster, follow these steps:
 
@@ -12,15 +12,17 @@ helm install my-stirling-pdf-chart stirling-pdf/stirling-pdf-chart --version 1.1
 k3s kubectl apply -f pdf-nodeport.yaml
 ```
 
-## Vaultwarden 
+## Vaultwarden
 
 To deploy the Vaultwarden (bitwarden backend but in rust) application on your K3s cluster, follow these steps:
 
 if not already done, install the bjw-s-charts repository:
+
 ```bash
 helm repo add bjw-s https://bjw-s-labs.github.io/helm-charts
 helm repo update
 ```
+
 Then, deploy Vaultwarden with the following commands:
 
 ```bash
@@ -29,25 +31,38 @@ cd /home/dvb/vaultwarden
 k3s kubectl apply -f vault-nodeport.yaml
 ```
 
-## Rallly 
+## Rallly
 
 To deploy the Rallly application on your K3s cluster, follow these steps:
 
-if not already done, update the repos 
+if not already done, update the repos
+
 ```bash
 cd /home/dvb
 helm dependency update ./rallly
 ```
+
 Then, deploy Rallly with the following commands:
+
 ```bash
 cd /home/dvb/rallly
 helm install rallly ./rallly
 ```
 
 If you need to change settings in the helm chart, edit the `values.yaml` file in the Rallly directory, then apply it like this:
+
 ```bash
 cd /home/dvb
 helm upgrade rallly ./rallly -f rallly/values.yaml
+```
+
+## Matrix Tuwunel
+
+To deploy the Matrix Tuwunel application on your K3s cluster, follow these steps:
+
+```bash
+cd /home/dvb/tuwunel
+helm upgrade matrix -f tuwunel-helm/values.yaml ./tuwunel-helm/ -n matrix
 ```
 
 ## MinIO - S3 Storage

@@ -1,4 +1,6 @@
-Le cluster k3s de DaVinciBot est une manière d'économiser du budget sur les services en ligne en self-hostant des applications. Cela permet de réduire les coûts tout en gardant un contrôle total sur l'infrastructure.
+# Cluster
+
+Le cluster k3s de DaVinciBot est une manière d'économiser du budget sur les services en ligne en self-hostant des applications. Cela permet de réduire les coûts tout en gardant un contrôle total sur l'infrastructure. Il nous permet aussi de garantir la confidentialité de nos données, par exemple dans le cadre des NDA.
 
 Certains services, comme le SMTP, sont gérés en externe pour des raisons de sécurité et de fiabilité.
 
@@ -9,9 +11,11 @@ Voici une liste des services auto-hébergés sur le cluster k3s de DaVinciBot :
 - [**Stirling PDF**](https://pdf.davincibot.fr) : Application de génération de PDF.
 - [**Vaultwarden**](https://vault.davincibot.fr) : Gestionnaire de mots de passe auto-hébergé.
 - [**Rallly**](https://rallly.davincibot.fr) : Outil de planification d'événements.
+- [**Docuseal**](https://sign.davincibot.fr) : Solution de signature électronique.
+- [**Matrix Tuwunel**](https://chat.davincibot.fr) : Serveur Matrix encrypté.
+- [**New Relics**](https://newrelic.com) : Monitoring et logs.
 - [**MinIO**](https://s3.davincibot.fr) : Stockage S3 compatible. (WIP)
 - [**Overleaf**](https://latex.davincibot.fr) : Éditeur de documents LaTeX collaboratif. (WIP)
-- [**Docuseal**](https://sign.davincibot.fr) : Solution de signature électronique. (WIP)
 
 ### Services externes
 

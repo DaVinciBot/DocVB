@@ -7,7 +7,7 @@ Prérequis:
 - Un jeton d’inscription valide fourni par l’administrateur du serveur (ne jamais le partager).
 - Connexion Internet et droits d’installation.
 
-1) Télécharger Cinny Desktop
+## Télécharger Cinny Desktop
 
 - Ouvrir: [https://github.com/cinnyapp/cinny-desktop/releases](https://github.com/cinnyapp/cinny-desktop/releases)
 - Choisir le package selon votre OS:

@@ -21,4 +21,4 @@ Remplacez `/dev/sdX` par le nom de votre disque et `/mnt` par le point de montag
 
 ## Automatiser le montage des disques
 Pour automatiser le montage des disques au démarrage, vous devez ajouter une entrée dans la config nix. 
-Veuillez vous référer à [cette page](/docs/docs/Cluster/NixOS%20Config.md)  
+Veuillez vous référer à [cette page](/docs/mini-projects/Cluster/NixOS%20Config.md)  

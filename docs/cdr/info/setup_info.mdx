@@ -1,0 +1,329 @@
+---
+title: Setup de l'environnement de dev
+last_update:
+  date: 2025-10-15
+  author: Eliott A. Roussille
+tags: [CDR, info]
+---
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
+Ce guide vous accompagne pour installer et configurer tous les outils nécessaires au développement sur le projet de la Coupe de France de Robotique. Il est conçu pour vous aider à démarrer rapidement, à comprendre le rôle de chaque outil et à adopter les bonnes pratiques pour collaborer efficacement.
+
+Chaque section ci-dessous détaille l'installation, l'utilisation et les liens vers la documentation officielle.
+
+## VsCode
+
+Visual Studio Code est l'éditeur recommandé pour ce projet. Il permet une très bonne intégration de tous les outils utilisés.
+
+[Installer VsCode](https://code.visualstudio.com/)
+
+## Installer git
+
+Git est l'outil fondamental pour la gestion de version et la collaboration sur le code. Il permet de suivre l'historique, de travailler en équipe et de contribuer facilement au projet.
+
+Vérifiez d'abord si git est installé :
+
+```bash
+git --version
+```
+
+Si ce n'est pas le cas, installez-le selon votre OS :
+<Tabs groupId="operating-systems">
+  <TabItem value="win" label="Windows">
+    ```bash
+    winget install -e --id Git.Git
+    ```
+  </TabItem>
+  <TabItem value="linux" label="Linux">
+    ```bash
+    sudo apt-get install git
+    ```
+  </TabItem>
+  <TabItem value="mac" label="macOS">
+    ```bash
+    brew install git
+    ```
+  </TabItem>
+</Tabs>
+
+Pour aller plus loin : [Documentation officielle](https://git-scm.com/doc)
+
+## Cloner le repo du projet
+
+Une fois git installé, vous pouvez récupérer le code source du projet en clonant le dépôt officiel. Cette étape est indispensable pour commencer à travailler localement et profiter de toutes les fonctionnalités du projet.
+
+Ouvrez un terminal à l'endroit où vous souhaitez stocker le projet (**PAS DANS UN DOSSIER ONEDRIVE**), puis exécutez la commande suivante :
+
+```bash
+git clone https://github.com/DaVinciBot/CoupeDeRobotique.git
+cd CoupeDeRobotique
+code .
+```
+
+## uv
+
+uv est un gestionnaire d'environnements virtuels et de packages Python. Il simplifie la gestion des dépendances et garantit que chaque projet dispose de son propre environnement isolé, évitant les conflits et facilitant la reproductibilité.
+
+### Installation
+
+Suivez les instructions adaptées à votre système pour installer uv :
+<Tabs groupId="operating-systems">
+  <TabItem value="win" label="Windows">
+    ```powershell
+    powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
+    ```
+  </TabItem>
+  <TabItem value="linux" label="Linux">
+    ```bash
+    curl -LsSf https://astral.sh/uv/install.sh | sh
+    ```
+  </TabItem>
+  <TabItem value="mac" label="macOS">
+    ```bash
+    curl -LsSf https://astral.sh/uv/install.sh | sh
+    ```
+  </TabItem>
+</Tabs>
+[Documentation uv](https://astral.sh/docs/uv/)
+
+### Créer le venv
+
+Créez un environnement virtuel pour isoler les dépendances du projet :
+
+```bash
+uv venv
+```
+
+### Activer le venv
+
+Activez l'environnement virtuel pour installer et utiliser les paquets :
+<Tabs groupId="operating-systems">
+  <TabItem value="win" label="Windows">
+    ```bash
+    source .venv/Scripts/activate
+    ```
+  </TabItem>
+  <TabItem value="linux" label="Linux">
+    ```bash
+    source .venv/bin/activate
+    ```
+  </TabItem>
+  <TabItem value="mac" label="macOS">
+    ```bash
+    source .venv/bin/activate
+    ```
+  </TabItem>
+</Tabs>
+Dans VSCode, sélectionnez l'interpréteur Python correspondant :
+`Ctrl + Shift + P` → `Python: Select Interpreter` → CoupeDeRobotique
+
+### Télécharger les dépendances
+
+Installez toutes les dépendances du projet en une commande :
+
+```bash
+uv sync
+```
+
+### Ajouter/supprimer des dépendances
+
+Avec uv, on n'utilise plus `pip` pour gérer les dépendances. Voici comment ajouter ou supprimer des packages :
+
+```bash
+uv add <package>      # pour ajouter une dépendance
+uv remove <package>   # pour supprimer une dépendance
+```
+
+Consultez la [documentation uv](https://astral.sh/docs/uv/) pour plus d'options.
+
+### Lancer le code
+
+Vous pouvez maintenant exécuter le code principal du robot :
+
+```bash
+uv run robot1/rasp/main.py
+```
+
+Si vous n'avez pas le robot, lancez le simulateur en créant un fichier `.env` à la racine :
+
+```plaintext
+ACTUATORS_DUMMY=True
+LIDAR_DUMMY=True
+ROLLING_BASIS_DUMMY=True
+```
+
+## choco
+
+Chocolatey est un gestionnaire de paquets pour Windows, utile pour installer rapidement des outils comme make ou llvm. Il n'est pas nécessaire sur Linux ou macOS.
+
+<Tabs groupId="operating-systems">
+  <TabItem value="win" label="Windows">
+    Nécessaire uniquement sur Windows :
+    ```powershell
+    powershell -c "irm https://community.chocolatey.org/install.ps1|iex"
+    ```
+    [Documentation Chocolatey](https://docs.chocolatey.org/en-us/)
+  </TabItem>
+  <TabItem value="linux" label="Linux">
+    Non requis.
+  </TabItem>
+  <TabItem value="mac" label="macOS">
+    Non requis.
+  </TabItem>
+</Tabs>
+
+## clang-format
+
+clang-format est un outil de formatage automatique pour le code C/C++. Il permet d'assurer une cohérence de style dans l'équipe et d'automatiser le formatage à la sauvegarde dans VSCode. Suivez les instructions selon votre OS pour l'installer.
+
+### Installation
+
+<Tabs groupId="operating-systems">
+  <TabItem value="win" label="Windows">
+    ```bash
+    choco install llvm
+    ```
+  </TabItem>
+  <TabItem value="linux" label="Linux">
+    ```bash
+    sudo apt-get install clang-format
+    ```
+  </TabItem>
+  <TabItem value="mac" label="macOS">
+    ```bash
+    brew install clang-format
+    ```
+  </TabItem>
+</Tabs>
+
+Installer l'extension [xaver.clang-format](https://marketplace.visualstudio.com/items?itemName=xaver.clang-format) pour VSCode afin de bénéficier du formatage automatique.
+
+### Utilisation
+
+Activez le formatage automatique à la sauvegarde dans VSCode pour ne plus vous soucier du style :
+`Ctrl + Shift + P` → `Preferences: Open Settings (JSON)` : ajouter
+
+```json
+{
+  "editor.formatOnSave": true,
+  "clang-format.executable": "C:\\Program Files\\LLVM\\bin\\clang-format.exe"
+}
+```
+
+Pour aller plus loin : [Documentation clang-format](https://clang.llvm.org/docs/ClangFormat.html)
+
+## Make
+
+Make est un outil d'automatisation qui permet d'exécuter facilement des tâches courantes du projet (formatage, lint, documentation, etc.). Il est très utilisé dans les environnements de développement pour simplifier la vie des développeurs.
+
+<Tabs groupId="operating-systems">
+  <TabItem value="win" label="Windows">
+    Ouvrir un terminal en administrateur :
+    ```bash
+    choco install make
+    ```
+  </TabItem>
+  <TabItem value="linux" label="Linux">
+    ```bash
+    sudo apt-get install make
+    ```
+  </TabItem>
+  <TabItem value="mac" label="macOS">
+    ```bash
+    brew install make
+    ```
+  </TabItem>
+</Tabs>
+[Documentation Make](https://www.gnu.org/software/make/manual/make.html)
+
+### Utilisation
+
+Les commandes make disponibles dans ce projet :
+
+```bash
+make format # pour formater le code
+make lint   # pour vérifier le style de code
+make docs   # pour générer la documentation
+make all    # pour tout faire
+```
+
+N'hésitez pas à consulter le fichier `makefile` pour découvrir toutes les cibles disponibles et personnaliser vos automatisations.
+
+## Outils de formatage et lint
+
+Pour garantir la qualité et la cohérence du code Python, plusieurs outils de formatage et d'analyse statique sont utilisés dans ce projet. Ils permettent de détecter les erreurs, d'appliquer un style uniforme et de faciliter la relecture du code.
+
+<Tabs groupId="tools">
+  <TabItem value="ruff" label="Ruff">
+    [Ruff](https://docs.astral.sh/ruff/) : Linter et formatteur ultra-rapide pour Python. Il combine les fonctionnalités de plusieurs outils en un seul.
+    ```bash
+    ruff check . --fix
+    ruff format
+    ```
+    Ruff est intégré dans le workflow du projet pour accélérer le lint et le formatage.
+  </TabItem>
+  <TabItem value="isort" label="isort">
+    [isort](https://pycqa.github.io/isort/) : Trie et formate les imports Python automatiquement.
+    ```bash
+    isort .
+    ```
+    Utilisez-le pour garder vos imports organisés et conformes aux standards.
+  </TabItem>
+  <TabItem value="pylint" label="Pylint">
+    [Pylint](https://pylint.pycqa.org/en/latest/) : Analyse statique et vérification du style Python.
+    ```bash
+    pylint .
+    ```
+    Pylint fournit des rapports détaillés sur la qualité et la conformité du code.
+  </TabItem>
+  <TabItem value="pylance" label="Pylance / Pyright">
+    [Pylance](https://marketplace.visualstudio.com/items?itemName=ms-python.vscode-pylance) / [Pyright](https://github.com/microsoft/pyright) : Extension VSCode qui utilise Pyright pour l'analyse de type et l'autocomplétion Python.
+    ```bash
+    # Pylance est intégré dans VSCode
+    pyright --level warning
+    ```
+    Ces outils améliorent la productivité et la sécurité du code grâce à la vérification de type en temps réel.
+  </TabItem>
+</Tabs>
+
+Pour aller plus loin, consultez la documentation de chaque outil et explorez les options de configuration pour adapter le workflow à vos besoins.
+
+## Conventions de nommage des branches et des commits
+
+Pour faciliter la collaboration et garder un historique clair, merci de respecter les conventions suivantes :
+
+### Branches
+
+- Utilisez des noms explicites et courts, séparés par des tirets.
+- Privilégiez le format :
+  - `feature/nom-fonctionnalite`
+  - `fix/description-bug`
+  - `docs/ajout-ou-modif-doc`
+  - `refactor/nom-refactor`
+- Exemple :
+  - `feature/add-basic-trajectory-planner`
+  - `refactor/change-coordinate-system`
+
+### Commits
+
+Utilisez le format suivant pour vos messages de commit:
+
+action(scope): description concise
+
+Où:
+
+- action est l'une des suivantes : fix, feat, refactor, perf, docs, style, tests
+- scope désigne le segment concerné (ex: navigation, gpio, lidar, etc.)
+- la description offre des détails succincts et précis
+
+Exemples :
+
+- feat(trajectory_planner): add basic trajectory planner
+- fix(cpp_rolling_basis): correct sensor reading bug
+- refactor(navigation): change coordinate system to right-handed
+
+Pour aller plus loin, consultez les guides :
+
+- [Conventional Commits](https://www.conventionalcommits.org/fr/v1.0.0/)
+- [Git Branch Naming Best Practices](https://www.gitkraken.com/learn/git/best-practices/git-branch-naming)

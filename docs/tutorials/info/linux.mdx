@@ -1,0 +1,305 @@
+---
+title: Linux Débutant
+last_update:
+  date: 2025-10-21
+  author: Urbain Lantrès
+tags: [info, sysadmin]
+---
+
+Dans cette formation, vous apprendrez les bases de Linux en ligne de commande, étape par étape: naviguer dans le système de fichiers, manipuler des fichiers et dossiers, gérer les permissions, les utilisateurs/groupes, et les processus.
+
+:::info C'est quoi un système ?
+Un système d’exploitation (OS) est le logiciel qui permet d’utiliser le matériel (CPU, mémoire, disque, réseau, périphériques). Ici, on se concentre sur Linux. Android, par exemple, est basé sur Linux.
+:::
+
+## Prérequis
+
+- Une distribution Linux (VM, VPS, WSL ou machine dédiée)
+- Un terminal (bash/zsh) et des droits sudo si possible
+- Connexion Internet (facultatif)
+
+:::tip Astuce chemins
+Chemins absolus: commencent par `/` (ex: `/home/user`). Chemins relatifs: par rapport au dossier courant. Raccourcis utiles: `~` (home), `.` (courant), `..` (parent).
+:::
+
+## Étape 1 — Se repérer et naviguer
+
+- `pwd` — Affiche le dossier courant
+
+```bash
+pwd
+```
+
+- `ls` — Liste les fichiers/dossiers du répertoire courant
+
+```bash
+ls           # listing simple
+ls -l        # liste détaillée (permissions, propriétaire, taille, date)
+ls -la       # inclut les fichiers cachés (qui commencent par .)
+```
+
+- `cd` — Change de répertoire
+
+```bash
+cd /etc              # chemin absolu
+cd ~                 # aller dans votre home
+cd ..                # remonter d'un dossier
+cd -                 # revenir au dossier précédent
+```
+
+- `file` — Détecte le type d’un fichier
+
+```bash
+file /bin/ls
+```
+
+## Étape 2 — Lire et chercher dans des fichiers
+
+- `cat` — Affiche un fichier
+
+```bash
+cat /etc/os-release
+```
+
+- `less` — Lecture paginée (q pour quitter, / pour rechercher)
+
+```bash
+less /var/log/syslog
+```
+
+- `head` / `tail` — Début/fin d’un fichier
+
+```bash
+head -n 20 fichier.log
+tail -n 50 fichier.log
+tail -f fichier.log   # suit en temps réel
+```
+
+- `grep` — Recherche de texte (sensibles à la casse par défaut)
+
+```bash
+grep "erreur" fichier.log
+grep -i "erreur" fichier.log      # insensible à la casse
+grep -R "TODO" .                  # récursif dans l'arborescence
+```
+
+## Étape 3 — Créer, copier, déplacer, renommer
+
+- `touch` — Créer un fichier vide ou mettre à jour sa date
+
+```bash
+touch notes.txt
+```
+
+- `mkdir` — Créer un dossier
+
+```bash
+mkdir projets
+mkdir -p src/components/buttons   # crée l'arborescence complète
+```
+
+- `cp` — Copier des fichiers/dossiers
+
+```bash
+cp notes.txt notes.bak
+cp -r src src_backup               # -r pour dossiers
+```
+
+- `mv` — Déplacer ou renommer
+
+```bash
+mv notes.bak sauvegardes/          # déplacer
+mv ancien_nom.txt nouveau_nom.txt  # renommer
+```
+
+:::tip Jokers (wildcards)
+`*` remplace plusieurs caractères, `?` un seul. Exemple: `cp *.txt dossier/` copie tous les .txt.
+:::
+
+## Étape 4 — Supprimer en sécurité
+
+- `rm` — Supprimer un fichier
+
+```bash
+rm notes.txt
+```
+
+- `rmdir` — Supprimer un dossier vide
+
+```bash
+rmdir dossiers_vide
+```
+
+- `rm -r` — Supprimer un dossier et son contenu
+
+```bash
+rm -r src_backup
+```
+
+:::danger Attention
+`rm -rf /` peut détruire un système. Vérifiez toujours le chemin avant de supprimer.
+:::
+
+## Étape 5 — Comprendre et modifier les permissions
+
+Chaque fichier/dossier a des permissions pour 3 catégories: utilisateur (u), groupe (g), autres (o). Les permissions: lecture (r), écriture (w), exécution (x).
+
+Exemple de sortie `ls -l`:
+
+```text
+-rwxr-x--- 1 alice dev 1234 Oct 21 10:00 script.sh
+```
+
+- `chmod` — Modifier les permissions (symbolique ou numérique)
+
+```bash
+# Symbolique
+chmod u-x script.sh      # retire exécution à l'utilisateur
+chmod g=rw- fichier.txt  # groupe: lecture+écriture
+chmod o+w fichier.txt    # autres: ajoute écriture
+chmod a+x script.sh      # tous: ajoute exécution
+
+# Numérique (r=4, w=2, x=1)
+chmod 700 secret.sh      # u=rwx, g=---, o=---
+chmod 644 readme.txt     # u=rw-, g=r--, o=r--
+```
+
+- `chown` / `chgrp` — Modifier propriétaire et groupe
+
+```bash
+sudo chown alice:dev script.sh
+sudo chgrp dev dossier
+```
+
+:::tip Umask
+`umask` définit les permissions par défaut à la création des fichiers. Exemple commun: `umask 022`.
+:::
+
+## Étape 6 — Utilisateurs et groupes
+
+Selon la distribution, utilisez `adduser`/`addgroup` (Debian/Ubuntu) ou `useradd`/`groupadd` (commandes bas niveau). Voici des commandes génériques:
+
+```bash
+# Créer un utilisateur et définir son mot de passe
+sudo useradd -m -s /bin/bash alice
+sudo passwd alice
+
+# Créer un groupe et y ajouter un utilisateur
+sudo groupadd dev
+sudo usermod -aG dev alice
+
+# Lister votre identité
+whoami
+id
+groups alice
+
+# Supprimer utilisateur/groupe (prudence)
+sudo deluser alice        # Debian/Ubuntu
+sudo delgroup dev         # Debian/Ubuntu
+```
+
+:::warning Root
+Évitez d’utiliser root directement. Préférez `sudo` avec un utilisateur standard membre du groupe `sudo`/`wheel`.
+:::
+
+## Étape 7 — Processus et gestion des tâches
+
+- `ps` / `top` / `htop` — Lister les processus
+
+```bash
+ps aux | grep nginx
+top                       # q pour quitter
+htop                      # nécessite installation
+```
+
+- `kill` — Envoyer un signal à un processus
+
+```bash
+kill PID          # TERM (polie)
+kill -9 PID       # KILL (forcée) à utiliser en dernier recours
+```
+
+- Tâches en arrière-plan
+
+```bash
+commande &         # lancer en arrière-plan
+jobs               # lister
+fg %1              # remettre la tâche 1 au premier plan
+bg %1              # continuer en arrière-plan
+```
+
+:::tip Priorité
+`nice` et `renice` ajustent la priorité CPU d’un processus.
+:::
+
+## Étape 8 — Aide intégrée et documentation
+
+- `man <commande>` — Manuel complet (flèches pour naviguer, q pour quitter)
+- `commande --help` — Aide rapide
+- `man -k <mot>` — Recherche (équivalent `apropos`)
+- `info <commande>` — Documentation GNU détaillée
+
+```bash
+man ls
+ls --help
+man -k network
+```
+
+:::tip TL;DR pages
+Les pages `tldr` proposent des exemples concis. Installation (Debian/Ubuntu): `sudo apt install tldr` puis `tldr tar`.
+:::
+
+## Étape 9 — Redirections, pipes et flux
+
+- Redirections de sortie/entrée
+
+```bash
+commande > out.txt       # écrase
+commande >> out.txt      # ajoute
+commande < in.txt        # lit depuis un fichier
+```
+
+- Pipes et erreurs
+
+```bash
+commande1 | commande2          # enchaîner
+commande 2> erreurs.log        # flux d'erreur
+commande > out.txt 2>&1        # stdout et stderr vers le même fichier
+commande | tee out.txt         # afficher et enregistrer
+```
+
+## Étape 10 — Archives et transferts utiles
+
+```bash
+# Créer/extraire une archive tar.gz
+tar -czf archive.tgz dossier/
+tar -xzf archive.tgz
+
+# ZIP/UNZIP
+zip -r archive.zip dossier/
+unzip archive.zip
+
+# Récupérer un fichier
+wget https://exemple.org/fichier
+curl -LO https://exemple.org/fichier
+
+# Copier via SSH
+scp fichier user@hote:/chemin/destination
+```
+
+## Exercices pratiques
+
+1. Créez une arborescence `projets/demo/src` et un fichier `main.txt` avec du texte, puis copiez-la en `projets/demo_backup`.
+2. Listez les fichiers `.log` récents dans `/var/log` contenant le mot « error » (insensible à la casse) et enregistrez le résultat dans `errors.txt`.
+3. Donnez les permissions `700` à un script et changez son propriétaire en vous-même.
+4. Créez un groupe `web` et ajoutez-y votre utilisateur, puis vérifiez avec `groups`.
+5. Lancez une commande longue en arrière-plan, affichez-la avec `jobs`, et terminez-la proprement.
+
+## Ressources
+
+- Documentation Ubuntu: https://help.ubuntu.com/
+- GNU Coreutils (manuels): https://www.gnu.org/software/coreutils/manual/
+- TLDR pages: https://tldr.sh/
+- The Linux Documentation Project: https://www.tldp.org/
+- explainshell.com: https://explainshell.com/
+

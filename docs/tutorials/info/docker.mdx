@@ -27,7 +27,7 @@ Commençons par installer Docker et quelques outils utiles pour la formation.
 :::tip Téléchargement des ressources
 Vous pouvez télécharger l'application d'exemple directement :
 
-<DownloadButton href="./files/app.zip" icon="📦">
+<DownloadButton href="/files/tutorials/info/docker/app.zip" icon="📦">
   Télécharger app.zip
 </DownloadButton>
 :::
@@ -43,7 +43,7 @@ Cette commande télécharge le script officiel d'installation de Docker.
 ### 1.2 Télécharger l'application d'exemple
 
 ```bash
-wget https://davincibot.fr/ftp/app.zip
+wget https://docs.davincibot.fr/files/tutorials/info/docker/app.zip
 ```
 
 Ce fichier ZIP contient une application Node.js simple que nous allons conteneuriser.
@@ -205,7 +205,7 @@ micro docker-compose.yml
 
 Voici un exemple de configuration avec une application Node.js et une base de données PostgreSQL :
 
-```yaml
+```yaml title="docker-compose.yml"
 version: '3.8'
 
 services:
@@ -413,7 +413,7 @@ Cette commande supprime TOUT ce qui n'est pas utilisé. Utilisez avec précautio
 ### Téléchargements
 
 <DownloadGroup title="Fichiers de la formation">
-  <DownloadButton href="./files/app.zip" icon="📦">
+  <DownloadButton href="/files/tutorials/info/docker/app.zip" icon="📦">
     Application exemple (app.zip)
   </DownloadButton>
   <DownloadButton href="https://get.docker.com" variant="secondary" icon="🐳">

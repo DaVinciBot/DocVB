@@ -1,0 +1,37 @@
+---
+title: Maths avec amsmath
+sidebar_position: 7
+---
+
+Ajoute au préambule:
+
+```tex
+\usepackage{amsmath}
+\usepackage{siunitx}
+```
+
+## Inline vs Display
+
+- Inline: `$E=mc^2$`
+- Display: `\[ E=mc^2 \]` ou environnement `equation`
+
+## Alignements
+
+```tex
+\begin{align}
+ a &= b + c \\
+   &= d
+\end{align}
+```
+
+- Numérotation: version `*` pour la désactiver: `equation*`, `align*`
+
+## Unités avec siunitx
+
+```tex
+La vitesse est \SI{3.0}{\meter\per\second}.
+```
+
+:::exercise Exercice (10 min)
+Écris un petit système d’équations alignées et référence la principale plus tard (avec `\label`/`\ref`).
+:::

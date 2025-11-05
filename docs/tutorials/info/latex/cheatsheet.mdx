@@ -1,0 +1,25 @@
+---
+title: Mémo LaTeX (Cheat sheet)
+sidebar_position: 99
+---
+
+Rappels rapides:
+
+- Structure minimale
+```tex
+\documentclass{article}
+% \usepackage{...}
+\begin{document}
+... contenu ...
+\end{document}
+```
+
+- Commandes: `\cmd[opt]{arg}` — Espaces insécables `~` — Commentaires `%`
+- Maths: `$ inline $`, `\[ display \]`, `equation`, `align`
+- Figures: `graphicx`, `figure` + `\caption` + `\label` puis `\ref`/`\cref`
+- Tableaux: `tabular` + `booktabs` (`\toprule`/`\midrule`/`\bottomrule`)
+- Bibliographie: `biblatex` + `biber` — `\textcite{}` / `\parencite{}` — `\printbibliography`
+- Références: `\label{}` puis `\cref{}`
+- Typo FR: guillemets `\og \fg{}`, espaces ~, tirets --/---, `microtype`
+
+Liens utiles: CTAN, Overleaf Docs, Detexify (trouver une commande en griffonnant le symbole).

@@ -1,0 +1,48 @@
+---
+title: Figures, tableaux et flottants
+sidebar_position: 8
+---
+
+Préambule:
+
+```tex
+\usepackage{graphicx}
+\usepackage{subcaption} % pour sous-figures
+\usepackage{booktabs}   % pour tableaux de qualité
+```
+
+## Figure simple
+
+```tex
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=.6\linewidth]{img/mon_image}
+  \caption{Une belle figure}
+  \label{fig:belle}
+\end{figure}
+```
+
+## Tableau avec booktabs
+
+```tex
+\begin{table}[htbp]
+  \centering
+  \begin{tabular}{lcr}
+    \toprule
+    Col1 & Col2 & Col3 \\
+    \midrule
+    A & B & C \\
+    \bottomrule
+  \end{tabular}
+  \caption{Un tableau propre}
+  \label{tab:propre}
+\end{table}
+```
+
+:::tip Placement
+`[htbp]` = here/top/bottom/page. Éviter `H` absolu sauf cas particuliers.
+:::
+
+:::exercise Exercice (10–15 min)
+Insère une figure avec légende et un tableau « booktabs ». Référence-les depuis le texte (`\ref{fig:belle}`, `\ref{tab:propre}`).
+:::

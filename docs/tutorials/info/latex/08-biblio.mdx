@@ -1,0 +1,26 @@
+---
+title: Références et bibliographie (biblatex)
+sidebar_position: 9
+---
+
+Préambule recommandé:
+
+```tex
+\usepackage[backend=biber,style=authoryear,sorting=nyt]{biblatex}
+\addbibresource{refs.bib}
+```
+
+Dans le corps du document:
+
+```tex
+Comme le montre \textcite{knuth1984} et \parencite{lamport1994}.
+...
+\printbibliography
+```
+
+- Fichier `refs.bib` au format BibTeX
+- Sur Overleaf: « New file » → `refs.bib` → coller les entrées
+
+:::exercise Exercice (15 min)
+Ajoute 3 références (article, livre, site) et cite-les dans l’introduction. Compile jusqu’à voir la bibliographie.
+:::

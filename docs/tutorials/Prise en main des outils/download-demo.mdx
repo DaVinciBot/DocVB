@@ -1,0 +1,113 @@
+---
+title: Exemple d'utilisation des composants de téléchargement
+---
+
+import DownloadButton from '@site/src/components/DownloadButton';
+import DownloadGroup from '@site/src/components/DownloadGroup';
+
+# Démo des Composants de Téléchargement
+
+Cette page démontre l'utilisation des composants `DownloadButton` et `DownloadGroup`.
+
+## Boutons individuels
+
+### Bouton principal avec icône
+
+<DownloadButton href="https://example.com/app.zip" icon="📦">
+  Télécharger l'application
+</DownloadButton>
+
+### Bouton secondaire
+
+<DownloadButton href="https://example.com/doc.pdf"  icon="📄">
+  Documentation PDF
+</DownloadButton>
+
+### Boutons de différentes tailles
+
+<DownloadButton href="https://example.com/file.zip" size="sm" icon="📁">
+  Petit
+</DownloadButton>
+
+<DownloadButton href="https://example.com/file.zip" size="md" icon="📁">
+  Moyen
+</DownloadButton>
+
+<DownloadButton href="https://example.com/file.zip" size="lg" icon="📁">
+  Grand (défaut)
+</DownloadButton>
+
+## Groupe de boutons
+
+### Groupe avec titre
+
+<DownloadGroup title="Fichiers de la formation Docker">
+  <DownloadButton href="https://davincibot.fr/ftp/app.zip" icon="📦">
+    Application exemple (app.zip)
+  </DownloadButton>
+  <DownloadButton href="https://get.docker.com" icon="🐳">
+    Script d'installation Docker
+  </DownloadButton>
+  <DownloadButton href="https://example.com/slides.pdf" icon="📊">
+    Slides de présentation
+  </DownloadButton>
+</DownloadGroup>
+
+### Groupe sans titre
+
+<DownloadGroup>
+  <DownloadButton href="https://example.com/data1.zip" icon="💾">
+    Dataset 1
+  </DownloadButton>
+  <DownloadButton href="https://example.com/data2.zip" icon="💾">
+    Dataset 2
+  </DownloadButton>
+  <DownloadButton href="https://example.com/data3.zip" icon="💾">
+    Dataset 3
+  </DownloadButton>
+</DownloadGroup>
+
+## Dans une admonition
+
+:::tip Ressources disponibles
+Téléchargez les fichiers nécessaires pour commencer :
+
+<DownloadButton href="https://example.com/starter.zip" icon="🚀">
+  Pack de démarrage
+</DownloadButton>
+:::
+
+:::info Fichiers optionnels
+
+<DownloadGroup>
+  <DownloadButton href="https://example.com/extra1.zip" icon="➕">
+    Extra 1
+  </DownloadButton>
+  <DownloadButton href="https://example.com/extra2.zip" icon="➕">
+    Extra 2
+  </DownloadButton>
+</DownloadGroup>
+:::
+
+## Code source
+
+### DownloadButton
+
+```tsx
+<DownloadButton 
+  href="https://example.com/file.zip" 
+  size="lg"
+  icon="📦"
+>
+  Texte du bouton
+</DownloadButton>
+```
+
+### DownloadGroup
+
+```tsx
+<DownloadGroup title="Titre optionnel">
+  <DownloadButton href="..." icon="📦">Fichier 1</DownloadButton>
+  <DownloadButton href="..." icon="📄">Fichier 2</DownloadButton>
+</DownloadGroup>
+```

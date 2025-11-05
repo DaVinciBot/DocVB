@@ -1,0 +1,23 @@
+---
+title: Références croisées intelligentes
+sidebar_position: 10
+---
+
+Ajoute `cleveref` pour des renvois automatiques typés.
+
+```tex
+\usepackage[nameinlink]{cleveref}
+```
+
+Usage:
+
+```tex
+Voir \cref{fig:belle} et \cref{tab:propre}.
+```
+
+- `\label{}` sur `section`, `figure`, `table`, `equation`…
+- `nameinlink` rend tout le libellé cliquable
+
+:::exercise Exercice (5 min)
+Remplace tous tes `\ref{}` par `\cref{}` et vérifie l’intitulé automatique.
+:::

@@ -1,0 +1,33 @@
+---
+title: LaTeX en rapide
+sidebar_position: 2
+---
+
+Objectif: comprendre ce qu’est LaTeX, quand l’utiliser et les briques de base.
+
+## C’est quoi ? Pourquoi ?
+
+- Langage à balises pour la mise en forme, compilé en PDF (ou autre)
+- Points forts: stabilité typographique, maths, bibliographie, pérennité, versionnement
+- Quand l’éviter: documents très visuels type PAO (préférer InDesign, Figma) ou besoin WYSIWYG pur
+
+## Vocabulaire
+
+- Distribution: TeX Live, MiKTeX
+- Éditeur: Overleaf (web), VS Code + LaTeX Workshop, TeXstudio…
+- Classe: `article`, `report`, `book`, `beamer` (présentation)
+- Package: extension de fonctionnalités (`amsmath`, `graphicx`, `babel`, `biblatex`…)
+
+## Pipeline (chaîne de compilation)
+
+- `latexmk` orchestre pdflatex/xelatex/lualatex et biber/bibtex
+- Fichiers auxiliaires: `.aux`, `.toc`, `.bbl`… ignorables dans Git
+
+:::info Quand choisir LaTeX ?
+- Documents scientifiques/techniques, rapports, thèses, articles
+- Figures, tableaux, maths et références croisées nombreuses
+:::
+
+## Résultat attendu du module
+
+Savoir expliquer: 1) le paradigme, 2) la différence éditeur/distribution, 3) le rôle des classes/packages.

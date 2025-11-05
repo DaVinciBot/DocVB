@@ -1,0 +1,23 @@
+---
+title: Débogage et bonnes pratiques
+sidebar_position: 13
+---
+
+## Lire le .log
+
+- Cherche « Error » et la dernière pile d’erreurs
+- Erreurs fréquentes: `Undefined control sequence`, `Missing $`, `Overfull/Underfull \hbox`
+
+## Stratégie MWE
+
+- Isole un cas minimal (Minimal Working Example)
+- Commente les blocs jusqu’à disparition de l’erreur
+
+## Hygiène
+
+- Versionner uniquement sources (`.tex`, `.bib`, images) — pas les fichiers auxiliaires
+- Utiliser `microtype`, `babel`, `cleveref`, `booktabs` comme base saine
+
+:::exercise Exercice (5–10 min)
+Casse volontairement une commande, observe le message d’erreur, corrige et recompile.
+:::

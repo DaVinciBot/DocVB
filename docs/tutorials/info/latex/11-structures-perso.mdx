@@ -1,0 +1,21 @@
+---
+title: Commandes perso et modularisation
+sidebar_position: 12
+---
+
+## Raccourcis
+
+```tex
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\vect}[1]{\mathbf{#1}}
+```
+
+## Décomposer le projet
+
+- `\input{chapitres/introduction}` pour inclure des sections
+- `\include{}` pour des chapitres (insertions paginées)
+- Créer un `.sty` local pour centraliser les packages/réglages
+
+:::exercise Exercice (10 min)
+Crée `\vect{}` et remplace toutes les occurrences de vecteurs gras par cette commande.
+:::

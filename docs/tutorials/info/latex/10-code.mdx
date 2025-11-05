@@ -1,0 +1,29 @@
+---
+title: Code source (listings ou minted)
+sidebar_position: 11
+---
+
+Option 1 — `listings` (fonctionne partout):
+
+```tex
+\usepackage{listings}
+\lstset{basicstyle=\ttfamily\small, numbers=left, frame=single}
+...
+\begin{lstlisting}[language=Python, caption={Exemple Python}]
+print("Hello LaTeX")
+\end{lstlisting}
+```
+
+Option 2 — `minted` (coloration Pygments, nécessite shell-escape):
+
+```tex
+\usepackage{minted}
+% Overleaf: activer "Shell escape" dans les paramètres si disponible
+\begin{minted}[fontsize=\small]{python}
+print("Hello LaTeX")
+\end{minted}
+```
+
+:::caution Overleaf
+`minted` peut être désactivé selon le plan/projet. `listings` est plus universel.
+:::

@@ -1,0 +1,130 @@
+---
+title: Comment utiliser l'environment ROS2 de DVB
+last_update:
+  date: 2025-11-13
+  author: Urbain Lantrès
+tags: [info, ros2, gazebo]
+---
+
+# Formation rapide — Utiliser l'environnement ROS2 (devContainer)
+
+Ce document donne une formation rapide pour utiliser l'environnement de développement ROS2 basé sur des devContainers (VS Code Dev Containers). Il couvre l'installation rapide sous **Windows (WSL2)** et **Linux**, comment ouvrir le dépôt dans un conteneur, et les commandes usuelles pour compiler et lancer la simulation (Gazebo + RViz2).
+
+## Pré-requis
+
+- **Docker** installé et en fonctionnement.
+- **VS Code** avec les extensions Remote/DevContainer.
+- (Windows) **WSL2** avec une distribution Linux (ex. `Ubuntu`).
+
+
+## Installation rapide — Windows (WSL2 + Docker Desktop + VS Code)
+
+### Activer et installer WSL2
+
+Ouvrir PowerShell en administrateur puis :
+
+```pwsh
+wsl --install -d ubuntu
+# Si la commande ci‑dessus n'est pas disponible (Windows plus ancien), activer manuellement :
+# dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
+# dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
+# puis installer une distribution depuis le Microsoft Store (ex: Ubuntu) et
+# wsl --set-default-version 2
+```
+
+Pour plus de détails et solutions aux problèmes fréquents, voir la documentation officielle : https://learn.microsoft.com/windows/wsl/install
+
+### Installer Docker Desktop
+
+- Télécharger Docker Desktop depuis https://www.docker.com/products/docker-desktop/
+- Pendant l'installation, activer l'option WSL2 backend (Use the WSL 2 based engine).
+- Dans Docker Desktop → Settings → Resources → WSL Integration, activer l'intégration pour la distribution `Ubuntu` (ou celle utilisée).
+- Vérifier : `docker run --rm hello-world`
+
+### Installer VS Code et extensions recommandées
+
+Installer (ou activer) ces extensions :
+
+- [`Remote - WSL`](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-wsl) (`ms-vscode-remote.remote-wsl`)
+- [`Dev Containers`](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) (`ms-vscode-remote.remote-containers`)
+- [`Python`](https://marketplace.visualstudio.com/items?itemName=ms-python.python) (`ms-python.python`) 
+- [`C/C++`](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools) (`ms-vscode.cpptools`)
+- [`ROS (ROS Tooling)`](https://marketplace.visualstudio.com/items?itemName=ros-tooling.vscode-ros) (`ros-tooling.vscode-ros`) — extension ROS recommandée
+
+Installer VS Code (si nécessaire) : https://code.visualstudio.com/
+Pour la documentation sur les Dev Containers : https://code.visualstudio.com/docs/devcontainers/containers
+
+### Flux de travail recommandé (Windows)
+
+1. Ouvrir VS Code et se connecter à WSL : Command Palette → `Remote-WSL: New Window` ou depuis PowerShell `wsl`, puis `code .` dans le répertoire du projet.
+2. Dans la fenêtre WSL de VS Code, lancer la commande (CTRL + SHIFT + P) : `Dev Containers: Reopen in Container` (ou `Remote-Containers: Reopen Folder in Container`).
+3. VS Code va construire / télécharger l'image du devContainer et ouvrir l'espace de travail à l'intérieur du conteneur.
+
+## Installation rapide — Linux (ex. Ubuntu)
+
+### Installer Docker
+
+```bash
+sudo apt update
+sudo apt install -y docker.io
+sudo systemctl enable --now docker
+sudo usermod -aG docker $USER
+# Se déconnecter / reconnecter ou exécuter `newgrp docker` pour appliquer le groupe
+```
+
+### Installer VS Code
+
+Suivre la page officielle pour votre distribution, puis installer les mêmes extensions que pour Windows (sauf `remote-wsl`).
+
+VS Code : https://code.visualstudio.com/
+
+
+### Flux de travail (Linux)
+
+1. Ouvrir le dossier du projet dans VS Code localement.
+2. Palette de commandes → `Dev Containers: Reopen in Container`.
+3. VS Code construit l'image et ouvre le workspace dans le conteneur.
+
+## Utilisation dans le devContainer
+
+Une fois le conteneur démarré, vous êtes dans un shell Linux fourni par l'image. Les étapes typiques :
+
+### Compiler le code
+
+Appuyez sur `Ctrl+Shift+B` (raccourci VS Code) pour lancer la tâche de build 
+
+### Lancer la simulation (Gazebo + RViz2)
+
+```bash
+ros2 launch main_rover launch_sim.launch.py
+```
+
+## Notes et conseils pratiques
+
+- Si vous êtes sous **Windows + WSL2 + devContainer**, WSLg (sur Windows 11 ou builds compatibles) permet d'afficher les applications graphiques Linux. Si vous rencontrez des problèmes d'affichage avec Gazebo/RViz, vérifiez :
+  - Que Docker Desktop est configuré pour utiliser le backend WSL2.
+  - Que l'intégration WSL (distro) est activée dans Docker Desktop.
+
+- Si le conteneur n'a pas accès au démon Docker (pour lancer des conteneurs imbriqués), vous pouvez monter `/var/run/docker.sock` dans le conteneur via `devcontainer.json` pour partager le démon Docker de l'hôte. Exemple `devcontainer.json` minimal :
+
+```json
+// Extrait
+"runArgs": ["-v", "/var/run/docker.sock:/var/run/docker.sock", "--network=host"]
+```
+
+- Pour ROS2 multi-nœuds et réseau entre le conteneur et l'hôte, utiliser `--network=host` permet d'éviter des problèmes de découverte (NDDS/ROS2 middleware). Ajouter `"runArgs": ["--network=host"]` au `devcontainer.json` si nécessaire.
+
+- Si vous avez installé Docker sous Linux, après `sudo usermod -aG docker $USER` il faut se déconnecter/reconnecter pour que la modification du groupe prenne effet.
+
+- Vérifiez que ROS2, Gazebo et rviz sont bien présents dans l'image du devContainer. Sinon, ajoutez-les dans le `Dockerfile` du conteneur ou installez-les manuellement pour le debug.
+
+## Dépannage rapide
+
+- `docker: command not found` → Docker non installé ou non en PATH.
+- `permission denied` sur `docker.sock` → ajouter l'utilisateur au groupe `docker` ou exécuter avec `sudo`.
+- Fenêtres graphiques Gazebo/RViz qui n'apparaissent → vérifier WSLg (Windows), ou DISPLAY/X11 si vous utilisez une config différente.
+- `ros2` non trouvé → sourcer `/opt/ros/humble/setup.bash` ou vérifier l'image.
+
+## Prochaine étape suggérée
+
+- Tester : `Ctrl+Shift+B` puis `ros2 launch main_rover launch_sim.launch.py` dans le devContainer.

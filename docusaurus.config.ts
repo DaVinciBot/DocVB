@@ -50,6 +50,21 @@ const config: Config = {
     },
   ],
 
+  themes: [
+    [
+      require.resolve('@easyops-cn/docusaurus-search-local'),
+      {
+        hashed: true,
+        docsRouteBasePath: '/',
+        indexBlog: false,
+        highlightSearchTermsOnTargetPage: true,
+        searchBarShortcut: true,
+        searchBarShortcutKeymap: 'mod+k',
+        searchBarShortcutHint: true,
+      },
+    ],
+  ],
+
   presets: [
     [
       'classic',

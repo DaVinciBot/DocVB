@@ -65,13 +65,17 @@ cd /home/dvb/tuwunel
 helm upgrade matrix -f tuwunel-helm/values.yaml ./tuwunel-helm/ -n matrix
 ```
 
-## MinIO - S3 Storage
+## Garage - S3 Storage
 
-To deploy the MinIO application on your K3s cluster, follow these steps:
+WIP
+
+## ListMonk - Newsletter manager
+
+To deploy the ListMonk application on your K3s cluster, follow these steps:
 
 ```bash
-helm repo add minio-operator https://operator.min.io
-helm repo update
-
-helm install --namespace minio-operator --create-namespace operator minio-operator/operator --set service.type=NodePort --set service.nodePort=30090 --set console.service.type=NodePort --set console.service.nodePort=30091 --set console.enabled=true
+helm upgrade listmonk listmonk   --create-namespace   --install   --namespace listmonk   --repo https://th0th.github.io/helm-charts   --values values.yaml
+k3s kubectl apply -f listmonk-nodeport.yaml
 ```
+
+

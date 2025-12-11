@@ -14,13 +14,18 @@ Voici une liste des services auto-hébergés sur le cluster k3s de DaVinciBot :
 - [**Docuseal**](https://sign.davincibot.fr) : Solution de signature électronique.
 - [**Matrix Tuwunel**](https://chat.davincibot.fr) : Serveur Matrix encrypté.
 - [**New Relics**](https://newrelic.com) : Monitoring et logs.
-- [**MinIO**](https://s3.davincibot.fr) : Stockage S3 compatible. (WIP)
-- [**Overleaf**](https://latex.davincibot.fr) : Éditeur de documents LaTeX collaboratif. (WIP)
+- [**Garage**](https://s3.davincibot.fr) : Stockage S3 compatible. (WIP)
+- [**ListMonk**](https://mail.davincibot.fr) : Outil d'emailing auto-hébergé.
+- [**Overleaf**](https://latex.davincibot.fr) : Éditeur de documents LaTeX collaboratif. (sur un node séparé)
+
+#### Sur le VPS Hetzner
+
+- [**Uptime Kuma**](https://uptime.davincibot.fr) : Outil de monitoring de services.
+- [**Pangolin**](https://pangolin.davincibot.fr) : Outil de tunneling et de fowarding.
 
 ### Services externes
 
 - **SMTP** : Service de messagerie mail. Géré par AWS SES
 - **DocVB** : Documentation de DaVinciBot. Hébergée sur github pages
-- **Pangolin** : Outil de fowarding et de tunneling. Hébergé sur un VPS Hetzner
 - **DNS** : Service de nom de domaine, acheté sur OVH, géré par Netlify
 - **davincibot.fr** : hébergement du site web de DaVinciBot. Géré par Netlify

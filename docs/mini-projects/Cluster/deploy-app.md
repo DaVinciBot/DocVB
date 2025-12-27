@@ -77,5 +77,3 @@ To deploy the ListMonk application on your K3s cluster, follow these steps:
 helm upgrade listmonk listmonk   --create-namespace   --install   --namespace listmonk   --repo https://th0th.github.io/helm-charts   --values values.yaml
 k3s kubectl apply -f listmonk-nodeport.yaml
 ```
-
-

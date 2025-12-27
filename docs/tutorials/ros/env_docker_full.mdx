@@ -16,7 +16,6 @@ Ce document donne une formation rapide pour utiliser l'environnement de dévelop
 - **VS Code** avec les extensions Remote/DevContainer.
 - (Windows) **WSL2** avec une distribution Linux (ex. `Ubuntu`).
 
-
 ## Installation rapide — Windows (WSL2 + Docker Desktop + VS Code)
 
 ### Activer et installer WSL2
@@ -25,7 +24,7 @@ Ouvrir PowerShell en administrateur puis :
 
 ```pwsh
 wsl --install -d ubuntu
-# Si la commande ci‑dessus n'est pas disponible (Windows plus ancien), activer manuellement :
+# Si la commande ci-dessus n'est pas disponible (Windows plus ancien), activer manuellement :
 # dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
 # dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
 # puis installer une distribution depuis le Microsoft Store (ex: Ubuntu) et
@@ -47,7 +46,7 @@ Installer (ou activer) ces extensions :
 
 - [`Remote - WSL`](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-wsl) (`ms-vscode-remote.remote-wsl`)
 - [`Dev Containers`](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) (`ms-vscode-remote.remote-containers`)
-- [`Python`](https://marketplace.visualstudio.com/items?itemName=ms-python.python) (`ms-python.python`) 
+- [`Python`](https://marketplace.visualstudio.com/items?itemName=ms-python.python) (`ms-python.python`)
 - [`C/C++`](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools) (`ms-vscode.cpptools`)
 - [`ROS (ROS Tooling)`](https://marketplace.visualstudio.com/items?itemName=ros-tooling.vscode-ros) (`ros-tooling.vscode-ros`) — extension ROS recommandée
 
@@ -78,7 +77,6 @@ Suivre la page officielle pour votre distribution, puis installer les mêmes ext
 
 VS Code : https://code.visualstudio.com/
 
-
 ### Flux de travail (Linux)
 
 1. Ouvrir le dossier du projet dans VS Code localement.
@@ -91,7 +89,7 @@ Une fois le conteneur démarré, vous êtes dans un shell Linux fourni par l'ima
 
 ### Compiler le code
 
-Appuyez sur `Ctrl+Shift+B` (raccourci VS Code) pour lancer la tâche de build 
+Appuyez sur `Ctrl+Shift+B` (raccourci VS Code) pour lancer la tâche de build
 
 ### Lancer la simulation (Gazebo + RViz2)
 
@@ -102,6 +100,7 @@ ros2 launch main_rover launch_sim.launch.py
 ## Notes et conseils pratiques
 
 - Si vous êtes sous **Windows + WSL2 + devContainer**, WSLg (sur Windows 11 ou builds compatibles) permet d'afficher les applications graphiques Linux. Si vous rencontrez des problèmes d'affichage avec Gazebo/RViz, vérifiez :
+
   - Que Docker Desktop est configuré pour utiliser le backend WSL2.
   - Que l'intégration WSL (distro) est activée dans Docker Desktop.
 

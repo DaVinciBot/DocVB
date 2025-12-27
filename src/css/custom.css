@@ -6,34 +6,40 @@
  * Enhanced Glassmorphism Design with DaVinci Bot Colors
  */
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap");
 
 /* DaVinci Bot Color Palette with Glassmorphism */
 :root {
-  --ifm-font-family-base: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
-  
+  --ifm-font-family-base: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    "Roboto", sans-serif;
+
   /* DaVinci Bot Color Palette */
-  --ifm-color-primary: #0958EF;
-  --ifm-color-primary-dark: #084ED4;
-  --ifm-color-primary-darker: #0744BA;
-  --ifm-color-primary-darkest: #063B9F;
-  --ifm-color-primary-light: #246BF1;
-  --ifm-color-primary-lighter: #407DF3;
-  --ifm-color-primary-lightest: #5B90F4;
-  
+  --ifm-color-primary: #0958ef;
+  --ifm-color-primary-dark: #084ed4;
+  --ifm-color-primary-darker: #0744ba;
+  --ifm-color-primary-darkest: #063b9f;
+  --ifm-color-primary-light: #246bf1;
+  --ifm-color-primary-lighter: #407df3;
+  --ifm-color-primary-lightest: #5b90f4;
+
   /* Custom DaVinci Colors */
   --dv-blue-gray: #575e7d;
-  --dv-light-blue: #D9E0FF;
-  --dv-blue-peps: #0232FF;
-  --dv-main-blue: #0232FF;
+  --dv-light-blue: #d9e0ff;
+  --dv-blue-peps: #0232ff;
+  --dv-main-blue: #0232ff;
   --dv-dark-blue: #010128;
-  --dv-dark-blue-bg-sidebar: #D9E0FFf2;
-  
+  --dv-dark-blue-bg-sidebar: #d9e0fff2;
+
   /* Glassmorphism Background System */
-  --ifm-background-color: linear-gradient(135deg, #f0f4ff 0%, #e8f0ff 50%, #dae6ff 100%);
+  --ifm-background-color: linear-gradient(
+    135deg,
+    #f0f4ff 0%,
+    #e8f0ff 50%,
+    #dae6ff 100%
+  );
   --ifm-background-surface-color: rgba(217, 224, 255, 0.3);
   --ifm-color-content-secondary: #575e7d;
-  
+
   /* Enhanced Glassmorphism Variables */
   --glass-bg-primary: rgba(255, 255, 255, 0.25);
   --glass-bg-secondary: rgba(217, 224, 255, 0.6);
@@ -42,12 +48,12 @@
   --glass-shadow: 0 8px 32px rgba(9, 88, 239, 0.15);
   --glass-shadow-hover: 0 20px 60px rgba(9, 88, 239, 0.25);
   --glass-backdrop: blur(20px);
-  
+
   /* Ultra-rounded corners */
   --ifm-border-radius: 25px;
   --ifm-card-border-radius: 25px;
   --ifm-button-border-radius: 25px;
-  
+
   /* Typography improvements */
   --ifm-font-weight-light: 300;
   --ifm-font-weight-normal: 400;
@@ -55,39 +61,43 @@
   --ifm-font-weight-bold: 700;
   --ifm-font-weight-black: 900;
   --ifm-line-height-base: 1.6;
-  
+
   /* Enhanced shadows with glassmorphism */
   --ifm-box-shadow: var(--glass-shadow);
   --ifm-box-shadow-lg: var(--glass-shadow-hover);
-  
+
   --docusaurus-highlighted-code-line-bg: rgba(9, 88, 239, 0.1);
 }
 
 /* Dark Theme Variables */
-[data-theme='dark'] {
-  --ifm-color-primary: #76A2F6;
-  --ifm-color-primary-dark: #5B90F4;
-  --ifm-color-primary-darker: #407DF3;
-  --ifm-color-primary-darkest: #246BF1;
-  --ifm-color-primary-light: #92B5F8;
-  --ifm-color-primary-lighter: #B3C2FF;
-  --ifm-color-primary-lightest: #D9E0FF;
-  
-  --ifm-background-color: linear-gradient(135deg, #010128 0%, #1a1a2e 50%, #16213e 100%);
+[data-theme="dark"] {
+  --ifm-color-primary: #76a2f6;
+  --ifm-color-primary-dark: #5b90f4;
+  --ifm-color-primary-darker: #407df3;
+  --ifm-color-primary-darkest: #246bf1;
+  --ifm-color-primary-light: #92b5f8;
+  --ifm-color-primary-lighter: #b3c2ff;
+  --ifm-color-primary-lightest: #d9e0ff;
+
+  --ifm-background-color: linear-gradient(
+    135deg,
+    #010128 0%,
+    #1a1a2e 50%,
+    #16213e 100%
+  );
   --ifm-background-surface-color: rgba(130, 138, 182, 0.15);
-  --ifm-color-content-secondary: #B3C2FF;
-  
+  --ifm-color-content-secondary: #b3c2ff;
+
   --glass-bg-primary: rgba(1, 1, 40, 0.3);
   --glass-bg-secondary: rgba(130, 138, 182, 0.15);
   --glass-border: rgba(179, 194, 255, 0.2);
   --glass-border-hover: rgba(118, 162, 246, 0.4);
   --glass-shadow: 0 8px 32px rgba(1, 1, 40, 0.4);
   --glass-shadow-hover: 0 20px 60px rgba(1, 1, 40, 0.6);
-  
+
   --docusaurus-highlighted-code-line-bg: rgba(118, 162, 246, 0.2);
 
-    --dv-dark-blue-bg-sidebar: rgba(1, 1, 40, 0.95);
-
+  --dv-dark-blue-bg-sidebar: rgba(1, 1, 40, 0.95);
 }
 
 /* Global Enhancements */
@@ -96,7 +106,7 @@ html {
 }
 
 body {
-  font-feature-settings: 'rlig' 1, 'calt' 1;
+  font-feature-settings: "rlig" 1, "calt" 1;
   background: var(--ifm-background-color);
   background-attachment: fixed;
 }
@@ -233,13 +243,18 @@ body {
 }
 
 .button::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
   transition: left 0.5s;
 }
 
@@ -248,7 +263,11 @@ body {
 }
 
 .button--primary {
-  background: linear-gradient(135deg, var(--dv-main-blue) 0%, var(--ifm-color-primary) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--dv-main-blue) 0%,
+    var(--ifm-color-primary) 100%
+  );
   box-shadow: 0 8px 32px rgba(2, 50, 255, 0.3);
   color: rgb(39, 39, 39);
 }
@@ -320,8 +339,6 @@ pre[class*="language-"] {
   box-shadow: var(--glass-shadow);
 }
 
-
-
 /* Enhanced Admonitions */
 .alert {
   border-radius: var(--ifm-card-border-radius);
@@ -376,7 +393,11 @@ table {
 }
 
 .pagination__item--active .pagination__link {
-  background: linear-gradient(135deg, var(--dv-main-blue) 0%, var(--ifm-color-primary) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--dv-main-blue) 0%,
+    var(--ifm-color-primary) 100%
+  );
   border-radius: var(--ifm-button-border-radius);
   border: none;
 }
@@ -407,12 +428,20 @@ table {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(135deg, var(--ifm-color-primary), var(--ifm-color-primary-light));
+  background: linear-gradient(
+    135deg,
+    var(--ifm-color-primary),
+    var(--ifm-color-primary-light)
+  );
   border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(135deg, var(--ifm-color-primary-dark), var(--ifm-color-primary));
+  background: linear-gradient(
+    135deg,
+    var(--ifm-color-primary-dark),
+    var(--ifm-color-primary)
+  );
 }
 
 /* Enhanced focus states */
@@ -454,7 +483,12 @@ table {
 }
 
 /* Enhanced heading styles */
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-weight: var(--ifm-font-weight-bold);
   letter-spacing: -0.025em;
 }
@@ -462,7 +496,11 @@ h1, h2, h3, h4, h5, h6 {
 h1 {
   font-size: 3.5rem;
   line-height: 1.1;
-  background: linear-gradient(135deg, var(--ifm-color-primary) 0%, var(--ifm-color-primary-light) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--ifm-color-primary) 0%,
+    var(--ifm-color-primary-light) 100%
+  );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -502,18 +540,32 @@ a:hover {
 }
 
 @keyframes shimmer {
-  0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
-  100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+  0% {
+    transform: translateX(-100%) translateY(-100%) rotate(45deg);
+  }
+  100% {
+    transform: translateX(100%) translateY(100%) rotate(45deg);
+  }
 }
 
 @keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-10px); }
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
 }
 
 @keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.5; }
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
 }
 
 /* Loading animation */
@@ -531,17 +583,17 @@ a:hover {
   .navbar {
     border-radius: 0 0 24px 24px;
   }
-  
+
   .theme-doc-sidebar-container {
     border-radius: 0;
     margin: 0;
   }
-  
+
   .markdown {
     padding: 1.5rem;
     margin: 1rem 0;
   }
-  
+
   h1 {
     font-size: 2.5rem;
   }
@@ -551,11 +603,11 @@ a:hover {
   .button {
     padding: 0.875rem 2rem;
   }
-  
+
   .markdown {
     padding: 1rem;
   }
-  
+
   h1 {
     font-size: 2rem;
   }

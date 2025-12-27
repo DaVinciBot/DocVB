@@ -23,9 +23,9 @@ import DownloadButton from '@site/src/components/DownloadButton';
   Télécharger le fichier
 </DownloadButton>
 
-<DownloadButton 
-  href="https://example.com/doc.pdf" 
-  variant="secondary" 
+<DownloadButton
+  href="https://example.com/doc.pdf"
+  variant="secondary"
   size="md"
   icon="📄"
 >
@@ -73,9 +73,11 @@ import DownloadGroup from '@site/src/components/DownloadGroup';
 ## Variantes de boutons
 
 ### Primary (Bleu)
+
 Utilisé pour les fichiers principaux ou importants.
 
 ### Secondary (Gris)
+
 Utilisé pour les fichiers secondaires ou optionnels.
 
 ## Responsive

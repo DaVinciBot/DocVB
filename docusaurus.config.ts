@@ -1,13 +1,13 @@
-import { themes as prismThemes } from 'prism-react-renderer';
-import type { Config } from '@docusaurus/types';
-import type * as Preset from '@docusaurus/preset-classic';
+import type * as Preset from "@docusaurus/preset-classic";
+import type { Config } from "@docusaurus/types";
+import { themes as prismThemes } from "prism-react-renderer";
 
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
 const config: Config = {
-  title: 'DaVinciBot',
-  tagline: 'Learn to build amazing documentation',
-  favicon: 'img/favicon.ico',
+  title: "DaVinciBot",
+  tagline: "Learn to build amazing documentation",
+  favicon: "img/favicon.ico",
 
   // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
   future: {
@@ -15,25 +15,25 @@ const config: Config = {
   },
 
   // Set the production url of your site here
-  url: 'https://docs.davincibot.fr',
+  url: "https://docs.davincibot.fr",
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: '/',
+  baseUrl: "/",
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'davincibot', // Usually your GitHub org/user name.
-  projectName: 'DocVB', // Usually your repo name.
+  organizationName: "davincibot", // Usually your GitHub org/user name.
+  projectName: "DocVB", // Usually your repo name.
 
-  onBrokenLinks: 'throw',
-  onBrokenMarkdownLinks: 'warn',
+  onBrokenLinks: "throw",
+  onBrokenMarkdownLinks: "warn",
 
   // Even if you don't use internationalization, you can use this field to set
   // useful metadata like html lang. For example, if your site is Chinese, you
   // may want to replace "en" with "zh-Hans".
   i18n: {
-    defaultLocale: 'fr',
-    locales: ['fr'],
+    defaultLocale: "fr",
+    locales: ["fr"],
   },
 
   plugins: [
@@ -52,14 +52,14 @@ const config: Config = {
 
   themes: [
     [
-      require.resolve('@easyops-cn/docusaurus-search-local'),
+      require.resolve("@easyops-cn/docusaurus-search-local"),
       {
         hashed: true,
-        docsRouteBasePath: '/',
+        docsRouteBasePath: "/",
         indexBlog: false,
         highlightSearchTermsOnTargetPage: true,
         searchBarShortcut: true,
-        searchBarShortcutKeymap: 'mod+k',
+        searchBarShortcutKeymap: "mod+k",
         searchBarShortcutHint: true,
       },
     ],
@@ -67,17 +67,17 @@ const config: Config = {
 
   presets: [
     [
-      'classic',
+      "classic",
       {
         docs: {
-          sidebarPath: './sidebars.ts',
-          routeBasePath: '/', // This makes docs the main page
+          sidebarPath: "./sidebars.ts",
+          routeBasePath: "/", // This makes docs the main page
           // Remove this to remove the "edit this page" links.
-          editUrl: 'https://github.com/davincibot/docvb/tree/main/',
+          editUrl: "https://github.com/davincibot/docvb/tree/main/",
         },
         blog: false, // Disable blog
         theme: {
-          customCss: './src/css/custom.css',
+          customCss: "./src/css/custom.css",
         },
       } satisfies Preset.Options,
     ],
@@ -85,69 +85,69 @@ const config: Config = {
 
   themeConfig: {
     colorMode: {
-      defaultMode: 'dark',
+      defaultMode: "dark",
       respectPrefersColorScheme: false,
     },
     // Replace with your project's social card
-    image: 'img/dvb_og_img.jpg',
+    image: "img/dvb_og_img.jpg",
     navbar: {
-      title: 'DaVinciBot',
+      title: "DaVinciBot",
       logo: {
-        alt: 'DaVinciBot Logo',
-        src: 'img/logo.svg',
-        srcDark: 'img/logo_dark.svg',
+        alt: "DaVinciBot Logo",
+        src: "img/logo.svg",
+        srcDark: "img/logo_dark.svg",
       },
       items: [
         {
-          type: 'docSidebar',
-          sidebarId: 'docSidebar',
-          position: 'left',
-          label: 'Minis-projets',
+          type: "docSidebar",
+          sidebarId: "docSidebar",
+          position: "left",
+          label: "Minis-projets",
         },
         {
-          type: 'docSidebar',
-          sidebarId: 'tutorialSidebar',
-          position: 'left',
-          label: 'Formation',
+          type: "docSidebar",
+          sidebarId: "tutorialSidebar",
+          position: "left",
+          label: "Formation",
         },
-         {
-          type: 'docSidebar',
-          sidebarId: 'cdrSidebar',
-          position: 'left',
-          label: 'CDR',
+        {
+          type: "docSidebar",
+          sidebarId: "cdrSidebar",
+          position: "left",
+          label: "CDR",
         },
       ],
     },
     footer: {
-      style: 'dark',
+      style: "dark",
       links: [
         {
-          title: 'Community',
+          title: "Community",
           items: [
             {
-              label: 'Instagram',
-              href: 'https://twitter.com/davincibot_pulv',
+              label: "Instagram",
+              href: "https://twitter.com/davincibot_pulv",
             },
             {
-              label: 'LinkedIn',
-              href: 'https://www.linkedin.com/company/davincibot/',
+              label: "LinkedIn",
+              href: "https://www.linkedin.com/company/davincibot/",
             },
           ],
         },
         {
-          title: 'More',
+          title: "More",
           items: [
             {
-              label: 'GitHub',
-              href: 'https://github.com/davincibot/docvb',
+              label: "GitHub",
+              href: "https://github.com/davincibot/docvb",
             },
             {
-              label: 'davincibot.fr',
-              href: 'https://davincibot.fr',
+              label: "davincibot.fr",
+              href: "https://davincibot.fr",
             },
             {
-              label: 'Documentation',
-              to: '/',
+              label: "Documentation",
+              to: "/",
             },
           ],
         },

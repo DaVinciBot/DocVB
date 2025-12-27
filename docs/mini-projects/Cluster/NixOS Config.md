@@ -22,25 +22,27 @@ Ce dépôt contient une configuration NixOS basée sur les flakes pour un cluste
 
 ### Configuration Initiale
 
-
-2. **Créer secrets.nix** avec vos valeurs réelles basées sur le modèle :
+1. **Créer secrets.nix** avec vos valeurs réelles basées sur le modèle :
    - `k3sToken` : Générer avec `openssl rand -base64 32`
    - `tunnel.id` et `tunnel.secret` : Vos identifiants de tunnel
    - `sshKeys` : Vos clés SSH publiques réelles
    - `userPasswords` : Générer avec `mkpasswd -m yescrypt`
 
-3. **Initialiser le flake** :
+2. **Initialiser le flake** :
+
    ```bash
    nix flake update
    ```
 
-4. **Vérifier la configuration** :
+3. **Vérifier la configuration** :
+
    ```bash
    nix flake check
    ```
 
-5. **Construire l'image NixOS** :
+4. **Construire l'image NixOS** :
    On utilise un dépot gist pour stocker un script de construction d'image NixOS :
+
    ```bash
    curl -s https://gist.githubusercontent.com/UrbsKali/e8ccef97902c132bcd1e461448a71cbc/raw | bash
    ```
@@ -48,6 +50,7 @@ Ce dépôt contient une configuration NixOS basée sur les flakes pour un cluste
 ### Déploiement Local
 
 Sur chaque machine cible, basculer vers la nouvelle configuration :
+
 ```bash
 # Sur le nœud maître (flo)
 sudo nixos-rebuild switch --flake .#flo
@@ -60,6 +63,7 @@ sudo nixos-rebuild switch --flake .#rob
 ### Mise à Jour
 
 Pour mettre à jour des entrées spécifiques :
+
 ```bash
 nix flake update nixpkgs
 nix flake update nixpkgs-unstable
@@ -79,6 +83,7 @@ Le flake prend désormais en charge un système de configuration flexible utilis
 ### Ajouter de Nouveaux Serveurs
 
 Ajouter dans `flake.nix` dans la section `nixosConfigurations` :
+
 ```nix
 nouveauserveur = mkServerConfig {
   serverHostname = "nouveauserveur";
@@ -141,26 +146,29 @@ La configuration utilise un fichier `secrets.nix` pour stocker les informations 
 ## Démarrage Rapide
 
 1. **Cloner** :
+
    ```bash
    git clone <ce-depot>
    cd ClusterConfig
    ```
 
 2. **Éditer les secrets** :
+
    ```bash
    # Générer un jeton K3s fort
    openssl rand -base64 32
-   
+
    # Éditer secrets.nix avec vos valeurs réelles
    cp secrets.nix.template secrets.nix
    nano secrets.nix
    ```
 
-4. **Déployer** :
+3. **Déployer** :
+
    ```bash
    # Copier vers le serveur cible
    scp -r . dvb@192.168.0.15:/home/dvb/ClusterConfig
-   
+
    # Déployer sur la cible
    ssh dvb@192.168.0.15 'cd ClusterConfig && sudo nixos-rebuild switch --flake .#nouveauworker'
    ```

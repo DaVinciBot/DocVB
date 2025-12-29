@@ -78,4 +78,10 @@ helm upgrade listmonk listmonk   --create-namespace   --install   --namespace li
 k3s kubectl apply -f listmonk-nodeport.yaml
 ```
 
+## Dockploy - Deployment manager
 
+To deploy the Dockploy application on your K3s cluster, follow these steps:
+
+```bash
+helm install dockploy ./dockploy --create-namespace --namespace dockploy
+---

@@ -17,6 +17,7 @@ Voici une liste des services auto-hébergés sur le cluster k3s de DaVinciBot :
 - [**Garage**](https://s3.davincibot.fr) : Stockage S3 compatible. (WIP)
 - [**ListMonk**](https://mail.davincibot.fr) : Outil d'emailing auto-hébergé.
 - [**Overleaf**](https://tex.davincibot.fr) : Éditeur de documents LaTeX collaboratif. (sur un node séparé)
+- [**Dockploy**](https://dockploy.davincibot.fr) : Gestionnaire de déploiement d'applications.
 
 #### Sur le VPS Hetzner
 

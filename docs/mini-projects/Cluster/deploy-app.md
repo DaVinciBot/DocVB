@@ -83,5 +83,5 @@ k3s kubectl apply -f listmonk-nodeport.yaml
 To deploy the Dockploy application on your K3s cluster, follow these steps:
 
 ```bash
-helm install dockploy ./dockploy --create-namespace --namespace dockploy
----
+helm install dokploy ./dokploy --create-namespace --namespace dokploy
+```

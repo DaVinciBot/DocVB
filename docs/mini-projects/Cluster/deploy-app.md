@@ -77,3 +77,11 @@ To deploy the ListMonk application on your K3s cluster, follow these steps:
 helm upgrade listmonk listmonk   --create-namespace   --install   --namespace listmonk   --repo https://th0th.github.io/helm-charts   --values values.yaml
 k3s kubectl apply -f listmonk-nodeport.yaml
 ```
+
+## Dockploy - Deployment manager
+
+To deploy the Dockploy application on your K3s cluster, follow these steps:
+
+```bash
+helm install dokploy ./dokploy --create-namespace --namespace dokploy
+```

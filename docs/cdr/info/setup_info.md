@@ -33,13 +33,19 @@ Si ce n'est pas le cas, installez-le selon votre OS :
 
 <Tabs groupId="operating-systems">
   <TabItem value="win" label="Windows">
-    ```bash winget install -e --id Git.Git ```
+    ```bash
+    winget install -e --id Git.Git
+    ```
   </TabItem>
   <TabItem value="linux" label="Linux">
-    ```bash sudo apt-get install git ```
+    ``` bash
+    sudo apt-get install git
+    ```
   </TabItem>
   <TabItem value="mac" label="macOS">
-    ```bash brew install git ```
+    ```bash
+    brew install git
+    ```
   </TabItem>
 </Tabs>
 
@@ -67,14 +73,20 @@ Suivez les instructions adaptées à votre système pour installer uv :
 
 <Tabs groupId="operating-systems">
   <TabItem value="win" label="Windows">
-    ```powershell powershell -ExecutionPolicy ByPass -c "irm
-    https://astral.sh/uv/install.ps1 | iex" ```
+    ```powershell
+    powershell -ExecutionPolicy ByPass -c "irm
+    https://astral.sh/uv/install.ps1 | iex"
+    ```
   </TabItem>
   <TabItem value="linux" label="Linux">
-    ```bash curl -LsSf https://astral.sh/uv/install.sh | sh ```
+    ```bash
+    curl -LsSf https://astral.sh/uv/install.sh | sh
+    ```
   </TabItem>
   <TabItem value="mac" label="macOS">
-    ```bash curl -LsSf https://astral.sh/uv/install.sh | sh ```
+    ```bash
+    curl -LsSf https://astral.sh/uv/install.sh | sh
+    ```
   </TabItem>
 </Tabs>
 [Documentation uv](https://astral.sh/docs/uv/)
@@ -93,13 +105,19 @@ Activez l'environnement virtuel pour installer et utiliser les paquets :
 
 <Tabs groupId="operating-systems">
   <TabItem value="win" label="Windows">
-    ```bash source .venv/Scripts/activate ```
+    ```bash
+    source .venv/Scripts/activate
+    ```
   </TabItem>
   <TabItem value="linux" label="Linux">
-    ```bash source .venv/bin/activate ```
+    ```bash
+    source .venv/bin/activate
+    ```
   </TabItem>
   <TabItem value="mac" label="macOS">
-    ```bash source .venv/bin/activate ```
+    ```bash
+    source .venv/bin/activate
+    ```
   </TabItem>
 </Tabs>
 Dans VSCode, sélectionnez l'interpréteur Python correspondant : `Ctrl + Shift + P`
@@ -146,9 +164,12 @@ Chocolatey est un gestionnaire de paquets pour Windows, utile pour installer rap
 
 <Tabs groupId="operating-systems">
   <TabItem value="win" label="Windows">
-    Nécessaire uniquement sur Windows : ```powershell powershell -c "irm
-    https://community.chocolatey.org/install.ps1|iex" ``` [Documentation
-    Chocolatey](https://docs.chocolatey.org/en-us/)
+    Nécessaire uniquement sur Windows :
+    ```powershell
+    powershell -c "irm
+    https://community.chocolatey.org/install.ps1|iex"
+    ```
+    [Documentation Chocolatey](https://docs.chocolatey.org/en-us/)
   </TabItem>
   <TabItem value="linux" label="Linux">
     Non requis.
@@ -166,13 +187,19 @@ clang-format est un outil de formatage automatique pour le code C/C++. Il permet
 
 <Tabs groupId="operating-systems">
   <TabItem value="win" label="Windows">
-    ```bash choco install llvm ```
+    ```bash
+    choco install llvm
+    ```
   </TabItem>
   <TabItem value="linux" label="Linux">
-    ```bash sudo apt-get install clang-format ```
+    ```bash
+    sudo apt-get install clang-format
+    ```
   </TabItem>
   <TabItem value="mac" label="macOS">
-    ```bash brew install clang-format ```
+    ```bash
+    brew install clang-format
+    ```
   </TabItem>
 </Tabs>
 
@@ -198,13 +225,20 @@ Make est un outil d'automatisation qui permet d'exécuter facilement des tâches
 
 <Tabs groupId="operating-systems">
   <TabItem value="win" label="Windows">
-    Ouvrir un terminal en administrateur : ```bash choco install make ```
+    Ouvrir un terminal en administrateur :
+    ```bash
+    choco install make
+    ```
   </TabItem>
   <TabItem value="linux" label="Linux">
-    ```bash sudo apt-get install make ```
+    ```bash
+    sudo apt-get install make
+    ```
   </TabItem>
   <TabItem value="mac" label="macOS">
-    ```bash brew install make ```
+    ```bash
+    brew install make
+    ```
   </TabItem>
 </Tabs>
 [Documentation Make](https://www.gnu.org/software/make/manual/make.html)
@@ -228,28 +262,37 @@ Pour garantir la qualité et la cohérence du code Python, plusieurs outils de f
 
 <Tabs groupId="tools">
   <TabItem value="ruff" label="Ruff">
-    [Ruff](https://docs.astral.sh/ruff/) : Linter et formatteur ultra-rapide
-    pour Python. Il combine les fonctionnalités de plusieurs outils en un seul.
-    ```bash ruff check . --fix ruff format ``` Ruff est intégré dans le workflow
-    du projet pour accélérer le lint et le formatage.
+    [Ruff](https://docs.astral.sh/ruff/) : Linter et formatteur ultra-rapide pour Python.
+    Il combine les fonctionnalités de plusieurs outils en un seul.
+    ```bash
+    ruff check . --fix ruff format
+    ```
+    Ruff est intégré dans le workflow du projet pour accélérer le lint et le formatage.
   </TabItem>
   <TabItem value="isort" label="isort">
-    [isort](https://pycqa.github.io/isort/) : Trie et formate les imports Python
-    automatiquement. ```bash isort . ``` Utilisez-le pour garder vos imports
-    organisés et conformes aux standards.
+    [isort](https://pycqa.github.io/isort/) : Trie et formate les imports Python automatiquement.
+    ```bash
+    isort .
+    ```
+    Utilisez-le pour garder vos imports organisés et conformes aux standards.
   </TabItem>
   <TabItem value="pylint" label="Pylint">
     [Pylint](https://pylint.pycqa.org/en/latest/) : Analyse statique et
-    vérification du style Python. ```bash pylint . ``` Pylint fournit des
-    rapports détaillés sur la qualité et la conformité du code.
+    vérification du style Python.
+    ```bash
+    pylint .
+    ```
+    Pylint fournit des rapports détaillés sur la qualité et la conformité du code.
   </TabItem>
   <TabItem value="pylance" label="Pylance / Pyright">
     [Pylance](https://marketplace.visualstudio.com/items?itemName=ms-python.vscode-pylance)
     / [Pyright](https://github.com/microsoft/pyright) : Extension VSCode qui
-    utilise Pyright pour l'analyse de type et l'autocomplétion Python. ```bash #
-    Pylance est intégré dans VSCode pyright --level warning ``` Ces outils
-    améliorent la productivité et la sécurité du code grâce à la vérification de
-    type en temps réel.
+    utilise Pyright pour l'analyse de type et l'autocomplétion Python.
+    ```bash
+    # Pylance est intégré dans VSCode
+    pyright --level warning
+    ```
+    Ces outils améliorent la productivité et la sécurité du code grâce à la vérification de type en temps réel.
   </TabItem>
 </Tabs>
 

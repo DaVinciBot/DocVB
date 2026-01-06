@@ -1,15 +1,15 @@
-import type {ReactNode} from 'react';
-import Heading from '@theme/Heading';
+import Heading from "@theme/Heading";
+import type { ReactNode } from "react";
 
 type FeatureItem = {
   title: string;
-  Svg: React.ComponentType<React.ComponentProps<'svg'>>;
+  Svg: React.ComponentType<React.ComponentProps<"svg">>;
   description: ReactNode;
 };
 
 const FeatureList: FeatureItem[] = [];
 
-function Feature({title, Svg, description}: FeatureItem) {
+function Feature({ title, Svg, description }: FeatureItem) {
   return (
     <div className="col col--4">
       <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">

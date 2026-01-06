@@ -151,7 +151,6 @@ body {
   backdrop-filter: var(--glass-backdrop);
   border-right: 1px solid var(--glass-border);
   border-radius: 0 32px 32px 0;
-  margin: 1rem 0;
   box-shadow: var(--glass-shadow);
   /* Clip inner hover backgrounds/shadows to the rounded edge */
   overflow: hidden;
@@ -160,7 +159,6 @@ body {
 
 .menu {
   background: transparent;
-  padding: 1.5rem;
 }
 
 .menu__link {

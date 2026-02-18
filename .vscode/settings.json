@@ -8,9 +8,6 @@
     },
     "editor.defaultFormatter": "yzhang.markdown-all-in-one"
   },
-  "[mdx]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
   "[typescript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },

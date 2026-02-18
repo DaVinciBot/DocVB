@@ -10,8 +10,8 @@
 
 /* DaVinci Bot Color Palette with Glassmorphism */
 :root {
-  --ifm-font-family-base: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
-    "Roboto", sans-serif;
+  --ifm-font-family-base:
+    "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", sans-serif;
 
   /* DaVinci Bot Color Palette */
   --ifm-color-primary: #0958ef;
@@ -106,7 +106,9 @@ html {
 }
 
 body {
-  font-feature-settings: "rlig" 1, "calt" 1;
+  font-feature-settings:
+    "rlig" 1,
+    "calt" 1;
   background: var(--ifm-background-color);
   background-attachment: fixed;
 }

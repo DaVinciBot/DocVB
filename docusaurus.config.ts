@@ -1,6 +1,8 @@
-import { themes as prismThemes } from 'prism-react-renderer';
-import type { Config } from '@docusaurus/types';
-import type * as Preset from '@docusaurus/preset-classic';
+import type * as Preset from "@docusaurus/preset-classic";
+import type { Config } from "@docusaurus/types";
+import { themes as prismThemes } from "prism-react-renderer";
+import rehypeKatex from "rehype-katex";
+import remarkMath from "remark-math";
 
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
@@ -73,7 +75,9 @@ const config: Config = {
           sidebarPath: './sidebars.ts',
           routeBasePath: '/', // This makes docs the main page
           // Remove this to remove the "edit this page" links.
-          editUrl: 'https://github.com/davincibot/docvb/tree/main/',
+          editUrl: "https://github.com/davincibot/docvb/tree/main/",
+          remarkPlugins: [remarkMath],
+          rehypePlugins: [rehypeKatex],
         },
         blog: false, // Disable blog
         theme: {
@@ -157,6 +161,22 @@ const config: Config = {
     prism: {
       theme: prismThemes.github,
       darkTheme: prismThemes.dracula,
+      additionalLanguages: [
+        "bash",
+        "c",
+        "cpp",
+        "csharp",
+        "css",
+        "json",
+        "latex",
+        "markdown",
+        "powershell",
+        "python",
+        "rust",
+        "sql",
+        "typescript",
+        "yaml",
+      ],
     },
   } satisfies Preset.ThemeConfig,
 };

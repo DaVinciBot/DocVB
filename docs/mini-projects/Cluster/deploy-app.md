@@ -65,9 +65,12 @@ cd /home/dvb/tuwunel
 helm upgrade matrix -f tuwunel-helm/values.yaml ./tuwunel-helm/ -n matrix
 ```
 
-## Garage - S3 Storage
+## Docuseal
 
-WIP
+```bash
+cd /home/dvb/docuseal
+helm upgrade docuseal ./docuseal-chart/ -f values.yaml -n sign
+```
 
 ## ListMonk - Newsletter manager
 

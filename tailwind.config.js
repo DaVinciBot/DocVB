@@ -4,8 +4,8 @@ module.exports = {
     preflight: false,
     block: false,
   },
-  darkMode: ['class', '[data-theme="dark"]'],
-  content: ['./src/**/*.{js,jsx,ts,tsx,md,mdx}'],
+  darkMode: ["class", '[data-theme="dark"]'],
+  content: ["./src/**/*.{js,jsx,ts,tsx,md,mdx}"],
   theme: {
     extend: {},
   },

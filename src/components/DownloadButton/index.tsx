@@ -1,18 +1,18 @@
-import React from 'react';
-import styles from './styles.module.css';
+import React from "react";
+import styles from "./styles.module.css";
 
 interface DownloadButtonProps {
   href: string;
   children: React.ReactNode;
-  variant?: 'primary' | 'secondary';
-  size?: 'sm' | 'md' | 'lg';
+  variant?: "primary" | "secondary";
+  size?: "sm" | "md" | "lg";
   icon?: string;
 }
 
 export default function DownloadButton({
   href,
   children,
-  size = 'lg',
+  size = "lg",
   icon,
 }: DownloadButtonProps): React.JSX.Element {
   const buttonClass = `button button--primary button--${size}`;

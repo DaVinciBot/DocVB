@@ -5,8 +5,9 @@ last_update:
   author: Eliott A. Roussille
 tags: [CDR, info]
 ---
-import TabItem from '@theme/TabItem';
-import Tabs from '@theme/Tabs';
+
+import TabItem from "@theme/TabItem";
+import Tabs from "@theme/Tabs";
 
 Ce guide vous accompagne pour installer et configurer tous les outils nécessaires au développement sur le projet de la Coupe de France de Robotique. Il est conçu pour vous aider à démarrer rapidement, à comprendre le rôle de chaque outil et à adopter les bonnes pratiques pour collaborer efficacement.
 
@@ -29,6 +30,7 @@ git --version
 ```
 
 Si ce n'est pas le cas, installez-le selon votre OS :
+
 <Tabs groupId="operating-systems">
   <TabItem value="win" label="Windows">
     ```bash
@@ -36,7 +38,7 @@ Si ce n'est pas le cas, installez-le selon votre OS :
     ```
   </TabItem>
   <TabItem value="linux" label="Linux">
-    ```bash
+    ``` bash
     sudo apt-get install git
     ```
   </TabItem>
@@ -68,10 +70,12 @@ uv est un gestionnaire d'environnements virtuels et de packages Python. Il simpl
 ### Installation
 
 Suivez les instructions adaptées à votre système pour installer uv :
+
 <Tabs groupId="operating-systems">
   <TabItem value="win" label="Windows">
     ```powershell
-    powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
+    powershell -ExecutionPolicy ByPass -c "irm
+    https://astral.sh/uv/install.ps1 | iex"
     ```
   </TabItem>
   <TabItem value="linux" label="Linux">
@@ -98,6 +102,7 @@ uv venv
 ### Activer le venv
 
 Activez l'environnement virtuel pour installer et utiliser les paquets :
+
 <Tabs groupId="operating-systems">
   <TabItem value="win" label="Windows">
     ```bash
@@ -115,8 +120,8 @@ Activez l'environnement virtuel pour installer et utiliser les paquets :
     ```
   </TabItem>
 </Tabs>
-Dans VSCode, sélectionnez l'interpréteur Python correspondant :
-`Ctrl + Shift + P` → `Python: Select Interpreter` → CoupeDeRobotique
+Dans VSCode, sélectionnez l'interpréteur Python correspondant : `Ctrl + Shift + P`
+→ `Python: Select Interpreter` → CoupeDeRobotique
 
 ### Télécharger les dépendances
 
@@ -161,7 +166,8 @@ Chocolatey est un gestionnaire de paquets pour Windows, utile pour installer rap
   <TabItem value="win" label="Windows">
     Nécessaire uniquement sur Windows :
     ```powershell
-    powershell -c "irm https://community.chocolatey.org/install.ps1|iex"
+    powershell -c "irm
+    https://community.chocolatey.org/install.ps1|iex"
     ```
     [Documentation Chocolatey](https://docs.chocolatey.org/en-us/)
   </TabItem>
@@ -256,10 +262,10 @@ Pour garantir la qualité et la cohérence du code Python, plusieurs outils de f
 
 <Tabs groupId="tools">
   <TabItem value="ruff" label="Ruff">
-    [Ruff](https://docs.astral.sh/ruff/) : Linter et formatteur ultra-rapide pour Python. Il combine les fonctionnalités de plusieurs outils en un seul.
+    [Ruff](https://docs.astral.sh/ruff/) : Linter et formatteur ultra-rapide pour Python.
+    Il combine les fonctionnalités de plusieurs outils en un seul.
     ```bash
-    ruff check . --fix
-    ruff format
+    ruff check . --fix ruff format
     ```
     Ruff est intégré dans le workflow du projet pour accélérer le lint et le formatage.
   </TabItem>
@@ -271,14 +277,17 @@ Pour garantir la qualité et la cohérence du code Python, plusieurs outils de f
     Utilisez-le pour garder vos imports organisés et conformes aux standards.
   </TabItem>
   <TabItem value="pylint" label="Pylint">
-    [Pylint](https://pylint.pycqa.org/en/latest/) : Analyse statique et vérification du style Python.
+    [Pylint](https://pylint.pycqa.org/en/latest/) : Analyse statique et
+    vérification du style Python.
     ```bash
     pylint .
     ```
     Pylint fournit des rapports détaillés sur la qualité et la conformité du code.
   </TabItem>
   <TabItem value="pylance" label="Pylance / Pyright">
-    [Pylance](https://marketplace.visualstudio.com/items?itemName=ms-python.vscode-pylance) / [Pyright](https://github.com/microsoft/pyright) : Extension VSCode qui utilise Pyright pour l'analyse de type et l'autocomplétion Python.
+    [Pylance](https://marketplace.visualstudio.com/items?itemName=ms-python.vscode-pylance)
+    / [Pyright](https://github.com/microsoft/pyright) : Extension VSCode qui
+    utilise Pyright pour l'analyse de type et l'autocomplétion Python.
     ```bash
     # Pylance est intégré dans VSCode
     pyright --level warning

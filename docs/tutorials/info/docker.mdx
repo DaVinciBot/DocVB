@@ -5,8 +5,9 @@ last_update:
   author: Urbain Lantrès
 tags: [info, sysadmin]
 ---
-import DownloadButton from '@site/src/components/DownloadButton';
-import DownloadGroup from '@site/src/components/DownloadGroup';
+
+import DownloadButton from "@site/src/components/DownloadButton";
+import DownloadGroup from "@site/src/components/DownloadGroup";
 
 Dans ce tutoriel, nous allons créer une application simple avec Node.js et la conteneuriser avec Docker. Nous allons également apprendre à construire et exécuter notre conteneur Docker.
 
@@ -119,7 +120,7 @@ CMD ["node", "index.js"]
 
 - **FROM node:18-alpine** : On utilise une image Node.js légère basée sur Alpine Linux
 - **WORKDIR /usr/src/app** : Définit le répertoire de travail dans le conteneur
-- **COPY app/package*.json ./** : Copie les fichiers de dépendances npm
+- **COPY app/package\*.json ./** : Copie les fichiers de dépendances npm
 - **RUN npm install** : Installe les dépendances Node.js
 - **COPY app/ .** : Copie tout le code de l'application
 - **EXPOSE 80** : Indique que le conteneur écoute sur le port 80
@@ -206,7 +207,7 @@ micro docker-compose.yml
 Voici un exemple de configuration avec une application Node.js et une base de données PostgreSQL :
 
 ```yaml title="docker-compose.yml"
-version: '3.8'
+version: "3.8"
 
 services:
   app:

@@ -9,7 +9,7 @@ tags: [info, sysadmin]
 Dans cette formation, vous apprendrez les bases de Linux en ligne de commande, étape par étape: naviguer dans le système de fichiers, manipuler des fichiers et dossiers, gérer les permissions, les utilisateurs/groupes, et les processus.
 
 :::info C'est quoi un système ?
-Un système d’exploitation (OS) est le logiciel qui permet d’utiliser le matériel (CPU, mémoire, disque, réseau, périphériques). Ici, on se concentre sur Linux. Android, par exemple, est basé sur Linux.
+Un système d'exploitation (OS) est le logiciel qui permet d'utiliser le matériel (CPU, mémoire, disque, réseau, périphériques). Ici, on se concentre sur Linux. Android, par exemple, est basé sur Linux.
 :::
 
 ## Prérequis
@@ -47,7 +47,7 @@ cd ..                # remonter d'un dossier
 cd -                 # revenir au dossier précédent
 ```
 
-- `file` — Détecte le type d’un fichier
+- `file` — Détecte le type d'un fichier
 
 ```bash
 file /bin/ls
@@ -67,7 +67,7 @@ cat /etc/os-release
 less /var/log/syslog
 ```
 
-- `head` / `tail` — Début/fin d’un fichier
+- `head` / `tail` — Début/fin d'un fichier
 
 ```bash
 head -n 20 fichier.log
@@ -199,7 +199,7 @@ sudo delgroup dev         # Debian/Ubuntu
 ```
 
 :::warning Root
-Évitez d’utiliser root directement. Préférez `sudo` avec un utilisateur standard membre du groupe `sudo`/`wheel`.
+Évitez d'utiliser root directement. Préférez `sudo` avec un utilisateur standard membre du groupe `sudo`/`wheel`.
 :::
 
 ## Étape 7 — Processus et gestion des tâches
@@ -229,7 +229,7 @@ bg %1              # continuer en arrière-plan
 ```
 
 :::tip Priorité
-`nice` et `renice` ajustent la priorité CPU d’un processus.
+`nice` et `renice` ajustent la priorité CPU d'un processus.
 :::
 
 ## Étape 8 — Aide intégrée et documentation
@@ -302,4 +302,3 @@ scp fichier user@hote:/chemin/destination
 - TLDR pages: https://tldr.sh/
 - The Linux Documentation Project: https://www.tldp.org/
 - explainshell.com: https://explainshell.com/
-

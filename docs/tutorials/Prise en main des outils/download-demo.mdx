@@ -2,8 +2,8 @@
 title: Exemple d'utilisation des composants de téléchargement
 ---
 
-import DownloadButton from '@site/src/components/DownloadButton';
-import DownloadGroup from '@site/src/components/DownloadGroup';
+import DownloadButton from "@site/src/components/DownloadButton";
+import DownloadGroup from "@site/src/components/DownloadGroup";
 
 # Démo des Composants de Téléchargement
 
@@ -19,7 +19,7 @@ Cette page démontre l'utilisation des composants `DownloadButton` et `DownloadG
 
 ### Bouton secondaire
 
-<DownloadButton href="https://example.com/doc.pdf"  icon="📄">
+<DownloadButton href="https://example.com/doc.pdf" icon="📄">
   Documentation PDF
 </DownloadButton>
 
@@ -94,11 +94,7 @@ Téléchargez les fichiers nécessaires pour commencer :
 ### DownloadButton
 
 ```tsx
-<DownloadButton 
-  href="https://example.com/file.zip" 
-  size="lg"
-  icon="📦"
->
+<DownloadButton href="https://example.com/file.zip" size="lg" icon="📦">
   Texte du bouton
 </DownloadButton>
 ```
@@ -107,7 +103,11 @@ Téléchargez les fichiers nécessaires pour commencer :
 
 ```tsx
 <DownloadGroup title="Titre optionnel">
-  <DownloadButton href="..." icon="📦">Fichier 1</DownloadButton>
-  <DownloadButton href="..." icon="📄">Fichier 2</DownloadButton>
+  <DownloadButton href="..." icon="📦">
+    Fichier 1
+  </DownloadButton>
+  <DownloadButton href="..." icon="📄">
+    Fichier 2
+  </DownloadButton>
 </DownloadGroup>
 ```

@@ -1,0 +1,191 @@
+---
+title: PostgreSQL - fondamentaux et sécurité
+description: Formation rapide sur PostgreSQL, RLS, fonctions, triggers et extensions.
+tags: [info, database, postgresql]
+last_update:
+  date: 2026-02-25
+  author: Eliott Roussille
+---
+
+Cette formation couvre les bases de PostgreSQL avec un focus sur la sécurité : RLS, fonctions, triggers et extensions utiles.
+
+## Prérequis
+
+- Un serveur PostgreSQL 13+ (local, Docker ou VPS)
+- Un client SQL (psql, DBeaver ou DataGrip)
+- Connaissances SQL de base
+
+## Installation rapide
+
+```bash
+# Debian/Ubuntu
+sudo apt update
+sudo apt install postgresql postgresql-contrib
+
+# Verification
+psql --version
+```
+
+Connexion rapide:
+
+```bash
+sudo -u postgres psql
+```
+
+## Schéma minimal de démo
+
+```sql
+CREATE TABLE app_user (
+  id uuid PRIMARY KEY,
+  email text UNIQUE NOT NULL
+);
+
+CREATE TABLE todo (
+  id uuid PRIMARY KEY,
+  user_id uuid NOT NULL REFERENCES app_user(id),
+  title text NOT NULL,
+  is_done boolean NOT NULL DEFAULT false,
+  created_at timestamptz NOT NULL DEFAULT now()
+);
+```
+
+## RLS (Row Level Security)
+
+Le RLS permet de filtrer les lignes accessibles selon le role ou le contexte.
+
+Activation:
+
+```sql
+ALTER TABLE todo ENABLE ROW LEVEL SECURITY;
+```
+
+Politique simple (un utilisateur ne voit que ses lignes):
+
+```sql
+CREATE POLICY todo_is_owner
+ON todo
+USING (user_id = current_setting('app.user_id')::uuid)
+WITH CHECK (user_id = current_setting('app.user_id')::uuid);
+```
+
+Notes:
+
+- `USING` filtre les lignes visibles (SELECT/UPDATE/DELETE).
+- `WITH CHECK` contrôle les lignes écrites (INSERT/UPDATE).
+- `current_setting('app.user_id')` doit etre défini par l'app.
+
+Exemple d'utilisation dans une session:
+
+```sql
+SET app.user_id = '00000000-0000-0000-0000-000000000001';
+SELECT * FROM todo;
+```
+
+## Fonctions PostgreSQL
+
+Syntaxe simplifiée:
+
+```sql
+CREATE FUNCTION nom_fonction (
+  [argmode] [argname] argtype [ = defaut ],
+  ...
+)
+RETURNS type_retour
+LANGUAGE lang
+AS $$ corps $$;
+```
+
+Paramètres des arguments:
+
+- `argmode` : `IN` (entrée), `OUT` (sortie), `INOUT` (entrée+sortie), `VARIADIC` (tableau variable en dernier argument).
+- `argname` : nom de paramètre, utilisable dans le corps.
+- `argtype` : type SQL (ex: `text`, `uuid`, `integer`).
+- `= defaut` : valeur par défaut si l'appelant ne fournit pas l'argument.
+
+Paramètres de la fonction:
+
+- `RETURNS` : type de retour (`integer`, `text`, `TABLE(...)`, `trigger`, `SETOF type`).
+- `LANGUAGE` : langage du corps (`sql`, `plpgsql`, etc.).
+- `AS $$ ... $$` : définition du corps (SQL ou bloc).
+- `IMMUTABLE` : pas d'effet de bord, même entrée -> même sortie.
+- `STABLE` : pas d'effet de bord, peut varier entre transactions.
+- `VOLATILE` : peut changer à chaque appel (par défaut).
+- `SECURITY DEFINER` : éxécute avec les droits du proprietaire.
+- `SECURITY INVOKER` : éxécute avec les droits de l'appelant (par défaut).
+- `SET` : définir des paramètres de session localement (ex: `SET search_path = public`).
+- `COST` : estimation du coût (utilisé par le planner).
+- `ROWS` : estimation du nombre de lignes pour `RETURNS SETOF`.
+- `PARALLEL` : `SAFE`, `RESTRICTED`, `UNSAFE` pour l'éxecution parallèle.
+- `LEAKPROOF` : indique qu'une fonction ne revèle pas d'infos via des erreurs (usage securité).
+
+Exemple simple:
+
+```sql
+CREATE FUNCTION public.is_done_count(p_user_id uuid)
+RETURNS integer
+LANGUAGE sql
+STABLE
+AS $$
+  SELECT count(*)::int
+  FROM todo
+  WHERE user_id = p_user_id AND is_done = true;
+$$;
+```
+
+## Triggers
+
+Un trigger déclenche une fonction lors d'un evenement (INSERT/UPDATE/DELETE).
+
+Etapes:
+
+1. Fonction de trigger (retourne `trigger`):
+
+```sql
+CREATE FUNCTION public.todo_set_created_at()
+RETURNS trigger
+LANGUAGE plpgsql
+AS $$
+BEGIN
+  IF NEW.created_at IS NULL THEN
+    NEW.created_at := now();
+  END IF;
+  RETURN NEW;
+END;
+$$;
+```
+
+2. Creation du trigger:
+
+```sql
+CREATE TRIGGER todo_created_at
+BEFORE INSERT ON todo
+FOR EACH ROW
+EXECUTE FUNCTION public.todo_set_created_at();
+```
+
+Parametres importants:
+
+- `BEFORE` / `AFTER` / `INSTEAD OF` (sur vues) pour le timing.
+- Évènements: `INSERT`, `UPDATE`, `DELETE`, `TRUNCATE`.
+- `FOR EACH ROW` (ligne) ou `FOR EACH STATEMENT` (instruction).
+- `WHEN (condition)` pour filtrer l'éxécution.
+- `REFERENCING` (optionnel) pour tables de transition sur `AFTER`.
+
+## Extensions
+
+- `pgcrypto` : hash, chiffrement, `gen_random_uuid()`.
+- `vault` : gestion de secrets.
+- `pg_cron` : planification de tâches.
+
+Activation:
+
+```sql
+CREATE EXTENSION IF NOT EXISTS pgcrypto;
+```
+
+## Ressources
+
+- https://www.postgresql.org/docs/current/
+- https://www.postgresql.org/docs/current/ddl-rowsecurity.html
+- https://www.postgresql.org/docs/current/sql-createfunction.html
+- https://www.postgresql.org/docs/current/sql-createtrigger.html

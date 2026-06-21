@@ -17,13 +17,13 @@ Voici une liste des services auto-hébergés sur le cluster k3s de DaVinciBot :
 - [**RustFS**](https://s3.davincibot.fr) : Stockage S3 compatible.
 - [**ListMonk**](https://mail.davincibot.fr) : Outil d'emailing auto-hébergé.
 - [**Overleaf**](https://tex.davincibot.fr) : Éditeur de documents LaTeX collaboratif. (sur un node séparé)
-- [**Dockploy**](https://dockploy.davincibot.fr) : Gestionnaire de déploiement d'applications.
+- [**Dockploy**](https://dokploy.davincibot.fr) : Gestionnaire de déploiement d'applications.
 
 #### Sur le VPS Hetzner de Frankfurt
 
 - [**Uptime Kuma**](https://uptime.davincibot.fr) : Outil de monitoring de services.
 - [**Pangolin**](https://pangolin.davincibot.fr) : Outil de tunneling et de fowarding.
-- [**Rybbit**](https://rybbit.com/) : Google analytics mais RPGD friendly.
+- [**Rybbit**](https://rybbit.davincibot.fr) : Google analytics mais RPGD friendly.
 
 #### Sur le VPS Hetzner de Helsinki
 

@@ -76,10 +76,12 @@ const config: Config = {
           routeBasePath: "/", // This makes docs the main page
           // Remove this to remove the "edit this page" links.
           editUrl: "https://github.com/davincibot/docvb/tree/main/",
+          showLastUpdateTime: true,
+          showLastUpdateAuthor: true,
           remarkPlugins: [remarkMath],
           rehypePlugins: [rehypeKatex],
         },
-        blog: false, // Disable blog
+        blog: false,
         theme: {
           customCss: "./src/css/custom.css",
         },
@@ -120,7 +122,16 @@ const config: Config = {
           position: "left",
           label: "CDR",
         },
+        {
+          href: "https://github.com/DaVinciBot/DocVB",
+          position: "right",
+          className: "header-github-link",
+        },
       ],
+    },
+    tableOfContents: {
+      minHeadingLevel: 2,
+      maxHeadingLevel: 3,
     },
     footer: {
       style: "dark",
@@ -143,7 +154,7 @@ const config: Config = {
           items: [
             {
               label: "GitHub",
-              href: "https://github.com/davincibot/docvb",
+              href: "https://github.com/DaVinciBot",
             },
             {
               label: "davincibot.fr",
@@ -156,7 +167,7 @@ const config: Config = {
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} DaVinciBot. Built with Docusaurus.`,
+      copyright: `Copyright © ${new Date().getFullYear()} DaVinciBot.`,
     },
     prism: {
       theme: prismThemes.github,

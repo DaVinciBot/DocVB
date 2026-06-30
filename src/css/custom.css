@@ -46,8 +46,6 @@
   --glass-bg-secondary: rgba(217, 224, 255, 0.6);
   --glass-border: rgba(217, 224, 255, 0.3);
   --glass-border-hover: rgba(9, 88, 239, 0.4);
-  --glass-shadow: 0 8px 32px rgba(9, 88, 239, 0.15);
-  --glass-shadow-hover: 0 20px 60px rgba(9, 88, 239, 0.25);
   --glass-backdrop: blur(20px);
 
   /* Ultra-rounded corners */
@@ -62,10 +60,6 @@
   --ifm-font-weight-bold: 700;
   --ifm-font-weight-black: 900;
   --ifm-line-height-base: 1.6;
-
-  /* Enhanced shadows with glassmorphism */
-  --ifm-box-shadow: var(--glass-shadow);
-  --ifm-box-shadow-lg: var(--glass-shadow-hover);
 
   --docusaurus-highlighted-code-line-bg: rgba(9, 88, 239, 0.1);
 
@@ -99,8 +93,6 @@
   --glass-bg-secondary: rgba(130, 138, 182, 0.15);
   --glass-border: rgba(179, 194, 255, 0.2);
   --glass-border-hover: rgba(118, 162, 246, 0.4);
-  --glass-shadow: 0 8px 32px rgba(1, 1, 40, 0.4);
-  --glass-shadow-hover: 0 20px 60px rgba(1, 1, 40, 0.6);
 
   --docusaurus-highlighted-code-line-bg: rgba(118, 162, 246, 0.2);
 
@@ -128,16 +120,10 @@ body {
   backdrop-filter: var(--glass-backdrop);
   border-bottom: 1px solid var(--glass-border);
   border-radius: 0 0 32px 32px;
-  box-shadow: var(--glass-shadow);
   position: sticky;
   top: 0;
   z-index: 1000;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.navbar:hover {
-  border-bottom-color: var(--glass-border-hover);
-  box-shadow: var(--glass-shadow-hover);
 }
 
 .navbar__item {
@@ -161,8 +147,6 @@ body {
   backdrop-filter: var(--glass-backdrop);
   border-right: 1px solid var(--glass-border);
   border-radius: 0 32px 32px 0;
-  box-shadow: var(--glass-shadow);
-  /* Clip inner hover backgrounds/shadows to the rounded edge */
   overflow: hidden;
   clip-path: inset(0 round 0 32px 32px 0);
 }
@@ -180,7 +164,6 @@ body {
 
 .menu__link:hover {
   background: var(--glass-bg-secondary);
-  box-shadow: 0 4px 16px rgba(9, 88, 239, 0.1);
 }
 
 .menu__link--active {
@@ -188,7 +171,6 @@ body {
   /* color: rgb(190, 0, 0); */
   border-radius: var(--ifm-border-radius);
   font-weight: var(--ifm-font-weight-semibold);
-  box-shadow: var(--glass-shadow);
 }
 
 /* Tutorial Section Styling */
@@ -198,11 +180,6 @@ body {
   border: 1px solid var(--glass-border);
   margin-bottom: 0.5rem;
   overflow: hidden;
-}
-
-.sidebar-tutorial-section .menu__list-item-collapsible:hover {
-  border-color: var(--glass-border-hover);
-  box-shadow: var(--glass-shadow);
 }
 
 /* Enhanced Main Content Area */
@@ -223,16 +200,10 @@ body {
   border: 1px solid var(--glass-border);
   padding: 2.5rem;
   margin: 2rem 0;
-  box-shadow: var(--glass-shadow);
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   /* Ensure child elements' effects don't bleed past the rounding */
   overflow: hidden;
   clip-path: inset(0 round var(--ifm-card-border-radius));
-}
-
-.markdown:hover {
-  border-color: var(--glass-border-hover);
-  box-shadow: var(--glass-shadow-hover);
 }
 
 /* Enhanced Button Styles */
@@ -274,12 +245,10 @@ body {
     var(--dv-main-blue) 0%,
     var(--ifm-color-primary) 100%
   );
-  box-shadow: 0 8px 32px rgba(2, 50, 255, 0.3);
   color: rgb(39, 39, 39);
 }
 
 .button--primary:hover {
-  box-shadow: 0 12px 40px rgba(2, 50, 255, 0.4);
   color: rgb(61, 61, 61);
 }
 
@@ -308,7 +277,6 @@ body {
   background: var(--glass-bg-primary);
   backdrop-filter: var(--glass-backdrop);
   border: 1px solid var(--glass-border);
-  box-shadow: var(--glass-shadow);
   border-radius: var(--ifm-card-border-radius);
   /* This clips the pre/prism scrollbar to the rounded corners */
   overflow: hidden;
@@ -319,7 +287,6 @@ body {
   margin: 0 !important;
   background: transparent;
   border: 0;
-  box-shadow: none;
   border-radius: inherit;
   overflow: auto;
 }
@@ -329,7 +296,6 @@ pre[class*="language-"] {
   background: var(--glass-bg-primary);
   backdrop-filter: var(--glass-backdrop);
   border: 1px solid var(--glass-border);
-  box-shadow: var(--glass-shadow);
   border-radius: var(--ifm-card-border-radius);
   overflow: auto;
 }
@@ -340,7 +306,6 @@ pre[class*="language-"] {
   background: var(--glass-bg-primary);
   backdrop-filter: var(--glass-backdrop);
   border: 1px solid var(--glass-border);
-  box-shadow: var(--glass-shadow);
 }
 
 /* Enhanced Admonitions */
@@ -349,7 +314,6 @@ pre[class*="language-"] {
   background: var(--glass-bg-primary);
   backdrop-filter: var(--glass-backdrop);
   border: 1px solid var(--glass-border);
-  box-shadow: var(--glass-shadow);
   border-left: 4px solid var(--ifm-color-primary);
 }
 
@@ -360,7 +324,6 @@ table {
   background: var(--glass-bg-primary);
   backdrop-filter: var(--glass-backdrop);
   border: 1px solid var(--glass-border);
-  box-shadow: var(--glass-shadow);
 }
 
 /* Enhanced TOC */
@@ -370,9 +333,7 @@ table {
   border-radius: var(--ifm-card-border-radius);
   border: 1px solid var(--glass-border);
   padding: 1.5rem;
-  box-shadow: var(--glass-shadow);
   margin: 1rem 0;
-  /* Clip inner hover backgrounds/shadows to the rounded corners */
   overflow: hidden;
   clip-path: inset(0 round var(--ifm-card-border-radius));
 }
@@ -416,7 +377,6 @@ table {
 
 .tag:hover {
   background: var(--glass-bg-primary);
-  box-shadow: 0 4px 16px rgba(9, 88, 239, 0.1);
 }
 
 /* Enhanced scrollbar */
@@ -446,21 +406,12 @@ table {
   );
 }
 
-/* Enhanced focus states */
-*:focus {
-  outline: 2px solid var(--ifm-color-primary);
-  outline-offset: 2px;
-  outline-style: solid;
-  transition: outline 0.2s ease;
-}
-
 /* Dropdown menu enhancements */
 .dropdown__menu {
   border-radius: var(--ifm-card-border-radius);
   background: var(--glass-bg-primary);
   backdrop-filter: var(--glass-backdrop);
   border: 1px solid var(--glass-border);
-  box-shadow: var(--glass-shadow-hover);
   padding: 0.5rem;
 }
 
@@ -480,7 +431,6 @@ table {
 
 .DocSearch-Button:hover {
   background: var(--glass-bg-primary);
-  box-shadow: var(--glass-shadow);
 }
 
 /* Enhanced heading styles */
@@ -614,8 +564,8 @@ a:hover {
 }
 
 /* --- Mobile Docs Sidebar Fix -------------------------------------------------
-  The custom glassmorphism styles added earlier introduce margin, clipping and
-  shadow to `.theme-doc-sidebar-container`. On small screens Docusaurus switches
+  The custom glassmorphism styles added earlier introduce margin, clipping
+  to `.theme-doc-sidebar-container`. On small screens Docusaurus switches
   to a different layout where the docs sidebar should occupy the full height
   beneath (or overlaying) the navbar. The extra margin + rounded clipping can
   cause part of the sidebar to sit hidden behind the sticky navbar, making it

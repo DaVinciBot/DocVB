@@ -1,3 +1,6 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap");
+@import "katex/dist/katex.min.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -5,9 +8,6 @@
 /**
  * Enhanced Glassmorphism Design with DaVinci Bot Colors
  */
-
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap");
-@import "katex/dist/katex.min.css";
 
 /* DaVinci Bot Color Palette with Glassmorphism */
 :root {
@@ -67,7 +67,15 @@
   --code-background-color: rgba(217, 224, 255, 0.45);
 
   /* Section-header accent thickness (sober, reference-inspired) */
-  --section-header-border: 2.35px;
+  --section-header-border: 2px;
+
+  /* Infima framework variables (declared so editors can resolve them;
+     values match Infima defaults, so runtime behavior is unchanged) */
+  --ifm-navbar-height: 3.75rem;
+  --ifm-transition-fast: 200ms;
+  --ifm-transition-timing-default: cubic-bezier(0.08, 0.52, 0.52, 1);
+  --ifm-navbar-link-color: #1c1e21;
+  --ifm-navbar-link-hover-color: var(--ifm-color-primary);
 }
 
 /* Dark Theme Variables */
@@ -99,6 +107,8 @@
   --dv-dark-blue-bg-sidebar: rgba(1, 1, 40, 0.95);
 
   --code-background-color: rgba(130, 138, 182, 0.18);
+
+  --ifm-navbar-link-color: #ebedf0;
 }
 
 /* Global Enhancements */

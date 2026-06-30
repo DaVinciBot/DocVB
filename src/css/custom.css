@@ -153,7 +153,6 @@ body {
 .navbar__link:hover {
   background: var(--glass-bg-secondary);
   border-radius: var(--ifm-button-border-radius);
-  transform: translateY(-1px);
 }
 
 /* Enhanced Glassmorphism Sidebar */
@@ -181,7 +180,6 @@ body {
 
 .menu__link:hover {
   background: var(--glass-bg-secondary);
-  transform: translateX(4px);
   box-shadow: 0 4px 16px rgba(9, 88, 239, 0.1);
 }
 
@@ -235,7 +233,6 @@ body {
 .markdown:hover {
   border-color: var(--glass-border-hover);
   box-shadow: var(--glass-shadow-hover);
-  transform: translateY(-2px);
 }
 
 /* Enhanced Button Styles */
@@ -282,7 +279,6 @@ body {
 }
 
 .button--primary:hover {
-  transform: translateY(-3px);
   box-shadow: 0 12px 40px rgba(2, 50, 255, 0.4);
   color: rgb(61, 61, 61);
 }
@@ -296,7 +292,6 @@ body {
 
 .button--secondary:hover {
   background: var(--glass-bg-secondary);
-  transform: translateY(-3px);
   border-color: var(--glass-border-hover);
   color: var(--ifm-color-primary);
 }
@@ -385,7 +380,6 @@ table {
 .table-of-contents__link:hover {
   background: var(--glass-bg-secondary);
   border-radius: var(--ifm-border-radius);
-  transform: translateX(4px);
 }
 
 /* Enhanced Footer */
@@ -422,7 +416,6 @@ table {
 
 .tag:hover {
   background: var(--glass-bg-primary);
-  transform: translateY(-1px);
   box-shadow: 0 4px 16px rgba(9, 88, 239, 0.1);
 }
 
@@ -487,7 +480,6 @@ table {
 
 .DocSearch-Button:hover {
   background: var(--glass-bg-primary);
-  transform: translateY(-1px);
   box-shadow: var(--glass-shadow);
 }
 
@@ -533,7 +525,6 @@ a {
 
 a:hover {
   text-decoration-color: var(--ifm-color-primary);
-  transform: translateY(-1px);
 }
 
 /* Animation keyframes */

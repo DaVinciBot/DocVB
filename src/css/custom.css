@@ -68,6 +68,12 @@
   --ifm-box-shadow-lg: var(--glass-shadow-hover);
 
   --docusaurus-highlighted-code-line-bg: rgba(9, 88, 239, 0.1);
+
+  /* Inline code / subtle surfaces */
+  --code-background-color: rgba(217, 224, 255, 0.45);
+
+  /* Section-header accent thickness (sober, reference-inspired) */
+  --section-header-border: 2.35px;
 }
 
 /* Dark Theme Variables */
@@ -99,6 +105,8 @@
   --docusaurus-highlighted-code-line-bg: rgba(118, 162, 246, 0.2);
 
   --dv-dark-blue-bg-sidebar: rgba(1, 1, 40, 0.95);
+
+  --code-background-color: rgba(130, 138, 182, 0.18);
 }
 
 /* Global Enhancements */
@@ -667,4 +675,69 @@ a:hover {
 
 .header-github-link:hover::before {
   background-color: var(--ifm-navbar-link-hover-color);
+}
+
+@layer custom {
+  /* --- Section headers ---------------------------------------------------- */
+  .markdown h2 {
+    /* Allow an inline icon next to the heading text */
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+
+    /* Visual separator between sections */
+    border-top: var(--section-header-border) solid var(--ifm-color-primary);
+    padding-top: 40px;
+    margin-top: 2.5rem;
+  }
+
+  /* The first H2 right after the page header should not get a separator */
+  .markdown header + h2 {
+    border-top: none;
+    padding-top: 0;
+    margin-top: 0;
+  }
+
+  /* Lucide icons placed inside headings scale with the text */
+  .markdown h2 .lucide,
+  .markdown h3 .lucide,
+  .markdown h4 .lucide {
+    width: 1em;
+    height: 1em;
+    flex-shrink: 0;
+  }
+
+  /* --- Inline code -------------------------------------------------------- */
+  .markdown code {
+    background-color: var(--code-background-color);
+  }
+
+  /* --- Link states -------------------------------------------------------- */
+  .markdown a:not(.card):not([class*="button"]) {
+    color: var(--ifm-color-primary);
+    text-decoration: underline dotted;
+    transition: color 0.2s ease;
+  }
+
+  .markdown a:not(.card):not([class*="button"]):hover {
+    text-decoration: underline solid;
+  }
+
+  .markdown a:not(.card):not([class*="button"]):hover:not(:visited) {
+    color: var(--ifm-color-primary-dark);
+  }
+
+  .markdown a:not(.card):not([class*="button"]):visited {
+    color: var(--dv-blue-gray);
+  }
+
+  .markdown a:not(.card):not([class*="button"]):focus {
+    color: var(--ifm-color-primary);
+  }
+
+  /* Keep the heading anchor (#) on the primary color regardless of state */
+  .markdown a.hash-link {
+    color: var(--ifm-color-primary);
+    text-decoration: none;
+  }
 }

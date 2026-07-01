@@ -123,9 +123,10 @@ const config: Config = {
           label: "CDR",
         },
         {
-          href: "https://github.com/DaVinciBot/DocVB",
+          href: "https://github.com/DaVinciBot",
           position: "right",
           className: "header-github-link",
+          "aria-label": "GitHub DaVinciBot",
         },
       ],
     },

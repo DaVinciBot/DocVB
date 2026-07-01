@@ -1,0 +1,145 @@
+/* Space Grotesk */
+@font-face {
+  font-family: "Space Grotesk";
+  font-style: normal;
+  font-weight: 300 700;
+  font-display: swap;
+  src: url("../fonts/SpaceGrotesk-latin.woff2") format("woff2");
+}
+
+/* Outfit */
+@font-face {
+  font-family: "Outfit";
+  font-style: normal;
+  font-weight: 300 700;
+  font-display: swap;
+  src: url("../fonts/Outfit-latin.woff2") format("woff2");
+}
+
+/* JetBrains Mono */
+@font-face {
+  font-family: "JetBrains Mono";
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url("../fonts/JetBrainsMono-latin.woff2") format("woff2");
+}
+
+:root {
+  /* Font Texte */
+  --ifm-font-family-base: "Space Grotesk", system-ui, -apple-system, "Segoe UI",
+    Roboto, sans-serif;
+  --ifm-font-weight-base: 400;
+
+  /* Font Titres */
+  --ifm-heading-font-family: "Outfit", system-ui, -apple-system, "Segoe UI",
+    Roboto, sans-serif;
+  --ifm-heading-font-weight: 600;
+
+  /* Font Code */
+  --ifm-font-family-monospace: "JetBrains Mono", ui-monospace, SFMono-Regular,
+    "SF Mono", Menlo, Consolas, monospace;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.navbar__title,
+.hero__title {
+  font-family: var(--ifm-heading-font-family);
+  letter-spacing: -0.015em;
+}
+
+.navbar,
+.menu,
+.table-of-contents {
+  font-family: var(--ifm-heading-font-family);
+}
+
+.navbar__title {
+  display: none;
+}
+
+.navbar__link {
+  font-weight: 400;
+  padding: 4px 14px;
+}
+.navbar__brand, .navbar__logo {
+  margin-right: 5px;
+}
+
+.table-of-contents,
+.menu{
+  font-weight: 300;
+}
+
+.navbar__search-input {
+  font-family: var(--ifm-heading-font-family);
+}
+
+.breadcrumbs__item {
+  font-family: var(--ifm-font-family-monospace);
+}
+
+.breadcrumbs__item:not(:last-child)::after {
+  content: "/";
+  background: none;
+  width: auto;
+  height: auto;
+  filter: none;
+  opacity: 0.4;
+  margin: 0 0.75rem;
+}
+
+.breadcrumbs__link {
+  background: none;
+  padding: 0;
+  box-shadow: none;
+  transition: color 0.15s;
+}
+
+a.breadcrumbs__link:hover,
+a.breadcrumbs__link:focus,
+a.breadcrumbs__link:active {
+  background: none;
+  box-shadow: none;
+  color: var(--ifm-color-primary);
+}
+
+span.breadcrumbs__link:hover,
+span.breadcrumbs__link:focus {
+  background: none;
+  box-shadow: none;
+}
+
+.navbar [class*="toggleButton"]:hover,
+.navbar [class*="toggleButton"]:focus,
+.navbar [class*="toggleButton"]:active {
+  background: none;
+  box-shadow: none;
+  color: var(--ifm-color-primary);
+}
+
+.header-github-link {
+  display: flex;
+  align-items: center;
+  padding: var(--ifm-navbar-item-padding-vertical)
+    var(--ifm-navbar-item-padding-horizontal);
+  transition: color 0.15s;
+}
+
+.header-github-link::before {
+  content: "";
+  width: 20px;
+  height: 20px;
+  background-color: var(--ifm-navbar-link-color);
+  mask: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12'/%3E%3C/svg%3E")
+    no-repeat center / contain;
+}
+
+.header-github-link:hover::before {
+  background-color: var(--ifm-color-primary);
+}

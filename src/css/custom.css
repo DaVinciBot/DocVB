@@ -148,3 +148,9 @@ h2 {
   border-top: 1px solid var(--ifm-color-primary);
   padding-top: 40px;
 }
+
+.markdown {
+  border: 1px solid var(--ifm-color-primary);
+  border-radius: 20px;
+  padding: 35px 40px;
+}

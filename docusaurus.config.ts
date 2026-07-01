@@ -80,21 +80,6 @@ const config: Config = {
           showLastUpdateAuthor: true,
           remarkPlugins: [remarkMath],
           rehypePlugins: [rehypeKatex],
-          // Uniformize sidebar categories on the "integrated" style: never
-          // auto-pick a doc as a category index/link, so the whole category
-          // row toggles expand/collapse (no separate arrow button). The former
-          // index docs simply become regular items inside their category.
-          async sidebarItemsGenerator({
-            defaultSidebarItemsGenerator,
-            ...args
-          }) {
-            return defaultSidebarItemsGenerator({
-              ...args,
-              isCategoryIndex() {
-                return false;
-              },
-            });
-          },
         },
         blog: false,
         theme: {

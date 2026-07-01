@@ -143,3 +143,8 @@ span.breadcrumbs__link:focus {
 .header-github-link:hover::before {
   background-color: var(--ifm-color-primary);
 }
+
+h2 {
+  border-top: 1px solid var(--ifm-color-primary);
+  padding-top: 40px;
+}

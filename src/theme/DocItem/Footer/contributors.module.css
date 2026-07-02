@@ -30,7 +30,7 @@
   align-items: center;
   gap: 0.75rem;
   padding: 0.5rem;
-  border: 1px solid var(--ifm-heading-color);
+  border: 1px solid var(--dvb-edge);
   color: var(--ifm-font-color-base);
   text-decoration: none;
   transition:

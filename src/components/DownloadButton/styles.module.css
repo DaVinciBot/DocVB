@@ -5,7 +5,7 @@
   margin: 0;
   color: var(--ifm-heading-color);
   background-color: transparent;
-  border: 1px solid var(--ifm-heading-color);
+  border: 1px solid var(--dvb-edge);
   border-radius: 0;
   font-family: var(--dvb-font-sans);
   font-weight: 500;

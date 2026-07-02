@@ -1,16 +1,17 @@
 .downloadGroup {
   margin: 2rem 0;
   padding: 1.5rem;
-  background: var(--ifm-background-surface-color);
-  border-radius: 8px;
-  border: 1px solid var(--ifm-color-emphasis-200);
+  background: none;
+  border: 1px solid var(--ifm-heading-color);
+  border-radius: 0;
 }
 
 .groupTitle {
-  margin-top: 0;
-  margin-bottom: 1rem;
-  color: var(--ifm-color-primary);
-  font-size: 1.1rem;
+  margin: 0 0 1rem;
+  font-family: var(--ifm-heading-font-family);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--ifm-heading-color);
 }
 
 .buttonContainer {

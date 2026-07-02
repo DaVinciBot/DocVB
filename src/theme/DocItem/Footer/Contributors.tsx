@@ -49,33 +49,30 @@ export default function Contributors({
 
           return (
             <li key={username} className={styles.contributor}>
-              <figure>
-                <a
-                  href={profileUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  title={username}
-                  aria-label={`Ouvrir le profil de ${username} (nouvel onglet)`}
-                >
-                  <img
-                    className={styles.avatar}
-                    src={avatarUrl}
-                    alt={`Avatar de ${username}`}
-                    width={70}
-                    height={70}
-                    loading="lazy"
-                    decoding="async"
-                    onError={(e) => {
-                      if (e.currentTarget.src !== FALLBACK_AVATAR) {
-                        e.currentTarget.src = FALLBACK_AVATAR;
-                      }
-                    }}
-                  />
-                </a>
-                <figcaption className={styles.caption} title={username}>
-                  {username}
-                </figcaption>
-              </figure>
+              <a
+                className={styles.card}
+                href={profileUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                title={username}
+                aria-label={`Ouvrir le profil de ${username} (nouvel onglet)`}
+              >
+                <img
+                  className={styles.avatar}
+                  src={avatarUrl}
+                  alt={`Avatar de ${username}`}
+                  width={44}
+                  height={44}
+                  loading="lazy"
+                  decoding="async"
+                  onError={(e) => {
+                    if (e.currentTarget.src !== FALLBACK_AVATAR) {
+                      e.currentTarget.src = FALLBACK_AVATAR;
+                    }
+                  }}
+                />
+                <span className={styles.name}>{username}</span>
+              </a>
             </li>
           );
         })}

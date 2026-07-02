@@ -91,8 +91,8 @@ const config: Config = {
 
   themeConfig: {
     colorMode: {
-      defaultMode: "dark",
-      respectPrefersColorScheme: false,
+      defaultMode: "light",
+      respectPrefersColorScheme: true,
     },
     // Replace with your project's social card
     image: "img/dvb_og_img.jpg",
@@ -136,6 +136,12 @@ const config: Config = {
     },
     footer: {
       style: "dark",
+      logo: {
+        alt: "DaVinciBot",
+        src: "img/logo_dark.svg",
+        href: "https://davincibot.fr",
+        width: 40,
+      },
       links: [
         {
           title: "Community",

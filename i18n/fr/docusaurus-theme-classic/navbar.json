@@ -1,0 +1,22 @@
+{
+  "title": {
+    "message": "DaVinciBot",
+    "description": "The title in the navbar"
+  },
+  "logo.alt": {
+    "message": "DaVinciBot Logo",
+    "description": "The alt text of navbar logo"
+  },
+  "item.label.Minis-projets": {
+    "message": "Minis-projets",
+    "description": "Navbar item with label Minis-projets"
+  },
+  "item.label.Formation": {
+    "message": "Formation",
+    "description": "Navbar item with label Formation"
+  },
+  "item.label.CDR": {
+    "message": "CDR",
+    "description": "Navbar item with label CDR"
+  }
+}

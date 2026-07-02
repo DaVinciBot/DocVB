@@ -16,5 +16,6 @@
   },
   "markdownlint.config": {
     "MD033": false
-  }
+  },
+  "js/ts.experimental.useTsgo": false
 }

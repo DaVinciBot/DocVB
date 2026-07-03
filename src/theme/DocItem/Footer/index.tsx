@@ -8,7 +8,7 @@ import Contributors, { type Contributor } from "./Contributors";
 type Props = WrapperProps<typeof FooterType>;
 
 /**
- * Wraps the default doc footer and appends a "Contributeurs" block built from
+ * Wraps the default doc footer and appends a "Contributeur·ice·s" block built from
  * the page frontmatter. Contributors are declared manually via the
  * `additional_contributors` frontmatter key (no GitHub API call):
  *

@@ -5,7 +5,7 @@ sur la documentation DaVinciBot. L'objectif est de garder une documentation **co
 accessible et pédagogique** d'un tutoriel à l'autre.
 
 > Ce fichier est préfixé par `_` : il n'est **pas** publié comme page du site, il sert
-> uniquement de référence aux contributeurs.
+> uniquement de référence aux contributeur·ice·s.
 
 ## Philosophie
 
@@ -47,7 +47,7 @@ additional_contributors:
 ---
 ```
 
-- `additional_contributors` alimente le bloc **Contributeurs** affiché en bas de page.
+- `additional_contributors` alimente le bloc **Contributeur·ice·s** affiché en bas de page.
   C'est une déclaration manuelle (pas de récupération automatique via GitHub).
 - Pour masquer ce bloc sur une page, ajouter `show_contributors: false`.
 

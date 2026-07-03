@@ -31,14 +31,14 @@ export default function Contributors({
   }
 
   const sorted = [...contributors].sort((a, b) =>
-    a.username.localeCompare(b.username)
+    a.username.localeCompare(b.username),
   );
 
   return (
     <div className={styles.contributors}>
       <h3 className={styles.heading}>
         <Users className={styles.headingIcon} aria-hidden="true" />
-        Contributeurs
+        Contributeur·ice·s
       </h3>
 
       <ul className={styles.wrapper}>

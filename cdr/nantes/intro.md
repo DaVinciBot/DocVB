@@ -1,7 +1,9 @@
 ---
 title: Documentation CDR Nantes
+description: Accueil de la documentation de la Coupe de France de Robotique de l'équipe de Nantes.
+slug: intro
 sidebar_position: 1
-tags: [CDR, Nantes]
+tags: [cdr, nantes]
 ---
 
 Bienvenue sur la documentation de la Coupe de France de Robotique de l'équipe de Nantes.

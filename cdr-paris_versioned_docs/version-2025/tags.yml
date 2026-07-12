@@ -1,0 +1,141 @@
+# Registre des tags de la documentation.
+# Clé (id) en minuscules, `label` avec majuscule — le label est affiché sur le site,
+# l'id sert dans le frontmatter (`tags: [info, docker]`) et dans les permaliens.
+
+# --- Types de contenu ---
+course:
+  label: Cours
+  permalink: /course
+  description: Supports de cours et formations complètes.
+info:
+  label: Info
+  permalink: /info
+  description: Informatique et développement logiciel.
+electronique:
+  label: Électronique
+  permalink: /electronique
+  description: Électronique, cartes et circuits imprimés.
+sysadmin:
+  label: Sysadmin
+  permalink: /sysadmin
+  description: Administration système et infrastructure.
+oss:
+  label: Open Source
+  permalink: /oss
+  description: Projets open source de l'association.
+robotique:
+  label: Robotique
+  permalink: /robotique
+  description: Robotique — architecture, capteurs, navigation.
+
+# --- Technologies ---
+docker:
+  label: Docker
+  permalink: /docker
+  description: Conteneurisation avec Docker.
+linux:
+  label: Linux
+  permalink: /linux
+  description: Système d'exploitation Linux et ligne de commande.
+git:
+  label: Git
+  permalink: /git
+  description: Gestion de version avec Git.
+latex:
+  label: LaTeX
+  permalink: /latex
+  description: Rédaction de documents avec LaTeX.
+rust:
+  label: Rust
+  permalink: /rust
+  description: Langage de programmation Rust.
+csharp:
+  label: C#
+  permalink: /csharp
+  description: Langage de programmation C#.
+postgresql:
+  label: PostgreSQL
+  permalink: /postgresql
+  description: Base de données PostgreSQL.
+kicad:
+  label: KiCad
+  permalink: /kicad
+  description: Conception de PCB avec KiCad.
+ros2:
+  label: ROS 2
+  permalink: /ros2
+  description: Robot Operating System 2.
+gazebo:
+  label: Gazebo
+  permalink: /gazebo
+  description: Simulation robotique avec Gazebo.
+webots:
+  label: Webots
+  permalink: /webots
+  description: Simulation robotique avec Webots.
+matrix:
+  label: Matrix
+  permalink: /matrix
+  description: Messagerie sécurisée Matrix.
+docusaurus:
+  label: Docusaurus
+  permalink: /docusaurus
+  description: Le générateur de ce site de documentation.
+kubernetes:
+  label: Kubernetes
+  permalink: /kubernetes
+  description: Orchestration de conteneurs (K3s/Kubernetes).
+nixos:
+  label: NixOS
+  permalink: /nixos
+  description: Distribution Linux déclarative NixOS.
+teensy:
+  label: Teensy
+  permalink: /teensy
+  description: Microcontrôleurs Teensy.
+esp32:
+  label: ESP32
+  permalink: /esp32
+  description: Microcontrôleurs ESP32.
+lidar:
+  label: LiDAR
+  permalink: /lidar
+  description: Capteurs LiDAR et détection.
+vision:
+  label: Vision
+  permalink: /vision
+  description: Vision par ordinateur.
+
+# --- Domaines ---
+database:
+  label: Base de données
+  permalink: /database
+  description: Bases de données et modélisation.
+testing:
+  label: Tests
+  permalink: /testing
+  description: Tests logiciels et qualité de code.
+pcb:
+  label: PCB
+  permalink: /pcb
+  description: Conception de circuits imprimés.
+emc:
+  label: EMC
+  permalink: /emc
+  description: Compatibilité électromagnétique (CEM/EMC).
+cluster:
+  label: Cluster
+  permalink: /cluster
+  description: Cluster K3s auto-hébergé de DaVinciBot.
+cdr:
+  label: CDR
+  permalink: /cdr
+  description: Coupe de France de Robotique.
+paris:
+  label: Paris
+  permalink: /paris
+  description: Équipe DaVinciBot Paris (ESILV Paris).
+nantes:
+  label: Nantes
+  permalink: /nantes
+  description: Équipe DaVinciBot Nantes (ESILV Nantes).

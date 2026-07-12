@@ -1,10 +1,16 @@
 ---
 id: branches
-title: Gestion des Branches
+sidebar_label: Gestion des Branches
+title: État et Résumé des Branches
+description: Inventaire des branches Git actives du projet, de leur rôle et de leur statut.
+slug: branches
 sidebar_position: 5
+tags: [cdr, nantes, git]
+additional_contributors:
+  - username: Antoine
+    html_url: https://github.com/Antoine190
+    avatar_url: https://github.com/Antoine190.png
 ---
-
-# État et Résumé des Branches
 
 Ce document dresse un inventaire des branches Git actives du projet et de leur statut.
 

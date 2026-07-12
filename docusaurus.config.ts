@@ -43,7 +43,7 @@ const config: Config = {
       "@docusaurus/plugin-content-docs",
       {
         id: "cdr-paris",
-        path: "docs/cdr/paris",
+        path: "cdr/paris",
         routeBasePath: "cdr/paris",
         sidebarPath: "./sidebars/cdr.ts",
         editUrl: "https://github.com/davincibot/docvb/tree/main/",
@@ -51,7 +51,7 @@ const config: Config = {
         showLastUpdateAuthor: false,
         remarkPlugins: [remarkMath],
         rehypePlugins: [rehypeKatex],
-        // Versionnage année par année : la doc de travail (docs/cdr/paris)
+        // Versionnage année par année : la doc de travail (cdr/paris)
         // correspond à la saison en cours, les saisons passées sont archivées
         // via `npm run docusaurus docs:version:cdr-paris <année>`.
         lastVersion: "current",
@@ -72,7 +72,7 @@ const config: Config = {
       "@docusaurus/plugin-content-docs",
       {
         id: "cdr-nantes",
-        path: "docs/cdr/nantes",
+        path: "cdr/nantes",
         routeBasePath: "cdr/nantes",
         sidebarPath: "./sidebars/cdr.ts",
         editUrl: "https://github.com/davincibot/docvb/tree/main/",
@@ -127,16 +127,6 @@ const config: Config = {
         docs: {
           sidebarPath: "./sidebars/main.ts",
           routeBasePath: "/", // This makes docs the main page
-          // docs/cdr est géré par l'instance de plugin "cdr" (versionnée) ;
-          // les autres motifs sont les exclusions par défaut de Docusaurus,
-          // qu'il faut redéclarer dès qu'on définit `exclude`.
-          exclude: [
-            "**/_*.{js,jsx,ts,tsx,md,mdx}",
-            "**/_*/**",
-            "**/*.test.{js,jsx,ts,tsx}",
-            "**/__tests__/**",
-            "cdr/**",
-          ],
           // Remove this to remove the "edit this page" links.
           editUrl: "https://github.com/davincibot/docvb/tree/main/",
           showLastUpdateTime: true,

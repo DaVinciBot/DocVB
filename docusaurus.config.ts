@@ -43,9 +43,9 @@ const config: Config = {
       "@docusaurus/plugin-content-docs",
       {
         id: "cdr",
-        path: "cdr",
+        path: "docs/cdr",
         routeBasePath: "cdr",
-        sidebarPath: "./sidebarsCdr.ts",
+        sidebarPath: "./sidebars/cdr.ts",
         editUrl: "https://github.com/davincibot/docvb/tree/main/",
         showLastUpdateTime: true,
         showLastUpdateAuthor: false,
@@ -101,8 +101,18 @@ const config: Config = {
       "classic",
       {
         docs: {
-          sidebarPath: "./sidebars.ts",
+          sidebarPath: "./sidebars/main.ts",
           routeBasePath: "/", // This makes docs the main page
+          // docs/cdr est géré par l'instance de plugin "cdr" (versionnée) ;
+          // les autres motifs sont les exclusions par défaut de Docusaurus,
+          // qu'il faut redéclarer dès qu'on définit `exclude`.
+          exclude: [
+            "**/_*.{js,jsx,ts,tsx,md,mdx}",
+            "**/_*/**",
+            "**/*.test.{js,jsx,ts,tsx}",
+            "**/__tests__/**",
+            "cdr/**",
+          ],
           // Remove this to remove the "edit this page" links.
           editUrl: "https://github.com/davincibot/docvb/tree/main/",
           showLastUpdateTime: true,

@@ -4,11 +4,11 @@
     "description": "The label for version 2025"
   },
   "sidebar.cdrSidebar.category.elek": {
-    "message": "elek",
+    "message": "Électronique",
     "description": "The label for category elek in sidebar cdrSidebar"
   },
   "sidebar.cdrSidebar.category.info": {
-    "message": "info",
+    "message": "Informatique",
     "description": "The label for category info in sidebar cdrSidebar"
   }
 }

@@ -2,5 +2,21 @@
   "version.label": {
     "message": "2025/2026",
     "description": "The label for version current"
+  },
+  "sidebar.cdrSidebar.category.Informatique": {
+    "message": "Informatique",
+    "description": "The label for category Informatique in sidebar cdrSidebar"
+  },
+  "sidebar.cdrSidebar.category.architecture": {
+    "message": "Architecture",
+    "description": "The label for category architecture in sidebar cdrSidebar"
+  },
+  "sidebar.cdrSidebar.category.features": {
+    "message": "Fonctionnalités",
+    "description": "The label for category features in sidebar cdrSidebar"
+  },
+  "sidebar.cdrSidebar.category.modules": {
+    "message": "Modules",
+    "description": "The label for category modules in sidebar cdrSidebar"
   }
 }

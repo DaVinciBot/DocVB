@@ -15,8 +15,12 @@
     "message": "Formation",
     "description": "Navbar item with label Formation"
   },
-  "item.label.CDR": {
-    "message": "CDR",
-    "description": "Navbar item with label CDR"
+  "item.label.CDR Paris": {
+    "message": "CDR Paris",
+    "description": "Navbar item with label CDR Paris"
+  },
+  "item.label.CDR Nantes": {
+    "message": "CDR Nantes",
+    "description": "Navbar item with label CDR Nantes"
   }
 }

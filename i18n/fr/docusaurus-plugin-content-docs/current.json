@@ -1,42 +1,30 @@
 {
   "version.label": {
-    "message": "Next",
+    "message": "Suivant",
     "description": "The label for version current"
   },
   "sidebar.tutorialSidebar.category.PCB Design": {
     "message": "PCB Design",
     "description": "The label for category PCB Design in sidebar tutorialSidebar"
   },
-  "sidebar.tutorialSidebar.category.Prise en main des outils": {
-    "message": "Prise en main des outils",
-    "description": "The label for category Prise en main des outils in sidebar tutorialSidebar"
-  },
-  "sidebar.tutorialSidebar.category.Informatique": {
+  "sidebar.tutorialSidebar.category.info": {
     "message": "Informatique",
-    "description": "The label for category Informatique in sidebar tutorialSidebar"
+    "description": "The label for category info in sidebar tutorialSidebar"
   },
-  "sidebar.tutorialSidebar.category.Parcours LaTeX (Overleaf)": {
-    "message": "Parcours LaTeX (Overleaf)",
-    "description": "The label for category Parcours LaTeX (Overleaf) in sidebar tutorialSidebar"
+  "sidebar.tutorialSidebar.category.prise-en-main-des-outils": {
+    "message": "Prise en main des outils",
+    "description": "The label for category prise-en-main-des-outils in sidebar tutorialSidebar"
   },
   "sidebar.tutorialSidebar.category.ros": {
-    "message": "ros",
+    "message": "ROS",
     "description": "The label for category ros in sidebar tutorialSidebar"
   },
-  "sidebar.docSidebar.category.Cluster": {
+  "sidebar.docSidebar.category.cluster": {
     "message": "Cluster",
-    "description": "The label for category Cluster in sidebar docSidebar"
+    "description": "The label for category cluster in sidebar docSidebar"
   },
   "sidebar.docSidebar.category.open-weight": {
-    "message": "open-weight",
+    "message": "Open Weight",
     "description": "The label for category open-weight in sidebar docSidebar"
-  },
-  "sidebar.cdrSidebar.category.elek": {
-    "message": "elek",
-    "description": "The label for category elek in sidebar cdrSidebar"
-  },
-  "sidebar.cdrSidebar.category.info": {
-    "message": "info",
-    "description": "The label for category info in sidebar cdrSidebar"
   }
 }

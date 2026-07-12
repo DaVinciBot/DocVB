@@ -15,7 +15,39 @@ L'orientation des moteurs dans le repère local du robot est la suivante :
 - **Roue 2 (Avant-Gauche)** : Orientée à 240°
 - **Roue 3 (Arrière)** : Orientée à 0° (axe horizontal)
 
-## 2. Cinématique Inverse (Calcul des Consignes Moteurs)
+
+```
+             Y+ (avant)
+              ^
+              |
+    [W2 240°] | [W1 120°]
+              |
+    X- ───────+──────── X+
+              |
+          [W3 0°]
+              |
+             Y- (arrière)
+```
+
+| Roue | Position physique | Angle cinématique | STEP | DIR | EN |
+|------|------------------|-------------------|------|-----|----|
+| W1   | Haut Droite      | 120°              | 2    | 3   | 4  |
+| W2   | Haut Gauche      | 240°              | 5    | 6   | 7  |
+| W3   | Arrière          | 0°                | 8    | 9   | 10 |
+
+Parametre physique du robot dans config.h
+
+| Paramètre | Valeur |
+|---|---|
+| Rayon robot (centre → axe roue) | 156.9 mm |
+| Diamètre roue effectif | 60.0 mm |
+| Steps/révolution (NEMA 23) | 200 |
+| Microstepping | 32 |
+| Steps totaux/tour | 6 400 |
+| Vitesse max | 20 000 steps/s |
+| Accélération max | 10 000 steps/s² |
+
+## 2. Cinématique Inverse (Calcul des Consignes Moteurs) 
 
 La cinématique inverse transforme les consignes globales de vitesse cible du robot ($V_x$, $V_y$, $\Omega$) en consignes de rotation individuelles pour chaque roue ($W_1$, $W_2$, $W_3$).
 
@@ -42,8 +74,8 @@ $$
 
 *Note : $0.866$ correspond à $\sin(120°)$ et $-0.5$ correspond à $\cos(120°)$.*
 
-  <!-- robot1/teensy_moteur/lib/holonomic_basis/src/holonomic_basis.cpp -->
-  ```cpp
+> `robot1/teensy_moteur/lib/holonomic_basis/src/holonomic_basis.cpp`
+```cpp
       //Equation de mouvements
       // Roue 1 avec axe à 120° : cos(120°) = -0.5, sin(120°) = +0.866
       double w1 = -0.5*vx_rpm + 0.866*vy_rpm - omega_rpm;
@@ -56,8 +88,8 @@ Afin de ne pas endommager la mécanique par des à-coups, les vitesses calculée
 $$ W_{\text{filtered}} = \alpha \cdot W_{\text{new}} + (1 - \alpha) \cdot W_{\text{filtered}} $$
 Le coefficient $\alpha$ (`speed_filter_alpha`) est fixé à `0.3` par défaut. 
 
-  <!-- robot1/teensy_moteur/lib/holonomic_basis/src/holonomic_basis.cpp -->
-  ```cpp
+> `robot1/teensy_moteur/lib/holonomic_basis/src/holonomic_basis.cpp`
+```cpp
       // Application du filtre passe-bas pour lisser les changements de vitesse
       // Formule : filtered = alpha * new_value + (1 - alpha) * old_value
       filtered_wheel1_rpm = speed_filter_alpha * last_wheel1_rpm + (1.0 - speed_filter_alpha) * filtered_wheel1_rpm;

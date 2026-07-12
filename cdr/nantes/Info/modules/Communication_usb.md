@@ -45,10 +45,10 @@ Les identifiants (`Messages` dans `messages.py` / `messages.h`) respectent une c
 | 127 | `NACK` | Bidirectionnel | Signalement d'une erreur CRC ou trame invalide |
 | 128 | `UPDATE_ROLLING_BASIS`| Teensy → Rasp | Envoi de l'odométrie haute fréquence |
 | 129 | `SWITCH_STATE_RETURN` | Teensy → Rasp | Rapport d'état d'un interrupteur |
-| 130 | `LIDAR_SCAN_PART1` | Teensy → Rasp | Données de scan LIDAR simulé (0-89°) |
-| 131 | `LIDAR_SCAN_PART2` | Teensy → Rasp | Données de scan LIDAR simulé (90-179°) |
-| 132 | `LIDAR_SCAN_PART3` | Teensy → Rasp | Données de scan LIDAR simulé (180-269°) |
-| 133 | `LIDAR_SCAN_PART4` | Teensy → Rasp | Données de scan LIDAR simulé (270-359°) |
+| 130 | `LIDAR_SCAN_PART1` Pour Webot | Teensy → Rasp | Données de scan LIDAR simulé (0-89°) |
+| 131 | `LIDAR_SCAN_PART2` Pour Webot | Teensy → Rasp | Données de scan LIDAR simulé (90-179°) |
+| 132 | `LIDAR_SCAN_PART3` Pour Webot | Teensy → Rasp | Données de scan LIDAR simulé (180-269°) |
+| 133 | `LIDAR_SCAN_PART4` Pour Webot | Teensy → Rasp | Données de scan LIDAR simulé (270-359°) |
 | 254 | `PRINT` | Teensy → Rasp | Message de log ou debug |
 | 255 | `UNKNOWN_MSG_TYPE` | Interne | Identifiant de commande inconnu |
 
@@ -61,7 +61,7 @@ L'architecture logicielle repose sur un système asynchrone basé sur des **call
 - **Classe `Com`** : Maintient un thread de réception permanent (`_receiver_thread`). Dès qu'un `END_BYTES_SIGNATURE` est détecté, la trame est isolée.
 - **Vérification CRC** : Si le hash correspond, le premier octet (`msg_type`) est utilisé comme clé dans le dictionnaire `message_id_callback` pour appeler la fonction correspondante (ex: mettre à jour l'objet `Robot`).
 
-  <!-- common/usb_com/python/com/com.py -->
+  {/* common/usb_com/python/com/com.py */}
   ```python
   def add_callback(self, func: Callable[[bytes], None], iid: int) -> None:
       """Registers a callback for a specific message ID.
@@ -79,7 +79,7 @@ L'architecture logicielle repose sur un système asynchrone basé sur des **call
 - **Classe `Com`** : Ne lance pas de thread (monothread C++) mais propose une méthode `handle_callback()` appelée dans le `loop()` principal de la Teensy (`src/main.cpp`).
 - **Retransmission automatique** : Le C++ conserve un pointeur `last_message* last_msg`. Si la Raspberry Pi envoie un `NACK (127)`, la Teensy republie ce buffer sans mobiliser la logique métier. La logique miroir est exécutée côté Python.
 
-  <!-- common/usb_com/cpp/src/com.cpp -->
+  {/* common/usb_com/cpp/src/com.cpp */}
   ```cpp
   // Compute CRC
   byte crc_b = crc.digest(full_msg, size + 1);

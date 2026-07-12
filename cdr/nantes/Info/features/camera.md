@@ -2,10 +2,9 @@
 id: camera
 title: Détection Caméra (Objets)
 ---
-
-:::warning Implémentation incomplète
+Implémentation incomplète
 Cette fonctionnalité est actuellement en cours de développement sur la branche `features/camera_finir_implementation` et n'est pas encore intégrée à la branche `main`.
-:::
+
 
 # Module Caméra
 

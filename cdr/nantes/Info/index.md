@@ -29,10 +29,10 @@ Les communications entre ces deux niveaux sont assurées par un protocole série
 
 La présente documentation est basée sur la version la plus récente du code (post-CDR).
 
-:::warning Avertissement sur l'implémentation Lidar / Navigation
+warning : Avertissement sur l'implémentation Lidar / Navigation
 Durant la Coupe, suite à des pressions temporelles, une tentative de contournement a été faite pour faire tourner certaines logiques (comme le traitement Lidar) de façon déportée ou simplifiée, sans passer pleinement par la Raspberry Pi. 
 Cette solution temporaire n'a pas pu être testée en conditions réelles. L'architecture cible stipule que cette logique doit être gérée par la Raspberry Pi. Le code Lidar existant est donc à considérer comme **expérimental**.
-:::
+
 
 ## 📂 Navigation dans la documentation
 

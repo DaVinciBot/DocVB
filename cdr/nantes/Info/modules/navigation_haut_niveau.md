@@ -30,7 +30,7 @@ La méthode `valider_action_terminee()` permet d'incrémenter `etape_actuelle` e
 
 Actuellement, la liste des actions est définie en dur dans la méthode `_generer_strategie()` de `StratManager` et contient la séquence suivante :
 
-<!-- robot1/rasp/strategy/strategy_strat_manager.py -->
+{/* robot1/rasp/strategy/strategy_strat_manager.py */}
 ```python
     def _generer_strategie(self):
         """Génère la liste des actions à effectuer pendant les 90s."""
@@ -113,7 +113,7 @@ L'algorithme A* utilisé par le robot holonome prend en compte l'orientation. Se
 - **Coût Orienté** : Le mouvement est pénalisé s'il diffère fortement de l'angle courant du robot (pour favoriser les déplacements fluides pour un robot holonome), avec une pénalité `orientation_penalty` allant de `1.0` (droit devant) jusqu'à `1.3` (mouvement inverse).
 - **Lookahead** : Dans `robot.py`, un point situé plus loin sur le chemin A* calculé est choisi comme point de consigne aux moteurs (entre l'index `1` et `4` plus loin dans la liste du chemin selon la valeur de `dist_to_target`), afin de lisser la trajectoire en évitant le hachage point par point. L'objectif immédiat envoyé aux moteurs via la méthode `_envoyer_position_moteurs()` est continuellement rafraîchi lors de l'exécution d'une action de type `DEPLACEMENT`.
 
-<!-- robot1/rasp/robot.py -->
+{/* robot1/rasp/robot.py */}
 ```python
             pos    = {'x': rx, 'y': ry, 'theta': rtheta}
             chemin = self.cerveau.get_path(pos, objectif, obstacles)

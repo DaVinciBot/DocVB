@@ -9,7 +9,7 @@ sidebar_label: LiDAR (Détection)
 Ce document décrit le module de détection d'adversaires via le LiDAR A2M12, implémenté dans `lidar_detection.py`, et son intégration dans la boucle principale du robot (`robot.py`).
 
 > [!NOTE]
-> Tout le code expérimental concernant le recalage de position du robot (trilatération SVD, `PoseEngine`, `lidar_logic.py`) est obsolète et ne sera pas documenté ici. Seule la détection des adversaires est fonctionnelle, maintenue et utilisée pour l'évitement.
+> Tout le code expérimental concernant le recalage de position du robot (trilatération SVD, `PoseEngine`, `lidar_logic.py`) n'a jamais étais tester et faudra voir si on l'utiliser si ca a vraiment une utilité et surtout faut le refaire completement. Un code lidar lidar_detection a étais créer la fin de la CDR et fini a 5h du mat donc faudra le valider sérieusement et le tester en condition réel.
 
 ## Architecture de la détection (`lidar_detection.py`)
 
@@ -26,7 +26,7 @@ Les points projetés sont triés angulairement et regroupés en clusters.
 - La distance maximale autorisée entre deux points consécutifs d'un même cluster est définie par la constante `CLUSTER_GAP_MM` (80 mm).
 - Un cluster doit contenir un minimum de points, défini par `CLUSTER_MIN_PTS` (3 points), pour être pris en compte. Cela permet d'éliminer les artefacts et le bruit du capteur.
 
-<!-- robot1/rasp/lidar/lidar_detection.py -->
+{/* robot1/rasp/lidar/lidar_detection.py */}
 ```python
     current = [pts_sorted[0]]
     for i in range(1, len(pts_sorted)):
@@ -67,7 +67,7 @@ La gestion du thread LiDAR et la consommation des données de détection se font
 3. **Validation de la détection** : Si un adversaire est renvoyé et que son **seuil de confiance** est strictement supérieur à `0.1` (`if opp_conf > 0.1:`), la détection est jugée fiable.
 4. **Enregistrement de l'obstacle** : L'adversaire est alors ajouté à une liste locale `obstacles`.
 
-<!-- robot1/rasp/robot.py -->
+{/* robot1/rasp/robot.py */}
 ```python
         # 4. Obstacles dynamiques (adversaire détecté par LiDAR)
         obstacles: list = []
@@ -81,6 +81,7 @@ La gestion du thread LiDAR et la consommation des données de détection se font
 
 > [!WARNING]
 > *Ambiguïté dans le code Rerun* : Le code de publication vers le module Rerun (`rerun_bridge.update_obstacles`) affiche actuellement ces obstacles avec un rayon de `200` (`"radius": 200`). Il s'agit uniquement d'une valeur d'affichage graphique pour l'interface de debug, le vrai rayon physique d'évitement utilisé par l'algorithme est bien de 110 mm.
+> De maniere plus géneral, Rerun est a revoir et voir si il y a une vrai utilité pour faire de la correction d'erreure et ajustement de PID
 
 ### API Publique
 

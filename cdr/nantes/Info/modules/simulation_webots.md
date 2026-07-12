@@ -4,7 +4,7 @@ title: Simulation Webots et Bascule Matérielle
 sidebar_label: Simulation Webots
 ---
 
-# Simulation Webots et Architecture Unifiée
+# Simulation Webots et Architecture Unifiée A VOIR SI ON GARDE
 
 Ce module documente le fonctionnement de l'environnement de simulation Webots, la manière dont il se substitue au matériel physique (Teensy, encodeurs, LIDAR), et la mécanique logicielle permettant de basculer de manière transparente entre le code simulé et le robot réel.
 
@@ -47,7 +47,7 @@ La fonction `is_simulation()` détermine l'environnement actif selon l'ordre de 
 3. **Configuration JSON** : Valeur du port défini dans `config.json` (un `port: COM1` déclenche le mode simulation).
 4. **Dossier d'exécution** : Si le chemin contient le mot `simulation`.
 
-<!-- robot1/rasp/utils/robot_context.py -->
+{/* robot1/rasp/utils/robot_context.py */}
 ```python
 def is_simulation() -> bool:
     robot_mode = os.environ.get('ROBOT_MODE', '').lower()
@@ -71,7 +71,7 @@ Pour faciliter la vie des développeurs lors des tests croisés, le script `swit
 - **`python switch_mode.py simulation`** : Applique le dictionnaire `SIMULATION_CONFIG`, cible le port `COM1` et active les classes virtuelles (`DummyCom`).
 - **`python switch_mode.py hardware`** : Applique le dictionnaire `HARDWARE_CONFIG`, et restaure les Serial Numbers, VID et PID nécessaires pour la connexion directe USB avec la vraie carte Teensy.
 
-<!-- robot1/rasp/switch_mode.py -->
+{/* robot1/rasp/switch_mode.py */}
 ```python
     if mode == 'simulation':
         print(" Bascule vers SIMULATION...")

@@ -18,6 +18,7 @@ sidebar_position: 2
 
 ## 2. Installation des Dépendances
 
+Il faudra qu'on le mette a jour. 
 Clonez le dépôt, puis installez les dépendances Python via le fichier `requirements.txt` :
 
 ```bash

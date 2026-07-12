@@ -10,7 +10,7 @@ La base roulante du DaVinciBot est propulsée par trois moteurs pas-à-pas équi
 La communication entre la Teensy Moteur et ces contrôleurs s'effectue via un bus **RS485** asynchrone bidirectionnel.
 
 Le code d'interface se trouve dans `robot1/teensy_moteur/lib/MKSServo/`.
-
+La documentation la plus compléte en terme de code : https://github.com/makerbase-motor/MKS-SERVO42D-57D/blob/master/User%20Manual/V1.0.9/MKS%20SERVO42%2657D_RS485%20User%20Manual%20V1.0.9.pdf 
 ## 1. Protocole RS485 MKS
 
 Le protocole série imposé par les MKS SERVO57D repose sur une structure de trame avec un en-tête strict et une somme de contrôle simple (somme des octets).
@@ -25,7 +25,7 @@ La classe `MKSServo` gère les commandes suivantes :
 - **Activation / Désactivation (`0xF3`)** : Commande `enable()` (payload `0x01`) et `disable()` (payload `0x00`).
 - **Contrôle de vitesse (`0xF6`)** : Commande `setSpeed(rpm, acc)`. Le payload contient la direction (bit 7), la vitesse sur 15 bits, et l'accélération (0 à 255).
 
-  <!-- robot1/teensy_moteur/lib/MKSServo/mks_servo.cpp -->
+  {/* robot1/teensy_moteur/lib/MKSServo/mks_servo.cpp */}
   ```cpp
   bool MKSServo::setSpeed(double rpm, uint8_t acc) {
       const bool ccw       = rpm < 0.0;
@@ -73,7 +73,7 @@ La méthode **`readAllEncodersSynced()`** implémente une lecture asynchrone pip
 2. Les 3 moteurs calculent et répondent en parallèle.
 3. La Teensy lit les 3 réponses avec un timeout.
 
-  <!-- robot1/teensy_moteur/lib/MKSServo/mks_group.cpp -->
+  {/* robot1/teensy_moteur/lib/MKSServo/mks_group.cpp */}
   ```cpp
   bool MKSGroup::readAllEncodersSynced(int64_t& enc1, int64_t& enc2, int64_t& enc3) {
       enc1 = enc2 = enc3 = 0;

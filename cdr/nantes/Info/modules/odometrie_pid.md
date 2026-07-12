@@ -14,9 +14,10 @@ La version finale post-CDR embarque trois sources principales de télémétrie.
 
 1. **Encodeurs MKS SERVO57D** : Reliés en RS485. Interrogés en rafale asynchrone à 100Hz pour calculer les vitesses différentielles.
 2. **Centrale Inertielle BNO085 (IMU)** : Connectée en I2C. Fournit un quaternion matériel absolu converti en cap ($\theta$) via le rapport `SH2_GAME_ROTATION_VECTOR` configuré à 100Hz.
-3. **Capteur Optique (Qwiic OTOS / PAA5100)** : Connecté en I2C. Fournit des variations locales en (X, Y). Remplace les roues codeuses traditionnelles pour mesurer le glissement.
+3. **Capteur Optique (PAA5100)** : Connecté en I2C. Fournit des variations locales en (X, Y). Remplace les roues codeuses traditionnelles pour mesurer le glissement. Pas fiable avec la faible luminosité du robot, nous avons essayé de rajouter des leds mais cela n'a pas fonctionné.
 
 > [!CAUTION] Filtre de Kalman (EKF) et Teensy Capteur
+>
 > Un **Filtre de Kalman Extendu (EKF)** a été prototypé et partiellement implémenté dans la branche `main`, mais il n'est pas activé. En parallèle, une architecture matérielle déportée sur une **Teensy Capteur** dédiée a été étudiée (branche `feature/teensy_capteur`) mais abandonnée. L'implémentation décrite ci-dessous repose sur une fusion maison simplifiée (Filtre Complémentaire Adaptatif) hébergée directement sur la Teensy Moteur principale. (Voir [Teensy Capteur et EKF](../features/teensy-capteur.md)).
 
 ## 2. Logique de Fusion (Filtre Complémentaire)
@@ -33,8 +34,8 @@ Une rotation pure est validée par les encodeurs lorsque :
 - Le sens de rotation des 3 roues est identique.
 - La vitesse de rotation est répartie de manière quasi-homogène sur les 3 moteurs (écart de vitesse < 20% par rapport à la moyenne, `d_diff < 0.2`).
 
-  <!-- robot1/teensy_moteur/lib/holonomic_basis/src/holonomic_basis.cpp -->
-  ```cpp
+> `robot1/teensy_moteur/lib/holonomic_basis/src/holonomic_basis.cpp`
+```cpp
       bool is_pure_rotation = false;
       if (abs(omega_temp) > 0.005) { // Rotation détectée (> 0.005 rad = 0.3°)
           // Vérifier si les 3 roues tournent dans le même sens
@@ -73,8 +74,8 @@ Cette classe C++ sur-mesure intègre des sécurités indispensables pour la base
 
 1. **Anti-Windup (Écrêtage de l'intégrale)** : Si les moteurs patinent ou sont bloqués, l'erreur intégrale va diverger. Le PID bloque dynamiquement l'accumulation de l'intégrale `_integral` entre les limites `minOutput / Ki` et `maxOutput / Ki`.
 
-  <!-- robot1/teensy_moteur/lib/pid/src/pid.cpp -->
-  ```cpp
+> `robot1/teensy_moteur/lib/pid/src/pid.cpp`
+```cpp
   void PID::setOutputLimits(double minOutput, double maxOutput) {
       if (minOutput >= maxOutput) return;
       _minOutput = minOutput;

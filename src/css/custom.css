@@ -239,11 +239,15 @@ img,
   display: none;
 }
 
-.navbar-cdr-version-dropdown {
+/* Dropdowns de version CDR : chacun n'est visible que sur les pages de son
+   instance de doc. Docusaurus ajoute la classe `plugin-id-<id>` sur <html>. */
+.navbar-cdr-paris-version-dropdown,
+.navbar-cdr-nantes-version-dropdown {
   display: none;
 }
 
-html.plugin-id-cdr .navbar-cdr-version-dropdown {
+html.plugin-id-cdr-paris .navbar-cdr-paris-version-dropdown,
+html.plugin-id-cdr-nantes .navbar-cdr-nantes-version-dropdown {
   display: block;
 }
 

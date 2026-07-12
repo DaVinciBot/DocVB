@@ -42,18 +42,18 @@ const config: Config = {
     [
       "@docusaurus/plugin-content-docs",
       {
-        id: "cdr",
-        path: "docs/cdr",
-        routeBasePath: "cdr",
+        id: "cdr-paris",
+        path: "docs/cdr/paris",
+        routeBasePath: "cdr/paris",
         sidebarPath: "./sidebars/cdr.ts",
         editUrl: "https://github.com/davincibot/docvb/tree/main/",
         showLastUpdateTime: true,
         showLastUpdateAuthor: false,
         remarkPlugins: [remarkMath],
         rehypePlugins: [rehypeKatex],
-        // Versionnage année par année : la doc de travail (dossier cdr/)
+        // Versionnage année par année : la doc de travail (docs/cdr/paris)
         // correspond à la saison en cours, les saisons passées sont archivées
-        // via `npm run docusaurus docs:version:cdr <année>`.
+        // via `npm run docusaurus docs:version:cdr-paris <année>`.
         lastVersion: "current",
         versions: {
           current: {
@@ -64,6 +64,30 @@ const config: Config = {
           2025: {
             label: "2024/2025",
             path: "2025",
+          },
+        },
+      },
+    ],
+    [
+      "@docusaurus/plugin-content-docs",
+      {
+        id: "cdr-nantes",
+        path: "docs/cdr/nantes",
+        routeBasePath: "cdr/nantes",
+        sidebarPath: "./sidebars/cdr.ts",
+        editUrl: "https://github.com/davincibot/docvb/tree/main/",
+        showLastUpdateTime: true,
+        showLastUpdateAuthor: false,
+        remarkPlugins: [remarkMath],
+        rehypePlugins: [rehypeKatex],
+        // Mêmes paramètres que CDR Paris ; les archives se créeront via
+        // `npm run docusaurus docs:version:cdr-nantes <année>` en fin de saison.
+        lastVersion: "current",
+        versions: {
+          current: {
+            label: "2025/2026",
+            path: "2026",
+            banner: "unreleased",
           },
         },
       },
@@ -158,16 +182,30 @@ const config: Config = {
         {
           type: "docSidebar",
           sidebarId: "cdrSidebar",
-          docsPluginId: "cdr",
+          docsPluginId: "cdr-paris",
           position: "left",
-          label: "CDR",
+          label: "CDR Paris",
+        },
+        {
+          type: "docSidebar",
+          sidebarId: "cdrSidebar",
+          docsPluginId: "cdr-nantes",
+          position: "left",
+          label: "CDR Nantes",
         },
         {
           type: "docsVersionDropdown",
-          docsPluginId: "cdr",
+          docsPluginId: "cdr-paris",
           position: "right",
           dropdownActiveClassDisabled: true,
-          className: "navbar-cdr-version-dropdown",
+          className: "navbar-cdr-paris-version-dropdown",
+        },
+        {
+          type: "docsVersionDropdown",
+          docsPluginId: "cdr-nantes",
+          position: "right",
+          dropdownActiveClassDisabled: true,
+          className: "navbar-cdr-nantes-version-dropdown",
         },
         {
           href: "https://github.com/DaVinciBot",

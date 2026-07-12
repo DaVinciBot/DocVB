@@ -1,0 +1,14 @@
+{
+  "version.label": {
+    "message": "2024/2025",
+    "description": "The label for version 2025"
+  },
+  "sidebar.cdrSidebar.category.elek": {
+    "message": "elek",
+    "description": "The label for category elek in sidebar cdrSidebar"
+  },
+  "sidebar.cdrSidebar.category.info": {
+    "message": "info",
+    "description": "The label for category info in sidebar cdrSidebar"
+  }
+}

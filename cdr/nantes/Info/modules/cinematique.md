@@ -82,12 +82,12 @@ $$
 > `robot1/teensy_moteur/lib/holonomic_basis/src/holonomic_basis.cpp`
 
 ```cpp
-      //Equation de mouvements
-      // Roue 1 avec axe à 120° : cos(120°) = -0.5, sin(120°) = +0.866
-      double w1 = -0.5*vx_rpm + 0.866*vy_rpm - omega_rpm;
-      double w2 = -0.5*vx_rpm - 0.866*vy_rpm - omega_rpm;
-      double w3 = +1.0*vx_rpm + 0.0*vy_rpm   - omega_rpm;
-  ```
+//Equation de mouvements
+// Roue 1 avec axe à 120° : cos(120°) = -0.5, sin(120°) = +0.866
+double w1 = -0.5*vx_rpm + 0.866*vy_rpm - omega_rpm;
+double w2 = -0.5*vx_rpm - 0.866*vy_rpm - omega_rpm;
+double w3 = +1.0*vx_rpm + 0.0*vy_rpm   - omega_rpm;
+```
 
 ### Filtrage et Lissage
 
@@ -98,12 +98,12 @@ Le coefficient $\alpha$ (`speed_filter_alpha`) est fixé à `0.3` par défaut.
 > `robot1/teensy_moteur/lib/holonomic_basis/src/holonomic_basis.cpp`
 
 ```cpp
-      // Application du filtre passe-bas pour lisser les changements de vitesse
-      // Formule : filtered = alpha * new_value + (1 - alpha) * old_value
-      filtered_wheel1_rpm = speed_filter_alpha * last_wheel1_rpm + (1.0 - speed_filter_alpha) * filtered_wheel1_rpm;
-      filtered_wheel2_rpm = speed_filter_alpha * last_wheel2_rpm + (1.0 - speed_filter_alpha) * filtered_wheel2_rpm;
-      filtered_wheel3_rpm = speed_filter_alpha * last_wheel3_rpm + (1.0 - speed_filter_alpha) * filtered_wheel3_rpm;
-  ```
+// Application du filtre passe-bas pour lisser les changements de vitesse
+// Formule : filtered = alpha * new_value + (1 - alpha) * old_value
+filtered_wheel1_rpm = speed_filter_alpha * last_wheel1_rpm + (1.0 - speed_filter_alpha) * filtered_wheel1_rpm;
+filtered_wheel2_rpm = speed_filter_alpha * last_wheel2_rpm + (1.0 - speed_filter_alpha) * filtered_wheel2_rpm;
+filtered_wheel3_rpm = speed_filter_alpha * last_wheel3_rpm + (1.0 - speed_filter_alpha) * filtered_wheel3_rpm;
+```
 
 Une redimension proportionnelle (normalisation) est appliquée après le filtrage pour s'assurer que la vitesse maximale configurée (`MAX_SPEED_RPM`) n'est jamais dépassée.
 

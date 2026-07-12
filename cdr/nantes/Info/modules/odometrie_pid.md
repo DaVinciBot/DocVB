@@ -45,23 +45,23 @@ Une rotation pure est validée par les encodeurs lorsque :
 > `robot1/teensy_moteur/lib/holonomic_basis/src/holonomic_basis.cpp`
 
 ```cpp
-      bool is_pure_rotation = false;
-      if (abs(omega_temp) > 0.005) { // Rotation détectée (> 0.005 rad = 0.3°)
-          // Vérifier si les 3 roues tournent dans le même sens
-          // ...
-          bool same_sign = (d1 * d2 > 0) && (d2 * d3 > 0);
+bool is_pure_rotation = false;
+if (abs(omega_temp) > 0.005) { // Rotation détectée (> 0.005 rad = 0.3°)
+    // Vérifier si les 3 roues tournent dans le même sens
+    // ...
+    bool same_sign = (d1 * d2 > 0) && (d2 * d3 > 0);
 
-          // Vérifier vitesses similaires (tolérance 20% pour imprécisions)
-          double d_avg = (d1_abs + d2_abs + d3_abs) / 3.0;
-          if (d_avg > 50.0) { // Mouvement significatif (>50 counts)
-              // ...
-              // Rotation pure = même signe ET vitesses similaires (<20% écart)
-              if (same_sign && d1_diff < 0.2 && d2_diff < 0.2 && d3_diff < 0.2) {
-                  is_pure_rotation = true;
-              }
-          }
-      }
-  ```
+    // Vérifier vitesses similaires (tolérance 20% pour imprécisions)
+    double d_avg = (d1_abs + d2_abs + d3_abs) / 3.0;
+    if (d_avg > 50.0) { // Mouvement significatif (>50 counts)
+        // ...
+        // Rotation pure = même signe ET vitesses similaires (<20% écart)
+        if (same_sign && d1_diff < 0.2 && d2_diff < 0.2 && d3_diff < 0.2) {
+            is_pure_rotation = true;
+        }
+    }
+}
+```
 
 Durant ces phases, la translation (X,Y) est contrainte à zéro.
 

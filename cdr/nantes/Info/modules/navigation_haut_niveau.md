@@ -40,17 +40,17 @@ Actuellement, la liste des actions est définie en dur dans la méthode `_genere
 {/*robot1/rasp/strategy/strategy_strat_manager.py*/}
 
 ```python
-    def _generer_strategie(self):
-        """Génère la liste des actions à effectuer pendant les 90s."""
-        actions = []
+def _generer_strategie(self):
+    """Génère la liste des actions à effectuer pendant les 90s."""
+    actions = []
 
-        # 1. Sortir de la zone de départ
-        actions.append(Action(TypeAction.DEPLACEMENT, cible_x=500, cible_y=500))
-        # ...
-        # 5. Retourner à la base
-        actions.append(Action(TypeAction.DEPLACEMENT, cible_x=200, cible_y=200))
+    # 1. Sortir de la zone de départ
+    actions.append(Action(TypeAction.DEPLACEMENT, cible_x=500, cible_y=500))
+    # ...
+    # 5. Retourner à la base
+    actions.append(Action(TypeAction.DEPLACEMENT, cible_x=200, cible_y=200))
 
-        return actions
+    return actions
 ```
 
 ### Schéma de la Machine à États
@@ -126,6 +126,6 @@ L'algorithme A* utilisé par le robot holonome prend en compte l'orientation. Se
 {/*robot1/rasp/robot.py*/}
 
 ```python
-            pos    = {'x': rx, 'y': ry, 'theta': rtheta}
-            chemin = self.cerveau.get_path(pos, objectif, obstacles)
+pos    = {'x': rx, 'y': ry, 'theta': rtheta}
+chemin = self.cerveau.get_path(pos, objectif, obstacles)
 ```

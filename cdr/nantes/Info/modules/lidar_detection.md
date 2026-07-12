@@ -36,15 +36,15 @@ Les points projetés sont triés angulairement et regroupés en clusters.
 {/*robot1/rasp/lidar/lidar_detection.py*/}
 
 ```python
-    current = [pts_sorted[0]]
-    for i in range(1, len(pts_sorted)):
-        if math.hypot(pts_sorted[i][0] - current[-1][0],
-                      pts_sorted[i][1] - current[-1][1]) > CLUSTER_GAP_MM:
-            clusters.append(current)
-            current = [pts_sorted[i]]
-        else:
-            current.append(pts_sorted[i])
-    clusters.append(current)
+current = [pts_sorted[0]]
+for i in range(1, len(pts_sorted)):
+    if math.hypot(pts_sorted[i][0] - current[-1][0],
+                    pts_sorted[i][1] - current[-1][1]) > CLUSTER_GAP_MM:
+        clusters.append(current)
+        current = [pts_sorted[i]]
+    else:
+        current.append(pts_sorted[i])
+clusters.append(current)
 ```
 
 ### Tracking et Lissage

@@ -93,18 +93,18 @@ Pour faciliter la vie des développeurs lors des tests croisés, le script `swit
 {/*robot1/rasp/switch_mode.py*/}
 
 ```python
-    if mode == 'simulation':
-        print(" Bascule vers SIMULATION...")
-        config = SIMULATION_CONFIG
-        with open(config_path, 'w') as f:
-            json.dump(config, f, indent=4)
-        print(" Mode SIMULATION activé (COM1)")
-    elif mode == 'hardware':
-        print(" Bascule vers HARDWARE...")
-        config = HARDWARE_CONFIG
-        with open(config_path, 'w') as f:
-            json.dump(config, f, indent=4)
-        print(" Mode HARDWARE activé (Teensy USB)")
+if mode == 'simulation':
+    print(" Bascule vers SIMULATION...")
+    config = SIMULATION_CONFIG
+    with open(config_path, 'w') as f:
+        json.dump(config, f, indent=4)
+    print(" Mode SIMULATION activé (COM1)")
+elif mode == 'hardware':
+    print(" Bascule vers HARDWARE...")
+    config = HARDWARE_CONFIG
+    with open(config_path, 'w') as f:
+        json.dump(config, f, indent=4)
+    print(" Mode HARDWARE activé (Teensy USB)")
 ```
 
 Exécuté sans argument, le script détecte le mode actuel en parsant `config.json` et propose une bascule interactive dans le terminal.

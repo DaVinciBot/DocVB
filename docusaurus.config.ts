@@ -8,7 +8,7 @@ import remarkMath from "remark-math";
 
 const config: Config = {
   title: "DaVinciBot",
-  tagline: "Learn to build amazing documentation",
+  tagline: "Documentation officielle de DaVinciBot",
   favicon: "img/favicon.ico",
 
   // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
@@ -223,7 +223,7 @@ const config: Config = {
           items: [
             {
               label: "Instagram",
-              href: "https://twitter.com/davincibot_pulv",
+              href: "https://www.instagram.com/davincibot_pulv/",
             },
             {
               label: "LinkedIn",

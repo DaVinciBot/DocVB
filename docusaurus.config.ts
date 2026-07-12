@@ -39,6 +39,35 @@ const config: Config = {
   },
 
   plugins: [
+    [
+      "@docusaurus/plugin-content-docs",
+      {
+        id: "cdr",
+        path: "cdr",
+        routeBasePath: "cdr",
+        sidebarPath: "./sidebarsCdr.ts",
+        editUrl: "https://github.com/davincibot/docvb/tree/main/",
+        showLastUpdateTime: true,
+        showLastUpdateAuthor: false,
+        remarkPlugins: [remarkMath],
+        rehypePlugins: [rehypeKatex],
+        // Versionnage année par année : la doc de travail (dossier cdr/)
+        // correspond à la saison en cours, les saisons passées sont archivées
+        // via `npm run docusaurus docs:version:cdr <année>`.
+        lastVersion: "current",
+        versions: {
+          current: {
+            label: "2025/2026",
+            path: "2026",
+            banner: "unreleased",
+          },
+          2025: {
+            label: "2024/2025",
+            path: "2025",
+          },
+        },
+      },
+    ],
     async function myPlugin(context, options) {
       return {
         name: "docusaurus-tailwindcss",
@@ -77,7 +106,7 @@ const config: Config = {
           // Remove this to remove the "edit this page" links.
           editUrl: "https://github.com/davincibot/docvb/tree/main/",
           showLastUpdateTime: true,
-          showLastUpdateAuthor: true,
+          showLastUpdateAuthor: false,
           remarkPlugins: [remarkMath],
           rehypePlugins: [rehypeKatex],
         },
@@ -119,8 +148,16 @@ const config: Config = {
         {
           type: "docSidebar",
           sidebarId: "cdrSidebar",
+          docsPluginId: "cdr",
           position: "left",
           label: "CDR",
+        },
+        {
+          type: "docsVersionDropdown",
+          docsPluginId: "cdr",
+          position: "right",
+          dropdownActiveClassDisabled: true,
+          className: "navbar-cdr-version-dropdown",
         },
         {
           href: "https://github.com/DaVinciBot",

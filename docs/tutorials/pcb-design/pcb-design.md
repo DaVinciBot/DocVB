@@ -1,4 +1,13 @@
-# PCB Design
+---
+title: PCB Design
+description: Formation au design de circuits imprimés — de la théorie à la pratique, bonnes pratiques, outils et pièges à éviter pour des PCB fiables et performants.
+sidebar_position: 1
+tags: [course, electronique, kicad, pcb]
+additional_contributors:
+  - username: Urbain Lantrès
+    html_url: https://github.com/UrbsKali
+    avatar_url: https://github.com/UrbsKali.png
+---
 
 Bienvenue dans cette formation dédiée au design de circuits imprimés (PCB). Que vous soyez débutant ou souhaitiez approfondir vos connaissances, ce parcours vous guidera à travers les étapes essentielles de la conception, de la théorie à la pratique. Vous découvrirez les bonnes pratiques, les outils, et les pièges à éviter pour réaliser des PCB fiables et performants.
 

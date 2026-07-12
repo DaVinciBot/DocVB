@@ -1,4 +1,13 @@
-# Comment utiliser le chat sécurisé DVB
+---
+title: Comment utiliser le chat sécurisé DVB
+description: Installer Cinny Desktop, se connecter au serveur Matrix privé chat.davincibot.fr et créer un compte avec un jeton d'inscription.
+slug: matrix-chat
+tags: [info, matrix]
+additional_contributors:
+  - username: Urbain Lantrès
+    html_url: https://github.com/UrbsKali
+    avatar_url: https://github.com/UrbsKali.png
+---
 
 Objectif: installer Cinny Desktop, se connecter au serveur privé chat.davincibot.fr et créer un compte avec un jeton d'inscription (token privé).
 

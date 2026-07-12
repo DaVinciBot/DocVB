@@ -1,4 +1,14 @@
-# Glossaire
+---
+title: Glossaire
+description: Définitions des termes clés du design de PCB — CEM, EMI, plans de masse et d'alimentation, découplage, blindage…
+slug: glossary
+sidebar_position: 2
+tags: [electronique, pcb]
+additional_contributors:
+  - username: Urbain Lantrès
+    html_url: https://github.com/UrbsKali
+    avatar_url: https://github.com/UrbsKali.png
+---
 
 - **CEM (compatibilité électromagnétique)** : capacité des appareils électroniques à fonctionner sans causer ni subir d'interférences électromagnétiques. En anglais EMC (Electromagnetic Compatibility).
 - **EMI (interférences électromagnétiques)** : énergie électromagnétique indésirable pouvant perturber

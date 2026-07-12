@@ -1,4 +1,13 @@
-# Meilleures pratiques pour l'EMC
+---
+title: Meilleures pratiques pour l'EMC
+description: Directives et recommandations pour minimiser les interférences électromagnétiques (EMI) et optimiser les performances CEM d'un circuit imprimé.
+slug: best-practices
+tags: [electronique, pcb, emc]
+additional_contributors:
+  - username: Urbain Lantrès
+    html_url: https://github.com/UrbsKali
+    avatar_url: https://github.com/UrbsKali.png
+---
 
 ## Introduction
 

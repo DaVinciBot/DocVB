@@ -1,12 +1,17 @@
 ---
-title: Comment utiliser l'environment ROS2 de DVB
+title: Formation rapide — Utiliser l'environnement ROS2 (devContainer)
+description: Formation rapide à l'environnement de développement ROS2 en devContainer — installation Windows (WSL2) et Linux, compilation et lancement de la simulation Gazebo + RViz2.
+slug: env-docker-full
+sidebar_label: Comment utiliser l'environnement ROS2 de DVB
+tags: [info, ros2, gazebo, docker]
 last_update:
   date: 2025-11-13
   author: Urbain Lantrès
-tags: [info, ros2, gazebo]
+additional_contributors:
+  - username: Urbain Lantrès
+    html_url: https://github.com/UrbsKali
+    avatar_url: https://github.com/UrbsKali.png
 ---
-
-# Formation rapide — Utiliser l'environnement ROS2 (devContainer)
 
 Ce document donne une formation rapide pour utiliser l'environnement de développement ROS2 basé sur des devContainers (VS Code Dev Containers). Il couvre l'installation rapide sous **Windows (WSL2)** et **Linux**, comment ouvrir le dépôt dans un conteneur, et les commandes usuelles pour compiler et lancer la simulation (Gazebo + RViz2).
 
@@ -100,7 +105,6 @@ ros2 launch main_rover launch_sim.launch.py
 ## Notes et conseils pratiques
 
 - Si vous êtes sous **Windows + WSL2 + devContainer**, WSLg (sur Windows 11 ou builds compatibles) permet d'afficher les applications graphiques Linux. Si vous rencontrez des problèmes d'affichage avec Gazebo/RViz, vérifiez :
-
   - Que Docker Desktop est configuré pour utiliser le backend WSL2.
   - Que l'intégration WSL (distro) est activée dans Docker Desktop.
 

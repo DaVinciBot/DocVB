@@ -1,4 +1,13 @@
-# Comment ajouter des bibliothèques
+---
+title: Comment ajouter des bibliothèques
+description: Trouver, installer et gérer des bibliothèques de symboles et d'empreintes dans KiCad 9.0 — PCM, fichiers locaux, dépôts Git, variables de chemin et bonnes pratiques d'équipe.
+slug: ajouter-bibliotheques-kicad
+tags: [electronique, kicad, pcb]
+additional_contributors:
+  - username: Urbain Lantrès
+    html_url: https://github.com/UrbsKali
+    avatar_url: https://github.com/UrbsKali.png
+---
 
 Cette formation pas-à-pas couvre comment trouver, installer et gérer des bibliothèques de symboles (schéma) et d'empreintes (PCB) dans KiCad 9.0, au niveau global et au niveau projet.
 

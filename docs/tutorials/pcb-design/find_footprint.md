@@ -1,4 +1,13 @@
-# Où trouver ses traces
+---
+title: Où trouver ses empreintes
+description: Ressources en ligne (SnapEDA, Ultra Librarian…) pour trouver et importer des empreintes de composants dans KiCad.
+slug: find-footprint
+tags: [electronique, kicad, pcb]
+additional_contributors:
+  - username: Urbain Lantrès
+    html_url: https://github.com/UrbsKali
+    avatar_url: https://github.com/UrbsKali.png
+---
 
 Il y a plusieurs endroits où vous pouvez trouver des empreintes pour vos composants dans KiCad. Dans la plupart des cas, vous n'aurez pas besoin de créer vos propres empreintes, car il existe de nombreuses ressources disponibles.
 

@@ -1,11 +1,18 @@
 ---
 id: camera
 title: Détection Caméra (Objets)
+description: Pipeline de détection visuelle des objets du plateau (OpenCV + ArUco) — calibration de la caméra, estimation de pose, distance et orientation par rapport au robot.
+slug: camera
+tags: [cdr, nantes, robotique, vision]
+additional_contributors:
+  - username: Antoine Fleury
+    html_url: https://github.com/Antoine190
+    avatar_url: https://github.com/Antoine190.png
 ---
-Implémentation incomplète
-Cette fonctionnalité est actuellement en cours de développement sur la branche `features/camera_finir_implementation` et n'est pas encore intégrée à la branche `main`.
 
-# Module Caméra
+:::warning Implémentation incomplète
+Cette fonctionnalité est actuellement en cours de développement sur la branche `features/camera_finir_implementation` et n'est pas encore intégrée à la branche `main`.
+:::
 
 L'objectif de ce module est la détection visuelle des objets à déplacer sur le plateau de jeu, ainsi que le calcul de leur distance et de leur orientation par rapport au robot.
 

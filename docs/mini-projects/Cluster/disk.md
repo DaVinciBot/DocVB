@@ -1,6 +1,15 @@
-# Configuration des disques
+---
+title: Configuration des disques
+description: Reformater, monter et automatiser le montage des disques des nœuds du cluster.
+slug: disk
+tags: [sysadmin, linux, cluster]
+additional_contributors:
+  - username: Urbain Lantrès
+    html_url: https://github.com/UrbsKali
+    avatar_url: https://github.com/UrbsKali.png
+---
 
-## reformatage des disques
+## Reformatage des disques
 
 Pour reformater les disques, vous pouvez utiliser la commande suivante :
 
@@ -23,4 +32,4 @@ Remplacez `/dev/sdX` par le nom de votre disque et `/mnt` par le point de montag
 ## Automatiser le montage des disques
 
 Pour automatiser le montage des disques au démarrage, vous devez ajouter une entrée dans la config nix.
-Veuillez vous référer à [cette page](/docs/mini-projects/Cluster/NixOS%20Config.md)
+Veuillez vous référer à [cette page](./nixos-config.md).

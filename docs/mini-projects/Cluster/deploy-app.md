@@ -1,4 +1,16 @@
-# How to deploy all the dvb cluster apps
+---
+title: Comment déployer toutes les applications du cluster
+description: Commandes Helm pour déployer les applications du cluster K3s — Stirling PDF, Vaultwarden, Rallly, Matrix Tuwunel, Docuseal, ListMonk et Dokploy.
+slug: deploy-app
+tags: [sysadmin, kubernetes, cluster]
+additional_contributors:
+  - username: Eliott A. Roussille
+    html_url: https://github.com/aust-1
+    avatar_url: https://github.com/aust-1.png
+  - username: Urbain Lantrès
+    html_url: https://github.com/UrbsKali
+    avatar_url: https://github.com/UrbsKali.png
+---
 
 You must be on the master node, currently `flo` - 192.168.0.10, as it is the only node with helm installed.
 
@@ -27,7 +39,7 @@ Then, deploy Vaultwarden with the following commands:
 
 ```bash
 cd /home/dvb/vaultwarden
-    helm install vaultwarden bjw-s-charts/app-template -f values.yaml
+helm install vaultwarden bjw-s-charts/app-template -f values.yaml
 k3s kubectl apply -f vault-nodeport.yaml
 ```
 

@@ -1,10 +1,15 @@
 ---
 id: cinematique
-title: Cinématique Holonome (3 Roues)
+title: Cinématique Holonome (3 Roues) et Asservissement
+description: Conversion entre le référentiel monde et le référentiel des roues pour la base holonome à 3 roues — cinématique inverse, cinématique directe et asservissement PID.
+slug: cinematique
 sidebar_label: Cinématique et Odométrie
+tags: [cdr, nantes, robotique]
+additional_contributors:
+  - username: Antoine Fleury
+    html_url: https://github.com/Antoine190
+    avatar_url: https://github.com/Antoine190.png
 ---
-
-# Cinématique Holonome et Asservissement
 
 Ce module, implémenté dans `lib/holonomic_basis/`, gère la conversion entre le référentiel global du robot (Monde) et le référentiel matériel des roues (Moteurs). Il repose sur une Base holonome à 3 roues disposées à 120°.
 
@@ -16,7 +21,7 @@ L'orientation des moteurs dans le repère local du robot est la suivante :
 - **Roue 2 (Avant-Gauche)** : Orientée à 240°
 - **Roue 3 (Arrière)** : Orientée à 0° (axe horizontal)
 
-```
+```text
              Y+ (avant)
               ^
               |

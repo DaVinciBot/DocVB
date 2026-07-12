@@ -1,4 +1,13 @@
-# Carte d'alimentation 5 V 5 A (PD) pour Raspberry Pi 5
+---
+title: Carte d'alimentation 5 V 5 A (PD) pour Raspberry Pi 5
+description: Carte KiCad fournissant un rail 5,1 V / 5 A stable pour le Raspberry Pi 5 — spécifications, protections, routage, nomenclature et plan de test.
+slug: power-delivery
+tags: [cdr, paris, electronique, kicad]
+additional_contributors:
+  - username: Urbain Lantrès
+    html_url: https://github.com/UrbsKali
+    avatar_url: https://github.com/UrbsKali.png
+---
 
 PCB KiCad fournissant un rail stable de 5 V, 5 A adapté au Raspberry Pi 5.
 
@@ -23,7 +32,9 @@ PCB KiCad fournissant un rail stable de 5 V, 5 A adapté au Raspberry Pi 5.
 
 ## Schéma système
 
-doc needed
+:::note À documenter
+Le schéma système reste à rédiger.
+:::
 
 ## Interfaces
 

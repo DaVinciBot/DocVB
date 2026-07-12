@@ -7,7 +7,7 @@ slug: branches
 sidebar_position: 5
 tags: [cdr, nantes, git]
 additional_contributors:
-  - username: Antoine
+  - username: Antoine Fleury
     html_url: https://github.com/Antoine190
     avatar_url: https://github.com/Antoine190.png
 ---

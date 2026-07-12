@@ -1,11 +1,16 @@
 ---
 id: overview
-title: Architecture Globale
+title: Architecture Matérielle et Logicielle
+description: Vue d'ensemble de l'architecture matérielle et logicielle du robot — topologie, répartition haut niveau / temps réel et flux de données.
+slug: overview
 sidebar_label: Vue d'Ensemble
 sidebar_position: 1
+tags: [cdr, nantes, robotique]
+additional_contributors:
+  - username: Antoine Fleury
+    html_url: https://github.com/Antoine190
+    avatar_url: https://github.com/Antoine190.png
 ---
-
-# Architecture Matérielle et Logicielle
 
 L'architecture du DaVinciBot est conçue pour séparer strictement l'intelligence de haut niveau (stratégie, évitement d'obstacles, vision) du contrôle temps réel (asservissement, lecture des encodeurs).
 
@@ -21,9 +26,10 @@ L'architecture s'articule autour des éléments suivants :
   - **BNO08x** : Centrale inertielle (IMU) en I2C pour un cap précis.
   - **RPLidar A2M8** : Lidar 360° connecté en USB à la Raspberry Pi. Dédié uniquement à la détection d'adversaires (via `lidar_detection`).
 
-> [!CAUTION] Doute signalé depuis `schema_info_v2.drawio`
-> Le fichier de conception abstrait `schema_info_v2.drawio` présente une carte supplémentaire dédiée : la **Teensy Capteur**. Sur ce schéma, les capteurs PAA5100JE et BNO085 sont reliés à cette carte, qui calcule et envoie les variations d'odométrie (`dx, dy, dtheta`) via UART vers la Teensy Moteur.
-> Or, dans le code actuel (post-CDR), cette architecture a été abandonnée par manque de temps. L'intégration de cette seconde Teensy avec un filtre de Kalman reste une **piste d'amélioration future** (cf. branche `feature/teensy_capteur`).
+:::danger Doute signalé depuis `schema_info_v2.drawio`
+Le fichier de conception abstrait `schema_info_v2.drawio` présente une carte supplémentaire dédiée : la **Teensy Capteur**. Sur ce schéma, les capteurs PAA5100JE et BNO085 sont reliés à cette carte, qui calcule et envoie les variations d'odométrie (`dx, dy, dtheta`) via UART vers la Teensy Moteur.
+Or, dans le code actuel (post-CDR), cette architecture a été abandonnée par manque de temps. L'intégration de cette seconde Teensy avec un filtre de Kalman reste une **piste d'amélioration future** (cf. branche `feature/teensy_capteur`).
+:::
 
 ## 2. Topologie Logicielle
 

@@ -1,10 +1,19 @@
 ---
 id: simulation-webots
-title: Simulation Webots et Bascule Matérielle
+title: Simulation Webots et Architecture Unifiée
+description: Environnement de simulation Webots reproduisant le matériel (Teensy, encodeurs, LiDAR) et mécanisme de bascule transparente entre simulation et robot réel.
+slug: simulation-webots
 sidebar_label: Simulation Webots
+tags: [cdr, nantes, robotique, webots]
+additional_contributors:
+  - username: Antoine Fleury
+    html_url: https://github.com/Antoine190
+    avatar_url: https://github.com/Antoine190.png
 ---
 
-# Simulation Webots et Architecture Unifiée A VOIR SI ON GARDE
+:::warning À trancher
+L'équipe doit encore décider si cette architecture de simulation est conservée pour la prochaine saison.
+:::
 
 Ce module documente le fonctionnement de l'environnement de simulation Webots, la manière dont il se substitue au matériel physique (Teensy, encodeurs, LIDAR), et la mécanique logicielle permettant de basculer de manière transparente entre le code simulé et le robot réel.
 
@@ -21,8 +30,9 @@ Ce contrôleur C++ agit comme un "jumeau numérique" du firmware de la Teensy Mo
 - La boucle principale s'exécute au rythme du simulateur (`wb_robot_step`) et appelle cycliquement `update_odometry()`, `handle()`, et `execute_movement()`.
 - Il interagit avec les actionneurs Webots via `fake_stepper.cpp` qui convertit les consignes de vitesse en commandes pour les objets 3D "motor1", "motor2", "motor3".
 
-> [!WARNING] Mocking des Capteurs Avancés
-> Actuellement dans `teensy_controller.cpp`, les initialisations des capteurs `PAA5100` (flux optique) et `Adafruit_BNO085` (IMU) sont commentées (`//paa5100 = new PAA5100();`). La simulation repose donc principalement sur l'odométrie issue des roues codeuses simulées. La fusion de données (décrite dans l'odométrie PID) n'est que partiellement émulée dans l'environnement virtuel.
+:::warning Mocking des Capteurs Avancés
+Actuellement dans `teensy_controller.cpp`, les initialisations des capteurs `PAA5100` (flux optique) et `Adafruit_BNO085` (IMU) sont commentées (`//paa5100 = new PAA5100();`). La simulation repose donc principalement sur l'odométrie issue des roues codeuses simulées. La fusion de données (décrite dans l'odométrie PID) n'est que partiellement émulée dans l'environnement virtuel.
+:::
 
 ### Simulation du LIDAR
 

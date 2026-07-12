@@ -1,10 +1,15 @@
 ---
 id: communication-usb
-title: Communication USB (Raspberry Pi ↔ Teensy)
+title: Protocole de Communication USB (Raspberry Pi ↔ Teensy)
+description: Protocole série sur-mesure entre la Raspberry Pi et la Teensy Moteur — format des trames, table des identifiants, implémentation et tolérance aux pannes.
+slug: communication-usb
 sidebar_label: Communication USB
+tags: [cdr, nantes, robotique, teensy]
+additional_contributors:
+  - username: Antoine Fleury
+    html_url: https://github.com/Antoine190
+    avatar_url: https://github.com/Antoine190.png
 ---
-
-# Protocole de Communication USB
 
 Le projet DaVinciBot utilise un protocole série sur-mesure pour fiabiliser les échanges entre la Raspberry Pi (Haut Niveau) et la Teensy Moteur (Bas Niveau).
 

@@ -1,10 +1,15 @@
 ---
 id: navigation-haut-niveau
-title: Navigation Haut Niveau
+title: Navigation Haut Niveau et Stratégie
+description: Prise de décision globale du robot — boucle principale, machine à états de la stratégie, terrain et pathfinding pendant le match de 90 secondes.
+slug: navigation-haut-niveau
 sidebar_label: Stratégie & Navigation
+tags: [cdr, nantes, robotique]
+additional_contributors:
+  - username: Antoine Fleury
+    html_url: https://github.com/Antoine190
+    avatar_url: https://github.com/Antoine190.png
 ---
-
-# Navigation Haut Niveau et Stratégie
 
 Ce module décrit la prise de décision globale du robot, la machine à états de la stratégie, et les mécanismes de pathfinding (recherche de chemin) employés pendant le match de 90 secondes.
 

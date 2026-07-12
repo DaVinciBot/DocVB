@@ -1,6 +1,18 @@
-# Motherboard des PAMIs - ESP32S3
+---
+title: Motherboard des PAMIs - ESP32S3
+description: Carte mère KiCad à base d'ESP32-S3 pour les PAMIs — drivers moteurs pas-à-pas, IMU, LiDAR, LoRa et mapping complet des GPIO.
+slug: motherboard-pami
+tags: [cdr, paris, electronique, kicad, esp32]
+additional_contributors:
+  - username: Eliott A. Roussille
+    html_url: https://github.com/aust-1
+    avatar_url: https://github.com/aust-1.png
+  - username: Urbain Lantrès
+    html_url: https://github.com/UrbsKali
+    avatar_url: https://github.com/UrbsKali.png
+---
 
-PCB KiCad fournissant la logique des PAMIs, de manière robuste et fiable
+PCB KiCad fournissant la logique des PAMIs, de manière robuste et fiable.
 
 ![Rendu 3D de la carte](./img/mb-pami-f.png)
 

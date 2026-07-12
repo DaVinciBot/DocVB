@@ -1,10 +1,15 @@
 ---
 id: conclusion
 title: Conclusion et Perspectives
+description: Bilan technique de la saison, objectifs pour l'année prochaine et note à destination de la nouvelle équipe.
+slug: conclusion
 sidebar_position: 99
+tags: [cdr, nantes, robotique]
+additional_contributors:
+  - username: Antoine Fleury
+    html_url: https://github.com/Antoine190
+    avatar_url: https://github.com/Antoine190.png
 ---
-
-# Conclusion et Perspectives
 
 Cette année a permis d'établir une fondation technique solide en Info pour la CDR-Nantes.
 
@@ -48,20 +53,22 @@ Le règlement Eurobot requiert la mise en place d'un robot secondaire (PAMI). La
 
 ### 8. Stratégie
 
-Cela va avec les actionneur et les pamis, nous devront trouver une solution pour comment gérer la stratégie, que ce soit avec base de données, arbre de décision etc.
+Cela va avec les actionneurs et les PAMI : nous devrons trouver une solution pour gérer la stratégie, que ce soit avec une base de données, un arbre de décision, etc.
 
 ### 9. Kiffer et Apprendre
 
-Ce projet est avant tout pour apprendre, être curieux et s'amuser. Et après, si on bat Paris à un match, c'est encore mieux
+Ce projet est avant tout pour apprendre, être curieux et s'amuser. Et après, si on bat Paris à un match, c'est encore mieux !
+
 ---
 
 ## 📝 Note à la nouvelle équipe
 
-Bienvenue dans le pole Info, vous héritez d'une base assez solide mais qui va etre encore mieux cet année.
+Bienvenue dans le pôle Info : vous héritez d'une base assez solide, qui va être encore meilleure cette année.
+
 **Pour bien commencer :**
 
 - N'hésitez pas à tout lire, à poser des questions et, surtout, à comprendre. Ne restez pas plusieurs semaines avec des questions.
-- Penser a lire aussi la partie Outils et les incontournables
+- Pensez à lire aussi la partie Outils et les incontournables.
 - Si vous avez des questions ou l'impression qu'il manque des éléments dans la doc, n'hésitez pas.
 
 Good luck pour cette année, mais vous allez tout défoncer !! De toute façon, vous êtes le meilleur pôle (Désolé la méca et l'elek)

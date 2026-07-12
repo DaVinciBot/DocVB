@@ -1,7 +1,14 @@
 ---
 id: rerun
 title: Visualisation 3D avec Rerun.io
+description: Prototype d'intégration de Rerun.io pour le monitoring 3D et le débogage temps réel — modes de déploiement, interface et bilan pour/contre.
+slug: rerun
 sidebar_position: 4
+tags: [cdr, nantes, robotique]
+additional_contributors:
+  - username: Antoine Fleury
+    html_url: https://github.com/Antoine190
+    avatar_url: https://github.com/Antoine190.png
 ---
 
 :::info Feature à l'étude (Branche `feature/rerun.io_a_voir`)

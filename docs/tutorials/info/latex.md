@@ -6,7 +6,12 @@ tags: [course, info, latex]
 last_update:
   date: 2025-11-05
   author: Eliott A. Roussille
+additional_contributors:
+  - username: Eliott A. Roussille
+    html_url: https://github.com/aust-1
+    avatar_url: https://github.com/aust-1.png
 ---
+
 import TabItem from '@theme/TabItem';
 import Tabs from '@theme/Tabs';
 

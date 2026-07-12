@@ -1,10 +1,13 @@
 ---
 title: Open Weight PCB
-description: Design files and instructions for creating an open-source PCB for weight measurement.
+description: Fichiers de conception et instructions pour un PCB open source de mesure de poids.
+slug: pcb
+tags: [oss, kicad, electronique]
 last_update:
   date: 2025-10-15
-  author: Dimitry Seibert
-tags: [OSS, kicad]
+  author: Dimitry Siebert
 ---
 
-WIP
+:::warning Travail en cours
+Cette page est en cours de rédaction (WIP).
+:::

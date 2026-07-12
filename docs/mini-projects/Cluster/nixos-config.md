@@ -1,10 +1,19 @@
-# Configuration Cluster NixOS
+---
+title: Configuration Cluster NixOS
+description: Configuration NixOS à base de flakes pour le cluster K3s — structure, déploiement, gestion des secrets et sécurité.
+slug: nixos-config
+tags: [sysadmin, nixos, kubernetes, cluster]
+additional_contributors:
+  - username: Urbain Lantrès
+    html_url: https://github.com/UrbsKali
+    avatar_url: https://github.com/UrbsKali.png
+---
 
 Ce dépôt contient une configuration NixOS basée sur les flakes pour un cluster K3s avec un nœud maître et des nœuds workers.
 
 ## Structure
 
-```
+```text
 ├── flake.nix                    # Configuration flake principale avec configuration serveur flexible
 ├── modules/                     # Modules NixOS réutilisables
 │   ├── common.nix              # Configuration partagée (utilisateurs, paquets, etc.)

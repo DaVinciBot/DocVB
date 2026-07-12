@@ -1,16 +1,21 @@
 ---
 id: mks-servo57d
 title: Pilotes Moteurs MKS SERVO57D
+description: Interface RS485 des contrôleurs moteurs MKS SERVO57D — protocole, modes d'arrêt et synchronisation de groupe.
+slug: mks-servo57d
 sidebar_label: Moteurs MKS SERVO57D
+tags: [cdr, nantes, robotique]
+additional_contributors:
+  - username: Antoine Fleury
+    html_url: https://github.com/Antoine190
+    avatar_url: https://github.com/Antoine190.png
 ---
-
-# Moteurs MKS SERVO57D
 
 La base roulante du DaVinciBot est propulsée par trois moteurs pas-à-pas équipés de contrôleurs intégrés **MKS SERVO57D** (boucle fermée matérielle).
 La communication entre la Teensy Moteur et ces contrôleurs s'effectue via un bus **RS485** asynchrone bidirectionnel.
 
 Le code d'interface se trouve dans `robot1/teensy_moteur/lib/MKSServo/`.
-La documentation la plus compléte en terme de code : <https://github.com/makerbase-motor/MKS-SERVO42D-57D/blob/master/User%20Manual/V1.0.9/MKS%20SERVO42%2657D_RS485%20User%20Manual%20V1.0.9.pdf>
+La documentation la plus complète en termes de code : [MKS SERVO42&57D RS485 User Manual V1.0.9 (PDF)](https://github.com/makerbase-motor/MKS-SERVO42D-57D/blob/master/User%20Manual/V1.0.9/MKS%20SERVO42%2657D_RS485%20User%20Manual%20V1.0.9.pdf)
 
 ## 1. Protocole RS485 MKS
 
@@ -49,8 +54,9 @@ La classe `MKSServo` gère les commandes suivantes :
 - **Lecture de l'encodeur (`0x31`)** : Requête de la position absolue de l'encodeur. Le moteur répond avec une valeur sur 48 bits, que le code C++ étend et convertit en `int64_t`.
 - **Calibration (`0x80`)** : Commande bloquante avec timeout (jusqu'à 15s) attendant une confirmation de succès (`1`) ou d'échec (`2`).
 
-> [!TIP] Optimisation de la file d'attente (Fire & Forget)
-> Pour les commandes de contrôle (`0xF3` et `0xF6`), le code n'attend volontairement pas la réponse du moteur. En effet, au niveau matériel, la réponse UART des moteurs a été désactivée (`UartRSP=Disable`) pour éviter d'engorger le bus RS485 et de ralentir la boucle d'asservissement de la Teensy. Ces fonctions retournent immédiatement après l'envoi (`serial.write`).
+:::tip Optimisation de la file d'attente (Fire & Forget)
+Pour les commandes de contrôle (`0xF3` et `0xF6`), le code n'attend volontairement pas la réponse du moteur. En effet, au niveau matériel, la réponse UART des moteurs a été désactivée (`UartRSP=Disable`) pour éviter d'engorger le bus RS485 et de ralentir la boucle d'asservissement de la Teensy. Ces fonctions retournent immédiatement après l'envoi (`serial.write`).
+:::
 
 ## 2. Modes d'Arrêt (Sécurité et Mécanique)
 

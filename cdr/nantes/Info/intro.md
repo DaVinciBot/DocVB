@@ -1,14 +1,20 @@
 ---
 id: intro
-title: Introduction
+title: Projet DaVinciBot
+description: Présentation du projet DaVinciBot (ESILV Nantes) — objectifs de la Coupe de France de Robotique, résumé technique et statut actuel du projet.
+slug: intro
+sidebar_label: Introduction
 sidebar_position: 0
+tags: [cdr, nantes, robotique]
+additional_contributors:
+  - username: Antoine Fleury
+    html_url: https://github.com/Antoine190
+    avatar_url: https://github.com/Antoine190.png
 ---
-
-# Projet DaVinciBot
 
 Bienvenue dans la documentation officielle du projet **DaVinciBot**, le robot développé par l'équipe **ESILV Nantes** pour la Coupe de France de Robotique.
 
-L'objectif principal du robot est de marquer un maximum de points sur une table de jeu normée lors de matchs d'une durée stricte de **90 secondes**, le tout de manière totalement autonome.
+L'objectif principal du robot est de marquer un maximum de points sur une table de jeu normée lors de matchs d'une durée stricte de **100 secondes**, le tout de manière totalement autonome.
 
 ## Résumé Technique
 

@@ -1,7 +1,14 @@
 ---
 id: teensy-capteur
 title: Architecture Capteurs et Filtre de Kalman (EKF)
+description: Historique de l'architecture à deux Teensy (Moteur et Capteur), statut actuel et intérêt futur du filtre de Kalman étendu (EKF).
+slug: teensy-capteur
 sidebar_position: 3
+tags: [cdr, nantes, robotique, teensy]
+additional_contributors:
+  - username: Antoine Fleury
+    html_url: https://github.com/Antoine190
+    avatar_url: https://github.com/Antoine190.png
 ---
 
 :::info

@@ -1,15 +1,19 @@
 ---
 id: index
-title: Projet DaVinciBot — Eurobot
-sidebar_label: Accueil
-sidebar_position: 1
+title: Documentation informatique DaVinciBot (Coupe de France de Robotique)
+description: Accueil de la documentation technique du robot holonome DaVinciBot (ESILV Nantes) pour la Coupe de France de Robotique.
+sidebar_label: Informatique
+sidebar_position: 2
+tags: [cdr, nantes, robotique]
+additional_contributors:
+  - username: Antoine Fleury
+    html_url: https://github.com/Antoine190
+    avatar_url: https://github.com/Antoine190.png
 ---
-
-# Documentation DaVinciBot (Coupe de France de Robotique)
 
 Bienvenue sur la documentation technique du dépôt du DaVinciBot (Nantes - ESILV) pour la Coupe de France de Robotique.
 
-Ce dépôt contient l'ensemble des codes (embarqué, haut niveau, simulation) développés pour notre robot holonome à 3 roues omnidirectionnelles. Notre objectif est l'autonomie totale sur le terrain pendant les matchs de 90 secondes.
+Ce dépôt contient l'ensemble des codes (embarqué, haut niveau, simulation) développés pour notre robot holonome à 3 roues omnidirectionnelles. Notre objectif est l'autonomie totale sur le terrain pendant les matchs de 100 secondes.
 
 ## 🎯 Concept et Architecture
 

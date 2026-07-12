@@ -1,15 +1,21 @@
 ---
 id: lidar-detection
 title: Détection LiDAR (Adversaires)
+description: Module de détection d'adversaires via le LiDAR A2M12 (lidar_detection.py) et son intégration dans la boucle principale du robot.
+slug: lidar-detection
 sidebar_label: LiDAR (Détection)
+tags: [cdr, nantes, robotique, lidar]
+additional_contributors:
+  - username: Antoine Fleury
+    html_url: https://github.com/Antoine190
+    avatar_url: https://github.com/Antoine190.png
 ---
-
-# Détection LiDAR (Adversaires)
 
 Ce document décrit le module de détection d'adversaires via le LiDAR A2M12, implémenté dans `lidar_detection.py`, et son intégration dans la boucle principale du robot (`robot.py`).
 
-> [!NOTE]
-> Tout le code expérimental concernant le recalage de position du robot (trilatération SVD, `PoseEngine`, `lidar_logic.py`) n'a jamais étais tester et faudra voir si on l'utiliser si ca a vraiment une utilité et surtout faut le refaire completement. Un code lidar lidar_detection a étais créer la fin de la CDR et fini a 5h du mat donc faudra le valider sérieusement et le tester en condition réel.
+:::warning Code à valider
+Tout le code expérimental concernant le recalage de position du robot (trilatération SVD, `PoseEngine`, `lidar_logic.py`) n'a jamais été testé : il faudra évaluer son utilité réelle et, le cas échéant, le refaire complètement. Le code de `lidar_detection` a été écrit à la fin de la CDR (terminé à 5 h du matin) — il devra être validé sérieusement et testé en conditions réelles.
+:::
 
 ## Architecture de la détection (`lidar_detection.py`)
 
@@ -69,24 +75,24 @@ La gestion du thread LiDAR et la consommation des données de détection se font
 2. **Récupération de l'adversaire** : Le script interroge la dernière détection valide de l'adversaire en appelant `lidar.get_opponent()`, qui retourne un tuple `(opp_x, opp_y, opp_conf)`.
 3. **Validation de la détection** : Si un adversaire est renvoyé et que son **seuil de confiance** est strictement supérieur à `0.1` (`if opp_conf > 0.1:`), la détection est jugée fiable.
 4. **Enregistrement de l'obstacle** : L'adversaire est alors ajouté à une liste locale `obstacles`.
+    {/*robot1/rasp/robot.py*/}
 
-{/*robot1/rasp/robot.py*/}
-
-```python
-        # 4. Obstacles dynamiques (adversaire détecté par LiDAR)
-        obstacles: list = []
-        opponent_data = lidar.get_opponent()
-        if opponent_data is not None:
-            opp_x, opp_y, opp_conf = opponent_data
-            if opp_conf > 0.1:
-                obstacles.append((opp_x, opp_y))
-```
+    ```python
+    # 4. Obstacles dynamiques (adversaire détecté par LiDAR)
+    obstacles: list = []
+    opponent_data = lidar.get_opponent()
+    if opponent_data is not None:
+        opp_x, opp_y, opp_conf = opponent_data
+        if opp_conf > 0.1:
+            obstacles.append((opp_x, opp_y))
+    ```
 
 5. **Évitement et Pathfinding** : Cette liste `obstacles` est passée au cerveau du robot lors de la demande de trajectoire (`self.cerveau.get_path(pos, objectif, obstacles)`). Lors du calcul d'évitement, le **rayon du robot ou de détection** pris en compte est de **110 mm**. Cette valeur assure une marge de sécurité autour du point détecté (le centroïde de l'adversaire) pour recalculer une trajectoire sans collision. (Voir [Navigation Haut Niveau](navigation_haut_niveau.md) pour les détails de l'algorithme A*).
 
-> [!WARNING]
-> *Ambiguïté dans le code Rerun* : Le code de publication vers le module Rerun (`rerun_bridge.update_obstacles`) affiche actuellement ces obstacles avec un rayon de `200` (`"radius": 200`). Il s'agit uniquement d'une valeur d'affichage graphique pour l'interface de debug, le vrai rayon physique d'évitement utilisé par l'algorithme est bien de 110 mm.
-> De maniere plus géneral, Rerun est a revoir et voir si il y a une vrai utilité pour faire de la correction d'erreure et ajustement de PID
+:::warning Ambiguïté dans le code Rerun
+Le code de publication vers le module Rerun (`rerun_bridge.update_obstacles`) affiche actuellement ces obstacles avec un rayon de `200` (`"radius": 200`). Il s'agit uniquement d'une valeur d'affichage graphique pour l'interface de debug ; le vrai rayon physique d'évitement utilisé par l'algorithme est bien de 110 mm.
+De manière plus générale, Rerun est à revoir : il faudra déterminer s'il a une vraie utilité pour la correction d'erreurs et l'ajustement des PID.
+:::
 
 ### API Publique
 

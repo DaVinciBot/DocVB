@@ -1,7 +1,14 @@
 ---
 id: getting-started
 title: Guide de démarrage
+description: Prérequis matériels et logiciels, installation des dépendances, configuration du matériel et lancement du robot en simulation ou sur le vrai robot.
+slug: getting-started
 sidebar_position: 2
+tags: [cdr, nantes, robotique]
+additional_contributors:
+  - username: Antoine Fleury
+    html_url: https://github.com/Antoine190
+    avatar_url: https://github.com/Antoine190.png
 ---
 
 ## 1. Prérequis

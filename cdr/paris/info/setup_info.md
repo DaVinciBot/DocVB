@@ -1,9 +1,15 @@
 ---
 title: Setup de l'environnement de dev
+description: Guide d'installation et de configuration des outils de développement du projet CDR — VS Code, Git, uv, choco, clang-format, Make, formatage/lint et conventions de nommage.
+slug: setup-info
+tags: [cdr, paris, info, git]
 last_update:
   date: 2025-10-15
   author: Eliott A. Roussille
-tags: [CDR, info]
+additional_contributors:
+  - username: Eliott A. Roussille
+    html_url: https://github.com/aust-1
+    avatar_url: https://github.com/aust-1.png
 ---
 
 import TabItem from "@theme/TabItem";

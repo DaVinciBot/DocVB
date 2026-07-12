@@ -21,6 +21,7 @@ Le robot est structuré autour d'une architecture maître/esclave distribuée po
 Les communications entre ces deux niveaux sont assurées par un protocole série propriétaire sécurisé par CRC8 et signatures.
 
 ### Matériel embarqué principal
+
 - **Base** : Holonome 3 roues omnidirectionnelles (120° entre chaque roue)
 - **Moteurs** : MKS SERVO57D pilotés via bus RS485
 - **Capteurs** : PAA5100JE (flux optique), BNO08x (IMU), Lidar RPLidar A2M8 (expérimental)
@@ -30,15 +31,14 @@ Les communications entre ces deux niveaux sont assurées par un protocole série
 La présente documentation est basée sur la version la plus récente du code (post-CDR).
 
 warning : Avertissement sur l'implémentation Lidar / Navigation
-Durant la Coupe, suite à des pressions temporelles, une tentative de contournement a été faite pour faire tourner certaines logiques (comme le traitement Lidar) de façon déportée ou simplifiée, sans passer pleinement par la Raspberry Pi. 
+Durant la Coupe, suite à des pressions temporelles, une tentative de contournement a été faite pour faire tourner certaines logiques (comme le traitement Lidar) de façon déportée ou simplifiée, sans passer pleinement par la Raspberry Pi.
 Cette solution temporaire n'a pas pu être testée en conditions réelles. L'architecture cible stipule que cette logique doit être gérée par la Raspberry Pi. Le code Lidar existant est donc à considérer comme **expérimental**.
-
 
 ## 📂 Navigation dans la documentation
 
 Utilisez la barre latérale pour naviguer à travers les différentes sections :
 
-1. **Architecture** : 
+1. **Architecture** :
    - [Vue d'ensemble matérielle et logicielle](./architecture/overview.md)
    - [Schémas et flux de données](./architecture/schemas.md)
 2. **Modules Core** :

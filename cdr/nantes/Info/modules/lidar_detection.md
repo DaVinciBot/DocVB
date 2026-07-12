@@ -23,10 +23,12 @@ Le LiDAR effectue une détection de l'adversaire de façon simple et robuste, sa
 ### Clustering
 
 Les points projetés sont triés angulairement et regroupés en clusters.
+
 - La distance maximale autorisée entre deux points consécutifs d'un même cluster est définie par la constante `CLUSTER_GAP_MM` (80 mm).
 - Un cluster doit contenir un minimum de points, défini par `CLUSTER_MIN_PTS` (3 points), pour être pris en compte. Cela permet d'éliminer les artefacts et le bruit du capteur.
 
-{/* robot1/rasp/lidar/lidar_detection.py */}
+{/*robot1/rasp/lidar/lidar_detection.py*/}
+
 ```python
     current = [pts_sorted[0]]
     for i in range(1, len(pts_sorted)):
@@ -42,6 +44,7 @@ Les points projetés sont triés angulairement et regroupés en clusters.
 ### Tracking et Lissage
 
 Le meilleur cluster — généralement le plus proche du robot parmi ceux étant valides — est sélectionné comme étant l'adversaire.
+
 - **Seuil de confiance (Confidence threshold)** : Un indice de confiance (`confidence`) compris entre 0 et 1 est calculé en fonction de la densité du cluster (`min(1.0, len(cluster) / 8.0)`).
 - **Gating de vitesse** : Le module s'assure que le déplacement de l'adversaire entre deux scans est physiquement possible. Si le saut de position implique une vitesse supérieure à `MAX_OPP_SPEED_MM_S` (2500 mm/s), la nouvelle détection est ignorée.
 - **Lissage exponentiel** : Pour limiter le bruit de mesure et les tremblements de la position de l'adversaire, les coordonnées du centroïde sont lissées dans le temps grâce au facteur `ALPHA_SMOOTH` (0.4).
@@ -67,7 +70,8 @@ La gestion du thread LiDAR et la consommation des données de détection se font
 3. **Validation de la détection** : Si un adversaire est renvoyé et que son **seuil de confiance** est strictement supérieur à `0.1` (`if opp_conf > 0.1:`), la détection est jugée fiable.
 4. **Enregistrement de l'obstacle** : L'adversaire est alors ajouté à une liste locale `obstacles`.
 
-{/* robot1/rasp/robot.py */}
+{/*robot1/rasp/robot.py*/}
+
 ```python
         # 4. Obstacles dynamiques (adversaire détecté par LiDAR)
         obstacles: list = []
@@ -77,6 +81,7 @@ La gestion du thread LiDAR et la consommation des données de détection se font
             if opp_conf > 0.1:
                 obstacles.append((opp_x, opp_y))
 ```
+
 5. **Évitement et Pathfinding** : Cette liste `obstacles` est passée au cerveau du robot lors de la demande de trajectoire (`self.cerveau.get_path(pos, objectif, obstacles)`). Lors du calcul d'évitement, le **rayon du robot ou de détection** pris en compte est de **110 mm**. Cette valeur assure une marge de sécurité autour du point détecté (le centroïde de l'adversaire) pour recalculer une trajectoire sans collision. (Voir [Navigation Haut Niveau](navigation_haut_niveau.md) pour les détails de l'algorithme A*).
 
 > [!WARNING]
@@ -86,6 +91,7 @@ La gestion du thread LiDAR et la consommation des données de détection se font
 ### API Publique
 
 Le module expose 4 fonctions simples appelées par le reste du système :
+
 - `start()` : Démarre le thread de traitement LiDAR.
 - `stop()` : Stoppe le thread et libère le port série.
 - `get_opponent()` : Renvoie les coordonnées et la confiance `(x, y, confiance)` si elles sont récentes (timeout de `STALE_TIMEOUT_S`), sinon `None`.

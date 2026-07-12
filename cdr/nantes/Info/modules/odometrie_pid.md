@@ -25,23 +25,27 @@ La version finale post-CDR embarque trois sources principales de télémétrie.
 Le calcul odométrique, réalisé dans `update_odometry()`, applique plusieurs règles pour pallier les défauts physiques de chaque capteur.
 
 ### Rejet des données optiques aberrantes (Outliers)
+
 Le capteur de flux optique peut décrocher (poussière, reflet). Le code filtre brutalement toute variation de position supérieure à **15 mm** entre deux cycles (10 ms) comme étant physiquement impossible (vitesse implicite > 1.5 m/s).
 
 ### Détection de Rotation Pure
+
 Les capteurs de flux optique perdent drastiquement en précision lors des rotations sur place (effet centrifuge et tangage matériel). Le code désactive **totalement** l'intégration du capteur optique si une rotation pure est détectée.
 Une rotation pure est validée par les encodeurs lorsque :
+
 - La variation de vitesse de rotation angulaire calculée `abs(omega) > 0.005` rad (soit ~0.3°).
 - Le sens de rotation des 3 roues est identique.
 - La vitesse de rotation est répartie de manière quasi-homogène sur les 3 moteurs (écart de vitesse < 20% par rapport à la moyenne, `d_diff < 0.2`).
 
 > `robot1/teensy_moteur/lib/holonomic_basis/src/holonomic_basis.cpp`
+
 ```cpp
       bool is_pure_rotation = false;
       if (abs(omega_temp) > 0.005) { // Rotation détectée (> 0.005 rad = 0.3°)
           // Vérifier si les 3 roues tournent dans le même sens
           // ...
           bool same_sign = (d1 * d2 > 0) && (d2 * d3 > 0);
-          
+
           // Vérifier vitesses similaires (tolérance 20% pour imprécisions)
           double d_avg = (d1_abs + d2_abs + d3_abs) / 3.0;
           if (d_avg > 50.0) { // Mouvement significatif (>50 counts)
@@ -57,6 +61,7 @@ Une rotation pure est validée par les encodeurs lorsque :
 Durant ces phases, la translation (X,Y) est contrainte à zéro.
 
 ### Pondération (Filtre Complémentaire Adaptatif)
+
 Lorsque le robot se translate de manière fiable, la position (X,Y) est un mélange (Blend) entre l'optique et les encodeurs.
 La constante $\alpha$ définie dans le code régit ce ratio :
 
@@ -75,6 +80,7 @@ Cette classe C++ sur-mesure intègre des sécurités indispensables pour la base
 1. **Anti-Windup (Écrêtage de l'intégrale)** : Si les moteurs patinent ou sont bloqués, l'erreur intégrale va diverger. Le PID bloque dynamiquement l'accumulation de l'intégrale `_integral` entre les limites `minOutput / Ki` et `maxOutput / Ki`.
 
 > `robot1/teensy_moteur/lib/pid/src/pid.cpp`
+
 ```cpp
   void PID::setOutputLimits(double minOutput, double maxOutput) {
       if (minOutput >= maxOutput) return;
@@ -89,5 +95,5 @@ Cette classe C++ sur-mesure intègre des sécurités indispensables pour la base
   }
   ```
 
-2. **Gestion adaptative du temps ($dt$)** : La boucle d'asservissement cible 100Hz ($dt = 10 \text{ ms}$). Si une perturbation du code retarde la boucle, le PID encadre drastiquement le paramètre temporel entre `1 ms` (`_dtMin`) et `20 ms` (`_dtMax`) pour empêcher les explosions mathématiques sur le calcul de la dérivée ($Kd / dt$).
-3. **Deadband lissé (Correction du frottement statique)** : Les roues omnidirectionnelles souffrent d'un frottement sec élevé. Si le PID génère une commande très faible, le robot ne bouge pas. La classe inclut un `deadband` qui décale continuellement et de manière linéaire la sortie mathématique brute afin de garantir que toute commande mathématique non-nulle franchisse le seuil physique nécessaire pour faire démarrer les moteurs.
+1. **Gestion adaptative du temps ($dt$)** : La boucle d'asservissement cible 100Hz ($dt = 10 \text{ ms}$). Si une perturbation du code retarde la boucle, le PID encadre drastiquement le paramètre temporel entre `1 ms` (`_dtMin`) et `20 ms` (`_dtMax`) pour empêcher les explosions mathématiques sur le calcul de la dérivée ($Kd / dt$).
+2. **Deadband lissé (Correction du frottement statique)** : Les roues omnidirectionnelles souffrent d'un frottement sec élevé. Si le PID génère une commande très faible, le robot ne bouge pas. La classe inclut un `deadband` qui décale continuellement et de manière linéaire la sortie mathématique brute afin de garantir que toute commande mathématique non-nulle franchisse le seuil physique nécessaire pour faire démarrer les moteurs.

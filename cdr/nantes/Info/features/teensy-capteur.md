@@ -5,7 +5,7 @@ sidebar_position: 3
 ---
 
 :::info
-Feature non implémentée — contexte d'origine résolu sur la Teensy Moteur. 
+Feature non implémentée — contexte d'origine résolu sur la Teensy Moteur.
 Pertinente uniquement si l'EKF devient prioritaire.
 :::
 
@@ -36,7 +36,9 @@ L'EKF nécessite des calculs matriciels lourds. Le déporter sur une carte dédi
 Un prototype logiciel d'EKF a été rédigé dans la branche `main` (répertoire `kalman/`), mais reste inachevé et non activé.
 
 ### Implémentation Actuelle
+
 L'algorithme se trouve dans les fichiers `ExtendedKalmanFilter.hpp` et `main (1).cpp`.
+
 - **Vecteur d'état (6D)** : $x, y, \theta$ (position et orientation) ainsi que $v_x, v_y, \omega$ (vitesses).
 - **Vecteur de mesure (5D)** : $x, y, \theta$ venant de la Teensy (odométrie classique) et la distance / angle issus du LIDAR.
 - **Méthodes clés de la classe `ExtendedKalmanFilter`** :
@@ -45,6 +47,8 @@ L'algorithme se trouve dans les fichiers `ExtendedKalmanFilter.hpp` et `main (1)
   - `setupEKF()` : Configure les bruits de processus ($Q$) et de mesure ($R$).
 
 ### Ce qu'il manque
+
 Actuellement, ce prototype n'est pas activé :
+
 - Les capteurs appelés sont simulés (`readSensors()` renvoie des données fixes).
 - Le code n'est branché ni au flux réel de la Raspberry Pi, ni à l'interruption de la Teensy.

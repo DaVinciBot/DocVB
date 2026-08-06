@@ -153,9 +153,9 @@ Le maître mot à la CDR (et dans quasi tous les autres projets) c’est **si ç
 
 ### Norme PEP8
 
-<https://peps.python.org/pep-0008/>
+[PEP 8](https://peps.python.org/pep-0008/)
 
-<https://marketplace.visualstudio.com/items?itemName=ms-python.black-formatter>
+[Black](https://marketplace.visualstudio.com/items?itemName=ms-python.black-formatter)
 
 #### 1. **Longueur des lignes**
 
@@ -197,7 +197,7 @@ Vos features doivent être **TOUJOURS** testées. Cela paraît logique et basiqu
 
 **Faites des tests régressifs** ! Quand vous testez votre changement, vérifiez bien quece changement *ne change pas* le comportement du code de base. Si vous faites du refactoring c’est la même chose, le comportement du code ne doit pas *se dégrader*.
 
-⇒ <https://www.youtube.com/watch?v=YMPlQCYp7xg>
+⇒ [vidéo : The 3 Laws of Writing Bug Free Code](https://www.youtube.com/watch?v=YMPlQCYp7xgI)
 
 ## KISS
 

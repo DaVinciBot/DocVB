@@ -57,6 +57,10 @@ postgresql:
   label: PostgreSQL
   permalink: /postgresql
   description: Base de données PostgreSQL.
+svelte:
+  label: Svelte
+  permalink: /svelte
+  description: Svelte et SvelteKit — les applications web de l'association.
 kicad:
   label: KiCad
   permalink: /kicad
@@ -107,6 +111,10 @@ vision:
   description: Vision par ordinateur.
 
 # --- Domaines ---
+web:
+  label: Web
+  permalink: /web
+  description: Développement web — sites et applications de l'association.
 database:
   label: Base de données
   permalink: /database

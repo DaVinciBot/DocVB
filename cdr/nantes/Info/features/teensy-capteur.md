@@ -38,9 +38,9 @@ L'EKF nécessite des calculs matriciels lourds. Le déporter sur une carte dédi
 
 ---
 
-## Annexe : Prototype EKF dans la branche `main`
+## Annexe : Prototype EKF (tag `archive/main-2026-04`)
 
-Un prototype logiciel d'EKF a été rédigé dans la branche `main` (répertoire `kalman/`), mais reste inachevé et non activé.
+Un prototype logiciel d'EKF a été rédigé dans l'ancienne `main` d'avril 2026 (répertoire `kalman/`), mais reste inachevé et non activé. Depuis le tri des branches d'août 2026 il n'est plus sur `main` ; on le retrouve via le tag `archive/main-2026-04` (voir [Gestion des Branches](../branches.md)).
 
 ### Implémentation Actuelle
 

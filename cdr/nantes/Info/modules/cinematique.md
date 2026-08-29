@@ -38,13 +38,15 @@ L'orientation des moteurs dans le repère local du robot est la suivante :
 | ---- | ----------------- | ----------------- | ---- | --- | --- |
 | W1   | Haut Droite       | 120°              | 2    | 3   | 4   |
 | W2   | Haut Gauche       | 240°              | 5    | 6   | 7   |
-| W3   | Arrière           | 0°                | 8    | 9   | 10  |
+| W3   | Arrière           | 0°                | 8    | 9   | 11  |
+
+*(Pins `W*_STEP/DIR/ENABLE` héritées de l'architecture A4988 ; avec les MKS SERVO57D en RS485 elles ne servent plus à générer des pulses. Le pin EN de W3 est passé de 10 à **11** pour libérer le CS du capteur optique — cf. `config.h`.)*
 
 Parametre physique du robot dans config.h
 
 | Paramètre                       | Valeur          |
 | ------------------------------- | --------------- |
-| Rayon robot (centre → axe roue) | 156.9 mm        |
+| Rayon robot (centre → axe roue) | **160.0 mm** sur `main` (156.9 ailleurs) — à calibrer (~158 mesuré) |
 | Diamètre roue effectif          | 60.0 mm         |
 | Steps/révolution (NEMA 23)      | 200             |
 | Microstepping                   | 32              |

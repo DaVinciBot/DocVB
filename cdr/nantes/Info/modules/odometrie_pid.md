@@ -19,10 +19,10 @@ La version finale post-CDR embarque trois sources principales de télémétrie.
 
 1. **Encodeurs MKS SERVO57D** : Reliés en RS485. Interrogés en rafale asynchrone à 100Hz pour calculer les vitesses différentielles.
 2. **Centrale Inertielle BNO085 (IMU)** : Connectée en I2C. Fournit un quaternion matériel absolu converti en cap ($\theta$) via le rapport `SH2_GAME_ROTATION_VECTOR` configuré à 100Hz.
-3. **Capteur Optique (PAA5100)** : Connecté en I2C. Fournit des variations locales en (X, Y). Remplace les roues codeuses traditionnelles pour mesurer le glissement. Pas fiable avec la faible luminosité du robot, nous avons essayé de rajouter des leds mais cela n'a pas fonctionné.
+3. **Capteur Optique** : PAA5100 (bus **SPI**, pas I2C — cf. `config.h` `PAA5100_CS_PIN`). Fournit des variations locales en (X, Y). Remplace les roues codeuses traditionnelles pour mesurer le glissement. Pas fiable avec la faible luminosité du robot (des LEDs ont été testées sans succès). **Ce capteur est en cours de remplacement** — la branche la plus récente a expérimenté un SparkFun Qwiic OTOS (I2C) ; choix définitif à trancher.
 
 :::warning Filtre de Kalman (EKF) et Teensy Capteur
-Un **Filtre de Kalman Étendu (EKF)** a été prototypé et partiellement implémenté dans la branche `main`, mais il n'est pas activé. En parallèle, une architecture matérielle déportée sur une **Teensy Capteur** dédiée a été étudiée (branche `feature/teensy_capteur`) mais abandonnée. L'implémentation décrite ci-dessous repose sur une fusion maison simplifiée (Filtre Complémentaire Adaptatif) hébergée directement sur la Teensy Moteur principale. (Voir [Teensy Capteur et EKF](../features/teensy-capteur.md).)
+Un **Filtre de Kalman Étendu (EKF)** a été prototypé dans l'ancienne `main` d'avril 2026 (répertoire `kalman/`, aujourd'hui dans le tag `archive/main-2026-04`), mais il n'est pas activé. En parallèle, une architecture matérielle déportée sur une **Teensy Capteur** dédiée a été étudiée (branche `feature/teensy_capteur`) mais abandonnée. L'implémentation décrite ci-dessous repose sur une fusion maison simplifiée (Filtre Complémentaire Adaptatif) hébergée directement sur la Teensy Moteur principale. (Voir [Teensy Capteur et EKF](../features/teensy-capteur.md).)
 :::
 
 ## 2. Logique de Fusion (Filtre Complémentaire)

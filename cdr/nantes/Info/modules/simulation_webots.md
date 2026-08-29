@@ -37,7 +37,7 @@ Actuellement dans `teensy_controller.cpp`, les initialisations des capteurs `PAA
 ### Simulation du LIDAR
 
 Le LIDAR est simulé via le composant Webots natif (`wb_lidar_get_range_image`).
-La fonction `process_lidar_scan()` dans le contrôleur lit les 360 points de résolution et les découpe en 4 messages successifs de 90 points (`part1` à `part4`). Cela permet de respecter la limite de 255 octets imposée par le protocole de communication série, reproduisant fidèlement les contraintes matérielles du vrai RPLIDAR A2M8.
+La fonction `process_lidar_scan()` dans le contrôleur lit les 360 points de résolution et les découpe en 4 messages successifs de 90 points (`part1` à `part4`). Cela permet de respecter la limite de 255 octets imposée par le protocole de communication série, reproduisant fidèlement les contraintes matérielles du vrai RPLIDAR A2M12.
 
 ## 2. Pont de Communication Série (Virtual COM)
 

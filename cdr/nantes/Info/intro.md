@@ -23,7 +23,7 @@ Le système repose sur une architecture maître-esclave conçue pour séparer la
 - **Architecture Maître/Esclave** : Une **Raspberry Pi 5** embarquant l'intelligence artificielle et la stratégie commande une carte **Teensy 4.1 (Teensy Moteur)** chargée de la cinématique et des asservissements matériels.
 - **Protocole Série Robuste** : La communication entre ces deux cerveaux est assurée via USB par un protocole sur-mesure sécurisé par des trames à CRC8, garantissant la fiabilité des envois de consignes et la remontée d'odométrie à 100 Hz.
 - **Cinématique Holonome & Fusion de Capteurs** : Le déplacement fluide de la base à 3 roues holonomes (120°) est asservi par un système de PID alimenté par un filtre complémentaire adaptatif (fusionnant les encodeurs magnétiques, une centrale inertielle BNO085 et un capteur de flux optique PAA5100). **Des changements vont etre réaliser sur le capteur optique**
-- **Détection d'Adversaires** : Un **RPLidar A2M8** tourne en tâche de fond pour alimenter un algorithme de clustering garantissant l'évitement des robots ennemis.
+- **Détection d'Adversaires** : Un **RPLidar A2M12** tourne en tâche de fond pour alimenter un algorithme de clustering garantissant l'évitement des robots ennemis.
 - **Simulation Webots Unifiée** : Un jumeau numérique dans Webots permet d'exécuter et de tester exactement le même code Python de stratégie sans nécessiter le robot physique, grâce à un ingénieux pont de communication virtuel (`switch_mode.py`). **N'est plus a jour avec le changement de com des moteur mais a réutiliser si vous le souhaitez**
 
 ## Statut Actuel du Projet

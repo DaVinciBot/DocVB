@@ -22,9 +22,9 @@ L'architecture s'articule autour des éléments suivants :
 - **Teensy 4.1 (Moteur)** : Microcontrôleur dédié à la base motrice. Il maintient une boucle de contrôle rapide (PID) et communique avec les drivers des moteurs.
 - **MKS SERVO57D** : Moteurs pas-à-pas avec encodeurs intégrés (boucle fermée matérielle), pilotés via un bus RS485 par la Teensy Moteur. Le robot en utilise 3, disposés à 120° (base holonome holonome).
 - **Capteurs de Télémétrie** :
-  - **PAA5100JE** : Capteur de flux optique (SPI) pour l'odométrie sans glissement.
+  - **Capteur de flux optique** pour l'odométrie sans glissement : PAA5100JE (SPI) sur `main` ; le choix du capteur définitif (retour PAA5100, SparkFun Qwiic OTOS, ou autre) est à trancher — voir [Gestion des Branches](../branches.md).
   - **BNO08x** : Centrale inertielle (IMU) en I2C pour un cap précis.
-  - **RPLidar A2M8** : Lidar 360° connecté en USB à la Raspberry Pi. Dédié uniquement à la détection d'adversaires (via `lidar_detection`).
+  - **RPLidar A2M12** : Lidar 360° connecté en USB à la Raspberry Pi. Dédié uniquement à la détection d'adversaires (via `lidar_detection`).
 
 :::danger Doute signalé depuis `schema_info_v2.drawio`
 Le fichier de conception abstrait `schema_info_v2.drawio` présente une carte supplémentaire dédiée : la **Teensy Capteur**. Sur ce schéma, les capteurs PAA5100JE et BNO085 sont reliés à cette carte, qui calcule et envoie les variations d'odométrie (`dx, dy, dtheta`) via UART vers la Teensy Moteur.

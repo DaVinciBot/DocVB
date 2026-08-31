@@ -12,19 +12,14 @@ additional_contributors:
     avatar_url: https://github.com/Antoine190.png
 ---
 
-:::warning À refaire
-Ces schémas doivent être repris et mis à jour.
-:::
-
-Ces diagrammes Mermaid ont été générés fidèlement à partir du fichier de conception original (`schema_info_v2.drawio`).
+Ce schéma est la version à jour du fichier de conception `schema_info_v2.drawio` (synchronisé depuis le dépôt `CDR-Nantes`, août 2026).
 
 ## 1. Architecture Matérielle et Communication
 
 Ce diagramme illustre le cheminement des données depuis les algorithmes de la Raspberry Pi jusqu'aux moteurs, ainsi que le système de remontée des capteurs.
 
-:::warning
-Ce schéma est daté de la période deux teensy, mais nous allons sûrement rester sur cette logique pour l'année 26/27. 
-La seule partie à ne pas prendre en compte est la partie lidar, pas du tout à jour. Sinon, le reste est l'archi actuelle.
+:::note
+Le schéma représente l'architecture cible à **deux Teensy** (Moteur + Capteur), retenue comme piste pour 2026/27 mais **pas encore implémentée**. La partie LiDAR / haut niveau va être **entièrement refaite cette année**. Le reste (bus RS485 moteurs, protocole USB, capteurs) reflète l'archi actuelle.
 :::
 
-![Mon diagramme](/img/cdr/nantes/info/architecture/schema_nantes.svg)
+![Schéma architecture Nantes](/img/cdr/nantes/info/architecture/schema_nantes.svg)

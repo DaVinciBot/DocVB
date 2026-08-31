@@ -1,0 +1,681 @@
+.dvbTagPage {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 256px;
+  align-items: start;
+}
+
+.dvbTagMain {
+  min-width: 0;
+  padding-right: 44px;
+}
+
+.dvbTagCrumbs {
+  --ifm-breadcrumb-size-multiplier: 0.8;
+  margin-bottom: 0.8rem;
+}
+
+.dvbTagHead {
+  margin-top: 28px;
+  margin-bottom: 32px;
+}
+
+.dvbTagTitle {
+  margin: 0;
+  font-family: var(--dvb-font-sans);
+  font-size: 60px;
+  font-weight: 700;
+  letter-spacing: -0.05em;
+  line-height: 0.92;
+  color: var(--ifm-heading-color);
+}
+
+.dvbTagLead {
+  margin: 14px 0 0;
+  max-width: 760px;
+  font-size: 17px;
+  line-height: 1.5;
+  color: var(--dvb-muted);
+}
+
+.dvbTagLeadCount {
+  font-family: var(--dvb-font-mono);
+  font-size: 14px;
+  color: var(--ifm-heading-color);
+}
+
+.dvbTagLeadSep {
+  margin: 0 12px;
+  color: var(--dvb-line);
+}
+
+.dvbTagRule {
+  margin: 0;
+  border: 0;
+  border-top: 1px solid var(--dvb-edge);
+  background: none;
+  height: 0;
+}
+
+.dvbTagList {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.dvbTagItem {
+  position: relative;
+  display: flex;
+  gap: 0;
+  padding: 20px 0 22px;
+  border-bottom: 1px solid var(--dvb-line);
+  cursor: pointer;
+}
+
+.dvbTagIndex {
+  flex: none;
+  width: 34px;
+  padding-top: 4px;
+  font-family: var(--dvb-font-mono);
+  font-size: 12px;
+  color: var(--dvb-muted);
+}
+
+.dvbTagItemBody {
+  min-width: 0;
+  flex: 1;
+}
+
+.dvbTagItemTitle {
+  margin: 0;
+  font-family: var(--dvb-font-sans);
+  font-size: 23px;
+  font-weight: 700;
+  letter-spacing: -0.028em;
+  line-height: 1.2;
+}
+
+.dvbTagItemLink {
+  color: var(--ifm-heading-color);
+  text-decoration: none;
+}
+
+.dvbTagItemLink::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+
+.dvbTagItemLink:hover {
+  color: var(--ifm-color-primary);
+  text-decoration: none;
+}
+
+.dvbTagItemDesc {
+  margin: 8px 0 0;
+  max-width: 660px;
+  font-size: 14.5px;
+  line-height: 1.55;
+  color: var(--dvb-muted);
+}
+
+.dvbTagChips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 12px;
+}
+
+.dvbTagChip {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 8px;
+  line-height: 1;
+  border: 1px solid var(--dvb-line);
+  font-family: var(--dvb-font-mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--dvb-muted);
+  text-decoration: none;
+}
+
+.dvbTagChip:hover {
+  border-color: var(--ifm-color-primary);
+  color: var(--ifm-color-primary);
+  text-decoration: none;
+}
+
+.dvbTagChipActive {
+  border-color: var(--ifm-color-primary);
+  color: var(--ifm-color-primary);
+}
+
+.dvbTagRail {
+  position: sticky;
+  top: calc(var(--ifm-navbar-height) + 1rem);
+  max-height: calc(100vh - (var(--ifm-navbar-height) + 2rem));
+  overflow-y: auto;
+  padding-left: 24px;
+  padding-right: 14px;
+  border-left: 1px solid var(--dvb-line);
+}
+
+.dvbTagRailHead {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--dvb-line);
+}
+
+.dvbTagRailTitle {
+  margin: 0;
+  font-family: var(--dvb-font-sans);
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--ifm-heading-color);
+}
+
+.dvbTagRailList {
+  margin: 12px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.dvbTagRailItem {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 5px 8px 5px 9px;
+  border-left: 3px solid transparent;
+  background: transparent;
+  color: var(--ifm-font-color-base);
+  text-decoration: none;
+}
+
+.dvbTagRailItem:hover,
+.dvbTagRailItem:focus {
+  background: var(--ifm-color-emphasis-200);
+  color: var(--ifm-font-color-base);
+  text-decoration: none;
+}
+
+.dvbTagRailItemActive,
+.dvbTagRailItemActive:hover,
+.dvbTagRailItemActive:focus {
+  border-left-color: var(--ifm-color-primary);
+  background: var(--dvb-accent-wash);
+  color: var(--ifm-font-color-base);
+}
+
+.dvbTagRailLabel {
+  font-size: 14px;
+  min-width: 0;
+}
+
+.dvbTagRailCount {
+  flex: none;
+  font-family: var(--dvb-font-mono);
+  font-size: 11px;
+  color: var(--dvb-muted);
+}
+
+.dvbTagRailAll {
+  flex: none;
+  color: var(--ifm-color-primary);
+  font-size: 13px;
+  text-decoration: none;
+}
+
+.dvbTagRailAll:hover {
+  color: var(--ifm-color-primary);
+  text-decoration: none;
+}
+
+.tagsIndexPage .main-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.tagsIndexRoot {
+  display: flex;
+  flex: 1 0 auto;
+  align-items: stretch;
+  min-height: calc(100vh - var(--ifm-navbar-height));
+  min-width: 0;
+}
+
+.tagsIntro {
+  position: sticky;
+  top: var(--ifm-navbar-height);
+  display: flex;
+  flex: 0 0 372px;
+  flex-direction: column;
+  align-self: flex-start;
+  height: calc(100vh - var(--ifm-navbar-height));
+  overflow-y: auto;
+  padding: 34px 30px 26px;
+  border-right: 1px solid var(--dvb-edge);
+}
+
+.tagsCrumbs {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-family: var(--dvb-font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+}
+
+.tagsCrumb {
+  color: var(--dvb-muted);
+  text-decoration: none;
+}
+
+.tagsCrumb:hover {
+  color: var(--ifm-color-primary);
+  text-decoration: none;
+}
+
+.tagsCrumbSep {
+  color: var(--dvb-line);
+}
+
+.tagsCrumbCurrent {
+  color: var(--ifm-color-primary);
+}
+
+.tagsTitle {
+  margin: 26px 0 0;
+  font-family: var(--dvb-font-sans);
+  font-size: 68px;
+  font-weight: 700;
+  letter-spacing: -0.05em;
+  line-height: 0.88;
+  color: var(--ifm-heading-color);
+}
+
+.tagsLead {
+  margin: 18px 0 0;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--dvb-muted);
+}
+
+.tagsSpacer {
+  flex: 1;
+  min-height: 32px;
+}
+
+.tagsSortBox {
+  padding-top: 16px;
+  border-top: 1px solid var(--dvb-line);
+}
+
+.tagsSortLabel {
+  display: block;
+  font-family: var(--dvb-font-mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--dvb-muted);
+}
+
+.tagsSortChips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.tagsSortChip {
+  padding: 6px 10px;
+  border: 1px solid var(--dvb-line);
+  background: transparent;
+  font-family: var(--dvb-font-mono);
+  font-size: 10.5px;
+  line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--dvb-muted);
+  cursor: pointer;
+}
+
+.tagsSortChip:hover {
+  border-color: var(--dvb-edge);
+  color: var(--ifm-heading-color);
+}
+
+.tagsSortChipActive,
+.tagsSortChipActive:hover {
+  border-color: var(--ifm-color-primary);
+  background: var(--ifm-color-primary);
+  color: var(--dvb-paper);
+}
+
+.tagsTable {
+  display: grid;
+  flex: 1;
+  grid-template-columns: max-content 1fr 118px;
+  align-content: start;
+  min-width: 0;
+}
+
+.tagsHeadCell {
+  display: flex;
+  align-items: center;
+  height: 34px;
+  border-bottom: 1px solid var(--dvb-edge);
+  font-family: var(--dvb-font-mono);
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--dvb-muted);
+}
+
+.tagsHeadCell:first-child {
+  padding-left: 30px;
+}
+
+.tagsHeadCount {
+  justify-content: flex-end;
+  padding-right: 30px;
+}
+
+.tagsCell {
+  border-bottom: 1px solid var(--dvb-line);
+  color: var(--ifm-font-color-base);
+  text-decoration: none;
+}
+
+.tagsCellActive {
+  background: var(--dvb-accent-wash);
+}
+
+.cellTag {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 13px 22px 14px 30px;
+}
+
+.cellTag:hover {
+  text-decoration: none;
+}
+
+.cellTagName {
+  font-family: var(--dvb-font-sans);
+  font-size: 19px;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.15;
+  white-space: nowrap;
+  color: var(--ifm-heading-color);
+}
+
+.tagsCellActive .cellTagName {
+  color: var(--ifm-color-primary);
+}
+
+.cellTagDesc {
+  overflow: hidden;
+  max-width: 260px;
+  margin-top: 2px;
+  font-size: 12.5px;
+  line-height: 1.3;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: var(--dvb-muted);
+}
+
+.cellPreview {
+  position: relative;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  overflow: hidden;
+  gap: 8px;
+  padding-right: 16px;
+  cursor: pointer;
+}
+
+.previewItem {
+  flex: none;
+  border-bottom: 1px solid var(--dvb-line);
+  font-size: 12.5px;
+  line-height: 1.4;
+  white-space: nowrap;
+  color: var(--ifm-font-color-base);
+  text-decoration: none;
+}
+
+.previewItem:hover {
+  border-bottom-color: var(--ifm-color-primary);
+  color: var(--ifm-color-primary);
+  text-decoration: none;
+}
+
+.previewMore {
+  flex: none;
+  font-family: var(--dvb-font-mono);
+  font-size: 11px;
+  white-space: nowrap;
+  color: var(--dvb-muted);
+}
+
+.cellCount {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 9px;
+  padding-right: 30px;
+}
+
+.cellCount:hover {
+  text-decoration: none;
+}
+
+.countBar {
+  flex: 1;
+  height: 5px;
+  background: var(--dvb-line);
+}
+
+.countBarFill {
+  display: block;
+  height: 100%;
+  background: var(--dvb-edge);
+}
+
+.tagsCellActive .countBarFill {
+  background: var(--ifm-color-primary);
+}
+
+.countValue {
+  flex: none;
+  font-family: var(--dvb-font-mono);
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--ifm-heading-color);
+}
+
+@media (max-width: 996px) {
+  .tagsIndexRoot {
+    flex-direction: column;
+    min-height: 0;
+  }
+
+  .tagsIntro {
+    position: static;
+    flex: none;
+    align-self: auto;
+    height: auto;
+    overflow: visible;
+    padding: 18px 18px 20px;
+    border-right: none;
+    border-bottom: 1px solid var(--dvb-edge);
+  }
+
+  .tagsTitle {
+    margin-top: 18px;
+    font-size: 44px;
+  }
+
+  .tagsLead {
+    margin-top: 12px;
+    font-size: 14.5px;
+  }
+
+  .tagsSpacer {
+    display: none;
+  }
+
+  .tagsSortBox {
+    margin-top: 20px;
+  }
+
+  .tagsSortChip {
+    padding: 7px 10px;
+  }
+
+  .tagsHeadCell {
+    display: none;
+  }
+
+  .tagsTable {
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-auto-flow: dense;
+  }
+
+  .cellTag {
+    grid-column: 1;
+    min-width: 0;
+    padding: 13px 0 0 18px;
+    border-bottom: none;
+  }
+
+  .cellTagName {
+    overflow: hidden;
+    font-size: 18px;
+    text-overflow: ellipsis;
+  }
+
+  .cellTagDesc {
+    max-width: none;
+    font-size: 12px;
+  }
+
+  .cellCount {
+    grid-column: 2;
+    align-items: flex-start;
+    padding: 15px 18px 0 0;
+    border-bottom: none;
+  }
+
+  .countBar {
+    flex: none;
+    width: 74px;
+    margin-top: 5px;
+  }
+
+  .countValue {
+    font-size: 13px;
+  }
+
+  .cellPreview {
+    grid-column: 1 / -1;
+    min-width: 0;
+    margin-top: 8px;
+    padding: 0 18px 14px;
+  }
+}
+
+@media (max-width: 996px) {
+  .dvbTagPage {
+    grid-template-columns: 1fr;
+  }
+
+  .dvbTagMain {
+    padding-right: 0;
+  }
+
+  .dvbTagRail {
+    position: static;
+    max-height: none;
+    overflow-y: visible;
+    margin-top: 4px;
+    padding: 20px 0 0;
+    border-left: none;
+    border-top: none;
+  }
+
+  .dvbTagRailList {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 10px;
+  }
+
+  .dvbTagRailItem {
+    justify-content: flex-start;
+    gap: 7px;
+    padding: 7px 10px;
+    border: 1px solid var(--dvb-line);
+    border-left-width: 1px;
+    background: transparent;
+  }
+
+  .dvbTagRailLabel {
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    color: var(--ifm-heading-color);
+  }
+
+  .dvbTagRailCount {
+    font-size: 10px;
+  }
+
+  .dvbTagRailItem:not(.dvbTagRailItemActive):hover,
+  .dvbTagRailItem:not(.dvbTagRailItemActive):focus {
+    border-color: var(--dvb-edge);
+    background: transparent;
+  }
+
+  .dvbTagRailItemActive,
+  .dvbTagRailItemActive:hover,
+  .dvbTagRailItemActive:focus {
+    border-color: var(--ifm-color-primary);
+    background: var(--dvb-accent-wash);
+  }
+
+  .dvbTagRailItemActive .dvbTagRailLabel {
+    font-weight: 600;
+    color: var(--ifm-color-primary);
+  }
+
+  .dvbTagRailItemActive .dvbTagRailCount {
+    color: var(--ifm-color-primary);
+  }
+}
+
+@media (max-width: 600px) {
+  .dvbTagTitle {
+    font-size: 40px;
+  }
+
+  .dvbTagIndex {
+    width: 26px;
+  }
+
+  .dvbTagLead {
+    font-size: 16px;
+  }
+}

@@ -72,7 +72,7 @@ Pour utiliser le robot physique basé sur la carte Teensy :
 Pour lancer le robot en conditions réelles de match, suivez cette séquence stricte :
 
 1. **Alimentation** : Allumez la batterie principale et vérifiez l'alimentation des cartes (LEDs).
-2. **Connexions** : Branchez les câbles USB reliant la Raspberry Pi à la Teensy Moteur et au RPLidar A2M8.
+2. **Connexions** : Branchez les câbles USB reliant la Raspberry Pi à la Teensy Moteur et au RPLidar A2M12.
 3. **Vérification tirette** : Assurez-vous que la tirette de démarrage est bien insérée (état initialisé).
 4. **Lancement du script** : Démarrez la logique principale (assurez-vous d'être en mode `hardware`) :
 
@@ -80,4 +80,4 @@ Pour lancer le robot en conditions réelles de match, suivez cette séquence str
    python robot1/rasp/main.py
    ```
 
-5. **Démarrage du match** : Retirez la tirette. Le chronomètre de 90 secondes se lance et la machine à états de stratégie (`StratManager`) prend le contrôle.
+5. **Démarrage du match** : Retirez la tirette. Le chronomètre de 100 secondes se lance et la machine à états de stratégie (`StratManager`) prend le contrôle.

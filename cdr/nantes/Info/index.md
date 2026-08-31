@@ -28,7 +28,7 @@ Les communications entre ces deux niveaux sont assurées par un protocole série
 
 - **Base** : Holonome 3 roues omnidirectionnelles (120° entre chaque roue)
 - **Moteurs** : MKS SERVO57D pilotés via bus RS485
-- **Capteurs** : PAA5100JE (flux optique), BNO08x (IMU), Lidar RPLidar A2M8 (expérimental)
+- **Capteurs** : capteur de flux optique (PAA5100JE en SPI, en cours de remplacement — voir [Gestion des Branches](./branches.md), a décider de ce qu'on fait pour ça), BNO08x (IMU, I2C), Lidar RPLidar A2M12
 
 ## ⚠️ Contexte actuel et statut du code
 

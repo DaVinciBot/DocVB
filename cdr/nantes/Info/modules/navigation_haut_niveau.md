@@ -1,7 +1,7 @@
 ---
 id: navigation-haut-niveau
 title: Navigation Haut Niveau et Stratégie
-description: Prise de décision globale du robot — boucle principale, machine à états de la stratégie, terrain et pathfinding pendant le match de 90 secondes.
+description: Prise de décision globale du robot — boucle principale, machine à états de la stratégie, terrain et pathfinding pendant le match de 100 secondes.
 slug: navigation-haut-niveau
 sidebar_label: Stratégie & Navigation
 tags: [cdr, nantes, robotique]
@@ -11,7 +11,7 @@ additional_contributors:
     avatar_url: https://github.com/Antoine190.png
 ---
 
-Ce module décrit la prise de décision globale du robot, la machine à états de la stratégie, et les mécanismes de pathfinding (recherche de chemin) employés pendant le match de 90 secondes.
+Ce module décrit la prise de décision globale du robot, la machine à états de la stratégie, et les mécanismes de pathfinding (recherche de chemin) employés pendant le match de 100 secondes.
 
 ## Boucle Principale (`update`)
 
@@ -41,7 +41,7 @@ Actuellement, la liste des actions est définie en dur dans la méthode `_genere
 
 ```python
 def _generer_strategie(self):
-    """Génère la liste des actions à effectuer pendant les 90s."""
+    """Génère la liste des actions à effectuer pendant les 100s."""
     actions = []
 
     # 1. Sortir de la zone de départ

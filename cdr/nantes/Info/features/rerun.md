@@ -11,8 +11,11 @@ additional_contributors:
     avatar_url: https://github.com/Antoine190.png
 ---
 
-:::info Feature à l'étude (Branche `feature/rerun.io_a_voir`)
-Cette fonctionnalité d'intégration de **Rerun.io** pour le monitoring 3D et le débogage temps réel a été prototypée mais n'est pas mergée sur `main`. Son impact sur les ressources CPU de la Raspberry Pi doit encore être évalué en conditions de match.
+:::info Feature à évaluer — déjà présente dans `main`
+Le pont **Rerun.io** (monitoring 3D, débogage temps réel) est intégré dans `main`
+(`robot1/rasp/rerun/`) : l'ancienne branche `feature/rerun.io_a_voir` a été absorbée puis
+archivée sous le tag `archive/rerun-2026-04`. Il reste à mesurer son impact sur les ressources
+CPU de la Raspberry Pi 5 en conditions de match avant de s'en servir en compétition.
 :::
 
 ## 1. Contexte et Motivation

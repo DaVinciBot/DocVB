@@ -29,7 +29,7 @@ Nous pouvons développer une interface de supervision en temps réel. Cela perme
 
 ### 2. Finaliser le Filtre de Kalman et la Teensy Capteur
 
-L'EKF (Filtre de Kalman Étendu) est partiellement implémenté de manière théorique dans la branche `main`. L'objectif est de le compléter et potentiellement de valider son exécution sur une **Teensy Capteur** dédiée. Cela permettrait de délester la boucle temps-réel des moteurs et d'exploiter à 100% l'IMU et le flux optique pour éliminer totalement la dérive d'odométrie. Cela va de pair avec la finition de la Teensy Capteur
+L'EKF (Filtre de Kalman Étendu) a été prototypé de manière théorique dans l'ancienne `main` d'avril 2026 (répertoire `kalman/`), désormais accessible via le tag `archive/main-2026-04`. L'objectif est de le compléter et potentiellement de valider son exécution sur une **Teensy Capteur** dédiée. Cela permettrait de délester la boucle temps-réel des moteurs et d'exploiter à 100% l'IMU et le flux optique pour éliminer totalement la dérive d'odométrie. Cela va de pair avec la finition de la Teensy Capteur
 
 ### 3. Implémentation de la Caméra
 
@@ -37,11 +37,11 @@ La branche `features/camera_finir_implementation` contient les prémices du pipe
 
 ### 4. Optimisation Globale du Code
 
-Un grand nettoyage s'impose. Il faudra finaliser l'intégration de la branche `modification_durant_la_cdr_a_clean` dans `main`. Il est également nécessaire de supprimer les vestiges de code mort (comme le recalage Lidar par SVD ou `lidar_logic.py`) afin de clarifier le dépôt.
+Le tri des branches a été fait fin août 2026 : `modification_durant_la_cdr_a_clean` est devenue la nouvelle `main`, les branches obsolètes sont archivées sous forme de tags `archive/*` (voir [Gestion des Branches](./branches.md)). Reste à trancher le sort du recalage LiDAR par SVD (`lidar_logic.py`) : soit le valider en conditions réelles, soit le supprimer proprement — mais ne pas le laisser dans l'ambigu (le document `PHASE6_COMPLETION_SUMMARY` le dit intégré, il faut confirmer ou retirer).
 
 ### 5. Optimisation du LIDAR
 
-Le Pathfinder (`A*`) n'a pas été prouvé en match. Il faudra le tester en conditions réelles avec le robot en mouvement. L'algorithme de clustering du **RPLidar A2M8** doit être affiné pour gérer la disparition des adversaires. L'évaluation de l'outil `rerun.io` (actuellement dans `feature/rerun.io_a_voir`) est fortement recommandée pour se doter d'un outil de debug visuel 3D performant.
+Le Pathfinder (`A*`) n'a pas été prouvé en match. Il faudra le tester en conditions réelles avec le robot en mouvement. L'algorithme de clustering du **RPLidar A2M12** doit être affiné pour gérer la disparition des adversaires. L'évaluation de l'outil `rerun.io` (actuellement dans `feature/rerun.io_a_voir`) est fortement recommandée pour se doter d'un outil de debug visuel 3D performant.
 
 ### 6. Réalisation des Actionneurs
 

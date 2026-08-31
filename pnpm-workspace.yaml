@@ -1,0 +1,7 @@
+overrides:
+  webpack: 5.105.4
+
+# core-js ne fait que des postinstall publicitaires : inutiles au build.
+allowBuilds:
+  core-js: false
+  core-js-pure: false

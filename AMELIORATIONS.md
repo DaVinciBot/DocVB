@@ -34,7 +34,7 @@ classés par priorité indicative : 🔴 important, 🟠 souhaitable, 🟢 confo
 
 ### 🟠 Enrichir les contenus opérationnels
 
-- `deploy-app.md` : expliquer *où* vivent les `values.yaml`, comment gérer les
+- `deploy-app.md` : expliquer _où_ vivent les `values.yaml`, comment gérer les
   secrets Helm, et que faire quand un déploiement échoue (rollback).
 - Cluster : aucune page ne documente la sauvegarde/restauration ni la
   supervision (New Relic / Uptime Kuma sont cités mais pas documentés).
@@ -91,7 +91,7 @@ structure Introduction → Prérequis → Contenu → Ressources, admonitions), 
 
 Chaque instance de docs (docs/, cdr/paris, cdr/nantes, versions archivées)
 exige son propre `tags.yml` : le fichier est actuellement dupliqué 4 fois.
-Ajouter un petit script (`npm run sync-tags`) ou un hook de build qui copie
+Ajouter un petit script (`pnpm run sync-tags`) ou un hook de build qui copie
 `docs/tags.yml` vers les autres instances pour garantir qu'ils ne divergent pas.
 
 ### 🟠 Métadonnées et navigation

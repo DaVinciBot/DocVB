@@ -53,7 +53,7 @@ const config: Config = {
         rehypePlugins: [rehypeKatex],
         // Versionnage année par année : la doc de travail (cdr/paris)
         // correspond à la saison en cours, les saisons passées sont archivées
-        // via `npm run docusaurus docs:version:cdr-paris <année>`.
+        // via `pnpm run docusaurus docs:version:cdr-paris <année>`.
         lastVersion: "current",
         versions: {
           current: {
@@ -81,7 +81,7 @@ const config: Config = {
         remarkPlugins: [remarkMath],
         rehypePlugins: [rehypeKatex],
         // Mêmes paramètres que CDR Paris ; les archives se créeront via
-        // `npm run docusaurus docs:version:cdr-nantes <année>` en fin de saison.
+        // `pnpm run docusaurus docs:version:cdr-nantes <année>` en fin de saison.
         lastVersion: "current",
         versions: {
           current: {

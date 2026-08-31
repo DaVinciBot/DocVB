@@ -577,54 +577,61 @@ En `service_role` ou hors requête PostgREST, il n'y a pas de JWT. Une comparais
 
 ### Références à d'autres tables
 
-Une policy peut faire des sous-requêtes. Le motif le plus courant du projet :
+Une policy peut faire des sous-requêtes. Le motif le plus courant, « je vois le projet s'il porte au moins une de mes tâches » :
 
 ```sql
-CREATE POLICY orders_read ON cash.orders
-    FOR SELECT TO authenticated
-        USING (public.has_permission ('orders.read.all')
+CREATE POLICY project_read ON app.project
+    FOR SELECT TO app_user
+        USING (app.has_permission ('task.read.all')
             OR EXISTS (
                 SELECT 1
-                FROM cash.items i
-                WHERE i.order_id = orders.id
-                  AND (i.requested_by = auth.uid ()
-                       OR public.has_project_permission ('orders.read.project', i.project_id))));
+                FROM app.task t
+                WHERE t.project_id = project.id
+                  AND (t.author_id = app.current_member ()
+                       OR app.has_project_permission ('task.read', t.project_id))));
 ```
 
 Deux détails de syntaxe :
 
-- **`orders.id` dans la sous-requête** désigne la ligne courante de la table sur laquelle porte la policy. On qualifie par le nom de la table (pas d'alias possible), et on alias la table interne (`i`) pour éviter l'ambiguïté.
+- **`project.id` dans la sous-requête** désigne la ligne courante de la table sur laquelle porte la policy. On qualifie par le nom de la table (pas d'alias possible), et on alias la table interne (`t`) pour éviter l'ambiguïté.
 - **`EXISTS` plutôt que `IN`** : s'arrête au premier résultat et gère correctement les `NULL`.
 
 :::danger La sous-requête n'est pas soumise au RLS de la table lue
-Une policy est évaluée avec les droits du propriétaire de la table : la lecture de `cash.items` à l'intérieur de `orders_read` **ne repasse pas** par les policies de `cash.items`. C'est voulu (sinon récursion infinie), mais cela signifie qu'une policy peut exposer indirectement des lignes qu'une lecture directe refuserait. Il faut donc que la sous-requête ne renvoie que des **booléens ou des tests d'existence**, jamais des données.
+Une policy est évaluée avec les droits du propriétaire de la table : la lecture de `app.task` à l'intérieur de `project_read` **ne repasse pas** par les policies de `app.task`. C'est voulu (sinon récursion infinie), mais cela signifie qu'une policy peut exposer indirectement des lignes qu'une lecture directe refuserait. Il faut donc que la sous-requête ne renvoie que des **booléens ou des tests d'existence**, jamais des données.
 :::
 
-### Fonctions d'aide dans les policies
+### Fonctions d'aide dans les policies {#fonctions-daide-dans-les-policies}
 
 Répéter une jointure de permissions dans quarante policies est ingérable. Le projet centralise dans deux fonctions :
 
 ```sql
-CREATE OR REPLACE FUNCTION public.has_permission (
-    p_permission public.global_permission
-)
+CREATE OR REPLACE FUNCTION app.has_permission (p_permission text)
     RETURNS boolean
     LANGUAGE sql
     STABLE
     SECURITY DEFINER
-    SET search_path TO 'public'
+    SET search_path TO 'app'
     AS $$
-  select exists (
-    select 1
-    from public.profile_global_roles pgr
-    join public.global_roles gr on gr.role = pgr.role
-    where pgr.profile = auth.uid()
-      and pgr.revoked_at is null
-      and p_permission = any (gr.permissions)
-  ) or exists (
-    -- override additif (jamais soustractif)
-    select 1 from public.profiles p
-    where p.id = auth.uid() and p_permission = any (p.permissions)
+  SELECT EXISTS (
+    SELECT 1 FROM app.member m
+    WHERE m.id = app.current_member()
+      AND p_permission = ANY (m.permissions)
+  );
+$$;
+
+-- même patron, mais scopé à un projet
+CREATE OR REPLACE FUNCTION app.has_project_permission (p_permission text, p_project_id bigint)
+    RETURNS boolean
+    LANGUAGE sql
+    STABLE
+    SECURITY DEFINER
+    SET search_path TO 'app'
+    AS $$
+  SELECT EXISTS (
+    SELECT 1 FROM app.membership ms
+    WHERE ms.member_id = app.current_member()
+      AND ms.project_id = p_project_id
+      AND p_permission = ANY (ms.permissions)
   );
 $$;
 ```
@@ -639,12 +646,12 @@ Chaque mot-clé de la signature est là pour une raison précise :
 | `SET search_path TO 'public'` | protection contre le détournement de résolution de noms                                   |
 
 :::danger `SECURITY DEFINER` sans `SET search_path` = escalade de privilèges
-Sans `search_path` figé, un utilisateur peut créer une table `mon_schema.profiles` et manipuler son propre `search_path` pour que la fonction, qui s'exécute avec les droits du propriétaire, lise **sa** table. Toute fonction `SECURITY DEFINER` doit porter un `SET search_path`. C'est non négociable, et c'est pour cela que les 104 occurrences dans les migrations du projet en sont toutes accompagnées.
+Sans `search_path` figé, un utilisateur peut créer une table `mon_schema.member` et manipuler son propre `search_path` pour que la fonction, qui s'exécute avec les droits du propriétaire, lise **sa** table. Toute fonction `SECURITY DEFINER` doit porter un `SET search_path`. C'est non négociable : les deux mots-clés vont ensemble, systématiquement, sans exception.
 :::
 
 #### Le problème de récursion
 
-Si la policy de `profiles` appelait `has_permission()`, qui lit `profiles`, qui déclenche sa policy, qui appelle `has_permission()`… PostgreSQL lèverait `infinite recursion detected in policy for relation "profiles"`.
+Si la policy de `app.member` appelait `has_permission()`, qui lit `app.member`, qui déclenche sa policy, qui appelle `has_permission()`… PostgreSQL lèverait `infinite recursion detected in policy for relation "member"`.
 
 `SECURITY DEFINER` résout cela : la fonction s'exécute comme le propriétaire, qui n'est pas soumis au RLS, donc la lecture interne ne réévalue aucune policy.
 
@@ -737,7 +744,7 @@ ROLLBACK;
 
 `SET LOCAL` limite l'effet à la transaction, et le `ROLLBACK` garantit qu'aucun test ne laisse de trace.
 
-Enfin, `DROP POLICY IF EXISTS nom ON table;` avant un `CREATE POLICY` rend une migration rejouable — motif systématique quand on remplace des policies générées par le dashboard.
+Enfin, `DROP POLICY IF EXISTS nom ON table;` avant un `CREATE POLICY` rend une migration rejouable — motif indispensable dès qu'on remplace des policies posées ailleurs que dans le dépôt de migrations.
 
 ---
 
@@ -763,7 +770,7 @@ Paramètres des arguments :
 - `= defaut` : valeur par défaut si l'appelant ne fournit pas l'argument.
 
 :::warning `DEFAULT NULL` déplace le contrôle dans le corps
-Un argument `p_reason text DEFAULT NULL` rend l'appel valide sans lui. Si le paramètre est en réalité obligatoire, il faut un garde explicite dans le corps (`IF p_x IS NULL THEN RAISE EXCEPTION ... USING errcode = '22023'`). C'est exactement l'origine des « deux gardes » ajoutées dans les migrations tardives du projet.
+Un argument `p_reason text DEFAULT NULL` rend l'appel valide sans lui. Si le paramètre est en réalité obligatoire, il faut un garde explicite dans le corps (`IF p_x IS NULL THEN RAISE EXCEPTION ... USING errcode = '22023'`). Une valeur par défaut ajoutée « pour simplifier l'appel » se paie toujours par un contrôle à écrire dans le corps.
 :::
 
 Paramètres de la fonction :
@@ -827,7 +834,7 @@ $$;
 | `CONTINUE WHEN cond`            | passe à l'itération suivante                                                |
 
 :::note `IS DISTINCT FROM`, pas `<>`
-`NULL <> NULL` vaut `NULL`, donc `IF NULL <> NULL THEN` ne se déclenche jamais. Dans un trigger qui compare l'ancien et le nouvel état, `<>` laisse silencieusement passer tout changement impliquant un `NULL`. Tous les triggers du projet utilisent `IS DISTINCT FROM`, y compris pour comparer des `jsonb`.
+`NULL <> NULL` vaut `NULL`, donc `IF NULL <> NULL THEN` ne se déclenche jamais. Dans un trigger qui compare l'ancien et le nouvel état, `<>` laisse silencieusement passer tout changement impliquant un `NULL`. Dans un trigger, la comparaison se fait donc **toujours** avec `IS DISTINCT FROM`, y compris sur des `jsonb`.
 :::
 
 ---
@@ -864,7 +871,7 @@ EXECUTE FUNCTION app.task_set_created_at();
 ```
 
 :::note `EXECUTE FUNCTION` contre `EXECUTE PROCEDURE`
-`EXECUTE PROCEDURE` est la forme historique, encore acceptée. `EXECUTE FUNCTION` est la forme correcte depuis PostgreSQL 11 — c'est celle utilisée dans les migrations récentes du projet, tandis que les dumps anciens peuvent contenir l'autre.
+`EXECUTE PROCEDURE` est la forme historique, encore acceptée. `EXECUTE FUNCTION` est la forme correcte depuis PostgreSQL 11. Les deux se croisent dans un même dépôt : les anciens dumps portent la première, tout code récent la seconde.
 :::
 
 ### Syntaxe complète
@@ -960,21 +967,21 @@ END IF;
 `TG_ARGV` permet de **paramétrer** un trigger générique depuis sa déclaration :
 
 ```sql
-CREATE TRIGGER log_items
-    AFTER INSERT OR UPDATE OR DELETE ON cash.items
+CREATE TRIGGER log_task
+    AFTER INSERT OR UPDATE OR DELETE ON app.task
     FOR EACH ROW
-    EXECUTE FUNCTION cash.log_activity ('item');
---                                       ^ tg_argv[0]
+    EXECUTE FUNCTION app.log_activity ('task', 'id');
+--                                      ^argv0  ^argv1 = nom de la colonne clé
 
-CREATE TRIGGER log_blog
-    AFTER INSERT OR UPDATE OR DELETE ON public.blog
+-- même fonction, table dont la clé ne s'appelle pas `id`
+CREATE TRIGGER log_membership
+    AFTER INSERT OR UPDATE OR DELETE ON app.membership
     FOR EACH ROW
-    EXECUTE FUNCTION public.log_socle_activity ('blog', 'slug');
---                                               ^argv0   ^argv1 = nom de la colonne clé
+    EXECUTE FUNCTION app.log_activity ('membership', 'member_id');
 ```
 
 :::note Les arguments sont des chaînes
-`TG_ARGV[0]` est toujours du `text`, même si on écrit un nombre. Il faut caster explicitement (`::bigint`) à l'usage.
+`TG_ARGV[0]` est toujours du `text`, même si on écrit un nombre. S'il sert à alimenter une colonne typée, il faut caster explicitement (`::bigint`).
 :::
 
 #### `UPDATE OF colonne`
@@ -991,7 +998,7 @@ CREATE TRIGGER task_sync_project
 Le trigger ne se déclenche que si l'`UPDATE` **mentionne** au moins une de ces colonnes.
 
 :::warning « Mentionnée » n'est pas « modifiée »
-`UPDATE items SET state = state` déclenche le trigger. À l'inverse, un `UPDATE` d'une autre colonne ne le déclenche pas, même si un trigger antérieur a modifié `state` dans `NEW`. `UPDATE OF` est une optimisation de déclenchement, pas un test de changement — pour tester un vrai changement, comparer `OLD.x IS DISTINCT FROM NEW.x` dans le corps.
+`UPDATE app.task SET state = state` déclenche le trigger. À l'inverse, un `UPDATE` d'une autre colonne ne le déclenche pas, même si un trigger antérieur a modifié `state` dans `NEW`. `UPDATE OF` est une optimisation de déclenchement, pas un test de changement — pour tester un vrai changement, comparer `OLD.x IS DISTINCT FROM NEW.x` dans le corps.
 :::
 
 #### `WHEN (condition)`
@@ -1045,17 +1052,17 @@ LIMIT 1;
 Contraintes : **`AFTER` uniquement**, tables non partitionnées, PostgreSQL 10+.
 
 :::tip Pourquoi `FOR EACH STATEMENT` plutôt que `FOR EACH ROW`
-Un contrôle du type « tous les items d'une commande doivent partager le même campus » ne peut pas s'évaluer ligne à ligne : déplacer trois items d'un campus à l'autre passe par un `UPDATE` multi-lignes, et un contrôle ligne à ligne échouerait dès la première, avant que les deux autres ne soient écrites. Au niveau instruction, l'état est cohérent, et la table de transition borne le contrôle aux seules commandes réellement touchées — sans elle, il faudrait revalider toute la table.
+Un contrôle du type « une sous-tâche est dans le même projet que sa parente » ne peut pas s'évaluer ligne à ligne : déplacer une tâche et ses trois sous-tâches vers un autre projet passe par un `UPDATE` multi-lignes, et un contrôle ligne à ligne échouerait dès la première — à cet instant, la parente a changé de projet mais pas encore ses enfants. Au niveau instruction, l'état est cohérent. Et la table de transition borne le contrôle aux seules lignes réellement touchées : sans elle, il faudrait revalider toute la table à chaque écriture.
 :::
 
 #### Triggers de contrainte
 
 ```sql
-CREATE CONSTRAINT TRIGGER allocations_guard
-    AFTER INSERT OR UPDATE OR DELETE ON cash.item_budget_allocations
+CREATE CONSTRAINT TRIGGER task_effort_guard
+    AFTER INSERT OR UPDATE OR DELETE ON app.task
     DEFERRABLE INITIALLY DEFERRED
     FOR EACH ROW
-    EXECUTE FUNCTION cash.check_item_allocation ();
+    EXECUTE FUNCTION app.check_task_effort ();
 ```
 
 Un `CONSTRAINT TRIGGER` est un trigger dont l'exécution peut être **repoussée à la validation de la transaction**.
@@ -1069,14 +1076,14 @@ Un `CONSTRAINT TRIGGER` est un trigger dont l'exécution peut être **repoussée
 Restrictions : `AFTER` et `FOR EACH ROW` obligatoires, sur une table uniquement.
 
 :::tip À quoi sert le report
-L'invariant « la somme des imputations d'un item égale son total » est **faux entre deux `INSERT`**. Si le contrôle s'exécutait à chaque instruction, il serait impossible de saisir deux imputations pour un item : la première échouerait. Différé au `COMMIT`, il ne juge que l'état final. La contrepartie est que l'erreur ne remonte qu'au `COMMIT`, loin de l'instruction fautive — d'où l'importance de messages d'erreur précis.
+L'invariant « l'effort d'une tâche égale la somme de celui de ses sous-tâches » est **faux entre deux `INSERT`**. Si le contrôle s'exécutait à chaque instruction, il serait impossible de saisir deux sous-tâches : la première, à elle seule, ne totaliserait jamais sa parente. Différé au `COMMIT`, il ne juge que l'état final. La contrepartie est que l'erreur ne remonte qu'au `COMMIT`, loin de l'instruction fautive — d'où l'importance de messages d'erreur précis.
 :::
 
 Pour forcer une évaluation anticipée en debug : `SET CONSTRAINTS ALL IMMEDIATE;`.
 
 ### Ce que les triggers savent faire (et le RLS non)
 
-C'est le partage de responsabilités du projet, et il vaut d'être explicite :
+C'est le partage de responsabilités à garder en tête, et il vaut d'être explicite :
 
 | Besoin                                               | Outil                                                                |
 | ---------------------------------------------------- | -------------------------------------------------------------------- |
@@ -1152,7 +1159,7 @@ IF garde > 64 THEN
 END IF;
 ```
 
-- La séparation « fonction de calcul + fonction de trigger » : une fonction `sync_one_order(p_order_id)` idempotente, appelée par `PERFORM` depuis un trigger qui se contente de déterminer **quelles** commandes recalculer. Le calcul devient testable en isolation.
+- La séparation « fonction de calcul + fonction de trigger » : une fonction `app.sync_one_project(p_project_id)` idempotente, appelée par `PERFORM` depuis un trigger qui se contente de déterminer **quels** projets recalculer. Le calcul devient testable en isolation.
 
 ### Désactiver un trigger
 
@@ -1169,7 +1176,7 @@ Ces commandes court-circuitent les invariants métier. `session_replication_role
 
 ### Triggers et appels HTTP
 
-Deux motifs coexistent dans le projet :
+PostgreSQL ne sait pas faire de requête HTTP nativement ; il faut une extension, `pg_net` étant la plus courante :
 
 ```sql
 -- historique : webhook Supabase
@@ -1194,10 +1201,10 @@ Le trigger « ping » ci-dessus illustre aussi un piège : **un jeton `service_r
 -- les triggers d'une table
 SELECT tgname, tgenabled, pg_get_triggerdef(oid)
 FROM pg_trigger
-WHERE tgrelid = 'cash.items'::regclass AND NOT tgisinternal;
+WHERE tgrelid = 'app.task'::regclass AND NOT tgisinternal;
 
 -- la définition complète d'une fonction
-SELECT pg_get_functiondef('cash.log_activity()'::regprocedure);
+SELECT pg_get_functiondef('app.log_activity()'::regprocedure);
 ```
 
 `tgisinternal` exclut les triggers créés automatiquement par les contraintes de clé étrangère. `tgenabled` vaut `O` (origine), `D` (désactivé), `R` (replica), `A` (always).
@@ -1219,7 +1226,7 @@ RAISE EXCEPTION 'tâche % : % points saisis pour % attendus', faute.id, faute.so
 - Niveaux : `DEBUG`, `LOG`, `INFO`, `NOTICE`, `WARNING` (messages), `EXCEPTION` (annule la transaction).
 
 :::warning Sans `USING errcode`, tout sort en `P0001`
-`P0001` (`raise_exception`) est le code fourre-tout. La couche applicative ne peut alors distinguer un refus de droit d'une saisie invalide qu'en comparant des **chaînes de caractères** — en français, non versionnées et destinées à l'humain. C'est précisément ce que corrige la migration `error_codes` du projet.
+`P0001` (`raise_exception`) est le code fourre-tout. La couche applicative ne peut alors distinguer un refus de droit d'une saisie invalide qu'en comparant des **chaînes de caractères** — rédigées pour l'humain, souvent traduites, jamais versionnées. Une comparaison de message est une dépendance qui casse au premier reformulage.
 :::
 
 ### Choisir un code
@@ -1307,7 +1314,7 @@ Un nom lu dans une table applicative doit passer par `%I` ou `quote_ident()`. `%
 
 #### Dumper les policies existantes
 
-Motif utile avant de remplacer des policies générées par un dashboard — il régénère le SQL à partir du catalogue :
+Utile pour reprendre en migration des policies posées à la main : le SQL est régénéré depuis le catalogue, donc conforme à ce qui tourne réellement.
 
 ```sql
 SELECT format('CREATE POLICY %I ON %I.%I AS %s FOR %s TO %s USING (%s);',

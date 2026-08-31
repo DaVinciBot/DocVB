@@ -295,28 +295,45 @@ Un `GRANT` sans RLS donne **tout**. C'est le trou classique d'une base laissée 
 
 ### Les rôles
 
-Un rôle PostgreSQL est à la fois un « utilisateur » et un « groupe ». Supabase en pré-crée plusieurs, et le rôle utilisé dépend du jeton JWT présenté à PostgREST :
-
-| Rôle                          | Utilisé quand                                               | RLS                          |
-| ----------------------------- | ----------------------------------------------------------- | ---------------------------- |
-| `anon`                        | requête sans jeton (visiteur non connecté)                  | s'applique                   |
-| `authenticated`               | requête avec un JWT utilisateur valide                      | s'applique                   |
-| `service_role`                | clé secrète serveur (Edge Functions, scripts d'admin)       | **contournée** (`BYPASSRLS`) |
-| `postgres` / `supabase_admin` | migrations, dashboard                                       | contournée (propriétaire)    |
-| `PUBLIC`                      | pseudo-rôle : « tout le monde », y compris les rôles futurs | —                            |
-
-:::warning `service_role` contourne le RLS, pas les triggers
-C'est la raison d'être des triggers d'invariant du projet : un contrôle écrit en policy ne protège pas d'une écriture faite par une Edge Function ; un contrôle écrit en trigger, si.
-:::
-
-`PUBLIC` mérite une attention particulière : ce n'est pas le schéma `public`, c'est le pseudo-rôle « n'importe qui ». PostgreSQL accorde implicitement `EXECUTE` **à `PUBLIC` sur toute fonction créée**. D'où le motif systématique dans les migrations :
+Un rôle PostgreSQL est à la fois un « utilisateur » et un « groupe » : il n'y a qu'un seul objet, et l'attribut `LOGIN` décide s'il peut ouvrir une connexion.
 
 ```sql
-REVOKE ALL ON ALL FUNCTIONS IN SCHEMA cash FROM PUBLIC;
-GRANT EXECUTE ON ALL FUNCTIONS IN SCHEMA cash TO service_role;
+CREATE ROLE app_user NOLOGIN;                  -- rôle « groupe », endossable
+CREATE ROLE api_service LOGIN PASSWORD '…';    -- compte de connexion
+GRANT app_user TO api_service;                 -- le compte hérite des droits
 ```
 
-Sans le `REVOKE`, la fonction serait appelable par `anon`.
+Les attributs qui comptent pour la sécurité :
+
+| Attribut    | Effet                                                                  |
+| ----------- | ---------------------------------------------------------------------- |
+| `LOGIN`     | le rôle peut ouvrir une connexion (sinon il ne sert qu'à être endossé) |
+| `SUPERUSER` | contourne **tous** les contrôles de droits — à n'accorder à personne   |
+| `BYPASSRLS` | contourne le RLS, mais pas les privilèges ni les triggers              |
+| `INHERIT`   | hérite automatiquement des droits des rôles accordés (défaut)          |
+| `NOINHERIT` | il faut un `SET ROLE` explicite pour en prendre les droits             |
+
+Deux rôles échappent au RLS et méritent d'être identifiés :
+
+- **le propriétaire de la table** — sauf `FORCE ROW LEVEL SECURITY`, voir plus bas ;
+- **tout rôle `BYPASSRLS`**, réservé aux tâches d'administration et de réplication.
+
+:::warning `BYPASSRLS` contourne le RLS, pas les triggers
+C'est la raison d'être des triggers d'invariant : un contrôle écrit en policy ne protège pas d'une écriture faite par un script d'administration ; un contrôle écrit en trigger, si.
+:::
+
+`PUBLIC` mérite enfin une attention particulière : ce n'est pas le schéma `public`, c'est le pseudo-rôle « n'importe qui », rôles futurs compris. PostgreSQL accorde implicitement `EXECUTE` **à `PUBLIC` sur toute fonction créée**. D'où le motif à écrire systématiquement :
+
+```sql
+REVOKE ALL ON ALL FUNCTIONS IN SCHEMA app FROM PUBLIC;
+GRANT EXECUTE ON ALL FUNCTIONS IN SCHEMA app TO app_admin;
+```
+
+Sans le `REVOKE`, la fonction serait appelable par `app_anon`.
+
+:::info Supabase
+Trois rôles sont pré-créés, et PostgREST choisit lequel endosser selon le JWT reçu : `anon` (aucun jeton), `authenticated` (jeton utilisateur valide) et `service_role` (clé secrète serveur, porteur de `BYPASSRLS`). Les migrations, elles, s'exécutent en `postgres` ou `supabase_admin`, tous deux propriétaires, donc hors RLS. Les rôles `app_anon` / `app_user` / `app_admin` de ce document leur correspondent un pour un.
+:::
 
 ### `GRANT` et `REVOKE`
 
@@ -382,9 +399,9 @@ Cette instruction ne touche **aucun objet existant**. Elle décrit les privilèg
 
 Trois pièges :
 
-1. Elle est **liée à un rôle créateur**. `FOR ROLE postgres` ne couvre pas les objets créés par `supabase_admin`. D'où le doublon dans les migrations.
+1. Elle est **liée à un rôle créateur**. `FOR ROLE postgres` ne couvre pas les objets créés par un autre rôle : dès que deux rôles créent des objets (les migrations et un outil d'administration, par exemple), il faut la déclarer pour chacun.
 2. Elle est **liée à un schéma**. Sans `IN SCHEMA`, elle s'applique au schéma courant à la création.
-3. Sans elle, un `REVOKE` ponctuel est **réintroduit à chaque nouvelle migration** — c'est la « cause racine mécanique » invoquée dans `harden_grants`.
+3. Sans elle, l'effet d'un `REVOKE` ponctuel est **défait à chaque nouvel objet créé**. C'est la cause racine mécanique d'une base qui « redevient ouverte » migration après migration, malgré des durcissements répétés.
 
 ---
 
@@ -411,7 +428,7 @@ ALTER TABLE app.api_token FORCE ROW LEVEL SECURITY;
 ALTER TABLE app.project NO FORCE ROW LEVEL SECURITY;
 ```
 
-`FORCE` applique le RLS **même au propriétaire de la table**. C'est ce qui empêche une fonction `SECURITY DEFINER` détenue par `postgres` de lire la table hors policy — la défense en profondeur posée sur les tables OAuth du projet.
+`FORCE` applique le RLS **même au propriétaire de la table**. C'est ce qui empêche une fonction `SECURITY DEFINER` détenue par `postgres` de lire la table hors policy. À réserver aux tables les plus sensibles (jetons, secrets, hachages), en défense en profondeur.
 
 #### Activation en masse
 
@@ -494,7 +511,7 @@ CREATE POLICY task_update ON app.task
             OR app.has_permission ('task.admin'));
 ```
 
-Il n'y a **pas** de `WITH CHECK`, donc l'expression `USING` sert aussi de contrôle après modification. Conséquence lisible : un auteur qui passe son item de `pending_cdp` à autre chose échouerait sur la vérification d'après — sauf si une autre branche du `OR` le couvre. Le contrôle fin des transitions est déporté dans un trigger (`items_transition_guard`), ce qui est le bon découpage : **RLS pour l'accès, trigger pour l'invariant**.
+Il n'y a **pas** de `WITH CHECK`, donc l'expression `USING` sert aussi de contrôle après modification. Conséquence lisible : un auteur qui fait passer sa tâche de `draft` à `open` échouerait sur la vérification d'après — sauf si une autre branche du `OR` le couvre. Le contrôle fin des transitions est à déporter dans un trigger, ce qui est le bon découpage : **RLS pour l'accès, trigger pour l'invariant**.
 
 #### `PERMISSIVE` contre `RESTRICTIVE`
 
@@ -505,14 +522,14 @@ accès = (permissive_1 OR permissive_2 OR ...)
         AND restrictive_1 AND restrictive_2 AND ...
 ```
 
-- **`PERMISSIVE`** (défaut) : chaque policy **ajoute** de l'accès. C'est le mode de toutes les policies du projet.
+- **`PERMISSIVE`** (défaut) : chaque policy **ajoute** de l'accès. C'est le mode de l'immense majorité des policies écrites en pratique.
 - **`RESTRICTIVE`** : chaque policy **retranche** de l'accès. Utile pour un garde-fou transversal (« et jamais sur les lignes archivées »).
 
 :::warning Une seule policy permissive suffit à ouvrir
 Ajouter une policy permissive ne peut jamais restreindre. Si une table a déjà `USING (true)`, toute policy supplémentaire est cosmétique. À l'inverse, s'il n'y a **que** des policies restrictives, l'accès reste nul : il n'y a rien à restreindre.
 :::
 
-C'est ce qui explique le motif « une policy de lecture large + une policy d'écriture étroite » systématique dans le projet :
+C'est ce qui explique le motif le plus répandu, « une policy de lecture large + une policy d'écriture étroite » :
 
 ```sql
 CREATE POLICY project_read ON app.project
@@ -541,38 +558,37 @@ Aucune policy `INSERT`/`UPDATE`/`DELETE` : **la table n'est écrivable par aucun
 
 Une policy est une expression SQL évaluée **ligne par ligne**, dans laquelle on peut lire :
 
-- les colonnes de la ligne courante, directement par leur nom (`requested_by`, `project_id`) ;
+- les colonnes de la ligne courante, directement par leur nom (`author_id`, `project_id`) ;
 - des paramètres de session, via `current_setting()`.
 
-#### PostgreSQL nu
+Un paramètre de session **personnalisé** est un paramètre dont le nom est qualifié par un préfixe (`session.member_id`, `app.tenant`). PostgreSQL ne les interprète pas : il les stocke et les restitue, ce qui en fait le véhicule standard pour transmettre une identité applicative à la base.
 
 ```sql
-SET app.user_id = '00000000-0000-0000-0000-000000000001';
+-- posé par l'application à l'ouverture de la connexion
+SET session.member_id = '00000000-0000-0000-0000-000000000001';
 
-CREATE POLICY todo_is_owner
-ON todo
-USING (user_id = current_setting('app.user_id')::uuid)
-WITH CHECK (user_id = current_setting('app.user_id')::uuid);
+CREATE POLICY task_is_owner
+ON app.task
+USING (author_id = app.current_member ())
+WITH CHECK (author_id = app.current_member ());
 ```
 
-`current_setting('app.user_id', true)` (second argument `true`) renvoie `NULL` au lieu de lever une erreur si le paramètre n'est pas défini — presque toujours ce qu'on veut dans une policy.
+Trois portées possibles pour l'écriture du paramètre :
 
-#### Supabase
+| Forme                                      | Portée                                                |
+| ------------------------------------------ | ----------------------------------------------------- |
+| `SET session.member_id = …`                | toute la session (donc toute la connexion réutilisée) |
+| `SET LOCAL session.member_id = …`          | la transaction en cours seulement                     |
+| `set_config('session.member_id', …, true)` | idem, mais appelable dans une requête                 |
 
-Supabase pose les _claims_ du JWT dans un paramètre de session et fournit trois fonctions d'accès :
+:::danger Sur un pool de connexions, toujours `SET LOCAL`
+Une connexion mise en pool est réutilisée par la requête suivante, d'un autre utilisateur. Un `SET` de session laisse son identité en place : le suivant hérite des droits du précédent. `SET LOCAL` est annulé à la fin de la transaction, ce qui ferme la fuite.
+:::
 
-| Fonction      | Renvoie                                 | Équivaut à      |
-| ------------- | --------------------------------------- | --------------- |
-| `auth.uid()`  | `uuid` de l'utilisateur                 | claim `sub`     |
-| `auth.role()` | `anon`, `authenticated`, `service_role` | claim `role`    |
-| `auth.jwt()`  | `jsonb` de tous les claims              | le jeton entier |
+L'identité peut aussi être `NULL` : `app.current_member()` renvoie `NULL` hors session applicative, et une comparaison à `NULL` vaut `NULL`, donc « non autorisé ». C'est le comportement voulu, mais il faut le savoir — une policy qui ne cadre pas ce cas se comporte comme un refus silencieux plutôt que comme une erreur.
 
-```sql
-USING (requested_by = auth.uid ())
-```
-
-:::note `auth.uid()` peut être `NULL`
-En `service_role` ou hors requête PostgREST, il n'y a pas de JWT. Une comparaison à `NULL` renvoie `NULL`, donc « non autorisé » côté policy. Dans une fonction, on écrit `coalesce(auth.role(), '') <> 'service_role'` pour tester explicitement le cas.
+:::info Supabase
+Le paramètre s'appelle `request.jwt.claims` et contient tout le JWT ; trois fonctions le lisent. `auth.uid()` renvoie le claim `sub` (l'`uuid` de l'utilisateur), `auth.role()` le claim `role` (`anon`, `authenticated` ou `service_role`), et `auth.jwt()` l'objet `jsonb` entier. Pour tester explicitement le cas « appel serveur de confiance », on écrit `coalesce(auth.role(), '') <> 'service_role'`.
 :::
 
 ### Références à d'autres tables
@@ -1097,8 +1113,8 @@ C'est le partage de responsabilités à garder en tête, et il vaut d'être expl
 | Transition d'état autorisée                          | **trigger**                                                          |
 | Trace d'audit inviolable                             | **trigger**                                                          |
 
-:::danger Les triggers s'appliquent à `service_role`, le RLS non
-C'est la propriété qui justifie tout le découpage. Un contrôle métier écrit en policy est contourné par la moindre Edge Function ; le même contrôle écrit en trigger tient face à `service_role`, aux scripts d'administration et aux corrections faites à la main en SQL.
+:::danger Les triggers s'appliquent aux rôles `BYPASSRLS`, le RLS non
+C'est la propriété qui justifie tout le découpage. Un contrôle métier écrit en policy est contourné par le premier composant serveur qui se connecte avec un rôle privilégié ; le même contrôle écrit en trigger tient face à lui, face aux scripts d'administration et face aux corrections faites à la main en SQL.
 :::
 
 ### Le motif d'audit générique
@@ -1179,21 +1195,35 @@ Ces commandes court-circuitent les invariants métier. `session_replication_role
 PostgreSQL ne sait pas faire de requête HTTP nativement ; il faut une extension, `pg_net` étant la plus courante :
 
 ```sql
--- historique : webhook Supabase
-CREATE OR REPLACE TRIGGER "email-ping-order"
-    AFTER INSERT ON public.orders
-    FOR EACH ROW
-    EXECUTE FUNCTION supabase_functions.http_request ('https://…/functions/v1/new-order', 'POST', '{…}', '{}', '5000');
+CREATE FUNCTION app.notify_new_task ()
+    RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+BEGIN
+    PERFORM net.http_post(
+        url := 'https://exemple.test/hooks/new-task',
+        body := jsonb_build_object('task_id', NEW.id));
+    RETURN NULL;
+END;
+$$;
 
--- recommandé : pg_net dans une fonction
-PERFORM net.http_post(url := '…', headers := '…'::jsonb, body := '…'::jsonb);
+CREATE TRIGGER notify_new_task
+    AFTER INSERT ON app.task
+    FOR EACH ROW
+    EXECUTE FUNCTION app.notify_new_task ();
 ```
 
 :::danger Un appel HTTP ne participe pas à la transaction
-Si la transaction est annulée après l'envoi, le message est parti quand même. Et un webhook synchrone lent bloque l'écriture. `pg_net` est asynchrone, ce qui atténue le second problème mais pas le premier : pour un envoi qui doit suivre le sort de la transaction, il faut écrire dans une table de file d'attente et laisser un job séparé la consommer.
+Si la transaction est annulée après l'envoi, le message est parti quand même — et il annonce un événement qui n'a jamais eu lieu. Un appel synchrone pose en plus le problème inverse : il bloque l'écriture le temps de la réponse, et une panne du destinataire fait échouer des `INSERT`. `pg_net` est asynchrone, ce qui règle le second problème mais pas le premier. Pour un envoi qui doit suivre le sort de la transaction, il faut écrire dans une table de file d'attente — elle, transactionnelle — et laisser un consommateur séparé la vider.
 :::
 
-Le trigger « ping » ci-dessus illustre aussi un piège : **un jeton `service_role` en clair dans une définition de trigger** est lisible par quiconque peut faire un `pg_dump` ou lire `pg_trigger`. Les secrets vont dans le Vault (`vault.decrypted_secrets`) ou dans l'environnement du service.
+:::warning Jamais de secret dans une définition de trigger
+Un jeton écrit en clair dans un `CREATE TRIGGER` ou dans un corps de fonction est lisible par quiconque peut faire un `pg_dump`, lire `pg_trigger` ou appeler `pg_get_functiondef()`. Un secret se lit depuis l'environnement du service appelant, ou depuis un stockage chiffré dédié.
+:::
+
+:::info Supabase
+Les « Database Webhooks » du dashboard créent un trigger qui appelle `supabase_functions.http_request(url, method, headers, body, timeout)`, avec la clé `service_role` en clair dans l'argument `headers` — exactement le cas visé par l'avertissement ci-dessus. `pg_net` appelé depuis une fonction est préférable, et le secret se lit alors dans `vault.decrypted_secrets`.
+:::
 
 ### Inspecter les triggers
 

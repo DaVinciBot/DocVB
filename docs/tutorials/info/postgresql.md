@@ -12,29 +12,47 @@ additional_contributors:
     avatar_url: https://github.com/aust-1.png
 ---
 
-Cette formation couvre les bases de PostgreSQL avec un focus sur la sécurité : rôles et privilèges, RLS, fonctions, triggers et extensions utiles.
+Cette formation couvre les bases de PostgreSQL avec un focus sur la sécurité : rôles et privilèges, RLS, fonctions,
+triggers et extensions utiles.
 
-Elle est écrite pour qu'après lecture, **chaque ligne d'une migration réelle** soit lisible sans deviner : chaque construction qu'on y rencontre couramment a sa section ici.
+Elle est écrite pour qu'après lecture, **chaque ligne d'une migration réelle** soit lisible sans deviner : chaque
+construction qu'on y rencontre couramment a sa section ici.
 
-:::note PostgreSQL d'abord, Supabase en encart
-Tout ce qui suit vaut pour n'importe quel PostgreSQL 13+ : local, Docker, VPS ou hébergé. Les plateformes qui exposent la base en HTTP — Supabase, PostgREST, Hasura — s'appuient sur exactement ces mécanismes, sans en ajouter. Quand une de leurs conventions est utile pour situer un exemple, elle apparaît dans un encart **Supabase** comme celui-ci, et jamais dans le fil principal.
+:::note PostgreSQL d'abord, Supabase en encart Tout ce qui suit vaut pour n'importe quel PostgreSQL 13+ : local, Docker,
+VPS ou hébergé. Les plateformes qui exposent la base en HTTP — Supabase, PostgREST, Hasura — s'appuient sur exactement
+ces mécanismes, sans en ajouter. Quand une de leurs conventions est utile pour situer un exemple, elle apparaît dans un
+encart **Supabase** comme celui-ci, et jamais dans le fil principal.
 :::
 
 ## De quoi on parle
 
-Une base de données ne se contente pas de stocker des lignes. Elle décide aussi **qui a le droit de les lire et de les écrire**, et **ce qui doit rester vrai** après chaque écriture. PostgreSQL propose quatre outils pour ça. Ce sont les quatre briques du document, et il vaut mieux savoir à quoi elles servent avant d'en lire la syntaxe.
+Une base de données ne se contente pas de stocker des lignes. Elle décide aussi **qui a le droit de les lire et de les
+écrire**, et **ce qui doit rester vrai** après chaque écriture. PostgreSQL propose quatre outils pour ça. Ce sont les
+quatre briques du document, et il vaut mieux savoir à quoi elles servent avant d'en lire la syntaxe.
 
 **1. Les privilèges — qui peut faire quoi, à l'échelle d'une table.**
-C'est le contrôle d'accès classique : on accorde (`GRANT`) ou on retire (`REVOKE`) le droit de lire, insérer, modifier ou supprimer, table par table et rôle par rôle. Un _rôle_, en PostgreSQL, c'est ce que d'autres systèmes appellent un utilisateur ou un groupe. C'est du tout-ou-rien : soit un rôle peut lire la table `task`, soit il ne peut pas.
+C'est le contrôle d'accès classique : on accorde (`GRANT`) ou on retire (`REVOKE`) le droit de lire, insérer, modifier
+ou supprimer, table par table et rôle par rôle. Un _rôle_, en PostgreSQL, c'est ce que d'autres systèmes appellent un
+utilisateur ou un groupe. C'est du tout-ou-rien : soit un rôle peut lire la table `task`, soit il ne peut pas.
 
 **2. Le RLS — qui voit quelles lignes.**
-RLS est l'abréviation de _Row Level Security_, « sécurité au niveau de la ligne ». C'est la réponse au problème que les privilèges ne savent pas traiter : on veut souvent qu'un membre puisse lire la table `task`, **mais seulement ses propres tâches**. Le RLS permet d'attacher à une table des règles, appelées _policies_, qui sont des conditions SQL évaluées **ligne par ligne**. Une ligne qui ne satisfait aucune policy est simplement invisible, comme si elle n'existait pas. C'est le seul mécanisme qui tienne quand le client parle directement à la base, sans couche applicative entre les deux pour filtrer.
+RLS est l'abréviation de _Row Level Security_, « sécurité au niveau de la ligne ». C'est la réponse au problème que les
+privilèges ne savent pas traiter : on veut souvent qu'un membre puisse lire la table `task`, **mais seulement ses
+propres tâches**. Le RLS permet d'attacher à une table des règles, appelées _policies_, qui sont des conditions SQL
+évaluées **ligne par ligne**. Une ligne qui ne satisfait aucune policy est simplement invisible, comme si elle
+n'existait pas. C'est le seul mécanisme qui tienne quand le client parle directement à la base, sans couche applicative
+entre les deux pour filtrer.
 
 **3. Les fonctions — du code stocké dans la base.**
-Du SQL ou du PL/pgSQL enregistré sous un nom et appelable ensuite. Deux usages ici : factoriser une condition qu'on répète dans quarante policies (`has_permission('task.admin')`), et exposer une opération métier que l'application appelle en un seul aller-retour.
+Du SQL ou du PL/pgSQL enregistré sous un nom et appelable ensuite. Deux usages ici : factoriser une condition qu'on
+répète dans quarante policies (`has_permission('task.admin')`), et exposer une opération métier que l'application
+appelle en un seul aller-retour.
 
 **4. Les triggers — du code exécuté automatiquement à chaque écriture.**
-Un _trigger_ (« déclencheur ») rattache une fonction à une table et à un événement : « avant chaque `INSERT` sur `task`, exécute ceci ». Il sert à ce qu'aucune autre construction ne sait faire : refuser une écriture selon une règle métier complexe, remplir une colonne calculée, ou tracer qui a modifié quoi. Contrairement au RLS, un trigger s'applique **à tout le monde**, y compris aux scripts d'administration.
+Un _trigger_ (« déclencheur ») rattache une fonction à une table et à un événement : « avant chaque `INSERT` sur `task`,
+exécute ceci ». Il sert à ce qu'aucune autre construction ne sait faire : refuser une écriture selon une règle métier
+complexe, remplir une colonne calculée, ou tracer qui a modifié quoi. Contrairement au RLS, un trigger s'applique **à
+tout le monde**, y compris aux scripts d'administration.
 
 Les trois premiers s'empilent, dans cet ordre, à chaque requête :
 
@@ -54,8 +72,10 @@ Les trois premiers s'empilent, dans cet ordre, à chaque requête :
   écriture effectuée
 ```
 
-:::tip Pourquoi mettre ces règles dans la base plutôt que dans l'application
-Parce qu'il y a en général plusieurs applications (un site public, un back-office, des tâches planifiées, des scripts d'administration) et une seule base. Une règle écrite dans une application est contournée par les trois autres ; une règle écrite dans la base tient face à toutes, y compris face à une correction faite à la main en SQL.
+:::tip Pourquoi mettre ces règles dans la base plutôt que dans l'application Parce qu'il y a en général plusieurs
+applications (un site public, un back-office, des tâches planifiées, des scripts d'administration) et une seule base.
+Une règle écrite dans une application est contournée par les trois autres ; une règle écrite dans la base tient face à
+toutes, y compris face à une correction faite à la main en SQL.
 :::
 
 ## Plan
@@ -135,76 +155,78 @@ sudo -u postgres psql
 
 ## Le schéma de démo
 
-**Tous les exemples du document portent sur ce schéma.** Il n'est pas là pour être lu en entier maintenant : c'est une référence à laquelle revenir quand un exemple mentionne une table.
+**Tous les exemples du document portent sur ce schéma.** Il n'est pas là pour être lu en entier maintenant : c'est une
+référence à laquelle revenir quand un exemple mentionne une table.
 
-Le domaine est banal : un gestionnaire de tâches par projet. Il contient : une notion de propriétaire, des droits qui dépendent d'un projet, un état qui évolue, une arborescence, une valeur dérivée et une trace d'audit.
+Le domaine est banal : un gestionnaire de tâches par projet. Il contient : une notion de propriétaire, des droits qui
+dépendent d'un projet, un état qui évolue, une arborescence, une valeur dérivée et une trace d'audit.
 
 ```sql
 CREATE SCHEMA app;
 
-CREATE TYPE app.task_state AS ENUM ('draft', 'open', 'done', 'cancelled');
-CREATE TYPE app.activity_kind AS ENUM ('created', 'updated', 'deleted');
+CREATE TYPE app.task_state AS enum ('draft', 'open', 'done', 'cancelled');
+CREATE TYPE app.activity_kind AS enum ('created', 'updated', 'deleted');
 
 -- Un compte. La clé est celle de `auth.users`, ce qui permet de la comparer
 -- L'identité de l'appelant, résolue par `app.current_member()` (voir plus bas).
 CREATE TABLE app.member (
-  id          uuid PRIMARY KEY,
-  email       text UNIQUE NOT NULL,
-  permissions text[] NOT NULL DEFAULT '{}'   -- ex. {'task.read.all','task.admin'}
+    id          uuid PRIMARY KEY,
+    email       text UNIQUE NOT NULL,
+    permissions text[]      NOT NULL DEFAULT '{}' -- ex. {'task.read.all','task.admin'}
 );
 
 CREATE TABLE app.project (
-  id           bigint GENERATED BY DEFAULT AS IDENTITY PRIMARY KEY,
-  name         text NOT NULL,
-  total_effort integer NOT NULL DEFAULT 0,   -- dérivé : recalculé par trigger
-  archived_at  timestamptz                   -- non nul : plus aucune écriture
+    id           bigint GENERATED BY DEFAULT AS IDENTITY PRIMARY KEY,
+    name         text    NOT NULL,
+    total_effort integer NOT NULL DEFAULT 0, -- dérivé : recalculé par trigger
+    archived_at  timestamptz                 -- non nul : plus aucune écriture
 );
 
 -- Qui participe à quel projet, et avec quels droits SUR CE PROJET.
 CREATE TABLE app.membership (
-  member_id   uuid   NOT NULL REFERENCES app.member(id),
-  project_id  bigint NOT NULL REFERENCES app.project(id),
-  permissions text[] NOT NULL DEFAULT '{}',
-  PRIMARY KEY (member_id, project_id)
+    member_id   uuid   NOT NULL REFERENCES app.member (id),
+    project_id  bigint NOT NULL REFERENCES app.project (id),
+    permissions text[] NOT NULL DEFAULT '{}',
+    PRIMARY KEY (member_id, project_id)
 );
 
 -- Les tâches, organisées en arbre via `parent_id`.
 CREATE TABLE app.task (
-  id         bigint GENERATED BY DEFAULT AS IDENTITY PRIMARY KEY,
-  project_id bigint NOT NULL REFERENCES app.project(id),
-  parent_id  bigint REFERENCES app.task(id),
-  author_id  uuid   NOT NULL REFERENCES app.member(id),
-  title      text   NOT NULL,
-  state      app.task_state NOT NULL DEFAULT 'draft',
-  effort     integer NOT NULL DEFAULT 1,
-  created_at timestamptz NOT NULL DEFAULT now(),
-  done_at    timestamptz
+    id         bigint GENERATED BY DEFAULT AS IDENTITY PRIMARY KEY,
+    project_id bigint         NOT NULL REFERENCES app.project (id),
+    parent_id  bigint REFERENCES app.task (id),
+    author_id  uuid           NOT NULL REFERENCES app.member (id),
+    title      text           NOT NULL,
+    state      app.task_state NOT NULL DEFAULT 'draft',
+    effort     integer        NOT NULL DEFAULT 1,
+    created_at timestamptz    NOT NULL DEFAULT now(),
+    done_at    timestamptz
 );
 
 -- Jetons d'API : aucun rôle client ne doit pouvoir en lire une seule ligne.
 CREATE TABLE app.api_token (
-  id         bigint GENERATED BY DEFAULT AS IDENTITY PRIMARY KEY,
-  member_id  uuid NOT NULL REFERENCES app.member(id),
-  token_hash text NOT NULL,
-  expires_at timestamptz NOT NULL
+    id         bigint GENERATED BY DEFAULT AS IDENTITY PRIMARY KEY,
+    member_id  uuid        NOT NULL REFERENCES app.member (id),
+    token_hash text        NOT NULL,
+    expires_at timestamptz NOT NULL
 );
 
 -- Journal d'audit : une ligne par événement, plus une ligne par champ modifié.
 -- Alimenté UNIQUEMENT par trigger, jamais en écriture directe.
 CREATE TABLE app.activity (
-  id          bigint GENERATED BY DEFAULT AS IDENTITY PRIMARY KEY,
-  entity_type text NOT NULL,             -- 'task', 'project'…
-  entity_id   text NOT NULL,
-  kind        app.activity_kind NOT NULL,
-  actor_id    uuid,                       -- l'appelant au moment de l'écriture
-  at          timestamptz NOT NULL DEFAULT now()
+    id          bigint GENERATED BY DEFAULT AS IDENTITY PRIMARY KEY,
+    entity_type text              NOT NULL, -- 'task', 'project'…
+    entity_id   text              NOT NULL,
+    kind        app.activity_kind NOT NULL,
+    actor_id    uuid,                       -- l'appelant au moment de l'écriture
+    at          timestamptz       NOT NULL DEFAULT now()
 );
 
 CREATE TABLE app.activity_change (
-  activity_id bigint NOT NULL REFERENCES app.activity(id) ON DELETE CASCADE,
-  field       text NOT NULL,
-  old_value   jsonb,
-  new_value   jsonb
+    activity_id bigint NOT NULL REFERENCES app.activity (id) ON DELETE CASCADE,
+    field       text   NOT NULL,
+    old_value   jsonb,
+    new_value   jsonb
 );
 ```
 
@@ -213,12 +235,13 @@ CREATE TABLE app.activity_change (
 Trois rôles, sans droit de connexion : les comptes de service s'y rattacheront par `GRANT role TO login`.
 
 ```sql
-CREATE ROLE app_anon  NOLOGIN;             -- visiteur non authentifié
-CREATE ROLE app_user  NOLOGIN;             -- utilisateur connecté
-CREATE ROLE app_admin NOLOGIN BYPASSRLS;   -- administration, tâches planifiées
+CREATE ROLE app_anon NOLOGIN; -- visiteur non authentifié
+CREATE ROLE app_user NOLOGIN; -- utilisateur connecté
+CREATE ROLE app_admin NOLOGIN BYPASSRLS; -- administration, tâches planifiées
 ```
 
-Une policy doit pouvoir répondre à « qui est l'appelant ? ». En PostgreSQL nu, l'application dépose cette information dans un **paramètre de session** à l'ouverture de la connexion, et une fonction la relit :
+Une policy doit pouvoir répondre à « qui est l'appelant ? ». En PostgreSQL nu, l'application dépose cette information
+dans un **paramètre de session** à l'ouverture de la connexion, et une fonction la relit :
 
 ```sql
 -- posé par l'application : SET session.member_id = '…';
@@ -226,18 +249,24 @@ CREATE FUNCTION app.current_member()
     RETURNS uuid
     LANGUAGE sql
     STABLE
-    AS $$
-  SELECT nullif(current_setting('session.member_id', true), '')::uuid;
+AS
+$$
+SELECT nullif(current_setting('session.member_id', TRUE), '')::uuid;
 $$;
 ```
 
-Le second argument `true` de `current_setting` renvoie `NULL` au lieu de lever une erreur quand le paramètre n'est pas défini — c'est ce qu'on veut : hors session applicative, `app.current_member()` vaut `NULL`, donc aucune comparaison ne réussit et rien n'est visible.
+Le second argument `true` de `current_setting` renvoie `NULL` au lieu de lever une erreur quand le paramètre n'est pas
+défini — c'est ce qu'on veut : hors session applicative, `app.current_member()` vaut `NULL`, donc aucune comparaison ne
+réussit et rien n'est visible.
 
 :::info Supabase
-`auth.uid()` fait exactement cela : elle lit le claim `sub` du JWT, déposé par PostgREST dans le paramètre de session `request.jwt.claims`. Partout où ce document écrit `app.current_member()`, une base Supabase écrit `auth.uid()`. De même, `app_anon` / `app_user` / `app_admin` correspondent à `anon` / `authenticated` / `service_role`.
+`auth.uid()` fait exactement cela : elle lit le claim `sub` du JWT, déposé par PostgREST dans le paramètre de session
+`request.jwt.claims`. Partout où ce document écrit `app.current_member()`, une base Supabase écrit `auth.uid()`. De
+même, `app_anon` / `app_user` / `app_admin` correspondent à `anon` / `authenticated` / `service_role`.
 :::
 
-Deux fonctions résolvent enfin les droits. Elles sont détaillées en [partie 2](#fonctions-daide-dans-les-policies) ; pour l'instant, seules leurs signatures comptent, car toutes les policies les appellent :
+Deux fonctions résolvent enfin les droits. Elles sont détaillées en [partie 2](#fonctions-daide-dans-les-policies) ;
+pour l'instant, seules leurs signatures comptent, car toutes les policies les appellent :
 
 ```sql
 -- « l'utilisateur courant a-t-il cette permission, globalement ? »
@@ -248,11 +277,12 @@ app.has_project_permission(p_permission text, p_project_id bigint) RETURNS boole
 ```
 
 :::note En production, préférer un enum au `text`
-`permissions text[]` est écrit ici pour rester lisible. Un `CREATE TYPE app.permission AS ENUM (...)` transforme une faute de frappe en erreur à la migration, au lieu d'un droit silencieusement jamais accordé.
+`permissions text[]` est écrit ici pour rester lisible. Un `CREATE TYPE app.permission AS ENUM (...)` transforme une
+faute de frappe en erreur à la migration, au lieu d'un droit silencieusement jamais accordé.
 :::
 
-:::note Ce que ce schéma illustre volontairement
-Quatre situations qu'aucune contrainte `CHECK` ne sait exprimer, et qui reviendront toutes en partie 4 :
+:::note Ce que ce schéma illustre volontairement Quatre situations qu'aucune contrainte `CHECK` ne sait exprimer, et qui
+reviendront toutes en partie 4 :
 
 - un **agrégat** : l'effort d'une tâche doit égaler la somme de celui de ses sous-tâches ;
 - une **remontée d'arbre** : une tâche ne peut pas être sa propre ancêtre ;
@@ -265,7 +295,8 @@ Quatre situations qu'aucune contrainte `CHECK` ne sait exprimer, et qui reviendr
 
 ## Partie 1 — Rôles et privilèges {#roles-et-privileges}
 
-Le RLS ne se comprend pas isolément : c'est la **seconde** couche d'autorisation. La première, ce sont les privilèges (`GRANT` / `REVOKE`).
+Le RLS ne se comprend pas isolément : c'est la **seconde** couche d'autorisation. La première, ce sont les privilèges
+(`GRANT` / `REVOKE`).
 
 ```text
 requête d'un rôle
@@ -288,19 +319,20 @@ Autrement dit :
 - **Le `GRANT` définit le plafond** : quelles _opérations_ un rôle peut tenter sur une _table entière_.
 - **Le RLS définit le filtre** : quelles _lignes_ de cette table il voit ou écrit réellement.
 
-:::danger Les deux sont nécessaires
-Une policy sans `GRANT` ne donne rien (erreur `42501` avant même d'évaluer la policy).
-Un `GRANT` sans RLS donne **tout**. C'est le trou classique d'une base laissée dans sa configuration initiale : la moindre table oubliée est intégralement exposée à qui peut s'y connecter.
+:::danger Les deux sont nécessaires Une policy sans `GRANT` ne donne rien (erreur `42501` avant même d'évaluer la
+policy). Un `GRANT` sans RLS donne **tout**. C'est le trou classique d'une base laissée dans sa configuration initiale :
+la moindre table oubliée est intégralement exposée à qui peut s'y connecter.
 :::
 
 ### Les rôles
 
-Un rôle PostgreSQL est à la fois un « utilisateur » et un « groupe » : il n'y a qu'un seul objet, et l'attribut `LOGIN` décide s'il peut ouvrir une connexion.
+Un rôle PostgreSQL est à la fois un « utilisateur » et un « groupe » : il n'y a qu'un seul objet, et l'attribut `LOGIN`
+décide s'il peut ouvrir une connexion.
 
 ```sql
-CREATE ROLE app_user NOLOGIN;                  -- rôle « groupe », endossable
-CREATE ROLE api_service LOGIN PASSWORD '…';    -- compte de connexion
-GRANT app_user TO api_service;                 -- le compte hérite des droits
+CREATE ROLE app_user NOLOGIN; -- rôle « groupe », endossable
+CREATE ROLE api_service LOGIN PASSWORD '…'; -- compte de connexion
+GRANT app_user TO api_service; -- le compte hérite des droits
 ```
 
 Les attributs qui comptent pour la sécurité :
@@ -318,11 +350,13 @@ Deux rôles échappent au RLS et méritent d'être identifiés :
 - **le propriétaire de la table** — sauf `FORCE ROW LEVEL SECURITY`, voir plus bas ;
 - **tout rôle `BYPASSRLS`**, réservé aux tâches d'administration et de réplication.
 
-:::warning `BYPASSRLS` contourne le RLS, pas les triggers
-C'est la raison d'être des triggers d'invariant : un contrôle écrit en policy ne protège pas d'une écriture faite par un script d'administration ; un contrôle écrit en trigger, si.
+:::warning `BYPASSRLS` contourne le RLS, pas les triggers C'est la raison d'être des triggers d'invariant : un contrôle
+écrit en policy ne protège pas d'une écriture faite par un script d'administration ; un contrôle écrit en trigger, si.
 :::
 
-`PUBLIC` mérite enfin une attention particulière : ce n'est pas le schéma `public`, c'est le pseudo-rôle « n'importe qui », rôles futurs compris. PostgreSQL accorde implicitement `EXECUTE` **à `PUBLIC` sur toute fonction créée**. D'où le motif à écrire systématiquement :
+`PUBLIC` mérite enfin une attention particulière : ce n'est pas le schéma `public`, c'est le pseudo-rôle « n'importe
+qui », rôles futurs compris. PostgreSQL accorde implicitement `EXECUTE` **à `PUBLIC` sur toute fonction créée**. D'où le
+motif à écrire systématiquement :
 
 ```sql
 REVOKE ALL ON ALL FUNCTIONS IN SCHEMA app FROM PUBLIC;
@@ -331,8 +365,10 @@ GRANT EXECUTE ON ALL FUNCTIONS IN SCHEMA app TO app_admin;
 
 Sans le `REVOKE`, la fonction serait appelable par `app_anon`.
 
-:::info Supabase
-Trois rôles sont pré-créés, et PostgREST choisit lequel endosser selon le JWT reçu : `anon` (aucun jeton), `authenticated` (jeton utilisateur valide) et `service_role` (clé secrète serveur, porteur de `BYPASSRLS`). Les migrations, elles, s'exécutent en `postgres` ou `supabase_admin`, tous deux propriétaires, donc hors RLS. Les rôles `app_anon` / `app_user` / `app_admin` de ce document leur correspondent un pour un.
+:::info Supabase Trois rôles sont pré-créés, et PostgREST choisit lequel endosser selon le JWT reçu : `anon` (aucun
+jeton), `authenticated` (jeton utilisateur valide) et `service_role` (clé secrète serveur, porteur de `BYPASSRLS`). Les
+migrations, elles, s'exécutent en `postgres` ou `supabase_admin`, tous deux propriétaires, donc hors RLS. Les rôles
+`app_anon` / `app_user` / `app_admin` de ce document leur correspondent un pour un.
 :::
 
 ### `GRANT` et `REVOKE`
@@ -348,15 +384,20 @@ REVOKE ALL ON ALL TABLES IN SCHEMA app FROM app_anon;
 
 Points à retenir :
 
-- **`USAGE ON SCHEMA` est obligatoire** avant tout accès aux objets qu'il contient. Sans lui, le rôle ne voit même pas que les tables existent.
-- Les privilèges de table sont : `SELECT`, `INSERT`, `UPDATE`, `DELETE`, `TRUNCATE`, `REFERENCES`, `TRIGGER`. `ALL` = les sept.
-- **`GRANT USAGE ON SEQUENCE` est requis** pour insérer dans une table à clé `bigint generated by default as identity` : sans lui l'`INSERT` échoue alors que le `GRANT INSERT` est bien là.
+- **`USAGE ON SCHEMA` est obligatoire** avant tout accès aux objets qu'il contient. Sans lui, le rôle ne voit même pas
+  que les tables existent.
+- Les privilèges de table sont : `SELECT`, `INSERT`, `UPDATE`, `DELETE`, `TRUNCATE`, `REFERENCES`, `TRIGGER`. `ALL` =
+  les sept.
+- **`GRANT USAGE ON SEQUENCE` est requis** pour insérer dans une table à clé `bigint generated by default as identity` :
+  sans lui l'`INSERT` échoue alors que le `GRANT INSERT` est bien là.
 - Une fonction se cite **avec sa signature** (types des arguments), car les fonctions sont surchargeables.
-- `GRANT ... ON ALL TABLES IN SCHEMA` agit sur les tables **existantes au moment de l'exécution**. Une table créée après n'est pas couverte.
+- `GRANT ... ON ALL TABLES IN SCHEMA` agit sur les tables **existantes au moment de l'exécution**. Une table créée après
+  n'est pas couverte.
 
 #### Privilèges par colonne
 
-`GRANT` accepte une liste de colonnes. C'est le mécanisme à connaître pour rendre une colonne sensible — typiquement une colonne de permissions — non modifiable directement :
+`GRANT` accepte une liste de colonnes. C'est le mécanisme à connaître pour rendre une colonne sensible — typiquement une
+colonne de permissions — non modifiable directement :
 
 ```sql
 -- un membre modifie son email, jamais ses propres permissions
@@ -379,29 +420,36 @@ Le rôle peut faire un `UPDATE`, mais **uniquement** sur ces colonnes ; toucher 
 | `x`    | `REFERENCES` (clé étrangère) |
 | `t`    | `TRIGGER`                    |
 
-`arwdDxt` signifie donc « tous les privilèges de table ». C'est le constat typique d'un audit sur une base laissée par défaut : le rôle applicatif porte `arwdDxt` partout.
+`arwdDxt` signifie donc « tous les privilèges de table ». C'est le constat typique d'un audit sur une base laissée par
+défaut : le rôle applicatif porte `arwdDxt` partout.
 
 :::note Pourquoi `TRIGGER` et `REFERENCES` sont dangereux
-`TRIGGER` permet à un rôle de poser un trigger sur une table, donc **d'exécuter son propre code lors des écritures d'autrui**. `REFERENCES` permet de créer une clé étrangère qui révèle indirectement l'existence de lignes. Aucun des deux n'a de justification pour un rôle client.
+`TRIGGER` permet à un rôle de poser un trigger sur une table, donc **d'exécuter son propre code lors des écritures d'
+autrui**. `REFERENCES` permet de créer une clé étrangère qui révèle indirectement l'existence de lignes. Aucun des deux
+n'a de justification pour un rôle client.
 :::
 
 ### `ALTER DEFAULT PRIVILEGES`
 
 ```sql
 ALTER DEFAULT PRIVILEGES FOR ROLE postgres IN SCHEMA public
-  REVOKE ALL ON TABLES FROM app_anon, app_user;
+    REVOKE ALL ON TABLES FROM app_anon, app_user;
 
 ALTER DEFAULT PRIVILEGES IN SCHEMA app
-  GRANT EXECUTE ON FUNCTIONS TO app_user, app_admin;
+    GRANT EXECUTE ON FUNCTIONS TO app_user, app_admin;
 ```
 
-Cette instruction ne touche **aucun objet existant**. Elle décrit les privilèges à appliquer automatiquement aux objets **créés dans le futur**.
+Cette instruction ne touche **aucun objet existant**. Elle décrit les privilèges à appliquer automatiquement aux objets
+**créés dans le futur**.
 
 Trois pièges :
 
-1. Elle est **liée à un rôle créateur**. `FOR ROLE postgres` ne couvre pas les objets créés par un autre rôle : dès que deux rôles créent des objets (les migrations et un outil d'administration, par exemple), il faut la déclarer pour chacun.
+1. Elle est **liée à un rôle créateur**. `FOR ROLE postgres` ne couvre pas les objets créés par un autre rôle : dès que
+   deux rôles créent des objets (les migrations et un outil d'administration, par exemple), il faut la déclarer pour
+   chacun.
 2. Elle est **liée à un schéma**. Sans `IN SCHEMA`, elle s'applique au schéma courant à la création.
-3. Sans elle, l'effet d'un `REVOKE` ponctuel est **défait à chaque nouvel objet créé**. C'est la cause racine mécanique d'une base qui « redevient ouverte » migration après migration, malgré des durcissements répétés.
+3. Sans elle, l'effet d'un `REVOKE` ponctuel est **défait à chaque nouvel objet créé**. C'est la cause racine mécanique
+   d'une base qui « redevient ouverte » migration après migration, malgré des durcissements répétés.
 
 ---
 
@@ -412,43 +460,50 @@ Le RLS filtre les **lignes** accessibles selon le rôle ou le contexte de la ses
 ### Activation
 
 ```sql
-ALTER TABLE app.task ENABLE ROW LEVEL SECURITY;
+ALTER TABLE app.task
+    ENABLE ROW LEVEL SECURITY;
 ```
 
 Trois conséquences immédiates :
 
-- **Refus par défaut.** Une table avec RLS activée et **zéro policy** est totalement inaccessible aux rôles non privilégiés — y compris en lecture. C'est un état sûr, pas un bug.
+- **Refus par défaut.** Une table avec RLS activée et **zéro policy** est totalement inaccessible aux rôles non
+  privilégiés — y compris en lecture. C'est un état sûr, pas un bug.
 - **Le propriétaire de la table n'est pas soumis au RLS.** Idem pour tout rôle `BYPASSRLS`.
 - Les policies ne s'appliquent qu'aux commandes DML (`SELECT`/`INSERT`/`UPDATE`/`DELETE`), pas au DDL.
 
 #### `FORCE` et `NO FORCE`
 
 ```sql
-ALTER TABLE app.api_token FORCE ROW LEVEL SECURITY;
-ALTER TABLE app.project NO FORCE ROW LEVEL SECURITY;
+ALTER TABLE app.api_token
+    FORCE ROW LEVEL SECURITY;
+ALTER TABLE app.project
+    NO FORCE ROW LEVEL SECURITY;
 ```
 
-`FORCE` applique le RLS **même au propriétaire de la table**. C'est ce qui empêche une fonction `SECURITY DEFINER` détenue par `postgres` de lire la table hors policy. À réserver aux tables les plus sensibles (jetons, secrets, hachages), en défense en profondeur.
+`FORCE` applique le RLS **même au propriétaire de la table**. C'est ce qui empêche une fonction `SECURITY DEFINER`
+détenue par `postgres` de lire la table hors policy. À réserver aux tables les plus sensibles (jetons, secrets,
+hachages), en défense en profondeur.
 
 #### Activation en masse
 
 Activer le RLS sur toutes les tables d'un schéma se fait par un bloc anonyme parcourant le catalogue :
 
 ```sql
-DO $$
-DECLARE
-    r record;
-BEGIN
-    FOR r IN
-    SELECT c.oid::regclass AS t
-    FROM pg_class c
-    JOIN pg_namespace n ON n.oid = c.relnamespace
-    WHERE n.nspname = 'app'
-      AND c.relkind = 'r'          -- 'r' = table ordinaire
-    LOOP
-        EXECUTE format('ALTER TABLE %s ENABLE ROW LEVEL SECURITY', r.t);
-    END LOOP;
-END
+DO
+$$
+    DECLARE
+        r record;
+    BEGIN
+        FOR r IN
+            SELECT c.oid::regclass AS t
+                FROM pg_class c
+                         JOIN pg_namespace n ON n.oid = c.relnamespace
+                WHERE n.nspname = 'app'
+                  AND c.relkind = 'r' -- 'r' = table ordinaire
+            LOOP
+                EXECUTE format('ALTER TABLE %s ENABLE ROW LEVEL SECURITY', r.t);
+            END LOOP;
+    END
 $$;
 ```
 
@@ -459,18 +514,20 @@ Décodage :
 - `oid::regclass` convertit l'identifiant interne en nom qualifié et **correctement échappé**.
 - `format()` + `EXECUTE` : voir [SQL dynamique](#blocs-anonymes-et-sql-dynamique).
 
-L'avantage sur une liste écrite à la main : une table ajoutée plus tard dans le même schéma est couverte au prochain passage, et aucun oubli n'est possible.
+L'avantage sur une liste écrite à la main : une table ajoutée plus tard dans le même schéma est couverte au prochain
+passage, et aucun oubli n'est possible.
 
 ### Anatomie complète d'une policy
 
 ```sql
 CREATE POLICY nom_policy
-ON schema.table
-[ AS { PERMISSIVE | RESTRICTIVE } ]     -- défaut : PERMISSIVE
-[ FOR { ALL | SELECT | INSERT | UPDATE | DELETE } ]  -- défaut : ALL
-[ TO role [, ...] ]                     -- défaut : PUBLIC
+    ON schema.table [ AS { PERMISSIVE | RESTRICTIVE } ]     -- défaut : PERMISSIVE
+[ FOR { ALL |
+SELECT | insert | update | delete } ]  -- défaut : ALL
+[ TO ROLE [, ...] ]                     -- défaut : PUBLIC
 [ USING (expression_booleenne) ]
-[ WITH CHECK (expression_booleenne) ];
+[
+WITH check (expression_booleenne) ];
 ```
 
 | Clause       | Rôle                                                     |
@@ -497,21 +554,26 @@ C'est la distinction centrale, et la source d'erreur la plus fréquente.
 
 Deux comportements à connaître :
 
-- Une ligne exclue par `USING` **n'est pas une erreur** : elle est simplement invisible. Un `UPDATE` qui ne matche rien renvoie « 0 ligne », pas un refus.
+- Une ligne exclue par `USING` **n'est pas une erreur** : elle est simplement invisible. Un `UPDATE` qui ne matche rien
+  renvoie « 0 ligne », pas un refus.
 - Une ligne rejetée par `WITH CHECK` **lève une erreur** : `new row violates row-level security policy`.
-- Sur `UPDATE`, si `WITH CHECK` est omis, **`USING` est réutilisé pour la vérification d'après**. C'est rarement ce qu'on veut quand la policy dépend de l'état.
+- Sur `UPDATE`, si `WITH CHECK` est omis, **`USING` est réutilisé pour la vérification d'après**. C'est rarement ce
+  qu'on veut quand la policy dépend de l'état.
 
 Exemple :
 
 ```sql
 CREATE POLICY task_update ON app.task
     FOR UPDATE TO app_user
-        USING ((author_id = app.current_member () AND state = 'draft')
-            OR app.has_project_permission ('task.review', project_id)
-            OR app.has_permission ('task.admin'));
+    USING ((author_id = app.current_member() AND state = 'draft')
+        OR app.has_project_permission('task.review', project_id)
+        OR app.has_permission('task.admin'));
 ```
 
-Il n'y a **pas** de `WITH CHECK`, donc l'expression `USING` sert aussi de contrôle après modification. Conséquence lisible : un auteur qui fait passer sa tâche de `draft` à `open` échouerait sur la vérification d'après — sauf si une autre branche du `OR` le couvre. Le contrôle fin des transitions est à déporter dans un trigger, ce qui est le bon découpage : **RLS pour l'accès, trigger pour l'invariant**.
+Il n'y a **pas** de `WITH CHECK`, donc l'expression `USING` sert aussi de contrôle après modification. Conséquence
+lisible : un auteur qui fait passer sa tâche de `draft` à `open` échouerait sur la vérification d'après — sauf si une
+autre branche du `OR` le couvre. Le contrôle fin des transitions est à déporter dans un trigger, ce qui est le bon
+découpage : **RLS pour l'accès, trigger pour l'invariant**.
 
 #### `PERMISSIVE` contre `RESTRICTIVE`
 
@@ -522,11 +584,14 @@ accès = (permissive_1 OR permissive_2 OR ...)
         AND restrictive_1 AND restrictive_2 AND ...
 ```
 
-- **`PERMISSIVE`** (défaut) : chaque policy **ajoute** de l'accès. C'est le mode de l'immense majorité des policies écrites en pratique.
-- **`RESTRICTIVE`** : chaque policy **retranche** de l'accès. Utile pour un garde-fou transversal (« et jamais sur les lignes archivées »).
+- **`PERMISSIVE`** (défaut) : chaque policy **ajoute** de l'accès. C'est le mode de l'immense majorité des policies
+  écrites en pratique.
+- **`RESTRICTIVE`** : chaque policy **retranche** de l'accès. Utile pour un garde-fou transversal (« et jamais sur les
+  lignes archivées »).
 
-:::warning Une seule policy permissive suffit à ouvrir
-Ajouter une policy permissive ne peut jamais restreindre. Si une table a déjà `USING (true)`, toute policy supplémentaire est cosmétique. À l'inverse, s'il n'y a **que** des policies restrictives, l'accès reste nul : il n'y a rien à restreindre.
+:::warning Une seule policy permissive suffit à ouvrir Ajouter une policy permissive ne peut jamais restreindre. Si une
+table a déjà `USING (true)`, toute policy supplémentaire est cosmétique. À l'inverse, s'il n'y a **que** des policies
+restrictives, l'accès reste nul : il n'y a rien à restreindre.
 :::
 
 C'est ce qui explique le motif le plus répandu, « une policy de lecture large + une policy d'écriture étroite » :
@@ -534,25 +599,28 @@ C'est ce qui explique le motif le plus répandu, « une policy de lecture large 
 ```sql
 CREATE POLICY project_read ON app.project
     FOR SELECT TO app_user
-        USING (TRUE);
+    USING (TRUE);
 CREATE POLICY project_write ON app.project
     FOR ALL TO app_user
-    USING (app.has_permission ('project.write'))
-    WITH CHECK (app.has_permission ('project.write'));
+    USING (app.has_permission('project.write'))
+    WITH CHECK (app.has_permission('project.write'));
 ```
 
-La policy `project_write` est en `FOR ALL`, donc elle couvre aussi `SELECT` — mais comme `project_read` est permissive et vaut `true`, la lecture reste ouverte. L'écriture, elle, n'est couverte que par `project_write`.
+La policy `project_write` est en `FOR ALL`, donc elle couvre aussi `SELECT` — mais comme `project_read` est permissive
+et vaut `true`, la lecture reste ouverte. L'écriture, elle, n'est couverte que par `project_write`.
 
 #### Absence de policy d'écriture
 
 ```sql
 CREATE POLICY activity_read ON app.activity
     FOR SELECT TO app_user
-        USING (app.has_permission ('audit.read'));
+    USING (app.has_permission('audit.read'));
 -- et rien d'autre
 ```
 
-Aucune policy `INSERT`/`UPDATE`/`DELETE` : **la table n'est écrivable par aucun rôle client**. Elle n'est alimentée que par un trigger en `SECURITY DEFINER`, qui s'exécute sous une identité privilégiée. C'est une manière déclarative de dire « donnée dérivée, non saisissable ».
+Aucune policy `INSERT`/`UPDATE`/`DELETE` : **la table n'est écrivable par aucun rôle client**. Elle n'est alimentée que
+par un trigger en `SECURITY DEFINER`, qui s'exécute sous une identité privilégiée. C'est une manière déclarative de
+dire « donnée dérivée, non saisissable ».
 
 ### Le contexte de la session
 
@@ -561,16 +629,18 @@ Une policy est une expression SQL évaluée **ligne par ligne**, dans laquelle o
 - les colonnes de la ligne courante, directement par leur nom (`author_id`, `project_id`) ;
 - des paramètres de session, via `current_setting()`.
 
-Un paramètre de session **personnalisé** est un paramètre dont le nom est qualifié par un préfixe (`session.member_id`, `app.tenant`). PostgreSQL ne les interprète pas : il les stocke et les restitue, ce qui en fait le véhicule standard pour transmettre une identité applicative à la base.
+Un paramètre de session **personnalisé** est un paramètre dont le nom est qualifié par un préfixe (`session.member_id`,
+`app.tenant`). PostgreSQL ne les interprète pas : il les stocke et les restitue, ce qui en fait le véhicule standard
+pour transmettre une identité applicative à la base.
 
 ```sql
 -- posé par l'application à l'ouverture de la connexion
-SET session.member_id = '00000000-0000-0000-0000-000000000001';
+SET SESSION.member_id = '00000000-0000-0000-0000-000000000001';
 
 CREATE POLICY task_is_owner
-ON app.task
-USING (author_id = app.current_member ())
-WITH CHECK (author_id = app.current_member ());
+    ON app.task
+    USING (author_id = app.current_member())
+    WITH CHECK (author_id = app.current_member());
 ```
 
 Trois portées possibles pour l'écriture du paramètre :
@@ -582,38 +652,49 @@ Trois portées possibles pour l'écriture du paramètre :
 | `set_config('session.member_id', …, true)` | idem, mais appelable dans une requête                 |
 
 :::danger Sur un pool de connexions, toujours `SET LOCAL`
-Une connexion mise en pool est réutilisée par la requête suivante, d'un autre utilisateur. Un `SET` de session laisse son identité en place : le suivant hérite des droits du précédent. `SET LOCAL` est annulé à la fin de la transaction, ce qui ferme la fuite.
+Une connexion mise en pool est réutilisée par la requête suivante, d'un autre utilisateur. Un `SET` de session laisse
+son identité en place : le suivant hérite des droits du précédent. `SET LOCAL` est annulé à la fin de la transaction, ce
+qui ferme la fuite.
 :::
 
-L'identité peut aussi être `NULL` : `app.current_member()` renvoie `NULL` hors session applicative, et une comparaison à `NULL` vaut `NULL`, donc « non autorisé ». C'est le comportement voulu, mais il faut le savoir — une policy qui ne cadre pas ce cas se comporte comme un refus silencieux plutôt que comme une erreur.
+L'identité peut aussi être `NULL` : `app.current_member()` renvoie `NULL` hors session applicative, et une comparaison à
+`NULL` vaut `NULL`, donc « non autorisé ». C'est le comportement voulu, mais il faut le savoir — une policy qui ne cadre
+pas ce cas se comporte comme un refus silencieux plutôt que comme une erreur.
 
-:::info Supabase
-Le paramètre s'appelle `request.jwt.claims` et contient tout le JWT ; trois fonctions le lisent. `auth.uid()` renvoie le claim `sub` (l'`uuid` de l'utilisateur), `auth.role()` le claim `role` (`anon`, `authenticated` ou `service_role`), et `auth.jwt()` l'objet `jsonb` entier. Pour tester explicitement le cas « appel serveur de confiance », on écrit `coalesce(auth.role(), '') <> 'service_role'`.
+:::info Supabase Le paramètre s'appelle `request.jwt.claims` et contient tout le JWT ; trois fonctions le lisent.
+`auth.uid()` renvoie le claim `sub` (l'`uuid` de l'utilisateur), `auth.role()` le claim `role` (`anon`, `authenticated`
+ou `service_role`), et `auth.jwt()` l'objet `jsonb` entier. Pour tester explicitement le cas « appel serveur de
+confiance », on écrit `coalesce(auth.role(), '') <> 'service_role'`.
 :::
 
 ### Références à d'autres tables
 
-Une policy peut faire des sous-requêtes. Le motif le plus courant, « je vois le projet s'il porte au moins une de mes tâches » :
+Une policy peut faire des sous-requêtes. Le motif le plus courant, « je vois le projet s'il porte au moins une de mes
+tâches » :
 
 ```sql
 CREATE POLICY project_read ON app.project
     FOR SELECT TO app_user
-        USING (app.has_permission ('task.read.all')
-            OR EXISTS (
-                SELECT 1
+    USING (app.has_permission('task.read.all')
+        OR exists (
+            SELECT 1
                 FROM app.task t
                 WHERE t.project_id = project.id
-                  AND (t.author_id = app.current_member ()
-                       OR app.has_project_permission ('task.read', t.project_id))));
+                  AND (t.author_id = app.current_member()
+                    OR app.has_project_permission('task.read', t.project_id))));
 ```
 
 Deux détails de syntaxe :
 
-- **`project.id` dans la sous-requête** désigne la ligne courante de la table sur laquelle porte la policy. On qualifie par le nom de la table (pas d'alias possible), et on alias la table interne (`t`) pour éviter l'ambiguïté.
+- **`project.id` dans la sous-requête** désigne la ligne courante de la table sur laquelle porte la policy. On qualifie
+  par le nom de la table (pas d'alias possible), et on alias la table interne (`t`) pour éviter l'ambiguïté.
 - **`EXISTS` plutôt que `IN`** : s'arrête au premier résultat et gère correctement les `NULL`.
 
-:::danger La sous-requête n'est pas soumise au RLS de la table lue
-Une policy est évaluée avec les droits du propriétaire de la table : la lecture de `app.task` à l'intérieur de `project_read` **ne repasse pas** par les policies de `app.task`. C'est voulu (sinon récursion infinie), mais cela signifie qu'une policy peut exposer indirectement des lignes qu'une lecture directe refuserait. Il faut donc que la sous-requête ne renvoie que des **booléens ou des tests d'existence**, jamais des données.
+:::danger La sous-requête n'est pas soumise au RLS de la table lue Une policy est évaluée avec les droits du
+propriétaire de la table : la lecture de `app.task` à l'intérieur de `project_read` **ne repasse pas** par les policies
+de `app.task`. C'est voulu (sinon récursion infinie), mais cela signifie qu'une policy peut exposer indirectement des
+lignes qu'une lecture directe refuserait. Il faut donc que la sous-requête ne renvoie que des **booléens ou des tests
+d'existence**, jamais des données.
 :::
 
 ### Fonctions d'aide dans les policies {#fonctions-daide-dans-les-policies}
@@ -621,34 +702,36 @@ Une policy est évaluée avec les droits du propriétaire de la table : la lectu
 Répéter une jointure de permissions dans quarante policies est ingérable. Le projet centralise dans deux fonctions :
 
 ```sql
-CREATE OR REPLACE FUNCTION app.has_permission (p_permission text)
+CREATE OR REPLACE FUNCTION app.has_permission(p_permission text)
     RETURNS boolean
     LANGUAGE sql
     STABLE
     SECURITY DEFINER
     SET search_path TO 'app'
-    AS $$
-  SELECT EXISTS (
-    SELECT 1 FROM app.member m
-    WHERE m.id = app.current_member()
-      AND p_permission = ANY (m.permissions)
-  );
+AS
+$$
+SELECT exists (
+    SELECT 1
+        FROM app.member m
+        WHERE m.id = app.current_member()
+          AND p_permission = ANY (m.permissions));
 $$;
 
 -- même patron, mais scopé à un projet
-CREATE OR REPLACE FUNCTION app.has_project_permission (p_permission text, p_project_id bigint)
+CREATE OR REPLACE FUNCTION app.has_project_permission(p_permission text, p_project_id bigint)
     RETURNS boolean
     LANGUAGE sql
     STABLE
     SECURITY DEFINER
     SET search_path TO 'app'
-    AS $$
-  SELECT EXISTS (
-    SELECT 1 FROM app.membership ms
-    WHERE ms.member_id = app.current_member()
-      AND ms.project_id = p_project_id
-      AND p_permission = ANY (ms.permissions)
-  );
+AS
+$$
+SELECT exists (
+    SELECT 1
+        FROM app.membership ms
+        WHERE ms.member_id = app.current_member()
+          AND ms.project_id = p_project_id
+          AND p_permission = ANY (ms.permissions));
 $$;
 ```
 
@@ -661,28 +744,35 @@ Chaque mot-clé de la signature est là pour une raison précise :
 | `SECURITY DEFINER`            | lit `profile_global_roles` sans que l'appelant y ait accès, et **casse la récursion RLS** |
 | `SET search_path TO 'public'` | protection contre le détournement de résolution de noms                                   |
 
-:::danger `SECURITY DEFINER` sans `SET search_path` = escalade de privilèges
-Sans `search_path` figé, un utilisateur peut créer une table `mon_schema.member` et manipuler son propre `search_path` pour que la fonction, qui s'exécute avec les droits du propriétaire, lise **sa** table. Toute fonction `SECURITY DEFINER` doit porter un `SET search_path`. C'est non négociable : les deux mots-clés vont ensemble, systématiquement, sans exception.
+:::danger `SECURITY DEFINER` sans `SET search_path` = escalade de privilèges Sans `search_path` figé, un utilisateur
+peut créer une table `mon_schema.member` et manipuler son propre `search_path` pour que la fonction, qui s'exécute avec
+les droits du propriétaire, lise **sa** table. Toute fonction `SECURITY DEFINER` doit porter un `SET search_path`. C'est
+non négociable : les deux mots-clés vont ensemble, systématiquement, sans exception.
 :::
 
 #### Le problème de récursion
 
-Si la policy de `app.member` appelait `has_permission()`, qui lit `app.member`, qui déclenche sa policy, qui appelle `has_permission()`… PostgreSQL lèverait `infinite recursion detected in policy for relation "member"`.
+Si la policy de `app.member` appelait `has_permission()`, qui lit `app.member`, qui déclenche sa policy, qui appelle
+`has_permission()`… PostgreSQL lèverait `infinite recursion detected in policy for relation "member"`.
 
-`SECURITY DEFINER` résout cela : la fonction s'exécute comme le propriétaire, qui n'est pas soumis au RLS, donc la lecture interne ne réévalue aucune policy.
+`SECURITY DEFINER` résout cela : la fonction s'exécute comme le propriétaire, qui n'est pas soumis au RLS, donc la
+lecture interne ne réévalue aucune policy.
 
 #### Performance
 
-Une fonction `STABLE` ou `VOLATILE` appelée dans une policy est, par défaut, réévaluée **pour chaque ligne examinée**. Sur une grande table, c'est le principal facteur de lenteur du RLS.
+Une fonction `STABLE` ou `VOLATILE` appelée dans une policy est, par défaut, réévaluée **pour chaque ligne examinée**.
+Sur une grande table, c'est le principal facteur de lenteur du RLS.
 
 Le contournement standard consiste à forcer une évaluation unique en enveloppant l'appel dans un `SELECT` scalaire :
 
 ```sql
 -- réévalué à chaque ligne
-USING (author_id = app.current_member ())
+USING
+(author_id = app.current_member ())
 
 -- évalué une seule fois (InitPlan)
-USING (author_id = (SELECT app.current_member ()))
+USING
+(author_id = (SELECT app.current_member ()))
 ```
 
 À cela s'ajoutent deux réflexes :
@@ -693,57 +783,77 @@ USING (author_id = (SELECT app.current_member ()))
 ### RLS et vues
 
 :::warning Une vue n'a pas de policies
-`ALTER VIEW ... ENABLE ROW LEVEL SECURITY` n'existe pas. Par défaut, une vue s'exécute avec les droits de **son créateur** : elle contourne donc le RLS des tables sous-jacentes. Une vue mal déclarée est un tunnel d'exfiltration.
+`ALTER VIEW ... ENABLE ROW LEVEL SECURITY` n'existe pas. Par défaut, une vue s'exécute avec les droits de **son
+créateur** : elle contourne donc le RLS des tables sous-jacentes. Une vue mal déclarée est un tunnel d'exfiltration.
 :::
 
 Depuis PostgreSQL 15 :
 
 ```sql
 CREATE VIEW app.open_task WITH (security_invoker = TRUE) AS
-SELECT * FROM app.task WHERE state = 'open';
+SELECT *
+    FROM app.task
+    WHERE state = 'open';
 ```
 
-`security_invoker = true` fait appliquer les policies **du lecteur**. À poser sur toutes les vues, sans exception : l'oubli sur une seule suffit à ouvrir la table qu'elle expose.
+`security_invoker = true` fait appliquer les policies **du lecteur**. À poser sur toutes les vues, sans exception :
+l'oubli sur une seule suffit à ouvrir la table qu'elle expose.
 
 Pour les vues matérialisées, l'option n'existe pas : il faut restreindre par `GRANT`.
 
 ### Le RLS s'applique aussi aux tables qu'on n'a pas écrites
 
-Rien ne limite le RLS aux tables de son propre schéma. Toute table sur laquelle on a le droit de poser une policy peut en recevoir une, y compris celles créées par une extension ou par une plateforme.
+Rien ne limite le RLS aux tables de son propre schéma. Toute table sur laquelle on a le droit de poser une policy peut
+en recevoir une, y compris celles créées par une extension ou par une plateforme.
 
-:::info Supabase — le stockage de fichiers
-Les fichiers de Supabase Storage sont des lignes de `storage.objects`, table ordinaire soumise au RLS comme une autre :
+:::info Supabase — le stockage de fichiers Les fichiers de Supabase Storage sont des lignes de `storage.objects`, table
+ordinaire soumise au RLS comme une autre :
 
 ```sql
 CREATE POLICY attachments_read ON storage.objects
     FOR SELECT TO authenticated
-        USING (bucket_id = 'attachments'
-            AND (storage.foldername (name))[1] = 'tasks'
-            AND app.has_permission ('task.read.all'));
+    USING (bucket_id = 'attachments'
+        AND (storage.foldername(name))[1] = 'tasks'
+        AND app.has_permission('task.read.all'));
 ```
 
-`bucket_id` doit être **le premier filtre**, sinon la policy s'applique à tous les buckets ; `name` est le chemin complet de l'objet ; `storage.foldername(name)` en renvoie les segments sous forme de `text[]`, indexé à partir de 1.
+`bucket_id` doit être **le premier filtre**, sinon la policy s'applique à tous les buckets ; `name` est le chemin
+complet de l'objet ; `storage.foldername(name)` en renvoie les segments sous forme de `text[]`, indexé à partir de 1.
 
-Piège classique : un chemin est une donnée **fournie par le client**. Une policy qui ne teste que `foldername(name)[1] = 'tasks'` autorise tout utilisateur connecté à lire, écrire et supprimer n'importe quel fichier du dossier. Il faut toujours y adjoindre un test de permission ou de propriété (`owner = auth.uid()`).
+Piège classique : un chemin est une donnée **fournie par le client**. Une policy qui ne teste que
+`foldername(name)[1] = 'tasks'` autorise tout utilisateur connecté à lire, écrire et supprimer n'importe quel fichier du
+dossier. Il faut toujours y adjoindre un test de permission ou de propriété (`owner = auth.uid()`).
 
-Enfin, `storage.buckets` porte les garde-fous qui ne dépendent pas des lignes — `file_size_limit` et `allowed_mime_types`. `image/svg+xml` est à exclure des buckets publics : un SVG peut contenir du JavaScript, et le servir depuis une origine légitime, c'est du XSS stocké.
+Enfin, `storage.buckets` porte les garde-fous qui ne dépendent pas des lignes — `file_size_limit` et
+`allowed_mime_types`. `image/svg+xml` est à exclure des buckets publics : un SVG peut contenir du JavaScript, et le
+servir depuis une origine légitime, c'est du XSS stocké.
 :::
 
 ### Inspecter et déboguer
 
 ```sql
 -- toutes les policies visibles
-SELECT schemaname, tablename, policyname, permissive, roles, cmd, qual, with_check
-FROM pg_policies
-WHERE schemaname = 'app';
+SELECT schemaname,
+       tablename,
+       policyname,
+       permissive,
+       roles,
+       cmd,
+       qual,
+       with_check
+    FROM pg_policies
+    WHERE schemaname = 'app';
 
 -- quelles tables ont RLS activée / forcée
 SELECT relname, relrowsecurity, relforcerowsecurity
-FROM pg_class
-WHERE relnamespace = 'app'::regnamespace AND relkind = 'r';
+    FROM pg_class
+    WHERE relnamespace = 'app'::regnamespace
+      AND relkind = 'r';
 
 -- voir le RLS dans le plan
-EXPLAIN (ANALYZE, VERBOSE) SELECT * FROM app.task;
+EXPLAIN (ANALYZE, VERBOSE)
+SELECT *
+    FROM app.task;
 ```
 
 Dans `pg_policies`, `qual` est l'expression `USING` et `with_check` l'expression `WITH CHECK`.
@@ -754,13 +864,15 @@ Pour tester une policy sans changer d'application :
 BEGIN;
 SET LOCAL ROLE app_user;
 SET LOCAL session.member_id = '00000000-0000-0000-0000-000000000001';
-SELECT * FROM app.task;
+SELECT *
+    FROM app.task;
 ROLLBACK;
 ```
 
 `SET LOCAL` limite l'effet à la transaction, et le `ROLLBACK` garantit qu'aucun test ne laisse de trace.
 
-Enfin, `DROP POLICY IF EXISTS nom ON table;` avant un `CREATE POLICY` rend une migration rejouable — motif indispensable dès qu'on remplace des policies posées ailleurs que dans le dépôt de migrations.
+Enfin, `DROP POLICY IF EXISTS nom ON table;` avant un `CREATE POLICY` rend une migration rejouable — motif indispensable
+dès qu'on remplace des policies posées ailleurs que dans le dépôt de migrations.
 
 ---
 
@@ -769,7 +881,8 @@ Enfin, `DROP POLICY IF EXISTS nom ON table;` avant un `CREATE POLICY` rend une m
 ### Syntaxe
 
 ```sql
-CREATE [OR REPLACE] FUNCTION nom_fonction (
+CREATE
+[OR REPLACE] FUNCTION nom_fonction (
   [argmode] [argname] argtype [ = defaut ],
   ...
 )
@@ -780,13 +893,16 @@ AS $$ corps $$;
 
 Paramètres des arguments :
 
-- `argmode` : `IN` (entrée, défaut), `OUT` (sortie), `INOUT` (entrée+sortie), `VARIADIC` (tableau variable en dernier argument).
+- `argmode` : `IN` (entrée, défaut), `OUT` (sortie), `INOUT` (entrée+sortie), `VARIADIC` (tableau variable en dernier
+  argument).
 - `argname` : nom de paramètre, utilisable dans le corps.
 - `argtype` : type SQL (ex : `text`, `uuid`, `integer`, `public.global_permission`, `project_permission[]`).
 - `= defaut` : valeur par défaut si l'appelant ne fournit pas l'argument.
 
-:::warning `DEFAULT NULL` déplace le contrôle dans le corps
-Un argument `p_reason text DEFAULT NULL` rend l'appel valide sans lui. Si le paramètre est en réalité obligatoire, il faut un garde explicite dans le corps (`IF p_x IS NULL THEN RAISE EXCEPTION ... USING errcode = '22023'`). Une valeur par défaut ajoutée « pour simplifier l'appel » se paie toujours par un contrôle à écrire dans le corps.
+:::warning `DEFAULT NULL` déplace le contrôle dans le corps Un argument `p_reason text DEFAULT NULL` rend l'appel valide
+sans lui. Si le paramètre est en réalité obligatoire, il faut un garde explicite dans le corps
+(`IF p_x IS NULL THEN RAISE EXCEPTION ... USING errcode = '22023'`). Une valeur par défaut ajoutée « pour simplifier
+l'appel » se paie toujours par un contrôle à écrire dans le corps.
 :::
 
 Paramètres de la fonction :
@@ -795,7 +911,8 @@ Paramètres de la fonction :
 - `LANGUAGE` : langage du corps (`sql`, `plpgsql`, etc.).
 - `AS $$ ... $$` : définition du corps (SQL ou bloc).
 - `IMMUTABLE` : pas d'effet de bord, même entrée → même sortie, indépendamment de la base. Indexable.
-- `STABLE` : pas d'effet de bord, résultat constant à l'intérieur d'une même instruction. C'est le bon niveau pour toute fonction qui **lit** la base.
+- `STABLE` : pas d'effet de bord, résultat constant à l'intérieur d'une même instruction. C'est le bon niveau pour toute
+  fonction qui **lit** la base.
 - `VOLATILE` : peut changer à chaque appel (**défaut**). Obligatoire dès qu'on écrit.
 - `SECURITY DEFINER` : exécute avec les droits du propriétaire.
 - `SECURITY INVOKER` : exécute avec les droits de l'appelant (défaut).
@@ -805,28 +922,33 @@ Paramètres de la fonction :
 - `PARALLEL` : `SAFE`, `RESTRICTED`, `UNSAFE` pour l'exécution parallèle.
 - `LEAKPROOF` : indique qu'une fonction ne révèle pas d'infos via ses erreurs (usage sécurité).
 
-:::note Déclarer `VOLATILE` par défaut coûte cher
-Une fonction de lecture laissée en `VOLATILE` empêche le planificateur de la sortir d'une boucle. Dans une policy RLS, cela transforme un appel en un appel par ligne.
+:::note Déclarer `VOLATILE` par défaut coûte cher Une fonction de lecture laissée en `VOLATILE` empêche le planificateur
+de la sortir d'une boucle. Dans une policy RLS, cela transforme un appel en un appel par ligne.
 :::
 
 #### `CREATE OR REPLACE` et signature
 
-`CREATE OR REPLACE FUNCTION` conserve le propriétaire et les `GRANT` **si la signature est identique**. Changer un type d'argument crée une **nouvelle** fonction surchargée : l'ancienne subsiste, avec ses anciens droits. D'où les `DROP FUNCTION IF EXISTS` explicites dans les migrations qui modifient une signature.
+`CREATE OR REPLACE FUNCTION` conserve le propriétaire et les `GRANT` **si la signature est identique**. Changer un type
+d'argument crée une **nouvelle** fonction surchargée : l'ancienne subsiste, avec ses anciens droits. D'où les
+`DROP FUNCTION IF EXISTS` explicites dans les migrations qui modifient une signature.
 
-Le corollaire est utile : quand une migration se contente de réécrire un corps pour ajouter un `USING errcode`, `CREATE OR REPLACE` suffit et rien n'est à re-_granter_.
+Le corollaire est utile : quand une migration se contente de réécrire un corps pour ajouter un `USING errcode`,
+`CREATE OR REPLACE` suffit et rien n'est à re- _granter_.
 
 #### Exemple
 
 ```sql
 -- combien de tâches ce membre a-t-il terminées ?
 CREATE FUNCTION app.done_count(p_member_id uuid)
-RETURNS integer
-LANGUAGE sql
-STABLE
-AS $$
-  SELECT count(*)::int
-  FROM app.task
-  WHERE author_id = p_member_id AND state = 'done';
+    RETURNS integer
+    LANGUAGE sql
+    STABLE
+AS
+$$
+SELECT count(*)::int
+    FROM app.task
+    WHERE author_id = p_member_id
+      AND state = 'done';
 $$;
 ```
 
@@ -850,7 +972,9 @@ $$;
 | `CONTINUE WHEN cond`            | passe à l'itération suivante                                                |
 
 :::note `IS DISTINCT FROM`, pas `<>`
-`NULL <> NULL` vaut `NULL`, donc `IF NULL <> NULL THEN` ne se déclenche jamais. Dans un trigger qui compare l'ancien et le nouvel état, `<>` laisse silencieusement passer tout changement impliquant un `NULL`. Dans un trigger, la comparaison se fait donc **toujours** avec `IS DISTINCT FROM`, y compris sur des `jsonb`.
+`NULL <> NULL` vaut `NULL`, donc `IF NULL <> NULL THEN` ne se déclenche jamais. Dans un trigger qui compare l'ancien et
+le nouvel état, `<>` laisse silencieusement passer tout changement impliquant un `NULL`. Dans un trigger, la comparaison
+se fait donc **toujours** avec `IS DISTINCT FROM`, y compris sur des `jsonb`.
 :::
 
 ---
@@ -865,14 +989,15 @@ Un trigger déclenche une fonction lors d'un événement (`INSERT`/`UPDATE`/`DEL
 
 ```sql
 CREATE FUNCTION app.task_set_created_at()
-RETURNS trigger
-LANGUAGE plpgsql
-AS $$
+    RETURNS trigger
+    LANGUAGE plpgsql
+AS
+$$
 BEGIN
-  IF NEW.created_at IS NULL THEN
-    NEW.created_at := now();
-  END IF;
-  RETURN NEW;
+    IF new.created_at IS NULL THEN
+        new.created_at := now();
+    END IF;
+    RETURN new;
 END;
 $$;
 ```
@@ -881,27 +1006,32 @@ $$;
 
 ```sql
 CREATE TRIGGER task_created_at
-BEFORE INSERT ON app.task
-FOR EACH ROW
+    BEFORE INSERT
+    ON app.task
+    FOR EACH ROW
 EXECUTE FUNCTION app.task_set_created_at();
 ```
 
 :::note `EXECUTE FUNCTION` contre `EXECUTE PROCEDURE`
-`EXECUTE PROCEDURE` est la forme historique, encore acceptée. `EXECUTE FUNCTION` est la forme correcte depuis PostgreSQL 11. Les deux se croisent dans un même dépôt : les anciens dumps portent la première, tout code récent la seconde.
-:::
+`EXECUTE PROCEDURE` est la forme historique, encore acceptée. `EXECUTE FUNCTION` est la forme correcte depuis PostgreSQL
+
+ 1. Les deux se croisent dans un même dépôt : les anciens dumps portent la première, tout code récent la seconde.
+    :::
 
 ### Syntaxe complète
 
 ```sql
-CREATE [OR REPLACE] [CONSTRAINT] TRIGGER nom
+CREATE
+[OR REPLACE] [CONSTRAINT] TRIGGER nom
 { BEFORE | AFTER | INSTEAD OF } evenement [ OR ... ]
-ON table
+ON TABLE
 [ FROM autre_table ]
 [ NOT DEFERRABLE | [ DEFERRABLE ] { INITIALLY IMMEDIATE | INITIALLY DEFERRED } ]
-[ REFERENCING { OLD | NEW } TABLE [ AS ] nom [ ... ] ]
+[ REFERENCING { OLD | NEW } TABLE
+[ AS ] nom [ ... ] ]
 [ FOR [ EACH ] { ROW | STATEMENT } ]
 [ WHEN ( condition ) ]
-EXECUTE FUNCTION nom_fonction ( arguments );
+EXECUTE function nom_fonction ( arguments );
 ```
 
 #### Timing et niveau
@@ -921,7 +1051,8 @@ AFTER STATEMENT
   puis, à la fin de la transaction : triggers de contrainte différés
 ```
 
-À l'intérieur d'une même catégorie, les triggers s'exécutent dans l'**ordre alphabétique de leur nom**. C'est le seul levier pour ordonner deux triggers sur la même table : les renommer.
+À l'intérieur d'une même catégorie, les triggers s'exécutent dans l'**ordre alphabétique de leur nom**. C'est le seul
+levier pour ordonner deux triggers sur la même table : les renommer.
 
 #### Valeurs de retour
 
@@ -934,18 +1065,20 @@ AFTER STATEMENT
 | `FOR EACH STATEMENT`       | ignoré                         | convention : `RETURN NULL`                                   |
 | `INSTEAD OF ROW`           | non-`NULL`                     | signale que la ligne a été traitée                           |
 
-:::warning `RETURN NULL` dans un `BEFORE ROW` annule sans rien dire
-Aucune erreur, aucun message : la ligne disparaît simplement de l'opération, et le client voit un compteur de lignes plus bas que prévu. Pour refuser, il faut `RAISE EXCEPTION`.
+:::warning `RETURN NULL` dans un `BEFORE ROW` annule sans rien dire Aucune erreur, aucun message : la ligne disparaît
+simplement de l'opération, et le client voit un compteur de lignes plus bas que prévu. Pour refuser, il faut
+`RAISE EXCEPTION`.
 :::
 
 Un `BEFORE ROW` couvrant plusieurs opérations écrit souvent :
 
 ```sql
 DECLARE
-    rec record := coalesce(new, old);
+    rec RECORD := COALESCE (NEW, OLD);
 ```
 
-parce que `NEW` est `NULL` sur un `DELETE` et `OLD` sur un `INSERT`. La variable `rec` désigne alors « la ligne concernée », quelle que soit l'opération.
+parce que `NEW` est `NULL` sur un `DELETE` et `OLD` sur un `INSERT`. La variable `rec` désigne alors « la ligne
+concernée », quelle que soit l'opération.
 
 | Opération       | `OLD`             | `NEW`           |
 | --------------- | ----------------- | --------------- |
@@ -984,20 +1117,23 @@ END IF;
 
 ```sql
 CREATE TRIGGER log_task
-    AFTER INSERT OR UPDATE OR DELETE ON app.task
+    AFTER INSERT OR UPDATE OR DELETE
+    ON app.task
     FOR EACH ROW
-    EXECUTE FUNCTION app.log_activity ('task', 'id');
+EXECUTE FUNCTION app.log_activity('task', 'id');
 --                                      ^argv0  ^argv1 = nom de la colonne clé
 
 -- même fonction, table dont la clé ne s'appelle pas `id`
 CREATE TRIGGER log_membership
-    AFTER INSERT OR UPDATE OR DELETE ON app.membership
+    AFTER INSERT OR UPDATE OR DELETE
+    ON app.membership
     FOR EACH ROW
-    EXECUTE FUNCTION app.log_activity ('membership', 'member_id');
+EXECUTE FUNCTION app.log_activity('membership', 'member_id');
 ```
 
 :::note Les arguments sont des chaînes
-`TG_ARGV[0]` est toujours du `text`, même si on écrit un nombre. S'il sert à alimenter une colonne typée, il faut caster explicitement (`::bigint`).
+`TG_ARGV[0]` est toujours du `text`, même si on écrit un nombre. S'il sert à alimenter une colonne typée, il faut caster
+explicitement (`::bigint`).
 :::
 
 #### `UPDATE OF colonne`
@@ -1008,56 +1144,65 @@ CREATE TRIGGER task_sync_project
     AFTER INSERT OR DELETE OR UPDATE OF project_id, effort, state
     ON app.task
     FOR EACH ROW
-    EXECUTE FUNCTION app.sync_project_from_tasks ();
+EXECUTE FUNCTION app.sync_project_from_tasks();
 ```
 
 Le trigger ne se déclenche que si l'`UPDATE` **mentionne** au moins une de ces colonnes.
 
 :::warning « Mentionnée » n'est pas « modifiée »
-`UPDATE app.task SET state = state` déclenche le trigger. À l'inverse, un `UPDATE` d'une autre colonne ne le déclenche pas, même si un trigger antérieur a modifié `state` dans `NEW`. `UPDATE OF` est une optimisation de déclenchement, pas un test de changement — pour tester un vrai changement, comparer `OLD.x IS DISTINCT FROM NEW.x` dans le corps.
+`UPDATE app.task SET state = state` déclenche le trigger. À l'inverse, un `UPDATE` d'une autre colonne ne le déclenche
+pas, même si un trigger antérieur a modifié `state` dans `NEW`. `UPDATE OF` est une optimisation de déclenchement, pas
+un test de changement — pour tester un vrai changement, comparer `OLD.x IS DISTINCT FROM NEW.x` dans le corps.
 :::
 
 #### `WHEN (condition)`
 
 ```sql
 CREATE TRIGGER task_on_done
-    AFTER UPDATE ON app.task
+    AFTER UPDATE
+    ON app.task
     FOR EACH ROW
-    WHEN (OLD.state IS DISTINCT FROM NEW.state AND NEW.state = 'done')
-    EXECUTE FUNCTION app.on_task_done ();
+    WHEN (old.state IS DISTINCT FROM new.state AND new.state = 'done')
+EXECUTE FUNCTION app.on_task_done();
 ```
 
 Filtre évalué **avant** d'appeler la fonction : moins coûteux qu'un `IF ... THEN RETURN NULL` en début de corps.
 
-Restrictions : pas de sous-requête ; `NEW` interdit sur `DELETE` et `OLD` sur `INSERT` ; interdit sur les triggers `FOR EACH STATEMENT` ; sur un `BEFORE` on ne peut pas y tester une valeur qu'un autre trigger modifierait ensuite.
+Restrictions : pas de sous-requête ; `NEW` interdit sur `DELETE` et `OLD` sur `INSERT` ; interdit sur les triggers
+`FOR EACH STATEMENT` ; sur un `BEFORE` on ne peut pas y tester une valeur qu'un autre trigger modifierait ensuite.
 
 #### Tables de transition (`REFERENCING`)
 
 ```sql
 -- invariant : une sous-tâche est dans le même projet que sa tâche parente
 CREATE TRIGGER task_same_project_insert
-    AFTER INSERT ON app.task
-    REFERENCING NEW TABLE AS touchees
+    AFTER INSERT
+    ON app.task
+    REFERENCING new TABLE AS touchees
     FOR EACH STATEMENT
-    EXECUTE FUNCTION app.check_task_same_project ();
+EXECUTE FUNCTION app.check_task_same_project();
 
 CREATE TRIGGER task_same_project_update
-    AFTER UPDATE OF project_id, parent_id ON app.task
-    REFERENCING NEW TABLE AS touchees
+    AFTER UPDATE OF project_id, parent_id
+    ON app.task
+    REFERENCING new TABLE AS touchees
     FOR EACH STATEMENT
-    EXECUTE FUNCTION app.check_task_same_project ();
+EXECUTE FUNCTION app.check_task_same_project();
 ```
 
-`REFERENCING NEW TABLE AS touchees` expose au corps du trigger une **pseudo-table** contenant toutes les lignes insérées (ou modifiées) par l'instruction. On la lit comme une table normale :
+`REFERENCING NEW TABLE AS touchees` expose au corps du trigger une **pseudo-table** contenant toutes les lignes insérées
+(ou modifiées) par l'instruction. On la lit comme une table normale :
 
 ```sql
 -- dans le corps de app.check_task_same_project()
 SELECT t.id
-FROM app.task t
-JOIN app.task parent ON parent.id = t.parent_id
-WHERE t.id IN (SELECT id FROM touchees)
-  AND t.project_id <> parent.project_id
-LIMIT 1;
+    FROM app.task t
+             JOIN app.task parent ON parent.id = t.parent_id
+    WHERE t.id IN (
+        SELECT id
+            FROM touchees)
+      AND t.project_id <> parent.project_id
+    LIMIT 1;
 ```
 
 | Clause           | Contenu                   | Disponible sur     |
@@ -1068,17 +1213,22 @@ LIMIT 1;
 Contraintes : **`AFTER` uniquement**, tables non partitionnées, PostgreSQL 10+.
 
 :::tip Pourquoi `FOR EACH STATEMENT` plutôt que `FOR EACH ROW`
-Un contrôle du type « une sous-tâche est dans le même projet que sa parente » ne peut pas s'évaluer ligne à ligne : déplacer une tâche et ses trois sous-tâches vers un autre projet passe par un `UPDATE` multi-lignes, et un contrôle ligne à ligne échouerait dès la première — à cet instant, la parente a changé de projet mais pas encore ses enfants. Au niveau instruction, l'état est cohérent. Et la table de transition borne le contrôle aux seules lignes réellement touchées : sans elle, il faudrait revalider toute la table à chaque écriture.
+Un contrôle du type « une sous-tâche est dans le même projet que sa parente » ne peut pas s'évaluer ligne à ligne :
+déplacer une tâche et ses trois sous-tâches vers un autre projet passe par un `UPDATE` multi-lignes, et un contrôle
+ligne à ligne échouerait dès la première — à cet instant, la parente a changé de projet mais pas encore ses enfants. Au
+niveau instruction, l'état est cohérent. Et la table de transition borne le contrôle aux seules lignes réellement
+touchées : sans elle, il faudrait revalider toute la table à chaque écriture.
 :::
 
 #### Triggers de contrainte
 
 ```sql
 CREATE CONSTRAINT TRIGGER task_effort_guard
-    AFTER INSERT OR UPDATE OR DELETE ON app.task
+    AFTER INSERT OR UPDATE OR DELETE
+    ON app.task
     DEFERRABLE INITIALLY DEFERRED
     FOR EACH ROW
-    EXECUTE FUNCTION app.check_task_effort ();
+EXECUTE FUNCTION app.check_task_effort();
 ```
 
 Un `CONSTRAINT TRIGGER` est un trigger dont l'exécution peut être **repoussée à la validation de la transaction**.
@@ -1091,8 +1241,11 @@ Un `CONSTRAINT TRIGGER` est un trigger dont l'exécution peut être **repoussée
 
 Restrictions : `AFTER` et `FOR EACH ROW` obligatoires, sur une table uniquement.
 
-:::tip À quoi sert le report
-L'invariant « l'effort d'une tâche égale la somme de celui de ses sous-tâches » est **faux entre deux `INSERT`**. Si le contrôle s'exécutait à chaque instruction, il serait impossible de saisir deux sous-tâches : la première, à elle seule, ne totaliserait jamais sa parente. Différé au `COMMIT`, il ne juge que l'état final. La contrepartie est que l'erreur ne remonte qu'au `COMMIT`, loin de l'instruction fautive — d'où l'importance de messages d'erreur précis.
+:::tip À quoi sert le report L'invariant « l'effort d'une tâche égale la somme de celui de ses sous-tâches » est **faux
+entre deux `INSERT`**. Si le contrôle s'exécutait à chaque instruction, il serait impossible de saisir deux
+sous-tâches : la première, à elle seule, ne totaliserait jamais sa parente. Différé au `COMMIT`, il ne juge que l'état
+final. La contrepartie est que l'erreur ne remonte qu'au `COMMIT`, loin de l'instruction fautive — d'où l'importance de
+messages d'erreur précis.
 :::
 
 Pour forcer une évaluation anticipée en debug : `SET CONSTRAINTS ALL IMMEDIATE;`.
@@ -1113,8 +1266,10 @@ C'est le partage de responsabilités à garder en tête, et il vaut d'être expl
 | Transition d'état autorisée                          | **trigger**                                                          |
 | Trace d'audit inviolable                             | **trigger**                                                          |
 
-:::danger Les triggers s'appliquent aux rôles `BYPASSRLS`, le RLS non
-C'est la propriété qui justifie tout le découpage. Un contrôle métier écrit en policy est contourné par le premier composant serveur qui se connecte avec un rôle privilégié ; le même contrôle écrit en trigger tient face à lui, face aux scripts d'administration et face aux corrections faites à la main en SQL.
+:::danger Les triggers s'appliquent aux rôles `BYPASSRLS`, le RLS non C'est la propriété qui justifie tout le découpage.
+Un contrôle métier écrit en policy est contourné par le premier composant serveur qui se connecte avec un rôle
+privilégié ; le même contrôle écrit en trigger tient face à lui, face aux scripts d'administration et face aux
+corrections faites à la main en SQL.
 :::
 
 ### Le motif d'audit générique
@@ -1123,22 +1278,28 @@ Un seul trigger générique peut journaliser toutes les tables d'un schéma, col
 
 ```sql
 DECLARE
-    j_old jsonb := CASE WHEN old IS NULL THEN '{}'::jsonb ELSE to_jsonb (old) END;
-    j_new jsonb := CASE WHEN new IS NULL THEN '{}'::jsonb ELSE to_jsonb (new) END;
+    j_old jsonb := CASE WHEN OLD IS NULL THEN '{}'::jsonb ELSE to_jsonb (OLD) END;
+j_new jsonb := CASE WHEN NEW IS NULL THEN '{}'::jsonb ELSE to_jsonb (NEW)
+END;
 BEGIN
-    INSERT INTO app.activity (entity_type, entity_id, kind, actor_id)
-        VALUES (tg_argv[0], coalesce(j_new, j_old) ->> tg_argv[1], genre, app.current_member ())
-    RETURNING id INTO act;
+INSERT
+    INTO app.activity (entity_type, entity_id, kind, actor_id)
+    VALUES (tg_argv[0], coalesce(j_new, j_old) ->> tg_argv[1], genre, app.current_member())
+    RETURNING id
+INTO act;
 
-    IF tg_op = 'UPDATE' THEN
-        FOR k IN SELECT jsonb_object_keys(j_new) LOOP
-            IF j_old -> k IS DISTINCT FROM j_new -> k THEN
-                INSERT INTO app.activity_change (activity_id, field, old_value, new_value)
-                    VALUES (act, k, j_old -> k, j_new -> k);
-            END IF;
-        END LOOP;
-    END IF;
-    RETURN NULL;
+IF tg_op = 'UPDATE' THEN
+        FOR k IN
+SELECT jsonb_object_keys(j_new) LOOP
+            IF j_old -> k IS DISTINCT
+    FROM j_new -> k THEN
+INSERT
+    INTO app.activity_change (activity_id, field, old_value, new_value)
+    VALUES (act, k, j_old -> k, j_new -> k);
+END IF;
+END LOOP;
+END IF;
+RETURN NULL;
 END;
 ```
 
@@ -1153,7 +1314,9 @@ Les briques utilisées :
 | `RETURNING id INTO act`        | récupère la clé générée par l'`INSERT`                                   |
 | `IS DISTINCT FROM` sur `jsonb` | détecte un passage à/depuis `NULL`                                       |
 
-Ce trigger est en `SECURITY DEFINER` : la table de journal n'a **aucune policy d'écriture**, donc personne ne peut y insérer directement, mais le trigger le peut. La trace est alors inviolable par construction — y compris pour l'auteur de l'écriture tracée.
+Ce trigger est en `SECURITY DEFINER` : la table de journal n'a **aucune policy d'écriture**, donc personne ne peut y
+insérer directement, mais le trigger le peut. La trace est alors inviolable par construction — y compris pour l'auteur
+de l'écriture tracée.
 
 ### Récursion et cascades
 
@@ -1161,7 +1324,8 @@ Un trigger qui écrit dans une table portant elle-même un trigger déclenche ce
 
 ```sql
 -- profondeur d'imbrication : 0 hors trigger, 1 au premier niveau…
-IF pg_trigger_depth() > 1 THEN RETURN NULL; END IF;
+IF pg_trigger_depth() > 1 THEN RETURN NULL;
+END IF;
 ```
 
 - `pg_trigger_depth()` pour couper une boucle.
@@ -1171,23 +1335,29 @@ IF pg_trigger_depth() > 1 THEN RETURN NULL; END IF;
 garde := garde + 1;
 IF garde > 64 THEN
     RAISE EXCEPTION 'profondeur d''arbre anormale sous la tâche %', NEW.id
-        USING errcode = 'APP04';
+        USING ERRCODE = 'APP04';
 END IF;
 ```
 
-- La séparation « fonction de calcul + fonction de trigger » : une fonction `app.sync_one_project(p_project_id)` idempotente, appelée par `PERFORM` depuis un trigger qui se contente de déterminer **quels** projets recalculer. Le calcul devient testable en isolation.
+- La séparation « fonction de calcul + fonction de trigger » : une fonction `app.sync_one_project(p_project_id)`
+  idempotente, appelée par `PERFORM` depuis un trigger qui se contente de déterminer **quels** projets recalculer. Le
+  calcul devient testable en isolation.
 
 ### Désactiver un trigger
 
 ```sql
-ALTER TABLE app.task DISABLE TRIGGER task_effort_guard;
-ALTER TABLE app.task ENABLE TRIGGER task_effort_guard;
-ALTER TABLE app.task DISABLE TRIGGER USER;    -- tous sauf les triggers internes
-SET session_replication_role = replica;       -- désactive tous les triggers de la session
+ALTER TABLE app.task
+    DISABLE TRIGGER task_effort_guard;
+ALTER TABLE app.task
+    ENABLE TRIGGER task_effort_guard;
+ALTER TABLE app.task
+    DISABLE TRIGGER USER; -- tous sauf les triggers internes
+SET session_replication_role = replica; -- désactive tous les triggers de la session
 ```
 
-:::danger À réserver aux restaurations
-Ces commandes court-circuitent les invariants métier. `session_replication_role = replica` est le mode des outils de réplication et de `pg_restore` ; l'utiliser sur une base vivante laisse entrer des lignes qu'aucune règle n'a validées, et rien ne les signalera ensuite.
+:::danger À réserver aux restaurations Ces commandes court-circuitent les invariants métier.
+`session_replication_role = replica` est le mode des outils de réplication et de `pg_restore` ; l'utiliser sur une base
+vivante laisse entrer des lignes qu'aucune règle n'a validées, et rien ne les signalera ensuite.
 :::
 
 ### Triggers et appels HTTP
@@ -1195,34 +1365,44 @@ Ces commandes court-circuitent les invariants métier. `session_replication_role
 PostgreSQL ne sait pas faire de requête HTTP nativement ; il faut une extension, `pg_net` étant la plus courante :
 
 ```sql
-CREATE FUNCTION app.notify_new_task ()
+CREATE FUNCTION app.notify_new_task()
     RETURNS trigger
     LANGUAGE plpgsql
-    AS $$
+AS
+$$
 BEGIN
     PERFORM net.http_post(
-        url := 'https://exemple.test/hooks/new-task',
-        body := jsonb_build_object('task_id', NEW.id));
+            url := 'https://exemple.test/hooks/new-task',
+            body := jsonb_build_object('task_id', new.id));
     RETURN NULL;
 END;
 $$;
 
 CREATE TRIGGER notify_new_task
-    AFTER INSERT ON app.task
+    AFTER INSERT
+    ON app.task
     FOR EACH ROW
-    EXECUTE FUNCTION app.notify_new_task ();
+EXECUTE FUNCTION app.notify_new_task();
 ```
 
-:::danger Un appel HTTP ne participe pas à la transaction
-Si la transaction est annulée après l'envoi, le message est parti quand même — et il annonce un événement qui n'a jamais eu lieu. Un appel synchrone pose en plus le problème inverse : il bloque l'écriture le temps de la réponse, et une panne du destinataire fait échouer des `INSERT`. `pg_net` est asynchrone, ce qui règle le second problème mais pas le premier. Pour un envoi qui doit suivre le sort de la transaction, il faut écrire dans une table de file d'attente — elle, transactionnelle — et laisser un consommateur séparé la vider.
+:::danger Un appel HTTP ne participe pas à la transaction Si la transaction est annulée après l'envoi, le message est
+parti quand même — et il annonce un événement qui n'a jamais eu lieu. Un appel synchrone pose en plus le problème
+inverse : il bloque l'écriture le temps de la réponse, et une panne du destinataire fait échouer des `INSERT`. `pg_net`
+est asynchrone, ce qui règle le second problème mais pas le premier. Pour un envoi qui doit suivre le sort de la
+transaction, il faut écrire dans une table de file d'attente — elle, transactionnelle — et laisser un consommateur
+séparé la vider.
 :::
 
-:::warning Jamais de secret dans une définition de trigger
-Un jeton écrit en clair dans un `CREATE TRIGGER` ou dans un corps de fonction est lisible par quiconque peut faire un `pg_dump`, lire `pg_trigger` ou appeler `pg_get_functiondef()`. Un secret se lit depuis l'environnement du service appelant, ou depuis un stockage chiffré dédié.
+:::warning Jamais de secret dans une définition de trigger Un jeton écrit en clair dans un `CREATE TRIGGER` ou dans un
+corps de fonction est lisible par quiconque peut faire un `pg_dump`, lire `pg_trigger` ou appeler
+`pg_get_functiondef()`. Un secret se lit depuis l'environnement du service appelant, ou depuis un stockage chiffré
+dédié.
 :::
 
-:::info Supabase
-Les « Database Webhooks » du dashboard créent un trigger qui appelle `supabase_functions.http_request(url, method, headers, body, timeout)`, avec la clé `service_role` en clair dans l'argument `headers` — exactement le cas visé par l'avertissement ci-dessus. `pg_net` appelé depuis une fonction est préférable, et le secret se lit alors dans `vault.decrypted_secrets`.
+:::info Supabase Les « Database Webhooks » du dashboard créent un trigger qui appelle
+`supabase_functions.http_request(url, method, headers, body, timeout)`, avec la clé `service_role` en clair dans
+l'argument `headers` — exactement le cas visé par l'avertissement ci-dessus. `pg_net` appelé depuis une fonction est
+préférable, et le secret se lit alors dans `vault.decrypted_secrets`.
 :::
 
 ### Inspecter les triggers
@@ -1230,14 +1410,16 @@ Les « Database Webhooks » du dashboard créent un trigger qui appelle `supabas
 ```sql
 -- les triggers d'une table
 SELECT tgname, tgenabled, pg_get_triggerdef(oid)
-FROM pg_trigger
-WHERE tgrelid = 'app.task'::regclass AND NOT tgisinternal;
+    FROM pg_trigger
+    WHERE tgrelid = 'app.task'::regclass
+      AND NOT tgisinternal;
 
 -- la définition complète d'une fonction
 SELECT pg_get_functiondef('app.log_activity()'::regprocedure);
 ```
 
-`tgisinternal` exclut les triggers créés automatiquement par les contraintes de clé étrangère. `tgenabled` vaut `O` (origine), `D` (désactivé), `R` (replica), `A` (always).
+`tgisinternal` exclut les triggers créés automatiquement par les contraintes de clé étrangère. `tgenabled` vaut `O`
+(origine), `D` (désactivé), `R` (replica), `A` (always).
 
 ---
 
@@ -1256,7 +1438,9 @@ RAISE EXCEPTION 'tâche % : % points saisis pour % attendus', faute.id, faute.so
 - Niveaux : `DEBUG`, `LOG`, `INFO`, `NOTICE`, `WARNING` (messages), `EXCEPTION` (annule la transaction).
 
 :::warning Sans `USING errcode`, tout sort en `P0001`
-`P0001` (`raise_exception`) est le code fourre-tout. La couche applicative ne peut alors distinguer un refus de droit d'une saisie invalide qu'en comparant des **chaînes de caractères** — rédigées pour l'humain, souvent traduites, jamais versionnées. Une comparaison de message est une dépendance qui casse au premier reformulage.
+`P0001` (`raise_exception`) est le code fourre-tout. La couche applicative ne peut alors distinguer un refus de droit
+d'une saisie invalide qu'en comparant des **chaînes de caractères** — rédigées pour l'humain, souvent traduites, jamais
+versionnées. Une comparaison de message est une dépendance qui casse au premier reformulage.
 :::
 
 ### Choisir un code
@@ -1280,7 +1464,9 @@ Codes standard courants :
 | `P0002` | `no_data_found`                       | ligne attendue absente                   |
 | `55000` | `object_not_in_prerequisite_state`    | prérequis non satisfait                  |
 
-Codes maison : PostgreSQL réserve à l'usage applicatif toute **classe** de SQLSTATE qui n'est pas définie par le standard. On se choisit donc un préfixe et on tient un registre, un code par famille d'invariant. Sur le schéma de démo, cela donnerait :
+Codes maison : PostgreSQL réserve à l'usage applicatif toute **classe** de SQLSTATE qui n'est pas définie par le
+standard. On se choisit donc un préfixe et on tient un registre, un code par famille d'invariant. Sur le schéma de démo,
+cela donnerait :
 
 | Code    | Invariant                                    |
 | ------- | -------------------------------------------- |
@@ -1290,13 +1476,15 @@ Codes maison : PostgreSQL réserve à l'usage applicatif toute **classe** de SQL
 | `APP04` | arbre de tâches invalide (cycle, profondeur) |
 | `APP05` | somme des efforts incohérente                |
 
-Un SQLSTATE fait cinq caractères alphanumériques ; les deux premiers forment la classe. Deux règles suffisent : **un code par famille d'invariant**, pas un par message, et **un registre écrit quelque part**, sinon la numérotation dérive au bout de trois migrations.
+Un SQLSTATE fait cinq caractères alphanumériques ; les deux premiers forment la classe. Deux règles suffisent : **un
+code par famille d'invariant**, pas un par message, et **un registre écrit quelque part**, sinon la numérotation dérive
+au bout de trois migrations.
 
 ### Capturer une erreur
 
 ```sql
 BEGIN
-    ...
+...
 EXCEPTION
     WHEN unique_violation THEN
         ...
@@ -1307,8 +1495,9 @@ EXCEPTION
 END;
 ```
 
-:::warning Un bloc `EXCEPTION` a un coût
-PostgreSQL pose un point de sauvegarde à l'entrée du bloc. Dans un trigger déclenché des milliers de fois, c'est mesurable. Et `WHEN OTHERS THEN NULL` avale silencieusement les erreurs de programmation.
+:::warning Un bloc `EXCEPTION` a un coût PostgreSQL pose un point de sauvegarde à l'entrée du bloc. Dans un trigger
+déclenché des milliers de fois, c'est mesurable. Et `WHEN OTHERS THEN NULL` avale silencieusement les erreurs de
+programmation.
 :::
 
 ---
@@ -1316,19 +1505,21 @@ PostgreSQL pose un point de sauvegarde à l'entrée du bloc. Dans un trigger dé
 ## Partie 6 — Blocs anonymes et SQL dynamique {#blocs-anonymes-et-sql-dynamique}
 
 ```sql
-DO $$
-DECLARE
-    r record;
-BEGIN
-    FOR r IN SELECT ... LOOP
+DO
+$$
+    DECLARE
+        r record;
+    BEGIN
+        FOR r IN SELECT ... LOOP
         EXECUTE format('ALTER TABLE %s ENABLE ROW LEVEL SECURITY', r.t);
-    END LOOP;
-END
+    END loop; END
 $$;
 ```
 
-- `DO` exécute un bloc PL/pgSQL sans créer de fonction. Utile en migration, pour tout ce qui est conditionnel ou itératif.
-- `EXECUTE 'chaîne'` exécute du SQL construit à l'exécution. Nécessaire car un nom de table ne peut pas être un paramètre.
+- `DO` exécute un bloc PL/pgSQL sans créer de fonction. Utile en migration, pour tout ce qui est conditionnel ou
+  itératif.
+- `EXECUTE 'chaîne'` exécute du SQL construit à l'exécution. Nécessaire car un nom de table ne peut pas être un
+  paramètre.
 
 #### Échapper correctement
 
@@ -1338,21 +1529,27 @@ $$;
 | `%L`                | **littéral** : ajoute des quotes, gère `NULL`         | valeur                                 |
 | `%s`                | brut, **aucun échappement**                           | valeur déjà sûre (`regclass`, mot-clé) |
 
-:::danger `%s` sur une donnée non maîtrisée est une injection SQL
-Un nom lu dans une table applicative doit passer par `%I` ou `quote_ident()`. `%s` n'est acceptable que pour une valeur issue du catalogue et déjà typée (`oid::regclass` est déjà échappé, d'où son usage plus haut).
+:::danger `%s` sur une donnée non maîtrisée est une injection SQL Un nom lu dans une table applicative doit passer par
+`%I` ou `quote_ident()`. `%s` n'est acceptable que pour une valeur issue du catalogue et déjà typée (`oid::regclass` est
+déjà échappé, d'où son usage plus haut).
 :::
 
 #### Dumper les policies existantes
 
-Utile pour reprendre en migration des policies posées à la main : le SQL est régénéré depuis le catalogue, donc conforme à ce qui tourne réellement.
+Utile pour reprendre en migration des policies posées à la main : le SQL est régénéré depuis le catalogue, donc conforme
+à ce qui tourne réellement.
 
 ```sql
 SELECT format('CREATE POLICY %I ON %I.%I AS %s FOR %s TO %s USING (%s);',
-    pol.policyname, pol.schemaname, pol.tablename,
-    CASE WHEN pol.permissive = 'PERMISSIVE' THEN 'PERMISSIVE' ELSE 'RESTRICTIVE' END,
-    pol.cmd, array_to_string(pol.roles, ', '), pol.qual)
-FROM pg_policies pol
-WHERE pol.schemaname = 'public';
+              pol.policyname, pol.schemaname, pol.tablename,
+              CASE
+                  WHEN pol.permissive = 'PERMISSIVE'
+                      THEN 'PERMISSIVE'
+                  ELSE 'RESTRICTIVE'
+              END,
+              pol.cmd, array_to_string(pol.roles, ', '), pol.qual)
+    FROM pg_policies pol
+    WHERE pol.schemaname = 'public';
 ```
 
 ---
@@ -1378,15 +1575,22 @@ CREATE EXTENSION IF NOT EXISTS pgcrypto WITH SCHEMA extensions;
 ```
 
 :::note Ne jamais installer une extension dans `public`
-Une extension ajoute des dizaines de fonctions. Dans `public`, elles entrent en collision avec les objets applicatifs, polluent la complétion et brouillent la lecture du schéma. Un schéma `extensions` dédié, ajouté au `search_path`, évite tout cela. `CREATE EXTENSION ... CASCADE` installe au passage les dépendances manquantes.
+Une extension ajoute des dizaines de fonctions. Dans `public`, elles entrent en collision avec les objets applicatifs,
+polluent la complétion et brouillent la lecture du schéma. Un schéma `extensions` dédié, ajouté au `search_path`, évite
+tout cela. `CREATE EXTENSION ... CASCADE` installe au passage les dépendances manquantes.
 :::
 
-:::warning Un secret stocké en base reste lisible par la base
-Quel que soit le mécanisme de stockage chiffré retenu, une fonction `SECURITY DEFINER` détenue par un rôle privilégié peut le déchiffrer. Un secret qui n'a pas besoin de vivre en base — typiquement une clé d'API consommée par une application — est mieux placé dans l'environnement du service. Et une fonction qui se contente de renvoyer un secret à son appelant est à supprimer : elle transforme un simple droit d'exécution en fuite de secret.
+:::warning Un secret stocké en base reste lisible par la base Quel que soit le mécanisme de stockage chiffré retenu, une
+fonction `SECURITY DEFINER` détenue par un rôle privilégié peut le déchiffrer. Un secret qui n'a pas besoin de vivre en
+base — typiquement une clé d'API consommée par une application — est mieux placé dans l'environnement du service. Et une
+fonction qui se contente de renvoyer un secret à son appelant est à supprimer : elle transforme un simple droit
+d'exécution en fuite de secret.
 :::
 
 :::info Supabase
-`supabase_vault` fournit ce stockage chiffré, lu via la vue `vault.decrypted_secrets`. `pg_graphql` expose en plus un endpoint GraphQL dérivé du schéma. Les extensions y sont installées dans `extensions` par défaut, ce qui correspond à la recommandation ci-dessus.
+`supabase_vault` fournit ce stockage chiffré, lu via la vue `vault.decrypted_secrets`. `pg_graphql` expose en plus un
+endpoint GraphQL dérivé du schéma. Les extensions y sont installées dans `extensions` par défaut, ce qui correspond à la
+recommandation ci-dessus.
 :::
 
 ---
@@ -1424,12 +1628,12 @@ Quel que soit le mécanisme de stockage chiffré retenu, une fonction `SECURITY 
 
 ## Ressources
 
-- https://www.postgresql.org/docs/current/
-- https://www.postgresql.org/docs/current/ddl-rowsecurity.html
-- https://www.postgresql.org/docs/current/sql-createpolicy.html
-- https://www.postgresql.org/docs/current/sql-createfunction.html
-- https://www.postgresql.org/docs/current/sql-createtrigger.html
-- https://www.postgresql.org/docs/current/plpgsql-trigger.html
-- https://www.postgresql.org/docs/current/errcodes-appendix.html
-- https://www.postgresql.org/docs/current/sql-grant.html
-- https://supabase.com/docs/guides/database/postgres/row-level-security
+- [Documentation officielle](https://www.postgresql.org/docs/current/)
+- [Sécurité au niveau des lignes](https://www.postgresql.org/docs/current/ddl-rowsecurity.html)
+- [Création de politiques](https://www.postgresql.org/docs/current/sql-createpolicy.html)
+- [Création de fonctions](https://www.postgresql.org/docs/current/sql-createfunction.html)
+- [Création de triggers](https://www.postgresql.org/docs/current/sql-createtrigger.html)
+- [Triggers en PL/pgSQL](https://www.postgresql.org/docs/current/plpgsql-trigger.html)
+- [Codes d'erreur](https://www.postgresql.org/docs/current/errcodes-appendix.html)
+- [Accord de privilèges](https://www.postgresql.org/docs/current/sql-grant.html)
+- [Sécurité au niveau des lignes dans Supabase](https://supabase.com/docs/guides/database/postgres/row-level-security)

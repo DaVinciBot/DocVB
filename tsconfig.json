@@ -3,7 +3,7 @@
   "extends": "@docusaurus/tsconfig",
   "compilerOptions": {
     "baseUrl": ".",
-    "jsx": "react",
+    "jsx": "react-jsx",
     "esModuleInterop": true
   },
   "exclude": [".docusaurus", "build"]

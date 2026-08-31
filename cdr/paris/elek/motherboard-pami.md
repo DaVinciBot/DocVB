@@ -11,7 +11,7 @@ additional_contributors:
 
 PCB KiCad fournissant la logique des PAMIs, de manière robuste et fiable.
 
-![Rendu 3D de la carte](./img/mb-pami-f.png)
+![Rendu 3D de la carte](/img/cdr/paris/elek/mb-pami-f.png)
 
 ## Résumé
 
@@ -23,7 +23,7 @@ Objectif: Carte mère ESP32S3 pour PAMIs avec moteurs, capteurs et communication
 
 ## Routage
 
-![Routage de la carte](./img/mb-pami-pcb.png)
+![Routage de la carte](/img/cdr/paris/elek/mb-pami-pcb.png)
 
 ## Mapping des GPIO (ESP32-S3)
 

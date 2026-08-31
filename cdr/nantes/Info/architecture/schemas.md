@@ -27,4 +27,4 @@ Ce schéma est daté de la période deux teensy, mais nous allons sûrement rest
 La seule partie à ne pas prendre en compte est la partie lidar, pas du tout à jour. Sinon, le reste est l'archi actuelle.
 :::
 
-![Mon diagramme](./schema_nantes.svg)
+![Mon diagramme](/img/cdr/nantes/info/architecture/schema_nantes.svg)

@@ -48,19 +48,19 @@ Dans VS code, sur le réseau du calcul déporté, et avec la clef SSH configuré
 
 - Ouvrir le Dossier Teensy (ou le workspace rolling_basis)
 
-    ![Untitled](Untitled.png)
+    ![Untitled](/img/cdr/nantes/untitled.png)
 
 - ouvrir la palette de commande (`ctrl + P`)
 
-    ![Untitled](Untitled%201.png)
+    ![Untitled](/img/cdr/nantes/untitled-1.png)
 
 - Entrer `task`+ un espace
 
-    ![Untitled](Untitled%202.png)
+    ![Untitled](/img/cdr/nantes/untitled-2.png)
 
 - puis chercher `Compile and flash robot1`
 
-    ![Untitled](Untitled%203.png)
+    ![Untitled](/img/cdr/nantes/untitled-3.png)
 
 - Appuyer sur `ENTER` et tada 👌
 
@@ -96,24 +96,24 @@ Owner: Urbain LANTRES
 
 Matériel nécessaire : câble d’alim CDR
 
-![IMG_20230928_171619508.jpg](IMG_20230928_171619508.jpg)
+![IMG_20230928_171619508.jpg](/img/cdr/nantes/IMG_20230928_171619508.jpg)
 
 - Allumer le générateur à côté de la table de jeu
 
-![IMG_20230928_171636757.jpg](IMG_20230928_171636757.jpg)
+![IMG_20230928_171636757.jpg](/img/cdr/nantes/IMG_20230928_171636757.jpg)
 
 - Ajuster les paramètres d’un Channel (préférence pour le 2) sur 15V 3A
 - Brancher le câble sur les bornes + et - (rouge et noir resp.)
 
-![IMG_20230928_171701846.jpg](IMG_20230928_171701846.jpg)
+![IMG_20230928_171701846.jpg](/img/cdr/nantes/IMG_20230928_171701846.jpg)
 
 - Brancher le connecteur à la carte d’alimentation du robot (connecteur vert, 2e position en partant du haut)
 
-![IMG_20230928_171752894.jpg](IMG_20230928_171752894.jpg)
+![IMG_20230928_171752894.jpg](/img/cdr/nantes/IMG_20230928_171752894.jpg)
 
 - Allumer le Channel configuré précédemment
 
-![IMG_20230928_171721317.jpg](IMG_20230928_171721317.jpg)
+![IMG_20230928_171721317.jpg](/img/cdr/nantes/IMG_20230928_171721317.jpg)
 
 - Tada 🎉
 

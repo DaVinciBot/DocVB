@@ -148,7 +148,7 @@ const config: Config = {
       respectPrefersColorScheme: true,
     },
     // Replace with your project's social card
-    image: "img/dvb_og_img.jpg",
+    image: "img/dvb_og_img.png",
     navbar: {
       title: "DaVinciBot",
       logo: {

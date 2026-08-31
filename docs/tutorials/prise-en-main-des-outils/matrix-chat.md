@@ -26,7 +26,7 @@ Prérequis:
 
 Images:
 
-- ![Page des releases Cinny](./images/cinny-releases.png)
+- ![Page des releases Cinny](/img/tutorials/prise-en-main-des-outils/cinny-releases.png)
 
 ## Installer
 
@@ -45,8 +45,8 @@ Images:
 
 Images:
 
-- ![Écran d'accueil de Cinny](./images/cinny-homepage.png)
-- ![Saisie du homeserver chat.davincibot.fr](./images/cinny-login-chat.png)
+- ![Écran d'accueil de Cinny](/img/tutorials/prise-en-main-des-outils/cinny-homepage.png)
+- ![Saisie du homeserver chat.davincibot.fr](/img/tutorials/prise-en-main-des-outils/cinny-login-chat.png)
 
 ## Créer un compte avec un token privé (registration token)
 
@@ -64,7 +64,7 @@ Bonnes pratiques:
 
 Images:
 
-- ![Formulaire de création de compte](./images/register.png)
+- ![Formulaire de création de compte](/img/tutorials/prise-en-main-des-outils/register.png)
 
 ## Connexion
 
@@ -73,7 +73,7 @@ Images:
 
 Images:
 
-- ![Écran de connexion](./images/login.png)
+- ![Écran de connexion](/img/tutorials/prise-en-main-des-outils/login.png)
 
 ## Sécuriser le compte
 

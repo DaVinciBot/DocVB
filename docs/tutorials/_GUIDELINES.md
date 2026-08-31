@@ -83,6 +83,46 @@ Utiliser les blocs d'avertissement Docusaurus selon le contexte :
 - `:::warning` — risque ou point d'attention.
 - `:::danger` — point critique.
 
+## Images
+
+Toutes les images du site sont centralisées dans `static/img/`. On ne place **jamais**
+d'image à côté d'un fichier `.md` : `static/` est copié tel quel à la racine du site, donc
+un fichier `static/img/…` est servi à l'URL `/img/…`.
+
+L'arborescence sous `static/img/` **reflète le chemin du document** qui utilise l'image :
+
+| Document                                       | Dossier d'images                                 |
+| ---------------------------------------------- | ------------------------------------------------ |
+| `docs/tutorials/info/unity.md`                 | `static/img/tutorials/info/unity/`               |
+| `docs/tutorials/prise-en-main-des-outils/*.md` | `static/img/tutorials/prise-en-main-des-outils/` |
+| `cdr/paris/elek/*.md`                          | `static/img/cdr/paris/elek/`                     |
+| `cdr/nantes/*.md`                              | `static/img/cdr/nantes/`                         |
+
+La racine `static/img/` est réservée aux éléments d'identité du site (logo, favicon,
+image Open Graph) : ne rien y déposer d'autre.
+
+La référence se fait toujours par un **chemin absolu** commençant par `/img/` :
+
+```md
+![Texte alternatif décrivant l'image](/img/tutorials/info/unity/01-unity-hub.png)
+_Légende affichée sous l'image._
+```
+
+- Nommer les fichiers en minuscules, sans espace ni accent (`kebab-case`). Pour une série
+  qui suit l'ordre du tutoriel, préfixer par un numéro : `01-…`, `02-…`.
+- Le texte alternatif décrit **ce que montre** l'image (il sert aux lecteurs d'écran) ;
+  la légende en italique, sur la ligne suivante, apporte le commentaire.
+- Les fichiers téléchargeables (archives, PDF) suivent la même logique dans
+  `static/files/`, référencés par `/files/…`.
+
+:::warning Versions archivées
+Les images d'une doc CDR versionnée ne sont **pas** recopiées par
+`pnpm run docusaurus docs:version:<plugin> <année>`. Après avoir créé une version,
+dupliquer à la main le dossier d'images vers `static/img/cdr/<équipe>-<année>/` et
+corriger les liens dans le dossier `*_versioned_docs`, sinon l'archive affichera les
+images de la saison en cours.
+:::
+
 ## Exemples de code
 
 - Noms de variables explicites.

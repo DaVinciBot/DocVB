@@ -16,7 +16,7 @@ PCB KiCad fournissant la logique des PAMIs, de manière robuste et fiable.
 
 ![Rendu 3D de la carte](/img/cdr/paris-2025/elek/mb-pami-f.png)
 
-## Résumé {/*#résumé*/}
+## Résumé {/* #résumé */}
 
 Objectif: Carte mère ESP32S3 pour PAMIs avec moteurs, capteurs et communication.
 
@@ -24,59 +24,59 @@ Objectif: Carte mère ESP32S3 pour PAMIs avec moteurs, capteurs et communication
 - Capteurs : IMU, LiDAR YD GS2
 - Communication : Wifi, BLE, LoRa
 
-## Routage {/*#routage*/}
+## Routage {/* #routage */}
 
 ![Routage de la carte](/img/cdr/paris-2025/elek/mb-pami-pcb.png)
 
-## Mapping des GPIO (ESP32-S3) {/*#mapping-des-gpio-esp32-s3*/}
+## Mapping des GPIO (ESP32-S3) {/* #mapping-des-gpio-esp32-s3 */}
 
-### Module LoRa (UART2) {/*#module-lora-uart2*/}
+### Module LoRa (UART2) {/* #module-lora-uart2 */}
 
 | Signal LoRa | Net            | GPIO ESP32-S3 |
-| ----------- | -------------- | ------------- |
+|-------------|----------------|---------------|
 | TX          | TX LoRa        | GPIO16        |
 | RX          | RX LoRa        | GPIO17        |
 | Busy        | UART Busy LoRa | GPIO18        |
 | M0          | M0             | GPIO15        |
 | M1          | M1             | GPIO14        |
 
-### IMU (ICM-45686 — SPI) {/*#imu-icm-45686--spi*/}
+### IMU (ICM-45686 — SPI) {/* #imu-icm-45686--spi */}
 
 | Signal IMU | Net      | GPIO ESP32-S3 |
-| ---------- | -------- | ------------- |
+|------------|----------|---------------|
 | MOSI       | MOSI IMU | GPIO35        |
 | MISO       | MISO IMU | GPIO37        |
 | SCK        | CLK IMU  | GPIO36        |
 | CS         | SS IMU   | GPIO38        |
 
-### Drivers moteurs pas-à-pas {/*#drivers-moteurs-pas-à-pas*/}
+### Drivers moteurs pas-à-pas {/* #drivers-moteurs-pas-à-pas */}
 
-#### Moteur gauche {/*#moteur-gauche*/}
+#### Moteur gauche {/* #moteur-gauche */}
 
 | Fonction | Net       | GPIO ESP32-S3 |
-| -------- | --------- | ------------- |
+|----------|-----------|---------------|
 | DIR      | DIR Left  | GPIO03        |
 | STEP     | STEP Left | GPIO46        |
 | ENABLE   | EN Left   | GPIO09        |
 
-#### Moteur droit {/*#moteur-droit*/}
+#### Moteur droit {/* #moteur-droit */}
 
 | Fonction | Net        | GPIO ESP32-S3 |
-| -------- | ---------- | ------------- |
+|----------|------------|---------------|
 | DIR      | DIR Right  | GPIO21        |
 | STEP     | STEP Right | GPIO47        |
 | ENABLE   | EN Right   | GPIO48        |
 
-### LiDAR (UART) {/*#lidar-uart*/}
+### LiDAR (UART) {/* #lidar-uart */}
 
 | Signal LiDAR | Net      | GPIO ESP32-S3 |
-| ------------ | -------- | ------------- |
+|--------------|----------|---------------|
 | TX           | TX LiDAR | RX0           |
 | RX           | RX LiDAR | TX0           |
 
-### Servomoteurs {/*#servomoteurs*/}
+### Servomoteurs {/* #servomoteurs */}
 
 | Servo   | Net          | GPIO ESP32-S3 |
-| ------- | ------------ | ------------- |
+|---------|--------------|---------------|
 | Servo 1 | Data servo 1 | GPIO42        |
 | Servo 2 | Data servo 2 | GPIO41        |

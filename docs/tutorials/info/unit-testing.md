@@ -12,11 +12,14 @@ additional_contributors:
     avatar_url: https://github.com/aust-1.png
 ---
 
-## Introduction {/*#introduction*/}
+## Introduction {/* #introduction */}
 
-Les tests unitaires sont des programmes qui vérifient automatiquement que chaque partie de votre code fonctionne comme prévu.
+Les tests unitaires sont des programmes qui vérifient automatiquement que chaque partie de votre code fonctionne comme
+prévu.
 
-Ce guide présente les concepts fondamentaux des tests unitaires, illustrés avec MSTest, un framework de test pour C#. Néanmoins les principes restent applicables à tous les langages ([voir en fin de page](#tests-unitaires-dans-dautres-langages)).
+Ce guide présente les concepts fondamentaux des tests unitaires, illustrés avec MSTest, un framework de test pour C#.
+Néanmoins les principes restent applicables à tous les langages
+([voir en fin de page](#tests-unitaires-dans-dautres-langages)).
 
 **Objectifs d'apprentissage :**
 
@@ -27,28 +30,33 @@ Ce guide présente les concepts fondamentaux des tests unitaires, illustrés ave
 
 **Bénéfices des tests unitaires :**
 
-- **Qualité** : Le taux de couverture correspond au pourcentage de code testé et permet de s'assurer que le code fonctionne comme prévu et que les modifications futures ne cassent pas les fonctionnalités existantes. Avoir un taux de couverture élevé est un gage de qualité et de robustesse du code.
-- **Détection rapide des bugs** : Les tests unitaires permettent de détecter rapidement les erreurs dans le code, ce qui réduit le temps passé à déboguer.
-- **Documentation vivante** : Les tests unitaires servent de documentation vivante du code, en montrant comment chaque partie est censée fonctionner.
-- **Faciliter la modification du code** : Les tests unitaires vous permettent de modifier le code en toute confiance, car ils peuvent assurer que les modifications n'ont rien cassé.
+- **Qualité** : Le taux de couverture correspond au pourcentage de code testé et permet de s'assurer que le code
+  fonctionne comme prévu et que les modifications futures ne cassent pas les fonctionnalités existantes. Avoir un taux
+  de couverture élevé est un gage de qualité et de robustesse du code.
+- **Détection rapide des bugs** : Les tests unitaires permettent de détecter rapidement les erreurs dans le code, ce qui
+  réduit le temps passé à déboguer.
+- **Documentation vivante** : Les tests unitaires servent de documentation vivante du code, en montrant comment chaque
+  partie est censée fonctionner.
+- **Faciliter la modification du code** : Les tests unitaires vous permettent de modifier le code en toute confiance,
+  car ils peuvent assurer que les modifications n'ont rien cassé.
 
-## Prérequis & Installation {/*#prérequis--installation*/}
+## Prérequis & Installation {/* #prérequis--installation */}
 
-### Connaissances préalables {/*#connaissances-préalables*/}
+### Connaissances préalables {/* #connaissances-préalables */}
 
 - Notions de base en C# (ou autre langage de programmation)
 - Concepts de programmation orientée objet
 
-### Outils requis {/*#outils-requis*/}
+### Outils requis {/* #outils-requis */}
 
 | Outil    | Version | Description                               |
-| -------- | ------- | ----------------------------------------- |
+|----------|---------|-------------------------------------------|
 | .NET SDK | 6.0+    | Framework de développement C#             |
 | IDE      | -       | Visual Studio, VS Code ou JetBrains Rider |
 
-## Créer et configurer un projet de tests MSTest {/*#créer-et-configurer-un-projet-de-tests-mstest*/}
+## Créer et configurer un projet de tests MSTest {/* #créer-et-configurer-un-projet-de-tests-mstest */}
 
-### Prérequis : avoir un projet C# existant {/*#prérequis--avoir-un-projet-c-existant*/}
+### Prérequis : avoir un projet C# existant {/* #prérequis--avoir-un-projet-c-existant */}
 
 Si vous n'avez pas encore de projet, créez-en un :
 
@@ -66,15 +74,21 @@ dotnet sln add src/MonProjet/MonProjet.csproj # Ajouter le projet à la solution
 Architecture obtenue :
 
 ```css
-MonProjetSolution/
+MonProjetSolution
+
+/
 ├── MonProjetSolution.sln
-└── src/
-    └── MonProjet/
-        ├── MonProjet.csproj
-        └── Program.cs
+└── src
+
+/
+└── MonProjet
+
+/
+├── MonProjet.csproj
+└── Program.cs
 ```
 
-### Configurer le projet de tests {/*#configurer-le-projet-de-tests*/}
+### Configurer le projet de tests {/* #configurer-le-projet-de-tests */}
 
 Dans le dossier de votre solution :
 
@@ -84,32 +98,44 @@ dotnet sln add tests/MonProjet.Tests/MonProjet.Tests.csproj
 dotnet add tests/MonProjet.Tests reference src/MonProjet/MonProjet.csproj
 ```
 
-Cela crée un projet de tests nommé `MonProjet.Tests` dans le dossier `tests` puis lie le projet de tests à la solution et au projet principal.
+Cela crée un projet de tests nommé `MonProjet.Tests` dans le dossier `tests` puis lie le projet de tests à la solution
+et au projet principal.
 
 Structure finale :
 
 ```css
-MonProjetSolution/
+MonProjetSolution
+
+/
 ├── MonProjetSolution.sln
-├── src/
-│   └── MonProjet/
-│       ├── MonProjet.csproj
-│       ├── MaClasse.cs
-│       └── Program.cs
-└── tests/
-    └── MonProjet.Tests/
-        ├── MonProjet.Tests.csproj
-        ├── MaClasseTests.cs
-        └── MSTestSettings.cs
+├── src
+
+/
+│ └── MonProjet
+
+/
+│ ├── MonProjet.csproj
+│ ├── MaClasse.cs
+│ └── Program.cs
+└── tests
+
+/
+└── MonProjet.Tests
+
+/
+├── MonProjet.Tests.csproj
+├── MaClasseTests.cs
+└── MSTestSettings.cs
 ```
 
-:::tip
-Organisez les fichiers de test en suivant la structure du projet principal (ex : un fichier `MaClasseTests.cs` pour `MaClasse.cs`).
+:::tip Organisez les fichiers de test en suivant la structure du projet principal (ex : un fichier `MaClasseTests.cs`
+pour `MaClasse.cs`).
 :::
 
-Pour plus de détails : [docs Microsoft - Créer un projet de test MSTest](https://learn.microsoft.com/fr-fr/dotnet/core/testing/unit-testing-with-mstest)
+Pour plus de
+détails : [docs Microsoft - Créer un projet de test MSTest](https://learn.microsoft.com/fr-fr/dotnet/core/testing/unit-testing-with-mstest)
 
-## Structure d'un test unitaire (schéma AAA) {/*#structure-dun-test-unitaire-schéma-aaa*/}
+## Structure d'un test unitaire (schéma AAA) {/* #structure-dun-test-unitaire-schéma-aaa */}
 
 Tous les tests unitaires suivent le schéma **AAA** :
 
@@ -117,7 +143,7 @@ Tous les tests unitaires suivent le schéma **AAA** :
 - **Act** : Appeler la méthode à tester
 - **Assert** : Vérifier le résultat obtenu
 
-### Exemple réaliste avec MSTest {/*#exemple-réaliste-avec-mstest*/}
+### Exemple réaliste avec MSTest {/* #exemple-réaliste-avec-mstest */}
 
 Supposons une classe qui contient des méthodes pour calculer la TVA et le prix TTC d'un montant donné :
 
@@ -184,9 +210,9 @@ namespace MonNamespace.Tests
 }
 ```
 
-## Écriture de tests unitaires avec MSTest {/*#écriture-de-tests-unitaires-avec-mstest*/}
+## Écriture de tests unitaires avec MSTest {/* #écriture-de-tests-unitaires-avec-mstest */}
 
-### Classe `Assert` {/*#classe-assert*/}
+### Classe `Assert` {/* #classe-assert */}
 
 `Assert` est utilisée pour vérifier les résultats attendus dans vos tests.
 
@@ -199,11 +225,10 @@ Méthodes les plus courantes :
 - **`Assert.IsNull(object, message)`** : Vérifie qu'un objet est null
 - **`Assert.IsNotNull(object, message)`** : Vérifie qu'un objet n'est pas null
 
-:::tip
-Si un test échoue, le message inscrit (optionnel) s'affiche, ce qui permet de gagner du temps.
+:::tip Si un test échoue, le message inscrit (optionnel) s'affiche, ce qui permet de gagner du temps.
 :::
 
-### Tests paramétrés {/*#tests-paramétrés*/}
+### Tests paramétrés {/* #tests-paramétrés */}
 
 Pour tester une méthode avec plusieurs jeux de données, utilisez `[DataTestMethod]` et `[DataRow]` :
 
@@ -219,7 +244,7 @@ public void CalculerTva_AvecDiversesValeurs_RetourneLeResultatAttendu(
 }
 ```
 
-### Gestion des exceptions {/*#gestion-des-exceptions*/}
+### Gestion des exceptions {/* #gestion-des-exceptions */}
 
 Pour tester qu'une méthode lance une exception attendue :
 
@@ -247,7 +272,7 @@ public void CalculerTva_TauxNegatif_ProvoqueException()
 }
 ```
 
-## Exécution des tests {/*#exécution-des-tests*/}
+## Exécution des tests {/* #exécution-des-tests */}
 
 L'exécution des tests dépend de votre environnement de développement :
 
@@ -256,14 +281,15 @@ L'exécution des tests dépend de votre environnement de développement :
 - **JetBrains Rider** : Onglet "Tests" et "Test Coverage"
 - **Terminal** : `dotnet test`
 
-## Bonnes pratiques {/*#bonnes-pratiques*/}
+## Bonnes pratiques {/* #bonnes-pratiques */}
 
 - **Segmenter** : Un test = une méthode de test
 - **Nom explicite** : Indique ce qui est testé et le résultat attendu. Deux conventions de nommage sont courantes :
-  - `Méthode_Should...` : `Methode_ShouldResultatAttendu`
-  - `Given..._When..._Then...` : `Methode_Condition_ResultatAttendu`
+    - `Méthode_Should...` : `Methode_ShouldResultatAttendu`
+    - `Given..._When..._Then...` : `Methode_Condition_ResultatAttendu`
 - **Isolation** : Les tests ne doivent pas dépendre les uns des autres
-- **Limiter les effets de bord** : Nettoyer les ressources si besoin (`[TestCleanup]`, `[TestInitialize]`, `[AssemblyInitialize]`, `[ClassInitialize]`, etc.)
+- **Limiter les effets de bord** : Nettoyer les ressources si besoin (`[TestCleanup]`, `[TestInitialize]`,
+  `[AssemblyInitialize]`, `[ClassInitialize]`, etc.)
 
 **Exemple de setup/cleanup :**
 
@@ -295,7 +321,7 @@ public void List_ShouldContainA()
 }
 ```
 
-## Erreurs courantes {/*#erreurs-courantes*/}
+## Erreurs courantes {/* #erreurs-courantes */}
 
 - Oublier `[TestMethod]` ou `[TestClass]` : le test n'est pas détecté
 - Oublier de builder avant de tester (`dotnet build`)
@@ -307,9 +333,9 @@ public void List_ShouldContainA()
 - Laisser du code mort/non utilisé dans les tests
 - Ne pas exécuter les tests régulièrement
 
-## Aller plus loin {/*#aller-plus-loin*/}
+## Aller plus loin {/* #aller-plus-loin */}
 
-### Tests asynchrones {/*#tests-asynchrones*/}
+### Tests asynchrones {/* #tests-asynchrones */}
 
 ```csharp
 [TestMethod]
@@ -320,23 +346,24 @@ public async Task CalculAsync_ShouldRetourneResultat()
 }
 ```
 
-### Mocks {/*#mocks*/}
+### Mocks {/* #mocks */}
 
 Pour isoler les dépendances :
 
 - [Moq](https://github.com/devlooped/moq/wiki/Quickstart) - Framework de mocking populaire
 - [NSubstitute](https://nsubstitute.github.io/docs/2010-01-01-getting-started.html) - Alternative simple et élégante
 
-### Configurer MSTest {/*#configurer-mstest*/}
+### Configurer MSTest {/* #configurer-mstest */}
 
-Parallélisation, timeout global, etc. en modifiant le fichier `MSTestSettings.cs`. Voir la [documentation officielle MSTest](https://learn.microsoft.com/en-us/dotnet/core/testing/unit-testing-mstest-configure).
+Parallélisation, timeout global, etc. en modifiant le fichier `MSTestSettings.cs`. Voir
+la [documentation officielle MSTest](https://learn.microsoft.com/en-us/dotnet/core/testing/unit-testing-mstest-configure).
 
-## Tests unitaires dans d'autres langages {/*#tests-unitaires-dans-dautres-langages*/}
+## Tests unitaires dans d'autres langages {/* #tests-unitaires-dans-dautres-langages */}
 
 Les principes des tests unitaires sont universels. Voici quelques frameworks populaires :
 
 | Langage                   | Frameworks                                                                                                |
-| ------------------------- | --------------------------------------------------------------------------------------------------------- |
+|---------------------------|-----------------------------------------------------------------------------------------------------------|
 | **Python**                | [pytest](https://docs.pytest.org/en/stable/), [unittest](https://docs.python.org/3/library/unittest.html) |
 | **Java**                  | [JUnit](https://junit.org/junit5/)                                                                        |
 | **JavaScript/TypeScript** | [Jest](https://jestjs.io/), [Mocha](https://mochajs.org/)                                                 |
@@ -347,13 +374,15 @@ Les principes des tests unitaires sont universels. Voici quelques frameworks pop
 
 Chaque langage a ses particularités, mais la logique AAA et la philosophie restent les mêmes.
 
-## Ressources {/*#ressources*/}
+## Ressources {/* #ressources */}
 
-- [Documentation MSTest](https://learn.microsoft.com/dotnet/core/testing/unit-testing-with-mstest) - Guide officiel Microsoft
-- [Unit Testing Best Practices](https://learn.microsoft.com/dotnet/core/testing/unit-testing-best-practices) - Bonnes pratiques Microsoft
+- [Documentation MSTest](https://learn.microsoft.com/dotnet/core/testing/unit-testing-with-mstest) - Guide officiel
+  Microsoft
+- [Unit Testing Best Practices](https://learn.microsoft.com/dotnet/core/testing/unit-testing-best-practices) - Bonnes
+  pratiques Microsoft
 - [Test-Driven Development](https://en.wikipedia.org/wiki/Test-driven_development) - Méthodologie TDD
 
-## Autres exemples {/*#autres-exemples*/}
+## Autres exemples {/* #autres-exemples */}
 
 ```csharp
 using Microsoft.VisualStudio.TestTools.UnitTesting;

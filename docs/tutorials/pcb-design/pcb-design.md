@@ -9,9 +9,12 @@ additional_contributors:
     avatar_url: https://github.com/UrbsKali.png
 ---
 
-Bienvenue dans cette formation dédiée au design de circuits imprimés (PCB). Que vous soyez débutant ou souhaitiez approfondir vos connaissances, ce parcours vous guidera à travers les étapes essentielles de la conception, de la théorie à la pratique. Vous découvrirez les bonnes pratiques, les outils, et les pièges à éviter pour réaliser des PCB fiables et performants.
+Bienvenue dans cette formation dédiée au design de circuits imprimés (PCB). Que vous soyez débutant ou souhaitiez
+approfondir vos connaissances, ce parcours vous guidera à travers les étapes essentielles de la conception, de la
+théorie à la pratique. Vous découvrirez les bonnes pratiques, les outils, et les pièges à éviter pour réaliser des PCB
+fiables et performants.
 
-## Objectifs de la formation {/*#objectifs-de-la-formation*/}
+## Objectifs de la formation {/* #objectifs-de-la-formation */}
 
 - Comprendre les principes fondamentaux du PCB design
 - Maîtriser les étapes de conception, du schéma à la fabrication
@@ -19,7 +22,7 @@ Bienvenue dans cette formation dédiée au design de circuits imprimés (PCB). Q
 - Découvrir les outils et logiciels utilisés dans l'industrie
 - S'initier aux aspects avancés : routage haute vitesse, gestion thermique, DFM (Design for Manufacturing)
 
-## Plan de la formation {/*#plan-de-la-formation*/}
+## Plan de la formation {/* #plan-de-la-formation */}
 
 1. **Introduction au PCB Design** *(ce chapitre)*
 2. **Glossaire** : Définitions des termes clés
@@ -33,4 +36,5 @@ Bienvenue dans cette formation dédiée au design de circuits imprimés (PCB). Q
 10. **Tests et validation** : Contrôles électriques, inspection visuelle
 11. **Aller plus loin** : PCB flex, RF, multi-cartes, certification
 
-N'hésitez pas à consulter le glossaire pour clarifier les termes techniques et à suivre l'ordre proposé pour une progression optimale. Des chapitres additionnels peuvent être ajoutés selon vos besoins ou intérêts spécifiques.
+N'hésitez pas à consulter le glossaire pour clarifier les termes techniques et à suivre l'ordre proposé pour une
+progression optimale. Des chapitres additionnels peuvent être ajoutés selon vos besoins ou intérêts spécifiques.

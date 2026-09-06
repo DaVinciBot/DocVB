@@ -9,7 +9,8 @@ additional_contributors:
     avatar_url: https://github.com/UrbsKali.png
 ---
 
-Ce dépôt contient une configuration NixOS basée sur les flakes pour un cluster K3s avec un nœud maître et des nœuds workers.
+Ce dépôt contient une configuration NixOS basée sur les flakes pour un cluster K3s avec un nœud maître et des nœuds
+workers.
 
 ## Structure
 
@@ -32,10 +33,10 @@ Ce dépôt contient une configuration NixOS basée sur les flakes pour un cluste
 ### Configuration Initiale
 
 1. **Créer secrets.nix** avec vos valeurs réelles basées sur le modèle :
-   - `k3sToken` : Générer avec `openssl rand -base64 32`
-   - `tunnel.id` et `tunnel.secret` : Vos identifiants de tunnel
-   - `sshKeys` : Vos clés SSH publiques réelles
-   - `userPasswords` : Générer avec `mkpasswd -m yescrypt`
+    - `k3sToken` : Générer avec `openssl rand -base64 32`
+    - `tunnel.id` et `tunnel.secret` : Vos identifiants de tunnel
+    - `sshKeys` : Vos clés SSH publiques réelles
+    - `userPasswords` : Générer avec `mkpasswd -m yescrypt`
 
 2. **Initialiser le flake** :
 
@@ -82,7 +83,8 @@ nix flake update nixpkgs-unstable
 
 ### Configuration Serveur Flexible
 
-Le flake prend désormais en charge un système de configuration flexible utilisant la fonction `mkServerConfig` avec ces paramètres :
+Le flake prend désormais en charge un système de configuration flexible utilisant la fonction `mkServerConfig` avec ces
+paramètres :
 
 - **`serverHostname`** : Le nom d'hôte du serveur
 - **`serverIP`** : L'adresse IP du serveur
@@ -105,14 +107,14 @@ nouveauserveur = mkServerConfig {
 ### Rôles des Serveurs
 
 - **Nœuds maîtres** (`isMaster = true`) :
-  - Exécutent K3s en mode serveur
-  - Activent le service tunnel
-  - Agissent comme plan de contrôle du cluster
+    - Exécutent K3s en mode serveur
+    - Activent le service tunnel
+    - Agissent comme plan de contrôle du cluster
 
 - **Nœuds workers** (`isMaster = false`) :
-  - Exécutent K3s en mode agent
-  - Se connectent au maître spécifié
-  - Fournissent des ressources de calcul
+    - Exécutent K3s en mode agent
+    - Se connectent au maître spécifié
+    - Fournissent des ressources de calcul
 
 ### Modifier les Modules
 

@@ -12,22 +12,25 @@ additional_contributors:
     avatar_url: https://github.com/aust-1.png
 ---
 
-import TabItem from "@theme/TabItem";
-import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem"; import Tabs from "@theme/Tabs";
 
-Ce guide vous accompagne pour installer et configurer tous les outils nécessaires au développement sur le projet de la Coupe de France de Robotique. Il est conçu pour vous aider à démarrer rapidement, à comprendre le rôle de chaque outil et à adopter les bonnes pratiques pour collaborer efficacement.
+Ce guide vous accompagne pour installer et configurer tous les outils nécessaires au développement sur le projet de la
+Coupe de France de Robotique. Il est conçu pour vous aider à démarrer rapidement, à comprendre le rôle de chaque outil
+et à adopter les bonnes pratiques pour collaborer efficacement.
 
 Chaque section ci-dessous détaille l'installation, l'utilisation et les liens vers la documentation officielle.
 
-## VsCode {/*#vscode*/}
+## VsCode {/* #vscode */}
 
-Visual Studio Code est l'éditeur recommandé pour ce projet. Il permet une très bonne intégration de tous les outils utilisés.
+Visual Studio Code est l'éditeur recommandé pour ce projet. Il permet une très bonne intégration de tous les outils
+utilisés.
 
 [Installer VsCode](https://code.visualstudio.com/)
 
-## Installer git {/*#installer-git*/}
+## Installer git {/* #installer-git */}
 
-Git est l'outil fondamental pour la gestion de version et la collaboration sur le code. Il permet de suivre l'historique, de travailler en équipe et de contribuer facilement au projet.
+Git est l'outil fondamental pour la gestion de version et la collaboration sur le code. Il permet de suivre
+l'historique, de travailler en équipe et de contribuer facilement au projet.
 
 Vérifiez d'abord si git est installé :
 
@@ -57,11 +60,13 @@ Si ce n'est pas le cas, installez-le selon votre OS :
 
 Pour aller plus loin : [Documentation officielle](https://git-scm.com/doc)
 
-## Cloner le repo du projet {/*#cloner-le-repo-du-projet*/}
+## Cloner le repo du projet {/* #cloner-le-repo-du-projet */}
 
-Une fois git installé, vous pouvez récupérer le code source du projet en clonant le dépôt officiel. Cette étape est indispensable pour commencer à travailler localement et profiter de toutes les fonctionnalités du projet.
+Une fois git installé, vous pouvez récupérer le code source du projet en clonant le dépôt officiel. Cette étape est
+indispensable pour commencer à travailler localement et profiter de toutes les fonctionnalités du projet.
 
-Ouvrez un terminal à l'endroit où vous souhaitez stocker le projet (**PAS DANS UN DOSSIER ONEDRIVE**), puis exécutez la commande suivante :
+Ouvrez un terminal à l'endroit où vous souhaitez stocker le projet (**PAS DANS UN DOSSIER ONEDRIVE**), puis exécutez la
+commande suivante :
 
 ```bash
 git clone https://github.com/DaVinciBot/CoupeDeRobotique.git
@@ -69,11 +74,13 @@ cd CoupeDeRobotique
 code .
 ```
 
-## uv {/*#uv*/}
+## uv {/* #uv */}
 
-uv est un gestionnaire d'environnements virtuels et de packages Python. Il simplifie la gestion des dépendances et garantit que chaque projet dispose de son propre environnement isolé, évitant les conflits et facilitant la reproductibilité.
+uv est un gestionnaire d'environnements virtuels et de packages Python. Il simplifie la gestion des dépendances et
+garantit que chaque projet dispose de son propre environnement isolé, évitant les conflits et facilitant la
+reproductibilité.
 
-### Installation {/*#installation*/}
+### Installation {/* #installation */}
 
 Suivez les instructions adaptées à votre système pour installer uv :
 
@@ -97,7 +104,7 @@ Suivez les instructions adaptées à votre système pour installer uv :
 </Tabs>
 [Documentation uv](https://astral.sh/docs/uv/)
 
-### Créer le venv {/*#créer-le-venv*/}
+### Créer le venv {/* #créer-le-venv */}
 
 Créez un environnement virtuel pour isoler les dépendances du projet :
 
@@ -105,7 +112,7 @@ Créez un environnement virtuel pour isoler les dépendances du projet :
 uv venv
 ```
 
-### Activer le venv {/*#activer-le-venv*/}
+### Activer le venv {/* #activer-le-venv */}
 
 Activez l'environnement virtuel pour installer et utiliser les paquets :
 
@@ -129,7 +136,7 @@ Activez l'environnement virtuel pour installer et utiliser les paquets :
 Dans VSCode, sélectionnez l'interpréteur Python correspondant : `Ctrl + Shift + P`
 → `Python: Select Interpreter` → CoupeDeRobotique
 
-### Télécharger les dépendances {/*#télécharger-les-dépendances*/}
+### Télécharger les dépendances {/* #télécharger-les-dépendances */}
 
 Installez toutes les dépendances du projet en une commande :
 
@@ -137,7 +144,7 @@ Installez toutes les dépendances du projet en une commande :
 uv sync
 ```
 
-### Ajouter/supprimer des dépendances {/*#ajoutersupprimer-des-dépendances*/}
+### Ajouter/supprimer des dépendances {/* #ajoutersupprimer-des-dépendances */}
 
 Avec uv, on n'utilise plus `pip` pour gérer les dépendances. Voici comment ajouter ou supprimer des packages :
 
@@ -148,7 +155,7 @@ uv remove <package>   # pour supprimer une dépendance
 
 Consultez la [documentation uv](https://astral.sh/docs/uv/) pour plus d'options.
 
-### Lancer le code {/*#lancer-le-code*/}
+### Lancer le code {/* #lancer-le-code */}
 
 Vous pouvez maintenant exécuter le code principal du robot :
 
@@ -164,9 +171,10 @@ LIDAR_DUMMY=True
 ROLLING_BASIS_DUMMY=True
 ```
 
-## choco {/*#choco*/}
+## choco {/* #choco */}
 
-Chocolatey est un gestionnaire de paquets pour Windows, utile pour installer rapidement des outils comme make ou llvm. Il n'est pas nécessaire sur Linux ou macOS.
+Chocolatey est un gestionnaire de paquets pour Windows, utile pour installer rapidement des outils comme make ou llvm.
+Il n'est pas nécessaire sur Linux ou macOS.
 
 <Tabs groupId="operating-systems">
   <TabItem value="win" label="Windows">
@@ -185,11 +193,13 @@ Chocolatey est un gestionnaire de paquets pour Windows, utile pour installer rap
   </TabItem>
 </Tabs>
 
-## clang-format {/*#clang-format*/}
+## clang-format {/* #clang-format */}
 
-clang-format est un outil de formatage automatique pour le code C/C++. Il permet d'assurer une cohérence de style dans l'équipe et d'automatiser le formatage à la sauvegarde dans VSCode. Suivez les instructions selon votre OS pour l'installer.
+clang-format est un outil de formatage automatique pour le code C/C++. Il permet d'assurer une cohérence de style dans
+l'équipe et d'automatiser le formatage à la sauvegarde dans VSCode. Suivez les instructions selon votre OS pour
+l'installer.
 
-### Installation {/*#installation-1*/}
+### Installation {/* #installation-1 */}
 
 <Tabs groupId="operating-systems">
   <TabItem value="win" label="Windows">
@@ -209,9 +219,10 @@ clang-format est un outil de formatage automatique pour le code C/C++. Il permet
   </TabItem>
 </Tabs>
 
-Installer l'extension [xaver.clang-format](https://marketplace.visualstudio.com/items?itemName=xaver.clang-format) pour VSCode afin de bénéficier du formatage automatique.
+Installer l'extension [xaver.clang-format](https://marketplace.visualstudio.com/items?itemName=xaver.clang-format) pour
+VSCode afin de bénéficier du formatage automatique.
 
-### Utilisation {/*#utilisation*/}
+### Utilisation {/* #utilisation */}
 
 Activez le formatage automatique à la sauvegarde dans VSCode pour ne plus vous soucier du style :
 `Ctrl + Shift + P` → `Preferences: Open Settings (JSON)` : ajouter
@@ -225,9 +236,11 @@ Activez le formatage automatique à la sauvegarde dans VSCode pour ne plus vous 
 
 Pour aller plus loin : [Documentation clang-format](https://clang.llvm.org/docs/ClangFormat.html)
 
-## Make {/*#make*/}
+## Make {/* #make */}
 
-Make est un outil d'automatisation qui permet d'exécuter facilement des tâches courantes du projet (formatage, lint, documentation, etc.). Il est très utilisé dans les environnements de développement pour simplifier la vie des développeurs.
+Make est un outil d'automatisation qui permet d'exécuter facilement des tâches courantes du projet (formatage, lint,
+documentation, etc.). Il est très utilisé dans les environnements de développement pour simplifier la vie des
+développeurs.
 
 <Tabs groupId="operating-systems">
   <TabItem value="win" label="Windows">
@@ -249,7 +262,7 @@ Make est un outil d'automatisation qui permet d'exécuter facilement des tâches
 </Tabs>
 [Documentation Make](https://www.gnu.org/software/make/manual/make.html)
 
-### Utilisation {/*#utilisation-1*/}
+### Utilisation {/* #utilisation-1 */}
 
 Les commandes make disponibles dans ce projet :
 
@@ -260,11 +273,14 @@ make docs   # pour générer la documentation
 make all    # pour tout faire
 ```
 
-N'hésitez pas à consulter le fichier `makefile` pour découvrir toutes les cibles disponibles et personnaliser vos automatisations.
+N'hésitez pas à consulter le fichier `makefile` pour découvrir toutes les cibles disponibles et personnaliser vos
+automatisations.
 
-## Outils de formatage et lint {/*#outils-de-formatage-et-lint*/}
+## Outils de formatage et lint {/* #outils-de-formatage-et-lint */}
 
-Pour garantir la qualité et la cohérence du code Python, plusieurs outils de formatage et d'analyse statique sont utilisés dans ce projet. Ils permettent de détecter les erreurs, d'appliquer un style uniforme et de faciliter la relecture du code.
+Pour garantir la qualité et la cohérence du code Python, plusieurs outils de formatage et d'analyse statique sont
+utilisés dans ce projet. Ils permettent de détecter les erreurs, d'appliquer un style uniforme et de faciliter la
+relecture du code.
 
 <Tabs groupId="tools">
   <TabItem value="ruff" label="Ruff">
@@ -302,29 +318,30 @@ Pour garantir la qualité et la cohérence du code Python, plusieurs outils de f
   </TabItem>
 </Tabs>
 
-Pour aller plus loin, consultez la documentation de chaque outil et explorez les options de configuration pour adapter le workflow à vos besoins.
+Pour aller plus loin, consultez la documentation de chaque outil et explorez les options de configuration pour adapter
+le workflow à vos besoins.
 
-## Conventions de nommage des branches et des commits {/*#conventions-de-nommage-des-branches-et-des-commits*/}
+## Conventions de nommage des branches et des commits {/* #conventions-de-nommage-des-branches-et-des-commits */}
 
 Pour faciliter la collaboration et garder un historique clair, merci de respecter les conventions suivantes :
 
-### Branches {/*#branches*/}
+### Branches {/* #branches */}
 
 - Utilisez des noms explicites et courts, séparés par des tirets.
 - Privilégiez le format :
-  - `feature/nom-fonctionnalite`
-  - `fix/description-bug`
-  - `docs/ajout-ou-modif-doc`
-  - `refactor/nom-refactor`
+    - `feature/nom-fonctionnalite`
+    - `fix/description-bug`
+    - `docs/ajout-ou-modif-doc`
+    - `refactor/nom-refactor`
 - Exemple :
-  - `feature/add-basic-trajectory-planner`
-  - `refactor/change-coordinate-system`
+    - `feature/add-basic-trajectory-planner`
+    - `refactor/change-coordinate-system`
 
-### Commits {/*#commits*/}
+### Commits {/* #commits */}
 
 Utilisez le format suivant pour vos messages de commit:
 
-action(scope): description concise
+action (scope): description concise
 
 Où:
 
@@ -334,9 +351,9 @@ Où:
 
 Exemples :
 
-- feat(trajectory_planner): add basic trajectory planner
-- fix(cpp_rolling_basis): correct sensor reading bug
-- refactor(navigation): change coordinate system to right-handed
+- feat (trajectory_planner): add basic trajectory planner
+- fix (cpp_rolling_basis): correct sensor reading bug
+- refactor (navigation): change coordinate system to right-handed
 
 Pour aller plus loin, consultez les guides :
 

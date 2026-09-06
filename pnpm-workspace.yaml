@@ -1,7 +1,15 @@
+blockExoticSubdeps: true
+
 overrides:
   webpack: 5.105.4
 
-# core-js ne fait que des postinstall publicitaires : inutiles au build.
+strictDepBuilds: true
 allowBuilds:
-  core-js: false
-  core-js-pure: false
+  "@swc/core": true
+  core-js-pure: true
+  core-js: true
+
+trustPolicy: no-downgrade
+trustPolicyExclude:
+  - "detect-port@1.6.1"
+  - "semver@6.3.1"

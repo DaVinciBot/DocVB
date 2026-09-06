@@ -15,18 +15,18 @@ additional_contributors:
 import TabItem from "@theme/TabItem";
 import Tabs from "@theme/Tabs";
 import {
-  BookOpen,
-  Cloud,
-  Code,
-  Download,
-  Dumbbell,
-  GitBranch,
-  GitMerge,
-  HardDrive,
-  LifeBuoy,
-  ListChecks,
-  Save,
-  Users,
+    BookOpen,
+    Cloud,
+    Code,
+    Download,
+    Dumbbell,
+    GitBranch,
+    GitMerge,
+    HardDrive,
+    LifeBuoy,
+    ListChecks,
+    Save,
+    Users,
 } from "lucide-react";
 
 **Git** est un logiciel qui enregistre l'histoire d'un projet : qui a changé quoi, quand,
@@ -68,42 +68,42 @@ se déplacer dans des dossiers. Si ce n'est pas encore le cas, la formation
 ### Installer Git {/* #installer-git */}
 
 <Tabs groupId="os">
-  <TabItem value="windows" label="Windows" default>
+    <TabItem value="windows" label="Windows" default>
 
-Téléchargez **Git for Windows** sur [git-scm.com/download/win](https://git-scm.com/download/win)
-et lancez l'installateur. Les options par défaut conviennent.
+        Téléchargez **Git for Windows** sur [git-scm.com/download/win](https://git-scm.com/download/win)
+        et lancez l'installateur. Les options par défaut conviennent.
 
-L'installation fournit aussi **Git Bash**, un terminal qui comprend les commandes Unix.
-C'est lui qu'on utilise dans cette formation : les commandes Git y sont identiques à
-celles de macOS et Linux.
+        L'installation fournit aussi **Git Bash**, un terminal qui comprend les commandes Unix.
+        C'est lui qu'on utilise dans cette formation : les commandes Git y sont identiques à
+        celles de macOS et Linux.
 
-  </TabItem>
-  <TabItem value="macos" label="macOS">
+    </TabItem>
+    <TabItem value="macos" label="macOS">
 
-Le plus simple passe par [Homebrew](https://brew.sh) :
+        Le plus simple passe par [Homebrew](https://brew.sh) :
 
-```bash
-brew install git
-```
+        ```bash
+        brew install git
+        ```
 
-Sans Homebrew, la commande `git --version` proposera d'installer les _Command Line Tools_
-d'Apple, qui incluent Git.
+        Sans Homebrew, la commande `git --version` proposera d'installer les _Command Line Tools_
+        d'Apple, qui incluent Git.
 
-  </TabItem>
-  <TabItem value="linux" label="Linux">
+    </TabItem>
+    <TabItem value="linux" label="Linux">
 
-```bash
-# Debian, Ubuntu, et dérivées
-sudo apt install git
+        ```bash
+        # Debian, Ubuntu, et dérivées
+        sudo apt install git
 
-# Fedora
-sudo dnf install git
+        # Fedora
+        sudo dnf install git
 
-# Arch
-sudo pacman -S git
-```
+        # Arch
+        sudo pacman -S git
+        ```
 
-  </TabItem>
+    </TabItem>
 </Tabs>
 
 Vérifiez ensuite l'installation :
@@ -168,7 +168,7 @@ Deux conséquences immédiates :
 
 - Supprimez `.git`, et vous perdez tout l'historique en gardant les fichiers actuels.
 - Copiez le dossier entier sur une clé USB, et vous emportez **l'historique complet** avec
-  vous. Pas besoin de réseau pour consulter un commit d'il y a trois mois.
+vous. Pas besoin de réseau pour consulter un commit d'il y a trois mois.
 
 :::info[Git est décentralisé]
 Contrairement aux anciens systèmes de version, il n'existe pas de « serveur central » qui
@@ -500,7 +500,7 @@ def vitesse_max():
 La résolution se fait en trois temps :
 
 1. **Éditer** le fichier : supprimer les marqueurs `<<<<<<<`, `=======`, `>>>>>>>` et ne
-   laisser que le code voulu — l'une des versions, l'autre, ou une combinaison des deux.
+laisser que le code voulu — l'une des versions, l'autre, ou une combinaison des deux.
 2. **Stager** le fichier résolu : `git add moteur.py`.
 3. **Conclure** la fusion : `git commit` (le message est pré-rempli).
 
@@ -541,36 +541,36 @@ cd DocVB
 Deux façons de vous authentifier auprès de GitHub :
 
 <Tabs groupId="auth">
-  <TabItem value="https" label="HTTPS" default>
+    <TabItem value="https" label="HTTPS" default>
 
-L'URL commence par `https://`. GitHub demande un **jeton d'accès personnel** (_Personal
-Access Token_) au lieu d'un mot de passe : il se génère dans
-**Settings → Developer settings → Personal access tokens**.
+        L'URL commence par `https://`. GitHub demande un **jeton d'accès personnel** (_Personal
+        Access Token_) au lieu d'un mot de passe : il se génère dans
+        **Settings → Developer settings → Personal access tokens**.
 
-Le plus simple sur Windows et macOS reste d'installer
-[GitHub CLI](https://cli.github.com/) et de lancer `gh auth login`, qui configure le
-stockage sécurisé du jeton pour vous.
+        Le plus simple sur Windows et macOS reste d'installer
+        [GitHub CLI](https://cli.github.com/) et de lancer `gh auth login`, qui configure le
+        stockage sécurisé du jeton pour vous.
 
-  </TabItem>
-  <TabItem value="ssh" label="SSH">
+    </TabItem>
+    <TabItem value="ssh" label="SSH">
 
-L'URL commence par `git@github.com:`. L'authentification passe par une paire de clés
-générée une fois :
+        L'URL commence par `git@github.com:`. L'authentification passe par une paire de clés
+        générée une fois :
 
-```bash
-ssh-keygen -t ed25519 -C "prenom.nom@edu.devinci.fr"
-cat ~/.ssh/id_ed25519.pub
-```
+        ```bash
+        ssh-keygen -t ed25519 -C "prenom.nom@edu.devinci.fr"
+        cat ~/.ssh/id_ed25519.pub
+        ```
 
-Copiez la clé **publique** affichée (celle en `.pub`, jamais l'autre) et collez-la dans
-**GitHub → Settings → SSH and GPG keys → New SSH key**. Vérifiez ensuite :
+        Copiez la clé **publique** affichée (celle en `.pub`, jamais l'autre) et collez-la dans
+        **GitHub → Settings → SSH and GPG keys → New SSH key**. Vérifiez ensuite :
 
-```bash
-ssh -T git@github.com
-# Hi pseudo! You've successfully authenticated...
-```
+        ```bash
+        ssh -T git@github.com
+        # Hi pseudo! You've successfully authenticated...
+        ```
 
-  </TabItem>
+    </TabItem>
 </Tabs>
 
 ### `git fetch` — regarder sans toucher {/* #git-fetch */}
@@ -952,26 +952,26 @@ Ce parcours reprend tout ce qui précède. Comptez une trentaine de minutes.
 
 1. Créez un dépôt vide nommé `apprentissage-git` sur GitHub, **sans** README.
 2. En local, créez un dossier du même nom, initialisez-le avec `git init`, ajoutez un
-   fichier `README.md` contenant une ligne de présentation.
+fichier `README.md` contenant une ligne de présentation.
 3. Vérifiez l'état avec `git status`, stagez le fichier, commitez-le, puis relisez
-   l'historique avec `git log --oneline`.
+l'historique avec `git log --oneline`.
 4. Reliez le dépôt local à GitHub et publiez :
-   ```bash
-   git remote add origin <url-de-votre-depot>
-   git push -u origin main
+```bash
+git remote add origin <url-de-votre-depot>
+git push -u origin main
    ```
 5. Créez une branche `feat/presentation`, ajoutez-y un fichier `presentation.md`, commitez,
-   puis poussez la branche avec `-u`.
+puis poussez la branche avec `-u`.
 6. Ouvrez une **pull request** sur GitHub, écrivez-y une description, puis fusionnez-la.
 7. Revenez sur `main` en local, faites `git pull` : le fichier `presentation.md` apparaît.
-   Supprimez la branche locale devenue inutile.
+Supprimez la branche locale devenue inutile.
 8. **Provoquez un conflit volontairement** : modifiez la première ligne du `README.md`
-   directement sur GitHub (bouton crayon) et commitez ; modifiez **la même ligne**
-   différemment en local, commitez, puis lancez `git pull`.
+directement sur GitHub (bouton crayon) et commitez ; modifiez **la même ligne**
+différemment en local, commitez, puis lancez `git pull`.
 9. Résolvez le conflit — une fois dans l'éditeur de fusion de VS Code, une fois à la main
-   dans le fichier pour voir les marqueurs — puis `git add`, `git commit`, `git push`.
+dans le fichier pour voir les marqueurs — puis `git add`, `git commit`, `git push`.
 10. Terminez avec `git log --oneline --graph --all` : vous devez y reconnaître vos branches,
-    votre commit de fusion et la position de `HEAD`.
+votre commit de fusion et la position de `HEAD`.
 
 Si l'étape 10 est lisible pour vous, l'essentiel est acquis.
 

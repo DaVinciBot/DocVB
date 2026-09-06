@@ -8,6 +8,6 @@ last_update:
   author: Dimitry Siebert
 ---
 
-:::warning Travail en cours
+:::warning[Travail en cours]
 Cette page est en cours de rédaction (WIP).
 :::

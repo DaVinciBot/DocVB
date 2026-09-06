@@ -14,7 +14,7 @@ additional_contributors:
 
 Dans cette formation, vous apprendrez les bases de Linux en ligne de commande, étape par étape: naviguer dans le système de fichiers, manipuler des fichiers et dossiers, gérer les permissions, les utilisateurs/groupes, et les processus.
 
-:::info C'est quoi un système ?
+:::info[C'est quoi un système ?]
 Un système d'exploitation (OS) est le logiciel qui permet d'utiliser le matériel (CPU, mémoire, disque, réseau, périphériques). Ici, on se concentre sur Linux. Android, par exemple, est basé sur Linux.
 :::
 
@@ -24,7 +24,7 @@ Un système d'exploitation (OS) est le logiciel qui permet d'utiliser le matéri
 - Un terminal (bash/zsh) et des droits sudo si possible
 - Connexion Internet (facultatif)
 
-:::tip Astuce chemins
+:::tip[Astuce chemins]
 Chemins absolus: commencent par `/` (ex: `/home/user`). Chemins relatifs: par rapport au dossier courant. Raccourcis utiles: `~` (home), `.` (courant), `..` (parent).
 :::
 
@@ -118,7 +118,7 @@ mv notes.bak sauvegardes/          # déplacer
 mv ancien_nom.txt nouveau_nom.txt  # renommer
 ```
 
-:::tip Jokers (wildcards)
+:::tip[Jokers (wildcards)]
 `*` remplace plusieurs caractères, `?` un seul. Exemple: `cp *.txt dossier/` copie tous les .txt.
 :::
 
@@ -142,7 +142,7 @@ rmdir dossiers_vide
 rm -r src_backup
 ```
 
-:::danger Attention
+:::danger[Attention]
 `rm -rf /` peut détruire un système. Vérifiez toujours le chemin avant de supprimer.
 :::
 
@@ -177,7 +177,7 @@ sudo chown alice:dev script.sh
 sudo chgrp dev dossier
 ```
 
-:::tip Umask
+:::tip[Umask]
 `umask` définit les permissions par défaut à la création des fichiers. Exemple commun: `umask 022`.
 :::
 
@@ -204,7 +204,7 @@ sudo deluser alice        # Debian/Ubuntu
 sudo delgroup dev         # Debian/Ubuntu
 ```
 
-:::warning Root
+:::warning[Root]
 Évitez d'utiliser root directement. Préférez `sudo` avec un utilisateur standard membre du groupe `sudo`/`wheel`.
 :::
 
@@ -234,7 +234,7 @@ fg %1              # remettre la tâche 1 au premier plan
 bg %1              # continuer en arrière-plan
 ```
 
-:::tip Priorité
+:::tip[Priorité]
 `nice` et `renice` ajustent la priorité CPU d'un processus.
 :::
 
@@ -251,7 +251,7 @@ ls --help
 man -k network
 ```
 
-:::tip TL;DR pages
+:::tip[TL;DR pages]
 Les pages `tldr` proposent des exemples concis. Installation (Debian/Ubuntu): `sudo apt install tldr` puis `tldr tar`.
 :::
 

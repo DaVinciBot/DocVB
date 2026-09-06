@@ -13,7 +13,7 @@ additional_contributors:
 
 Ce document décrit le module de détection d'adversaires via le LiDAR A2M12, implémenté dans `lidar_detection.py`, et son intégration dans la boucle principale du robot (`robot.py`).
 
-:::warning Code à valider
+:::warning[Code à valider]
 Tout le code expérimental concernant le recalage de position du robot (trilatération SVD, `PoseEngine`, `lidar_logic.py`) n'a jamais été testé : il faudra évaluer son utilité réelle et, le cas échéant, le refaire complètement. Le code de `lidar_detection` a été écrit à la fin de la CDR (terminé à 5 h du matin) — il devra être validé sérieusement et testé en conditions réelles.
 :::
 
@@ -89,7 +89,7 @@ La gestion du thread LiDAR et la consommation des données de détection se font
 
 5. **Évitement et Pathfinding** : Cette liste `obstacles` est passée au cerveau du robot lors de la demande de trajectoire (`self.cerveau.get_path(pos, objectif, obstacles)`). Lors du calcul d'évitement, le **rayon du robot ou de détection** pris en compte est de **110 mm**. Cette valeur assure une marge de sécurité autour du point détecté (le centroïde de l'adversaire) pour recalculer une trajectoire sans collision. (Voir [Navigation Haut Niveau](navigation_haut_niveau.md) pour les détails de l'algorithme A*).
 
-:::warning Ambiguïté dans le code Rerun
+:::warning[Ambiguïté dans le code Rerun]
 Le code de publication vers le module Rerun (`rerun_bridge.update_obstacles`) affiche actuellement ces obstacles avec un rayon de `200` (`"radius": 200`). Il s'agit uniquement d'une valeur d'affichage graphique pour l'interface de debug ; le vrai rayon physique d'évitement utilisé par l'algorithme est bien de 110 mm.
 De manière plus générale, Rerun est à revoir : il faudra déterminer s'il a une vraie utilité pour la correction d'erreurs et l'ajustement des PID.
 :::

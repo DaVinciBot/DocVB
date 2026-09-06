@@ -11,7 +11,7 @@ additional_contributors:
     avatar_url: https://github.com/Antoine190.png
 ---
 
-:::warning À trancher
+:::warning[À trancher]
 L'équipe doit encore décider si cette architecture de simulation est conservée pour la prochaine saison.
 :::
 
@@ -30,7 +30,7 @@ Ce contrôleur C++ agit comme un "jumeau numérique" du firmware de la Teensy Mo
 - La boucle principale s'exécute au rythme du simulateur (`wb_robot_step`) et appelle cycliquement `update_odometry()`, `handle()`, et `execute_movement()`.
 - Il interagit avec les actionneurs Webots via `fake_stepper.cpp` qui convertit les consignes de vitesse en commandes pour les objets 3D "motor1", "motor2", "motor3".
 
-:::warning Mocking des Capteurs Avancés
+:::warning[Mocking des Capteurs Avancés]
 Actuellement dans `teensy_controller.cpp`, les initialisations des capteurs `PAA5100` (flux optique) et `Adafruit_BNO085` (IMU) sont commentées (`//paa5100 = new PAA5100();`). La simulation repose donc principalement sur l'odométrie issue des roues codeuses simulées. La fusion de données (décrite dans l'odométrie PID) n'est que partiellement émulée dans l'environnement virtuel.
 :::
 

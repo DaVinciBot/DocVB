@@ -26,7 +26,7 @@ L'architecture s'articule autour des éléments suivants :
   - **BNO08x** : Centrale inertielle (IMU) en I2C pour un cap précis.
   - **RPLidar A2M12** : Lidar 360° connecté en USB à la Raspberry Pi. Dédié uniquement à la détection d'adversaires (via `lidar_detection`).
 
-:::danger Doute signalé depuis `schema_info_v2.drawio`
+:::danger[Doute signalé depuis `schema_info_v2.drawio`]
 Le fichier de conception abstrait `schema_info_v2.drawio` présente une carte supplémentaire dédiée : la **Teensy Capteur**. Sur ce schéma, les capteurs PAA5100JE et BNO085 sont reliés à cette carte, qui calcule et envoie les variations d'odométrie (`dx, dy, dtheta`) via UART vers la Teensy Moteur.
 Or, dans le code actuel (post-CDR), cette architecture a été abandonnée par manque de temps. L'intégration de cette seconde Teensy avec un filtre de Kalman reste une **piste d'amélioration future** (cf. branche `feature/teensy_capteur`).
 :::

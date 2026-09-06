@@ -32,7 +32,7 @@ PCB KiCad fournissant un rail stable de 5 V, 5 A adapté au Raspberry Pi 5.
 
 ## Schéma système {/*#schéma-système*/}
 
-:::note À documenter
+:::note[À documenter]
 Le schéma système reste à rédiger.
 :::
 

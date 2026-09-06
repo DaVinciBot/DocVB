@@ -14,7 +14,7 @@ additional_contributors:
 
 Ce document dresse l'inventaire des branches Git après le **tri réalisé fin août 2026**.
 
-:::info Tri effectué (29/08/2026)
+:::info[Tri effectué (29/08/2026)]
 La branche de travail de la CDR (`modification_durant_la_cdr_a_clean`) est devenue la nouvelle
 `main`. Les branches obsolètes ont été supprimées après avoir été **sauvegardées sous forme de
 tags** `archive/*` (poussés sur `origin`). Toute reprise part désormais de `main`.

@@ -151,27 +151,27 @@
     "description": "The ARIA label for close button of announcement bar"
   },
   "theme.admonition.caution": {
-    "message": "attention",
+    "message": "Attention",
     "description": "The default label used for the Caution admonition (:::caution)"
   },
   "theme.admonition.danger": {
-    "message": "danger",
+    "message": "Danger",
     "description": "The default label used for the Danger admonition (:::danger)"
   },
   "theme.admonition.info": {
-    "message": "info",
+    "message": "Info",
     "description": "The default label used for the Info admonition (:::info)"
   },
   "theme.admonition.note": {
-    "message": "remarque",
+    "message": "Remarque",
     "description": "The default label used for the Note admonition (:::note)"
   },
   "theme.admonition.tip": {
-    "message": "astuce",
+    "message": "Astuce",
     "description": "The default label used for the Tip admonition (:::tip)"
   },
   "theme.admonition.warning": {
-    "message": "attention",
+    "message": "Attention",
     "description": "The default label used for the Warning admonition (:::warning)"
   },
   "theme.blog.sidebar.navAriaLabel": {

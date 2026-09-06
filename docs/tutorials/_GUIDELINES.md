@@ -115,7 +115,7 @@ _Légende affichée sous l'image._
 - Les fichiers téléchargeables (archives, PDF) suivent la même logique dans
   `static/files/`, référencés par `/files/…`.
 
-:::warning Versions archivées
+:::warning[Versions archivées]
 Les images d'une doc CDR versionnée ne sont **pas** recopiées par
 `pnpm run docusaurus docs:version:<plugin> <année>`. Après avoir créé une version,
 dupliquer à la main le dossier d'images vers `static/img/cdr/<équipe>-<année>/` et

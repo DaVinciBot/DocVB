@@ -17,7 +17,7 @@ import DownloadGroup from "@site/src/components/DownloadGroup";
 
 Dans ce tutoriel, nous allons créer une application simple avec Node.js et la conteneuriser avec Docker. Nous allons également apprendre à construire et exécuter notre conteneur Docker.
 
-:::info Environnement de formation
+:::info[Environnement de formation]
 Cette formation se déroule sur un VPS Linux sur lequel vous êtes l'utilisateur root. **Note :** Utiliser root directement est une mauvaise pratique en production, mais acceptable pour l'apprentissage.
 :::
 
@@ -31,7 +31,7 @@ Cette formation se déroule sur un VPS Linux sur lequel vous êtes l'utilisateur
 
 Commençons par installer Docker et quelques outils utiles pour la formation.
 
-:::tip Téléchargement des ressources
+:::tip[Téléchargement des ressources]
 Vous pouvez télécharger l'application d'exemple directement :
 
 <DownloadButton href="/files/tutorials/info/docker/app.zip" icon="📦">
@@ -132,7 +132,7 @@ CMD ["node", "index.js"]
 - **EXPOSE 80** : Indique que le conteneur écoute sur le port 80
 - **CMD ["node", "index.js"]** : Commande exécutée au démarrage du conteneur
 
-:::tip Bonne pratique
+:::tip[Bonne pratique]
 On copie d'abord `package.json` et on installe les dépendances avant de copier le reste du code. Cela permet à Docker de mettre en cache cette étape et d'accélérer les builds futurs.
 :::
 
@@ -286,7 +286,7 @@ mkdir secrets
 echo "mon_mot_de_passe_securise" > secrets/db_password.txt
 ```
 
-:::warning Sécurité
+:::warning[Sécurité]
 En production, ne stockez jamais les secrets dans Git ! Ajoutez `secrets/` à votre `.gitignore`.
 :::
 
@@ -391,7 +391,7 @@ docker stats
 docker system prune -a --volumes
 ```
 
-:::danger Attention
+:::danger[Attention]
 Cette commande supprime TOUT ce qui n'est pas utilisé. Utilisez avec précaution !
 :::
 

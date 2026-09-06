@@ -54,7 +54,7 @@ La classe `MKSServo` gère les commandes suivantes :
 - **Lecture de l'encodeur (`0x31`)** : Requête de la position absolue de l'encodeur. Le moteur répond avec une valeur sur 48 bits, que le code C++ étend et convertit en `int64_t`.
 - **Calibration (`0x80`)** : Commande bloquante avec timeout (jusqu'à 15s) attendant une confirmation de succès (`1`) ou d'échec (`2`).
 
-:::tip Optimisation de la file d'attente (Fire & Forget)
+:::tip[Optimisation de la file d'attente (Fire & Forget)]
 Pour les commandes de contrôle (`0xF3` et `0xF6`), le code n'attend volontairement pas la réponse du moteur. En effet, au niveau matériel, la réponse UART des moteurs a été désactivée (`UartRSP=Disable`) pour éviter d'engorger le bus RS485 et de ralentir la boucle d'asservissement de la Teensy. Ces fonctions retournent immédiatement après l'envoi (`serial.write`).
 :::
 

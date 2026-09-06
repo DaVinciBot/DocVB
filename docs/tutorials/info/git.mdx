@@ -53,7 +53,7 @@ copie de votre historique.
 - Faire tout cela **en ligne de commande** comme **dans VS Code**.
 - Contribuer à un projet GitHub via une _pull request_.
 
-:::tip Comment lire cette page
+:::tip[Comment lire cette page]
 Chaque commande est expliquée avant d'être donnée. Ouvrez un terminal en parallèle et
 tapez les commandes au fur et à mesure : Git ne s'apprend pas en lecture seule. Un
 [exercice complet](#exercice-récapitulatif) en fin de page reprend tout le parcours.
@@ -123,7 +123,7 @@ git config --global user.name "Prénom Nom" # ou pseudo GitHub
 git config --global user.email "prenom.nom@edu.devinci.fr" # adresse mail publique GitHub
 ```
 
-:::warning L'adresse mail est publique
+:::warning[L'adresse mail est publique]
 Elle apparaît dans chaque commit et reste visible par tout le monde sur GitHub. Pour la
 masquer, GitHub fournit une adresse de substitution du type
 `12345678+pseudo@users.noreply.github.com`, à récupérer dans
@@ -170,7 +170,7 @@ Deux conséquences immédiates :
 - Copiez le dossier entier sur une clé USB, et vous emportez **l'historique complet** avec
   vous. Pas besoin de réseau pour consulter un commit d'il y a trois mois.
 
-:::info Git est décentralisé
+:::info[Git est décentralisé]
 Contrairement aux anciens systèmes de version, il n'existe pas de « serveur central » qui
 détiendrait la vérité. Chaque clone d'un projet contient l'intégralité de l'histoire. Si
 GitHub disparaissait demain, n'importe quel membre de l'équipe pourrait republier le
@@ -227,7 +227,7 @@ flowchart RL
     C3["c3f9a12<br/>« Corrige le calcul de vitesse »"] --> C2["8b1e004<br/>« Ajoute le moteur »"] --> C1["1a2b3c4<br/>« Premier commit »"]
 ```
 
-:::note Un commit est immuable
+:::note[Un commit est immuable]
 Une fois créé, un commit ne change plus : son hash est calculé à partir de son contenu,
 de son message et de son parent. « Modifier » un commit revient toujours à en créer un
 nouveau et à abandonner l'ancien. C'est ce qui rend l'historique fiable.
@@ -310,7 +310,7 @@ git add .                  # tout ce qui a changé sous le dossier courant
 git add -p                 # sélectionner morceau par morceau (mode interactif)
 ```
 
-:::tip `git add -p`, le mode qui fait progresser
+:::tip[`git add -p`, le mode qui fait progresser]
 `-p` (pour _patch_) présente chaque bloc de modification et demande s'il faut l'inclure :
 `y` (oui), `n` (non), `q` (quitter). C'est la façon la plus simple de découper un gros
 chantier en commits propres — et de relire son propre code au passage.
@@ -395,7 +395,7 @@ build/
 .DS_Store
 ```
 
-:::danger Un secret commité est un secret compromis
+:::danger[Un secret commité est un secret compromis]
 Effacer un mot de passe ou une clé d'API dans un commit ultérieur **ne le supprime pas** :
 il reste lisible dans l'historique. La seule réaction correcte est de **révoquer la clé
 immédiatement**, puis de la remplacer. Ajoutez `.env` à `.gitignore` avant le premier
@@ -420,7 +420,7 @@ git switch main                  # revenir sur main
 Les noms de branches suivent en général un préfixe de type, avec un slash :
 `feat/detection-lidar`, `fix/moteur-gauche`, `docs/formation-git`.
 
-:::note `switch` ou `checkout` ?
+:::note[`switch` ou `checkout` ?]
 Historiquement, **`git checkout`** faisait tout : changer de branche, mais aussi restaurer
 des fichiers. Cette double fonction provoquait des accidents. Git a donc scindé la commande
 en deux, plus lisibles :
@@ -510,7 +510,7 @@ Pour abandonner et revenir à l'état d'avant la fusion :
 git merge --abort
 ```
 
-:::tip Un conflit n'est pas une erreur
+:::tip[Un conflit n'est pas une erreur]
 C'est simplement Git qui refuse de choisir à votre place. Les conflits deviennent rares et
 petits dès qu'on commite souvent et qu'on synchronise régulièrement avec `main`.
 :::
@@ -618,7 +618,7 @@ flowchart LR
     R -. "git pull = les deux d'un coup" .-> LB
 ```
 
-:::tip Lequel utiliser ?
+:::tip[Lequel utiliser ?]
 `pull` pour le quotidien, quand vous savez que vous voulez la dernière version. `fetch`
 puis `log` quand vous voulez d'abord **voir** ce que les autres ont fait — typiquement
 avant de reprendre une branche laissée de côté quelques jours.
@@ -643,7 +643,7 @@ git push -u origin feat/lidar
 L'option `-u` (_upstream_) crée le lien une fois pour toutes : ensuite, un simple
 `git push` suffit sur cette branche.
 
-:::warning Push rejeté ?
+:::warning[Push rejeté ?]
 
 ```text
 ! [rejected] main -> main (fetch first)
@@ -718,7 +718,7 @@ puis supprimer les deux lignes de commentaire qui encadrent le bloc ci-dessous.
 *Le bouton Commit ne prend que les Staged Changes, exactement comme en ligne de commande.\*
 \*/}
 
-:::warning Le bouton « Commit » quand rien n'est stagé
+:::warning[Le bouton « Commit » quand rien n'est stagé]
 Si la zone **Staged Changes** est vide, VS Code propose de committer **toutes** les
 modifications d'un coup (l'équivalent de `git commit -a`). Pratique, mais c'est aussi
 comme cela qu'on se retrouve avec des commits fourre-tout. Prenez l'habitude de stager
@@ -766,7 +766,7 @@ puis supprimer les deux lignes de commentaire qui encadrent le bloc ci-dessous.
 | [GitHub Pull Requests and Issues](https://marketplace.visualstudio.com/items?itemName=GitHub.vscode-pull-request-github) | Créer, relire et commenter des pull requests sans quitter l'éditeur                 |
 | [Conventional Commits](https://marketplace.visualstudio.com/items?itemName=vivaxy.vscode-conventional-commits)           | Guide la rédaction de messages `feat:` / `fix:` au format conventionnel             |
 
-:::tip Interface ou terminal ?
+:::tip[Interface ou terminal ?]
 Les deux, et sans culpabilité. L'interface est plus rapide pour relire un diff, stager des
 lignes précises ou résoudre un conflit. Le terminal reste indispensable dès qu'on sort des
 sentiers battus — et c'est le seul langage commun quand on demande de l'aide. Comprendre
@@ -845,7 +845,7 @@ git merge upstream/main
 Vous poussez ensuite sur **votre** fork (`origin`), et vous ouvrez la pull request depuis
 votre fork vers le dépôt d'origine.
 
-:::info Chez DaVinciBot
+:::info[Chez DaVinciBot]
 Les membres de l'organisation ont les droits d'écriture sur les dépôts de l'équipe : les
 branches se poussent directement, sans fork. Voir
 [Contribuer aux sites DaVinciBot](../../mini-projects/how-to-contribute-to-dvbsites.md) pour la mise en place
@@ -877,7 +877,7 @@ git add fichier-oublie.py
 git commit --amend --no-edit
 ```
 
-:::warning `--amend` réécrit l'historique
+:::warning[`--amend` réécrit l'historique]
 Le commit corrigé est en réalité un **nouveau** commit, avec un nouveau hash. À ne faire
 que sur des commits **non encore poussés**. Sur un commit déjà partagé, préférez un
 nouveau commit correctif.
@@ -903,7 +903,7 @@ ne sont plus rattachés à aucune branche. Une branche supprimée par erreur, un
 malheureux : la trace y est presque toujours, et on y revient avec
 `git switch -c sauvetage <hash>`.
 
-:::tip La règle qui sauve
+:::tip[La règle qui sauve]
 Tant qu'un travail a été **commité** au moins une fois, il est presque toujours
 récupérable. Ce qui se perd vraiment, c'est ce qui n'a jamais été commité. D'où le conseil
 le plus utile de cette page : **commitez souvent**, quitte à nettoyer ensuite.

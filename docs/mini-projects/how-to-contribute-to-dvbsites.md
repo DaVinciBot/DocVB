@@ -29,7 +29,7 @@ piège de l'installation, et l'objet principal de ce tutoriel.
 - Générer un PAT `read:packages` et s'authentifier à GitHub Packages.
 - Cloner un repo, l'installer et lancer le serveur de dev.
 
-:::info Prérequis
+:::info[Prérequis]
 Un compte GitHub **membre de l'organisation [DaVinciBot](https://github.com/DaVinciBot)**
 (demandez l'invitation au pôle info), Git installé, et des bases en ligne de commande.
 Les repos sont privés : sans l'invitation, ni le clone ni les packages ne fonctionneront.
@@ -68,7 +68,7 @@ Derrière Supabase, la base est un **PostgreSQL** classique : les migrations, le
 les politiques RLS du repo `Supabased` se lisent avec la formation
 [PostgreSQL — fondamentaux et sécurité](../tutorials/info/postgresql.md).
 
-:::tip Par où commencer ?
+:::tip[Par où commencer ?]
 Pour une première contribution, clonez **`davincibot.fr`** : c'est le repo le plus
 autonome (il ne nécessite pas de lancer `auth` pour afficher les pages publiques).
 :::
@@ -89,7 +89,7 @@ Les instructions ci-dessous utilisent **`fnm`** : il s'installe et s'utilise de 
 façon sur les trois OS, et il bascule tout seul sur la version du `.nvmrc` quand vous
 entrez dans un repo.
 
-:::note Vous avez déjà nvm ?
+:::note[Vous avez déjà nvm ?]
 Gardez-le, aucune raison de migrer. `nvm install && nvm use` lit le `.nvmrc` du repo
 exactement comme `fnm`. Sous Windows, il s'agit de
 [nvm-windows](https://github.com/coreybutler/nvm-windows), un projet distinct de
@@ -114,7 +114,7 @@ automatique au changement de dossier n'existe pas, il faut penser à faire `nvm 
     corepack enable pnpm
     ```
 
-    :::note Activer fnm automatiquement
+    :::note[Activer fnm automatiquement]
     Pour que `fnm` bascule tout seul sur la version du `.nvmrc`, ajoutez cette ligne à
     votre profil PowerShell (`notepad $PROFILE`) :
 
@@ -165,7 +165,7 @@ node --version   # v24.11.0
 pnpm --version   # 11.5.2
 ```
 
-:::warning Ne pas installer pnpm avec `npm i -g pnpm`
+:::warning[Ne pas installer pnpm avec `npm i -g pnpm`]
 Vous vous retrouveriez avec une version figée qui finira par diverger du champ
 `packageManager`, et `pnpm install` refuserait de tourner. Corepack suit
 automatiquement la version demandée par chaque repo.
@@ -183,7 +183,7 @@ pour les télécharger.
 4. **Scopes** : cochez uniquement **`read:packages`**. Rien d'autre n'est nécessaire pour installer les dépendances.
 5. Cliquez sur **Generate token** et **copiez-le immédiatement** : GitHub ne le réaffichera plus jamais.
 
-:::danger Token classique obligatoire
+:::danger[Token classique obligatoire]
 Le registre npm de GitHub Packages **ne fonctionne pas avec les tokens *fine-grained***.
 Prenez bien un token **classic**, sinon vous obtiendrez une erreur 401 sans explication.
 :::
@@ -208,13 +208,13 @@ Trois informations vous sont demandées :
 | `Password` | le **PAT** généré à l'étape précédente    |
 | `Email`    | votre adresse e-mail (n'importe laquelle) |
 
-:::note Pourquoi `--auth-type=legacy` ?
+:::note[Pourquoi `--auth-type=legacy` ?]
 Par défaut, `npm login` ouvre un navigateur pour une authentification web que GitHub
 Packages ne supporte pas. L'option `--auth-type=legacy` force la saisie
 identifiant/mot de passe dans le terminal, seul mode accepté par ce registre.
 :::
 
-:::tip Le mot de passe ne s'affiche pas
+:::tip[Le mot de passe ne s'affiche pas]
 C'est normal : rien ne s'affiche pendant que vous collez le token. Collez, puis
 `Entrée`.
 :::
@@ -304,7 +304,7 @@ Vérification finale, depuis n'importe quel dossier :
     pnpm whoami --registry=https://npm.pkg.github.com
     ```
 
-:::note Et en CI ?
+:::note[Et en CI ?]
 Les workflows GitHub Actions utilisent le secret d'organisation
 `PACKAGES_READ_TOKEN` : vous n'avez rien à configurer côté CI.
 :::
@@ -337,7 +337,7 @@ les clés au pôle info. Les commandes utiles, identiques dans les quatre applic
     pnpm ci-workflow  # check + lint + test:unit + build, comme la CI
     ```
 
-:::tip Lancer plusieurs sites à la fois
+:::tip[Lancer plusieurs sites à la fois]
 Depuis `davincibot.fr/`, `pnpm dev:all` démarre le site public, le panel admin et
 l'app formation, chacun sur son port s'ils sont dans le même dossier parent. Le service
 `auth` n'en fait pas partie : pour tester un parcours de connexion, lancez `pnpm dev`

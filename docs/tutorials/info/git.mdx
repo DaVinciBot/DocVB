@@ -666,11 +666,8 @@ Control**, qu'on ouvre avec l'icône en forme de branche dans la barre latérale
 <kbd>G</kbd>
 sur macOS).
 
-{/* TODO capture d'écran : déposer `01-vscode-source-control.png` dans `static/img/tutorials/info/git/`,
-puis supprimer les deux lignes de commentaire qui encadrent le bloc ci-dessous.
 ![Panneau Source Control de VS Code affichant la liste des fichiers modifiés](/img/tutorials/info/git/01-vscode-source-control.png)
-*Le panneau Source Control : la zone Changes liste les fichiers modifiés, Staged Changes ce qui est préparé.\*
-\*/}
+_Le panneau Source Control : la zone Changes liste les fichiers modifiés, Staged Changes ce qui est préparé._
 
 ### La correspondance avec la ligne de commande {/* #la-correspondance-avec-la-ligne-de-commande */}
 
@@ -698,11 +695,8 @@ Cliquer sur un fichier de la liste **Changes** ouvre une vue côte à côte : l'
 version à gauche, la nouvelle à droite. C'est un `git diff` visuel, et le meilleur moment
 pour se relire.
 
-{/* TODO capture d'écran : déposer `02-vscode-stage-changes.png` dans `static/img/tutorials/info/git/`,
-puis supprimer les deux lignes de commentaire qui encadrent le bloc ci-dessous.
 ![Vue de comparaison côte à côte avec les icônes de staging](/img/tutorials/info/git/02-vscode-stage-changes.png)
-*Le survol d'un fichier fait apparaître les icônes : + pour stager, ↩ pour annuler les modifications.\*
-\*/}
+_Le survol d'un fichier fait apparaître les icônes : + pour stager, ↩ pour annuler les modifications._
 
 L'équivalent de `git add -p` existe aussi : sélectionnez quelques lignes dans la vue de
 comparaison, faites un clic droit, puis **Stage Selected Ranges**. Vous ne préparez alors
@@ -712,11 +706,8 @@ Le message de commit se saisit dans la zone de texte en haut du panneau, et
 
 <kbd>Ctrl</kbd>+<kbd>Entrée</kbd> valide.
 
-{/* TODO capture d'écran : déposer `03-vscode-commit.png` dans `static/img/tutorials/info/git/`,
-puis supprimer les deux lignes de commentaire qui encadrent le bloc ci-dessous.
 ![Zone de saisie du message de commit et bouton Commit](/img/tutorials/info/git/03-vscode-commit.png)
 *Le bouton Commit ne prend que les Staged Changes, exactement comme en ligne de commande.\*
-\*/}
 
 :::warning[Le bouton « Commit » quand rien n'est stagé]
 Si la zone **Staged Changes** est vide, VS Code propose de committer **toutes** les
@@ -730,38 +721,50 @@ explicitement.
 Le nom de la branche courante s'affiche **en bas à gauche** de la fenêtre. Un clic dessus
 ouvre la liste des branches et permet d'en créer une nouvelle.
 
-{/* TODO capture d'écran : déposer `04-vscode-branch-switcher.png` dans `static/img/tutorials/info/git/`,
-puis supprimer les deux lignes de commentaire qui encadrent le bloc ci-dessous.
 ![Sélecteur de branche dans la barre d'état de VS Code](/img/tutorials/info/git/04-vscode-branch-switcher.png)
-*Le sélecteur de branche : changer de branche, en créer une, ou récupérer une branche distante.\*
-\*/}
+_Le sélecteur de branche : changer de branche, en créer une, ou récupérer une branche distante._
 
 En cas de conflit, VS Code propose son **éditeur de fusion** (_Merge Editor_), bien plus
 lisible que les marqueurs `<<<<<<<` dans le fichier brut : la version entrante à gauche,
 la vôtre à droite, le résultat en bas. Chaque bloc en conflit propose **Accept Current**,
 **Accept Incoming** ou **Accept Combination**, et le résultat reste éditable à la main.
 
-{/* TODO capture d'écran : déposer `05-vscode-merge-editor.png` dans `static/img/tutorials/info/git/`,
-puis supprimer les deux lignes de commentaire qui encadrent le bloc ci-dessous.
 ![Éditeur de fusion à trois panneaux de VS Code](/img/tutorials/info/git/05-vscode-merge-editor.png)
-*L'éditeur de fusion remplace l'édition manuelle des marqueurs de conflit.\*
-\*/}
+_L'éditeur de fusion remplace l'édition manuelle des marqueurs de conflit._
 
 ### Visualiser l'historique {/* #visualiser-lhistorique */}
 
-VS Code affiche le graphe des commits directement dans le panneau Source Control, sous la
-section **Graph** — l'équivalent visuel de `git log --oneline --graph --all`.
+Deux vues cohabitent, et la capture ci-dessous les montre ensemble.
 
-{/* TODO capture d'écran : déposer `06-vscode-graph.png` dans `static/img/tutorials/info/git/`,
-puis supprimer les deux lignes de commentaire qui encadrent le bloc ci-dessous.
-![Graphe des commits dans le panneau Source Control](/img/tutorials/info/git/06-vscode-graph.png)
-*Le graphe montre les branches, les fusions et la position de HEAD.\*
-\*/}
+Le panneau **Source Control** contient une section **Graph** (en bas à gauche) : un aperçu
+compact des derniers commits autour de la branche courante. Suffisant pour vérifier d'un coup
+d'œil où l'on en est avant de pousser, mais limité — pas de vue d'ensemble des autres branches.
+
+Pour vraiment lire l'historique, installez l'extension
+[Git Graph](https://marketplace.visualstudio.com/items?itemName=mhutchie.git-graph). Elle ouvre
+un onglet dédié : une ligne par commit avec son message, sa date, son auteur et son SHA, et à
+gauche le tracé des branches et des fusions. C'est l'équivalent visuel de
+`git log --oneline --graph --all`, en cliquable.
+
+![Le panneau Source Control avec sa section Graph à gauche, et l'onglet de l'extension Git Graph à droite](/img/tutorials/info/git/06-vscode-graph.png)
+_À gauche la section Graph intégrée, à droite l'onglet Git Graph : les étiquettes colorées (`dev`, `origin/homologation`, `origin/jetson_rewrite_cpp`…) marquent où pointe chaque branche, locale comme distante._
+
+Quelques repères sur cet onglet :
+
+- **Show Remote Branches** affiche aussi les branches `origin/*` — c'est ce qui permet de voir
+d'un coup si votre branche locale est en avance ou en retard sur GitHub.
+- La ligne **Uncommitted Changes** tout en haut représente votre répertoire de travail : ce qui
+n'est pas encore committé, donc pas encore dans l'historique.
+- Un clic sur un commit affiche les fichiers qu'il modifie ; un clic droit donne accès à
+`checkout`, `merge`, `revert`, `cherry-pick` et à la création d'une branche depuis ce commit.
+- Les lignes de couleur qui se séparent puis se rejoignent, ce sont exactement les branches et
+les merges des schémas plus haut — sur un vrai dépôt.
 
 ### Extensions utiles {/* #extensions-utiles */}
 
 | Extension                                                                                                                | Ce qu'elle apporte                                                                  |
 | ------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------- |
+| [Git Graph](https://marketplace.visualstudio.com/items?itemName=mhutchie.git-graph)                                      | Le graphe complet de toutes les branches dans un onglet, avec actions au clic droit |
 | [GitLens](https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens)                                           | Affiche en bout de ligne qui a écrit quoi et quand (_blame_), et enrichit le graphe |
 | [GitHub Pull Requests and Issues](https://marketplace.visualstudio.com/items?itemName=GitHub.vscode-pull-request-github) | Créer, relire et commenter des pull requests sans quitter l'éditeur                 |
 | [Conventional Commits](https://marketplace.visualstudio.com/items?itemName=vivaxy.vscode-conventional-commits)           | Guide la rédaction de messages `feat:` / `fix:` au format conventionnel             |
@@ -801,21 +804,15 @@ request** sur la page du dépôt. Il reste à :
 3. lier l'issue concernée en écrivant `Closes #42` dans la description ;
 4. demander une relecture à un membre de l'équipe (_Reviewers_).
 
-{/* TODO capture d'écran : déposer `07-github-pull-request.png` dans `static/img/tutorials/info/git/`,
-puis supprimer les deux lignes de commentaire qui encadrent le bloc ci-dessous.
 ![Formulaire d'ouverture d'une pull request sur GitHub](/img/tutorials/info/git/07-github-pull-request.png)
-*L'ouverture d'une pull request : titre, description, relecteurs et branche de destination.\*
-\*/}
+_L'ouverture d'une pull request : titre, description, relecteurs et branche de destination._
 
 Tant que la PR est ouverte, **chaque nouveau `git push` sur la branche la met à jour
 automatiquement**. Répondre à une remarque de relecture consiste donc simplement à
 committer et pousser à nouveau.
 
-{/* TODO capture d'écran : déposer `08-github-review.png` dans `static/img/tutorials/info/git/`,
-puis supprimer les deux lignes de commentaire qui encadrent le bloc ci-dessous.
 ![Onglet Files changed d'une pull request avec un commentaire de relecture](/img/tutorials/info/git/08-github-review.png)
-*La relecture se fait ligne par ligne dans l'onglet Files changed.\*
-\*/}
+_La relecture se fait ligne par ligne dans l'onglet Files changed._
 
 ### Les issues {/* #les-issues */}
 

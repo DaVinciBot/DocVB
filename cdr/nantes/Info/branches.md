@@ -64,21 +64,21 @@ tags** `archive/*` (poussés sur `origin`). Toute reprise part désormais de `ma
 
 ## Branches supprimées (récupérables via tag)
 
-| Ancienne branche | Devenue / remplacée par | Tag de sauvegarde |
-| :--- | :--- | :--- |
-| `modification_durant_la_cdr_a_clean` | **`main`** (swap `git branch -f`) | — |
-| `precoupe_v2_voir_diff_modif_cdr` | rien — ne contenait plus d'unique que le `main.cpp` Teensy de production | `archive/precoupe-2026-05` (`a80a0ac`) |
-| `feature/rerun.io_a_voir` | déjà absorbée dans `main` (0 commit unique, pont Rerun présent dans `robot1/rasp/rerun/`) | `archive/rerun-2026-04` |
-| l'ancienne `main` (avril 2026) | remplacée par le swap ; contenait le prototype EKF `kalman/` | `archive/main-2026-04` (`a2d5fc9`) |
+| Ancienne branche                     | Devenue / remplacée par                                                                   | Tag de sauvegarde                      |
+| :----------------------------------- | :---------------------------------------------------------------------------------------- | :------------------------------------- |
+| `modification_durant_la_cdr_a_clean` | **`main`** (swap `git branch -f`)                                                         | —                                      |
+| `precoupe_v2_voir_diff_modif_cdr`    | rien — ne contenait plus d'unique que le `main.cpp` Teensy de production                  | `archive/precoupe-2026-05` (`a80a0ac`) |
+| `feature/rerun.io_a_voir`            | déjà absorbée dans `main` (0 commit unique, pont Rerun présent dans `robot1/rasp/rerun/`) | `archive/rerun-2026-04`                |
+| l'ancienne `main` (avril 2026)       | remplacée par le swap ; contenait le prototype EKF `kalman/`                              | `archive/main-2026-04` (`a2d5fc9`)     |
 
 Pour retrouver le contenu d'un tag : `git switch --detach archive/<nom>` ou
 `git show archive/<nom>:<chemin/fichier>`.
 
 ## Récapitulatif des sources pour la refonte firmware (novembre 2026)
 
-| Besoin | Où regarder |
-| :--- | :--- |
-| Boucle USB, watchdog, timeout de mouvement dynamique | tag `archive/precoupe-2026-05` → `robot1/teensy_moteur/src/main.cpp` |
-| Protocole inter-Teensy (à refaire avec CRC8) | branche `feature/teensy_capteur` |
-| Prototype EKF 6D (à brancher sur de vrais capteurs) | tag `archive/main-2026-04` → `kalman/` |
-| Cinématique inverse/directe + PID (éprouvés, à garder) | `main` → `robot1/teensy_moteur/lib/holonomic_basis/` |
+| Besoin                                                 | Où regarder                                                          |
+| :----------------------------------------------------- | :------------------------------------------------------------------- |
+| Boucle USB, watchdog, timeout de mouvement dynamique   | tag `archive/precoupe-2026-05` → `robot1/teensy_moteur/src/main.cpp` |
+| Protocole inter-Teensy (à refaire avec CRC8)           | branche `feature/teensy_capteur`                                     |
+| Prototype EKF 6D (à brancher sur de vrais capteurs)    | tag `archive/main-2026-04` → `kalman/`                               |
+| Cinématique inverse/directe + PID (éprouvés, à garder) | `main` → `robot1/teensy_moteur/lib/holonomic_basis/`                 |

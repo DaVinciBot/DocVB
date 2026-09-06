@@ -44,15 +44,15 @@ L'orientation des moteurs dans le repère local du robot est la suivante :
 
 Parametre physique du robot dans config.h
 
-| Paramètre                       | Valeur          |
-| ------------------------------- | --------------- |
+| Paramètre                       | Valeur                                                              |
+| ------------------------------- | ------------------------------------------------------------------- |
 | Rayon robot (centre → axe roue) | **160.0 mm** sur `main` (156.9 ailleurs) — à calibrer (~158 mesuré) |
-| Diamètre roue effectif          | 60.0 mm         |
-| Steps/révolution (NEMA 23)      | 200             |
-| Microstepping                   | 32              |
-| Steps totaux/tour               | 6 400           |
-| Vitesse max                     | 20 000 steps/s  |
-| Accélération max                | 10 000 steps/s² |
+| Diamètre roue effectif          | 60.0 mm                                                             |
+| Steps/révolution (NEMA 23)      | 200                                                                 |
+| Microstepping                   | 32                                                                  |
+| Steps totaux/tour               | 6 400                                                               |
+| Vitesse max                     | 20 000 steps/s                                                      |
+| Accélération max                | 10 000 steps/s²                                                     |
 
 ## 2. Cinématique Inverse (Calcul des Consignes Moteurs)
 

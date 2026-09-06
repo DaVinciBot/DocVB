@@ -1,5 +1,5 @@
 ---
-title: Rust – les bases
+title: Rust — les bases
 description: Un guide pour découvrir les fondamentaux de Rust.
 slug: rust
 tags: [course, info, rust]

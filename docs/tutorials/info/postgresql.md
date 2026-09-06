@@ -1,5 +1,5 @@
 ---
-title: PostgreSQL - fondamentaux et sécurité
+title: PostgreSQL — fondamentaux et sécurité
 description: Formation rapide sur PostgreSQL, RLS, fonctions, triggers et extensions.
 slug: postgresql
 tags: [info, database, postgresql]

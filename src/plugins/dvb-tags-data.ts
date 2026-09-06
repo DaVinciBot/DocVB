@@ -60,7 +60,7 @@ export const EMPTY_TAGS_SCOPE: DvbTagsScope = {
   tagDocs: {},
 };
 
-export default function dvbTagsData(): Plugin<void> {
+export default function dvbTagsData(): Plugin {
   return {
     name: PLUGIN_NAME,
 
@@ -106,9 +106,9 @@ export default function dvbTagsData(): Plugin<void> {
           // Même ordre que `tag.items` sur la page d'un tag, puis troncature :
           // seuls les premiers titres servent à l'aperçu.
           Object.keys(tagDocs).forEach((permalink) => {
-            tagDocs[permalink] = tagDocs[permalink]!
-              .sort((a, b) => a.title.localeCompare(b.title, "fr"))
-              .slice(0, PREVIEW_LIMIT);
+            tagDocs[permalink] = tagDocs[permalink]!.sort((a, b) =>
+              a.title.localeCompare(b.title, "fr"),
+            ).slice(0, PREVIEW_LIMIT);
           });
 
           data[version.tagsPath] = {

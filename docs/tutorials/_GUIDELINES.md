@@ -7,14 +7,14 @@ accessible et pédagogique** d'un tutoriel à l'autre.
 > Ce fichier est préfixé par `_` : il n'est **pas** publié comme page du site, il sert
 > uniquement de référence aux contributeur·ice·s.
 
-## Philosophie
+## Philosophie {/*#philosophie*/}
 
 - **Accessible** : langage clair, progression logique du simple vers le complexe.
 - **Pratique** : exemples concrets et exercices applicables.
 - **Complet** : du prérequis à la mise en pratique, sans trou dans le raisonnement.
 - **Cohérent** : même structure et mêmes conventions partout.
 
-## Structure obligatoire
+## Structure obligatoire {/*#structure-obligatoire*/}
 
 Chaque tutoriel doit suivre cet ordre :
 
@@ -27,7 +27,7 @@ Chaque tutoriel doit suivre cet ordre :
 Sections optionnelles (si elles apportent de la valeur) : *Exercices pratiques*,
 *Bonnes pratiques*, *Erreurs courantes*, *Aller plus loin*.
 
-## Frontmatter
+## Frontmatter {/*#frontmatter*/}
 
 Modèle complet à copier en tête de fichier :
 
@@ -51,7 +51,7 @@ additional_contributors:
   C'est une déclaration manuelle (pas de récupération automatique via GitHub).
 - Pour masquer ce bloc sur une page, ajouter `show_contributors: false`.
 
-## Convention de tags
+## Convention de tags {/*#convention-de-tags*/}
 
 Toujours combiner, dans cet ordre de granularité :
 
@@ -59,7 +59,7 @@ Toujours combiner, dans cet ordre de granularité :
 - **Technologie** : `docker`, `git`, `latex`, `python`…
 - **Domaine** : `web`, `data`, `devops`, `securite`…
 
-## Titres de section
+## Titres de section {/*#titres-de-section*/}
 
 Les titres `##` (H2) servent de **séparateurs de section** : ils affichent
 automatiquement une bordure colorée. Le premier H2 sous l'en-tête de page n'a pas de
@@ -73,7 +73,7 @@ import { Package } from "lucide-react";
 ## <Package /> Prérequis
 ```
 
-## Admonitions
+## Admonitions {/*#admonitions*/}
 
 Utiliser les blocs d'avertissement Docusaurus selon le contexte :
 
@@ -83,7 +83,7 @@ Utiliser les blocs d'avertissement Docusaurus selon le contexte :
 - `:::warning` — risque ou point d'attention.
 - `:::danger` — point critique.
 
-## Images
+## Images {/*#images*/}
 
 Toutes les images du site sont centralisées dans `static/img/`. On ne place **jamais**
 d'image à côté d'un fichier `.md` : `static/` est copié tel quel à la racine du site, donc
@@ -123,14 +123,14 @@ corriger les liens dans le dossier `*_versioned_docs`, sinon l'archive affichera
 images de la saison en cours.
 :::
 
-## Exemples de code
+## Exemples de code {/*#exemples-de-code*/}
 
 - Noms de variables explicites.
 - Commentaires utiles (pas redondants).
 - Exemples autonomes et exécutables.
 - Sortie attendue indiquée en commentaire quand c'est pertinent.
 
-## Ressources
+## Ressources {/*#ressources*/}
 
 Ordre de priorité des liens :
 

@@ -11,7 +11,7 @@ additional_contributors:
 
 Il y a plusieurs endroits où vous pouvez trouver des empreintes pour vos composants dans KiCad. Dans la plupart des cas, vous n'aurez pas besoin de créer vos propres empreintes, car il existe de nombreuses ressources disponibles.
 
-## Bibliothèques en ligne
+## Bibliothèques en ligne {/*#bibliothèques-en-ligne*/}
 
 Il existe de nombreuses bibliothèques en ligne disponibles pour KiCad.
 

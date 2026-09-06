@@ -9,7 +9,7 @@ additional_contributors:
     avatar_url: https://github.com/UrbsKali.png
 ---
 
-## Reformatage des disques
+## Reformatage des disques {/*#reformatage-des-disques*/}
 
 Pour reformater les disques, vous pouvez utiliser la commande suivante :
 
@@ -19,7 +19,7 @@ sudo mkfs.ext4 /dev/sdX
 
 Remplacez `/dev/sdX` par le nom de votre disque. Vous pouvez trouver le nom de votre disque en utilisant la commande `lsblk`.
 
-## Montage des disques
+## Montage des disques {/*#montage-des-disques*/}
 
 Pour monter un disque, vous pouvez utiliser la commande suivante :
 
@@ -29,7 +29,7 @@ sudo mount /dev/sdX /mnt
 
 Remplacez `/dev/sdX` par le nom de votre disque et `/mnt` par le point de montage souhaité.
 
-## Automatiser le montage des disques
+## Automatiser le montage des disques {/*#automatiser-le-montage-des-disques*/}
 
 Pour automatiser le montage des disques au démarrage, vous devez ajouter une entrée dans la config nix.
 Veuillez vous référer à [cette page](./nixos-config.md).

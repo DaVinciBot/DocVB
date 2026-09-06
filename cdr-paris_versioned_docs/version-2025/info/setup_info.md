@@ -19,13 +19,13 @@ Ce guide vous accompagne pour installer et configurer tous les outils nécessair
 
 Chaque section ci-dessous détaille l'installation, l'utilisation et les liens vers la documentation officielle.
 
-## VsCode
+## VsCode {/*#vscode*/}
 
 Visual Studio Code est l'éditeur recommandé pour ce projet. Il permet une très bonne intégration de tous les outils utilisés.
 
 [Installer VsCode](https://code.visualstudio.com/)
 
-## Installer git
+## Installer git {/*#installer-git*/}
 
 Git est l'outil fondamental pour la gestion de version et la collaboration sur le code. Il permet de suivre l'historique, de travailler en équipe et de contribuer facilement au projet.
 
@@ -57,7 +57,7 @@ Si ce n'est pas le cas, installez-le selon votre OS :
 
 Pour aller plus loin : [Documentation officielle](https://git-scm.com/doc)
 
-## Cloner le repo du projet
+## Cloner le repo du projet {/*#cloner-le-repo-du-projet*/}
 
 Une fois git installé, vous pouvez récupérer le code source du projet en clonant le dépôt officiel. Cette étape est indispensable pour commencer à travailler localement et profiter de toutes les fonctionnalités du projet.
 
@@ -69,11 +69,11 @@ cd CoupeDeRobotique
 code .
 ```
 
-## uv
+## uv {/*#uv*/}
 
 uv est un gestionnaire d'environnements virtuels et de packages Python. Il simplifie la gestion des dépendances et garantit que chaque projet dispose de son propre environnement isolé, évitant les conflits et facilitant la reproductibilité.
 
-### Installation
+### Installation {/*#installation*/}
 
 Suivez les instructions adaptées à votre système pour installer uv :
 
@@ -97,7 +97,7 @@ Suivez les instructions adaptées à votre système pour installer uv :
 </Tabs>
 [Documentation uv](https://astral.sh/docs/uv/)
 
-### Créer le venv
+### Créer le venv {/*#créer-le-venv*/}
 
 Créez un environnement virtuel pour isoler les dépendances du projet :
 
@@ -105,7 +105,7 @@ Créez un environnement virtuel pour isoler les dépendances du projet :
 uv venv
 ```
 
-### Activer le venv
+### Activer le venv {/*#activer-le-venv*/}
 
 Activez l'environnement virtuel pour installer et utiliser les paquets :
 
@@ -129,7 +129,7 @@ Activez l'environnement virtuel pour installer et utiliser les paquets :
 Dans VSCode, sélectionnez l'interpréteur Python correspondant : `Ctrl + Shift + P`
 → `Python: Select Interpreter` → CoupeDeRobotique
 
-### Télécharger les dépendances
+### Télécharger les dépendances {/*#télécharger-les-dépendances*/}
 
 Installez toutes les dépendances du projet en une commande :
 
@@ -137,7 +137,7 @@ Installez toutes les dépendances du projet en une commande :
 uv sync
 ```
 
-### Ajouter/supprimer des dépendances
+### Ajouter/supprimer des dépendances {/*#ajoutersupprimer-des-dépendances*/}
 
 Avec uv, on n'utilise plus `pip` pour gérer les dépendances. Voici comment ajouter ou supprimer des packages :
 
@@ -148,7 +148,7 @@ uv remove <package>   # pour supprimer une dépendance
 
 Consultez la [documentation uv](https://astral.sh/docs/uv/) pour plus d'options.
 
-### Lancer le code
+### Lancer le code {/*#lancer-le-code*/}
 
 Vous pouvez maintenant exécuter le code principal du robot :
 
@@ -164,7 +164,7 @@ LIDAR_DUMMY=True
 ROLLING_BASIS_DUMMY=True
 ```
 
-## choco
+## choco {/*#choco*/}
 
 Chocolatey est un gestionnaire de paquets pour Windows, utile pour installer rapidement des outils comme make ou llvm. Il n'est pas nécessaire sur Linux ou macOS.
 
@@ -185,11 +185,11 @@ Chocolatey est un gestionnaire de paquets pour Windows, utile pour installer rap
   </TabItem>
 </Tabs>
 
-## clang-format
+## clang-format {/*#clang-format*/}
 
 clang-format est un outil de formatage automatique pour le code C/C++. Il permet d'assurer une cohérence de style dans l'équipe et d'automatiser le formatage à la sauvegarde dans VSCode. Suivez les instructions selon votre OS pour l'installer.
 
-### Installation
+### Installation {/*#installation-1*/}
 
 <Tabs groupId="operating-systems">
   <TabItem value="win" label="Windows">
@@ -211,7 +211,7 @@ clang-format est un outil de formatage automatique pour le code C/C++. Il permet
 
 Installer l'extension [xaver.clang-format](https://marketplace.visualstudio.com/items?itemName=xaver.clang-format) pour VSCode afin de bénéficier du formatage automatique.
 
-### Utilisation
+### Utilisation {/*#utilisation*/}
 
 Activez le formatage automatique à la sauvegarde dans VSCode pour ne plus vous soucier du style :
 `Ctrl + Shift + P` → `Preferences: Open Settings (JSON)` : ajouter
@@ -225,7 +225,7 @@ Activez le formatage automatique à la sauvegarde dans VSCode pour ne plus vous 
 
 Pour aller plus loin : [Documentation clang-format](https://clang.llvm.org/docs/ClangFormat.html)
 
-## Make
+## Make {/*#make*/}
 
 Make est un outil d'automatisation qui permet d'exécuter facilement des tâches courantes du projet (formatage, lint, documentation, etc.). Il est très utilisé dans les environnements de développement pour simplifier la vie des développeurs.
 
@@ -249,7 +249,7 @@ Make est un outil d'automatisation qui permet d'exécuter facilement des tâches
 </Tabs>
 [Documentation Make](https://www.gnu.org/software/make/manual/make.html)
 
-### Utilisation
+### Utilisation {/*#utilisation-1*/}
 
 Les commandes make disponibles dans ce projet :
 
@@ -262,7 +262,7 @@ make all    # pour tout faire
 
 N'hésitez pas à consulter le fichier `makefile` pour découvrir toutes les cibles disponibles et personnaliser vos automatisations.
 
-## Outils de formatage et lint
+## Outils de formatage et lint {/*#outils-de-formatage-et-lint*/}
 
 Pour garantir la qualité et la cohérence du code Python, plusieurs outils de formatage et d'analyse statique sont utilisés dans ce projet. Ils permettent de détecter les erreurs, d'appliquer un style uniforme et de faciliter la relecture du code.
 
@@ -304,11 +304,11 @@ Pour garantir la qualité et la cohérence du code Python, plusieurs outils de f
 
 Pour aller plus loin, consultez la documentation de chaque outil et explorez les options de configuration pour adapter le workflow à vos besoins.
 
-## Conventions de nommage des branches et des commits
+## Conventions de nommage des branches et des commits {/*#conventions-de-nommage-des-branches-et-des-commits*/}
 
 Pour faciliter la collaboration et garder un historique clair, merci de respecter les conventions suivantes :
 
-### Branches
+### Branches {/*#branches*/}
 
 - Utilisez des noms explicites et courts, séparés par des tirets.
 - Privilégiez le format :
@@ -320,7 +320,7 @@ Pour faciliter la collaboration et garder un historique clair, merci de respecte
   - `feature/add-basic-trajectory-planner`
   - `refactor/change-coordinate-system`
 
-### Commits
+### Commits {/*#commits*/}
 
 Utilisez le format suivant pour vos messages de commit:
 

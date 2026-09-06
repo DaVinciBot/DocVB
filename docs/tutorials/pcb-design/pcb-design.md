@@ -11,7 +11,7 @@ additional_contributors:
 
 Bienvenue dans cette formation dédiée au design de circuits imprimés (PCB). Que vous soyez débutant ou souhaitiez approfondir vos connaissances, ce parcours vous guidera à travers les étapes essentielles de la conception, de la théorie à la pratique. Vous découvrirez les bonnes pratiques, les outils, et les pièges à éviter pour réaliser des PCB fiables et performants.
 
-## Objectifs de la formation
+## Objectifs de la formation {/*#objectifs-de-la-formation*/}
 
 - Comprendre les principes fondamentaux du PCB design
 - Maîtriser les étapes de conception, du schéma à la fabrication
@@ -19,7 +19,7 @@ Bienvenue dans cette formation dédiée au design de circuits imprimés (PCB). Q
 - Découvrir les outils et logiciels utilisés dans l'industrie
 - S'initier aux aspects avancés : routage haute vitesse, gestion thermique, DFM (Design for Manufacturing)
 
-## Plan de la formation
+## Plan de la formation {/*#plan-de-la-formation*/}
 
 1. **Introduction au PCB Design** *(ce chapitre)*
 2. **Glossaire** : Définitions des termes clés

@@ -9,11 +9,11 @@ additional_contributors:
     avatar_url: https://github.com/UrbsKali.png
 ---
 
-## Introduction
+## Introduction {/*#introduction*/}
 
 Lors de la conception de PCB, il est essentiel de suivre les meilleures pratiques afin de garantir des performances électromagnétique optimales. Ce document présente les principales directives et recommandations destinées à aider les concepteurs à minimiser les interférences électromagnétiques (EMI) et à améliorer les performances globales de leurs conceptions de circuits imprimés.
 
-## Meilleures pratiques
+## Meilleures pratiques {/*#meilleures-pratiques*/}
 
 En matière de conception de circuits imprimés, il existe des directives permettant d'optimiser les performances CEM :
 
@@ -38,6 +38,6 @@ broches sont connectées en interne, et n'impliquent pas où ni comment elles do
 - Acheminez les signaux RFI et RFO de manière symétrique et évitez les longues traces de signaux pour le réseau d'adaptation. Maintenez les traces entre RFO1 et RFO2 proches les unes des autres et procédez de même pour RFI1 et RFI2.
 - Les composants d'adaptation doivent être placés à proximité les uns des autres et de manière symétrique
 
-## Sources et lectures complémentaires
+## Sources et lectures complémentaires {/*#sources-et-lectures-complémentaires*/}
 
 - Note d'application ST AN5240 : [Comment concevoir un circuit imprimé pour les produits NFC/RFID ST25R](https://www.st.com/resource/en/application_note/an5240-layout-recommendations-for-the-design-of-boards-with-the-st25r391616b-1717b-18-19b-and-2020b-devices-stmicroelectronics.pdf)

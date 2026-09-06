@@ -59,13 +59,13 @@ tapez les commandes au fur et à mesure : Git ne s'apprend pas en lecture seule.
 [exercice complet](#exercice-récapitulatif) en fin de page reprend tout le parcours.
 :::
 
-## <Download /> Prérequis et installation
+## <Download /> Prérequis et installation {/* #prérequis-et-installation */}
 
 Aucune connaissance préalable n'est nécessaire, si ce n'est savoir ouvrir un terminal et
 se déplacer dans des dossiers. Si ce n'est pas encore le cas, la formation
 [Linux Débutant](./linux) couvre ces bases.
 
-### Installer Git
+### Installer Git {/* #installer-git */}
 
 <Tabs groupId="os">
   <TabItem value="windows" label="Windows" default>
@@ -113,7 +113,7 @@ git --version
 # git version ...
 ```
 
-### Se présenter à Git
+### Se présenter à Git {/* #se-présenter-à-git */}
 
 Chaque commit porte le nom et l'adresse mail de son auteur. Il faut donc les renseigner
 **une fois pour toutes** sur votre machine :
@@ -130,24 +130,24 @@ masquer, GitHub fournit une adresse de substitution du type
 **Settings → Emails → Keep my email addresses private**.
 :::
 
-### Créer un compte GitHub
+### Créer un compte GitHub {/* #créer-un-compte-github */}
 
 Créez un compte sur [github.com](https://github.com) avec un pseudo lisible : il apparaîtra
 sur toutes vos contributions, y compris celles que verront de futurs recruteurs. Demandez
 ensuite au pôle info votre invitation dans l'organisation
 [DaVinciBot](https://github.com/DaVinciBot).
 
-### Installer VS Code
+### Installer VS Code {/* #installer-vs-code */}
 
 Téléchargez [VS Code](https://code.visualstudio.com/). Git y est intégré nativement : aucune
 extension n'est nécessaire pour commencer. Les extensions utiles sont présentées dans la
 [section VS Code](#le-même-travail-dans-vs-code).
 
-## <HardDrive /> Où vit l'historique
+## <HardDrive /> Où vit l'historique {/* #où-vit-lhistorique */}
 
 C'est **la** section à comprendre. Tout le reste en découle.
 
-### Un dépôt, c'est un dossier `.git`
+### Un dépôt, c'est un dossier `.git` {/* #un-dépôt-cest-un-dossier-git */}
 
 Quand vous transformez un dossier en projet Git, Git crée à l'intérieur un sous-dossier
 caché nommé `.git` :
@@ -177,7 +177,7 @@ GitHub disparaissait demain, n'importe quel membre de l'équipe pourrait republi
 projet complet depuis sa machine.
 :::
 
-### Les quatre zones
+### Les quatre zones {/* #les-quatre-zones */}
 
 Un fichier traverse quatre endroits, et chaque commande Git sert à le faire passer de l'un
 à l'autre. C'est le schéma mental à retenir :
@@ -208,7 +208,7 @@ trouvent inutile au début, puis indispensable ensuite. Elle permet de **choisir
 part dans un commit : si vous avez corrigé un bug _et_ renommé trois variables au passage,
 vous pouvez faire deux commits séparés au lieu d'un fourre-tout.
 
-### Ce qu'est vraiment un commit
+### Ce qu'est vraiment un commit {/* #ce-quest-vraiment-un-commit */}
 
 Un commit n'est pas « la liste des lignes modifiées ». C'est une **photo complète du
 projet** à un instant donné, accompagnée de :
@@ -233,7 +233,7 @@ de son message et de son parent. « Modifier » un commit revient toujours à en
 nouveau et à abandonner l'ancien. C'est ce qui rend l'historique fiable.
 :::
 
-### Branches et `HEAD`
+### Branches et `HEAD` {/* #branches-et-head */}
 
 Une **branche** n'est ni un dossier, ni une copie du projet. C'est une simple **étiquette
 posée sur un commit**, qui avance automatiquement à chaque nouveau commit. Créer une
@@ -259,7 +259,7 @@ Ici `main` et `moteur` sont deux étiquettes sur deux commits différents. Les d
 ont divergé après `8b1e004` — c'est exactement ce qu'on veut quand deux personnes
 travaillent en parallèle.
 
-### GitHub dans tout ça
+### GitHub dans tout ça {/* #github-dans-tout-ça */}
 
 GitHub héberge une copie de votre dépôt, appelée **dépôt distant** (_remote_). Par
 convention, ce distant s'appelle `origin`.
@@ -268,11 +268,11 @@ Rien ne circule automatiquement entre votre machine et GitHub : **vous** décide
 envoyer (`push`) et quand récupérer (`fetch` / `pull`). Tant que vous n'avez pas poussé,
 vos commits n'existent que sur votre disque — et une panne de disque les emporte.
 
-## <Save /> Le cycle local : status, add, commit
+## <Save /> Le cycle local : status, add, commit {/* #le-cycle-local */}
 
 Le travail quotidien tient en une boucle : je modifie, je regarde, je prépare, j'enregistre.
 
-### `git status` — la commande à taper tout le temps
+### `git status` — la commande à taper tout le temps {/* #git-status */}
 
 ```bash
 git status
@@ -298,7 +298,7 @@ Ce message distingue deux états courants :
 - **`modified`** — un fichier déjà suivi par Git a changé.
 - **`untracked`** — un fichier que Git n'a jamais vu et qu'il ignore pour l'instant.
 
-### `git add` — préparer (_stage_)
+### `git add` — préparer (_stage_) {/* #git-add */}
 
 `git add` déplace des modifications du répertoire de travail vers la zone de préparation.
 C'est ce qu'on appelle **stager** un changement.
@@ -322,7 +322,7 @@ Un fichier stagé par erreur se retire sans perdre les modifications :
 git restore --staged moteur.py
 ```
 
-### `git commit` — enregistrer
+### `git commit` — enregistrer {/* #git-commit */}
 
 ```bash
 git commit -m "Corrige le calcul de vitesse du moteur gauche"
@@ -348,7 +348,7 @@ Le seuil de distance est configurable via config.yaml.
 Fixe l'issue #42."
 ```
 
-### `git log` — relire l'histoire
+### `git log` — relire l'histoire {/* #git-log */}
 
 ```bash
 git log                                  # historique détaillé
@@ -366,14 +366,14 @@ c3f9a12 (HEAD -> main) Corrige le calcul de vitesse
 La mention `(HEAD -> main)` confirme visuellement ce que dit la théorie : `HEAD` pointe sur
 `main`, et `main` pointe sur `c3f9a12`.
 
-### `git diff` — voir précisément ce qui change
+### `git diff` — voir précisément ce qui change {/* #git-diff */}
 
 ```bash
 git diff              # modifications non préparées
 git diff --staged     # modifications préparées, prêtes à être commitées
 ```
 
-### `.gitignore` — ce que Git doit ignorer
+### `.gitignore` — ce que Git doit ignorer {/* #gitignore */}
 
 Certains fichiers n'ont rien à faire dans l'historique : binaires compilés, dépendances
 téléchargées, secrets, fichiers de l'éditeur. On les liste dans un fichier `.gitignore` à
@@ -402,9 +402,9 @@ immédiatement**, puis de la remplacer. Ajoutez `.env` à `.gitignore` avant le 
 commit, pas après.
 :::
 
-## <GitBranch /> Branches, checkout et merge
+## <GitBranch /> Branches, checkout et merge {/* #branches-checkout-et-merge */}
 
-### Créer et changer de branche
+### Créer et changer de branche {/* #créer-et-changer-de-branche */}
 
 La règle de travail est simple : **on ne développe jamais directement sur `main`**. Chaque
 fonctionnalité, chaque correction vit sur sa propre branche.
@@ -444,7 +444,7 @@ git switch main
 git stash pop         # les ressort du tiroir
 ```
 
-### Fusionner avec `git merge`
+### Fusionner avec `git merge` {/* #fusionner-avec-git-merge */}
 
 Fusionner, c'est ramener le travail d'une branche dans une autre. On se place **dans la
 branche qui doit recevoir**, puis on fusionne celle qui apporte :
@@ -475,7 +475,7 @@ Une fois la branche fusionnée, elle ne sert plus à rien et peut être supprim�
 git branch -d feat/lidar
 ```
 
-### Résoudre un conflit
+### Résoudre un conflit {/* #résoudre-un-conflit */}
 
 Un **conflit** survient quand deux branches modifient les **mêmes lignes** du même fichier.
 Git ne peut pas deviner laquelle garder, alors il s'arrête et vous laisse trancher.
@@ -515,9 +515,9 @@ C'est simplement Git qui refuse de choisir à votre place. Les conflits devienne
 petits dès qu'on commite souvent et qu'on synchronise régulièrement avec `main`.
 :::
 
-## <Cloud /> Travailler avec GitHub : clone, fetch, pull, push
+## <Cloud /> Travailler avec GitHub : clone, fetch, pull, push {/* #travailler-avec-github */}
 
-### Le dépôt distant
+### Le dépôt distant {/* #le-dépôt-distant */}
 
 ```bash
 git remote -v
@@ -536,7 +536,7 @@ git clone https://github.com/DaVinciBot/DocVB.git
 cd DocVB
 ```
 
-### HTTPS ou SSH ?
+### HTTPS ou SSH ? {/* #https-ou-ssh */}
 
 Deux façons de vous authentifier auprès de GitHub :
 
@@ -573,7 +573,7 @@ ssh -T git@github.com
   </TabItem>
 </Tabs>
 
-### `git fetch` — regarder sans toucher
+### `git fetch` — regarder sans toucher {/* #git-fetch */}
 
 ```bash
 git fetch origin
@@ -591,7 +591,7 @@ git log --oneline main..origin/main     # les commits que vous n'avez pas encore
 git diff main origin/main               # ce qu'ils changent concrètement
 ```
 
-### `git pull` — récupérer et intégrer
+### `git pull` — récupérer et intégrer {/* #git-pull */}
 
 ```bash
 git pull origin main
@@ -624,7 +624,7 @@ puis `log` quand vous voulez d'abord **voir** ce que les autres ont fait — typ
 avant de reprendre une branche laissée de côté quelques jours.
 :::
 
-### `git push` — publier
+### `git push` — publier {/* #git-push */}
 
 ```bash
 git push origin main
@@ -657,7 +657,7 @@ le travail des autres en refusant de l'écraser. La solution est toujours la mê
 partagée : cela supprime définitivement le travail de vos collègues du distant.
 :::
 
-## <Code /> Le même travail dans VS Code {#le-même-travail-dans-vs-code}
+## <Code /> Le même travail dans VS Code {/* #le-même-travail-dans-vs-code */}
 
 VS Code intègre Git nativement, sans extension. Tout se passe dans le panneau **Source
 Control**, qu'on ouvre avec l'icône en forme de branche dans la barre latérale ou par
@@ -672,7 +672,7 @@ puis supprimer les deux lignes de commentaire qui encadrent le bloc ci-dessous.
 *Le panneau Source Control : la zone Changes liste les fichiers modifiés, Staged Changes ce qui est préparé.\*
 \*/}
 
-### La correspondance avec la ligne de commande
+### La correspondance avec la ligne de commande {/* #la-correspondance-avec-la-ligne-de-commande */}
 
 Chaque bouton de l'interface exécute une commande. Connaître la correspondance permet de
 passer de l'un à l'autre sans se perdre :
@@ -692,7 +692,7 @@ passer de l'un à l'autre sans se perdre :
 | **⋯ → Branch → Merge**                                           | `git merge`                   |
 | Clic sur un fichier modifié                                      | `git diff fichier`            |
 
-### Préparer et committer
+### Préparer et committer {/* #préparer-et-committer */}
 
 Cliquer sur un fichier de la liste **Changes** ouvre une vue côte à côte : l'ancienne
 version à gauche, la nouvelle à droite. C'est un `git diff` visuel, et le meilleur moment
@@ -725,7 +725,7 @@ comme cela qu'on se retrouve avec des commits fourre-tout. Prenez l'habitude de 
 explicitement.
 :::
 
-### Changer de branche et fusionner
+### Changer de branche et fusionner {/* #changer-de-branche-et-fusionner */}
 
 Le nom de la branche courante s'affiche **en bas à gauche** de la fenêtre. Un clic dessus
 ouvre la liste des branches et permet d'en créer une nouvelle.
@@ -747,7 +747,7 @@ puis supprimer les deux lignes de commentaire qui encadrent le bloc ci-dessous.
 *L'éditeur de fusion remplace l'édition manuelle des marqueurs de conflit.\*
 \*/}
 
-### Visualiser l'historique
+### Visualiser l'historique {/* #visualiser-lhistorique */}
 
 VS Code affiche le graphe des commits directement dans le panneau Source Control, sous la
 section **Graph** — l'équivalent visuel de `git log --oneline --graph --all`.
@@ -758,7 +758,7 @@ puis supprimer les deux lignes de commentaire qui encadrent le bloc ci-dessous.
 *Le graphe montre les branches, les fusions et la position de HEAD.\*
 \*/}
 
-### Extensions utiles
+### Extensions utiles {/* #extensions-utiles */}
 
 | Extension                                                                                                                | Ce qu'elle apporte                                                                  |
 | ------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------- |
@@ -773,9 +773,9 @@ sentiers battus — et c'est le seul langage commun quand on demande de l'aide. 
 ce que chaque bouton exécute vous rend autonome dans les deux.
 :::
 
-## <Users /> Le workflow GitHub en équipe
+## <Users /> Le workflow GitHub en équipe {/* #le-workflow-github-en-équipe */}
 
-### Le cycle d'une contribution
+### Le cycle d'une contribution {/* #le-cycle-dune-contribution */}
 
 ```mermaid
 flowchart LR
@@ -787,7 +787,7 @@ flowchart LR
     F --> G["7. Fusion dans main<br/>et suppression de la branche"]
 ```
 
-### La pull request
+### La pull request {/* #la-pull-request */}
 
 Une **pull request** (PR) est une demande d'intégration : « voici ma branche, merci de la
 relire et de la fusionner dans `main` ». C'est le cœur du travail collaboratif sur GitHub,
@@ -817,13 +817,13 @@ puis supprimer les deux lignes de commentaire qui encadrent le bloc ci-dessous.
 *La relecture se fait ligne par ligne dans l'onglet Files changed.\*
 \*/}
 
-### Les issues
+### Les issues {/* #les-issues */}
 
 Une **issue** est un ticket : un bug à corriger, une fonctionnalité à ajouter, une question
 ouverte. Elles servent à répartir le travail et à garder une trace des décisions. Une bonne
 issue de bug contient ce qui était attendu, ce qui s'est produit, et comment reproduire.
 
-### Le _fork_
+### Le _fork_ {/* #le-fork */}
 
 Sur un projet où vous n'avez pas les droits d'écriture — un projet open source, par
 exemple —, vous ne pouvez pas pousser de branche. Le **fork** résout ça : c'est une copie
@@ -852,11 +852,11 @@ branches se poussent directement, sans fork. Voir
 concrète de l'environnement.
 :::
 
-## <LifeBuoy /> Se sortir des ennuis
+## <LifeBuoy /> Se sortir des ennuis {/* #se-sortir-des-ennuis */}
 
 Presque tout se rattrape avec Git. Voici les situations les plus fréquentes.
 
-### Annuler avant d'avoir commité
+### Annuler avant d'avoir commité {/* #annuler-avant-davoir-commité */}
 
 ```bash
 # Abandonner les modifications d'un fichier (IRRÉVERSIBLE)
@@ -866,7 +866,7 @@ git restore moteur.py
 git restore --staged moteur.py
 ```
 
-### Corriger le dernier commit
+### Corriger le dernier commit {/* #corriger-le-dernier-commit */}
 
 ```bash
 # Changer le message du dernier commit
@@ -883,7 +883,7 @@ que sur des commits **non encore poussés**. Sur un commit déjà partagé, pré
 nouveau commit correctif.
 :::
 
-### Annuler un commit déjà poussé
+### Annuler un commit déjà poussé {/* #annuler-un-commit-déjà-poussé */}
 
 ```bash
 git revert c3f9a12
@@ -892,7 +892,7 @@ git revert c3f9a12
 `revert` crée un **nouveau** commit qui défait les changements du commit visé. L'historique
 est préservé, rien n'est réécrit : c'est la méthode sûre sur une branche partagée.
 
-### Retrouver un travail perdu
+### Retrouver un travail perdu {/* #retrouver-un-travail-perdu */}
 
 ```bash
 git reflog
@@ -909,7 +909,7 @@ récupérable. Ce qui se perd vraiment, c'est ce qui n'a jamais été commité. 
 le plus utile de cette page : **commitez souvent**, quitte à nettoyer ensuite.
 :::
 
-### Erreurs courantes de débutant
+### Erreurs courantes de débutant {/* #erreurs-courantes-de-débutant */}
 
 | Symptôme                                                | Cause                                        | Solution                                       |
 | ------------------------------------------------------- | -------------------------------------------- | ---------------------------------------------- |
@@ -920,7 +920,7 @@ le plus utile de cette page : **commitez souvent**, quitte à nettoyer ensuite.
 | Mes fichiers ont disparu après un changement de branche | Ils n'existaient que sur l'autre branche     | `git switch` sur la branche d'origine          |
 | `node_modules` apparaît dans `git status`               | `.gitignore` absent ou incomplet             | Ajouter l'entrée au `.gitignore`               |
 
-## <ListChecks /> Aide-mémoire
+## <ListChecks /> Aide-mémoire {/* #aide-mémoire */}
 
 | Commande                       | Effet                                                     |
 | ------------------------------ | --------------------------------------------------------- |
@@ -946,7 +946,7 @@ le plus utile de cette page : **commitez souvent**, quitte à nettoyer ensuite.
 | `git revert <hash>`            | Annuler un commit par un nouveau commit                   |
 | `git reflog`                   | Retrouver un état perdu                                   |
 
-## <Dumbbell /> Exercice récapitulatif {#exercice-récapitulatif}
+## <Dumbbell /> Exercice récapitulatif {/* #exercice-récapitulatif */}
 
 Ce parcours reprend tout ce qui précède. Comptez une trentaine de minutes.
 
@@ -975,41 +975,41 @@ Ce parcours reprend tout ce qui précède. Comptez une trentaine de minutes.
 
 Si l'étape 10 est lisible pour vous, l'essentiel est acquis.
 
-## <BookOpen /> Ressources
+## <BookOpen /> Ressources {/* #ressources */}
 
-### Documentation officielle
+### Documentation officielle {/* #documentation-officielle */}
 
 - [Documentation Git](https://git-scm.com/doc) — la référence complète de toutes les commandes.
 - [**Pro Git**, en français](https://git-scm.com/book/fr/v2) — le livre de référence, gratuit et en ligne. Les chapitres 1 à 3 couvrent tout ce qui est vu ici, en plus détaillé.
 - [Documentation GitHub en français](https://docs.github.com/fr) — pull requests, issues, permissions, Actions.
 - [Git dans VS Code](https://code.visualstudio.com/docs/sourcecontrol/overview) — la documentation officielle du panneau Source Control.
 
-### Tutoriels de référence
+### Tutoriels de référence {/* #tutoriels-de-référence */}
 
 - [GitHub Skills](https://skills.github.com/) — parcours interactifs officiels, à faire directement dans un vrai dépôt.
 - [Tutoriels Git d'Atlassian](https://www.atlassian.com/fr/git/tutorials) — excellentes explications illustrées, en français.
 - [Git Immersion](https://gitimmersion.com/) — une cinquantaine de micro-exercices guidés, en anglais.
 
-### Jeux et visualisations
+### Jeux et visualisations {/* #jeux-et-visualisations */}
 
 - [**Learn Git Branching**](https://learngitbranching.js.org/?locale=fr_FR) — le meilleur outil pour comprendre les branches : chaque commande dessine le graphe en direct. À faire absolument.
 - [**Oh My Git!**](https://ohmygit.org/) — un jeu de cartes open source qui enseigne Git ; téléchargeable, disponible en français.
 - [Visualizing Git](https://git-school.github.io/visualizing-git/) — un bac à sable : tapez une commande, voyez le graphe bouger.
 - [Git Exercises](https://gitexercises.fracz.com/) — une série d'exercices corrigés automatiquement.
 
-### Aide-mémoire
+### Aide-mémoire {/* #aide-mémoire */}
 
 - [Aide-mémoire GitHub (PDF, français)](https://education.github.com/git-cheat-sheet-education.pdf) — une page recto-verso à imprimer.
 - [Git Cheatsheet interactive](https://ndpsoftware.com/git-cheatsheet.html) — les commandes classées selon les quatre zones vues plus haut.
 - [**Dangit, Git!?!**](https://dangitgit.com/fr) — « je viens de faire une bêtise, comment je m'en sors ? », classé par situation.
 
-### Vidéos
+### Vidéos {/* #vidéos */}
 
 - [Grafikart — Apprendre Git](https://grafikart.fr/formations/git) _(français)_ — formation complète et progressive.
 - [freeCodeCamp — Git and GitHub for Beginners](https://www.youtube.com/watch?v=RGOj5yH7evk) _(anglais, 1 h)_ — un cours complet en une vidéo.
 - [Fireship — Git and GitHub in 100 seconds](https://www.youtube.com/watch?v=hwP7WQkmECE) _(anglais, 2 min)_ — la vue d'ensemble en accéléré.
 
-### Outils et extensions
+### Outils et extensions {/* #outils-et-extensions */}
 
 - [GitHub CLI](https://cli.github.com/) — gérer PR et issues depuis le terminal (`gh pr create`, `gh pr checkout`).
 - [GitLens](https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens) — l'extension VS Code qui montre l'histoire ligne par ligne.

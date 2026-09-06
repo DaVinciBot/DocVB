@@ -12,7 +12,7 @@ additional_contributors:
     avatar_url: https://github.com/aust-1.png
 ---
 
-## Introduction
+## Introduction {/*#introduction*/}
 
 Les tests unitaires sont des programmes qui vérifient automatiquement que chaque partie de votre code fonctionne comme prévu.
 
@@ -32,23 +32,23 @@ Ce guide présente les concepts fondamentaux des tests unitaires, illustrés ave
 - **Documentation vivante** : Les tests unitaires servent de documentation vivante du code, en montrant comment chaque partie est censée fonctionner.
 - **Faciliter la modification du code** : Les tests unitaires vous permettent de modifier le code en toute confiance, car ils peuvent assurer que les modifications n'ont rien cassé.
 
-## Prérequis & Installation
+## Prérequis & Installation {/*#prérequis--installation*/}
 
-### Connaissances préalables
+### Connaissances préalables {/*#connaissances-préalables*/}
 
 - Notions de base en C# (ou autre langage de programmation)
 - Concepts de programmation orientée objet
 
-### Outils requis
+### Outils requis {/*#outils-requis*/}
 
 | Outil    | Version | Description                               |
 | -------- | ------- | ----------------------------------------- |
 | .NET SDK | 6.0+    | Framework de développement C#             |
 | IDE      | -       | Visual Studio, VS Code ou JetBrains Rider |
 
-## Créer et configurer un projet de tests MSTest
+## Créer et configurer un projet de tests MSTest {/*#créer-et-configurer-un-projet-de-tests-mstest*/}
 
-### Prérequis : avoir un projet C# existant
+### Prérequis : avoir un projet C# existant {/*#prérequis--avoir-un-projet-c-existant*/}
 
 Si vous n'avez pas encore de projet, créez-en un :
 
@@ -74,7 +74,7 @@ MonProjetSolution/
         └── Program.cs
 ```
 
-### Configurer le projet de tests
+### Configurer le projet de tests {/*#configurer-le-projet-de-tests*/}
 
 Dans le dossier de votre solution :
 
@@ -109,7 +109,7 @@ Organisez les fichiers de test en suivant la structure du projet principal (ex :
 
 Pour plus de détails : [docs Microsoft - Créer un projet de test MSTest](https://learn.microsoft.com/fr-fr/dotnet/core/testing/unit-testing-with-mstest)
 
-## Structure d'un test unitaire (schéma AAA)
+## Structure d'un test unitaire (schéma AAA) {/*#structure-dun-test-unitaire-schéma-aaa*/}
 
 Tous les tests unitaires suivent le schéma **AAA** :
 
@@ -117,7 +117,7 @@ Tous les tests unitaires suivent le schéma **AAA** :
 - **Act** : Appeler la méthode à tester
 - **Assert** : Vérifier le résultat obtenu
 
-### Exemple réaliste avec MSTest
+### Exemple réaliste avec MSTest {/*#exemple-réaliste-avec-mstest*/}
 
 Supposons une classe qui contient des méthodes pour calculer la TVA et le prix TTC d'un montant donné :
 
@@ -184,9 +184,9 @@ namespace MonNamespace.Tests
 }
 ```
 
-## Écriture de tests unitaires avec MSTest
+## Écriture de tests unitaires avec MSTest {/*#écriture-de-tests-unitaires-avec-mstest*/}
 
-### Classe `Assert`
+### Classe `Assert` {/*#classe-assert*/}
 
 `Assert` est utilisée pour vérifier les résultats attendus dans vos tests.
 
@@ -203,7 +203,7 @@ Méthodes les plus courantes :
 Si un test échoue, le message inscrit (optionnel) s'affiche, ce qui permet de gagner du temps.
 :::
 
-### Tests paramétrés
+### Tests paramétrés {/*#tests-paramétrés*/}
 
 Pour tester une méthode avec plusieurs jeux de données, utilisez `[DataTestMethod]` et `[DataRow]` :
 
@@ -219,7 +219,7 @@ public void CalculerTva_AvecDiversesValeurs_RetourneLeResultatAttendu(
 }
 ```
 
-### Gestion des exceptions
+### Gestion des exceptions {/*#gestion-des-exceptions*/}
 
 Pour tester qu'une méthode lance une exception attendue :
 
@@ -247,7 +247,7 @@ public void CalculerTva_TauxNegatif_ProvoqueException()
 }
 ```
 
-## Exécution des tests
+## Exécution des tests {/*#exécution-des-tests*/}
 
 L'exécution des tests dépend de votre environnement de développement :
 
@@ -256,7 +256,7 @@ L'exécution des tests dépend de votre environnement de développement :
 - **JetBrains Rider** : Onglet "Tests" et "Test Coverage"
 - **Terminal** : `dotnet test`
 
-## Bonnes pratiques
+## Bonnes pratiques {/*#bonnes-pratiques*/}
 
 - **Segmenter** : Un test = une méthode de test
 - **Nom explicite** : Indique ce qui est testé et le résultat attendu. Deux conventions de nommage sont courantes :
@@ -295,7 +295,7 @@ public void List_ShouldContainA()
 }
 ```
 
-## Erreurs courantes
+## Erreurs courantes {/*#erreurs-courantes*/}
 
 - Oublier `[TestMethod]` ou `[TestClass]` : le test n'est pas détecté
 - Oublier de builder avant de tester (`dotnet build`)
@@ -307,9 +307,9 @@ public void List_ShouldContainA()
 - Laisser du code mort/non utilisé dans les tests
 - Ne pas exécuter les tests régulièrement
 
-## Aller plus loin
+## Aller plus loin {/*#aller-plus-loin*/}
 
-### Tests asynchrones
+### Tests asynchrones {/*#tests-asynchrones*/}
 
 ```csharp
 [TestMethod]
@@ -320,18 +320,18 @@ public async Task CalculAsync_ShouldRetourneResultat()
 }
 ```
 
-### Mocks
+### Mocks {/*#mocks*/}
 
 Pour isoler les dépendances :
 
 - [Moq](https://github.com/devlooped/moq/wiki/Quickstart) - Framework de mocking populaire
 - [NSubstitute](https://nsubstitute.github.io/docs/2010-01-01-getting-started.html) - Alternative simple et élégante
 
-### Configurer MSTest
+### Configurer MSTest {/*#configurer-mstest*/}
 
 Parallélisation, timeout global, etc. en modifiant le fichier `MSTestSettings.cs`. Voir la [documentation officielle MSTest](https://learn.microsoft.com/en-us/dotnet/core/testing/unit-testing-mstest-configure).
 
-## Tests unitaires dans d'autres langages
+## Tests unitaires dans d'autres langages {/*#tests-unitaires-dans-dautres-langages*/}
 
 Les principes des tests unitaires sont universels. Voici quelques frameworks populaires :
 
@@ -347,13 +347,13 @@ Les principes des tests unitaires sont universels. Voici quelques frameworks pop
 
 Chaque langage a ses particularités, mais la logique AAA et la philosophie restent les mêmes.
 
-## Ressources
+## Ressources {/*#ressources*/}
 
 - [Documentation MSTest](https://learn.microsoft.com/dotnet/core/testing/unit-testing-with-mstest) - Guide officiel Microsoft
 - [Unit Testing Best Practices](https://learn.microsoft.com/dotnet/core/testing/unit-testing-best-practices) - Bonnes pratiques Microsoft
 - [Test-Driven Development](https://en.wikipedia.org/wiki/Test-driven_development) - Méthodologie TDD
 
-## Autres exemples
+## Autres exemples {/*#autres-exemples*/}
 
 ```csharp
 using Microsoft.VisualStudio.TestTools.UnitTesting;

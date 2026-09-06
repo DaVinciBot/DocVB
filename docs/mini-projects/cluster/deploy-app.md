@@ -14,7 +14,7 @@ additional_contributors:
 
 You must be on the master node, currently `flo` - 192.168.0.10, as it is the only node with helm installed.
 
-## Stirling PDF
+## Stirling PDF {/*#stirling-pdf*/}
 
 To deploy the Stirling PDF application on your K3s cluster, follow these steps:
 
@@ -24,7 +24,7 @@ helm install my-stirling-pdf-chart stirling-pdf/stirling-pdf-chart --version 1.1
 k3s kubectl apply -f pdf-nodeport.yaml
 ```
 
-## Vaultwarden
+## Vaultwarden {/*#vaultwarden*/}
 
 To deploy the Vaultwarden (bitwarden backend but in rust) application on your K3s cluster, follow these steps:
 
@@ -43,7 +43,7 @@ helm install vaultwarden bjw-s-charts/app-template -f values.yaml
 k3s kubectl apply -f vault-nodeport.yaml
 ```
 
-## Rallly
+## Rallly {/*#rallly*/}
 
 To deploy the Rallly application on your K3s cluster, follow these steps:
 
@@ -68,7 +68,7 @@ cd /home/dvb
 helm upgrade rallly ./rallly -f rallly/values.yaml
 ```
 
-## Matrix Tuwunel
+## Matrix Tuwunel {/*#matrix-tuwunel*/}
 
 To deploy the Matrix Tuwunel application on your K3s cluster, follow these steps:
 
@@ -77,14 +77,14 @@ cd /home/dvb/tuwunel
 helm upgrade matrix -f tuwunel-helm/values.yaml ./tuwunel-helm/ -n matrix
 ```
 
-## Docuseal
+## Docuseal {/*#docuseal*/}
 
 ```bash
 cd /home/dvb/docuseal
 helm upgrade docuseal ./docuseal-chart/ -f values.yaml -n sign
 ```
 
-## ListMonk - Newsletter manager
+## ListMonk - Newsletter manager {/*#listmonk*/}
 
 To deploy the ListMonk application on your K3s cluster, follow these steps:
 
@@ -93,7 +93,7 @@ helm upgrade listmonk listmonk   --create-namespace   --install   --namespace li
 k3s kubectl apply -f listmonk-nodeport.yaml
 ```
 
-## Dockploy - Deployment manager
+## Dockploy - Deployment manager {/*#dockploy*/}
 
 To deploy the Dockploy application on your K3s cluster, follow these steps:
 

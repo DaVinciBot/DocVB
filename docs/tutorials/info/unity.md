@@ -13,7 +13,7 @@ additional_contributors:
 
 Documentation débutant : comprendre l'éditeur, les objets, les composants et quelques scripts C# à travers un petit niveau jouable.
 
-## Préparer un projet Unity
+## Préparer un projet Unity {/*#préparer-un-projet-unity*/}
 
 Unity est un moteur de jeu : il sert à créer une scène, placer des objets, leur ajouter des composants, puis programmer leurs comportements. Le mini-jeu de plateforme sert ici d'exemple simple : un cube joueur se déplace, saute, active une plaque, ouvre une porte et atteint une zone finale.
 
@@ -22,7 +22,7 @@ _Unity Hub permet de créer, ouvrir et gérer les projets ainsi que les versions
 
 Le projet se prépare depuis Unity Hub avec le bouton **New project**. Pour un premier jeu 3D, le modèle **3D** classique suffit. Il est important de choisir une version installée de Unity et un dossier de projet facile à retrouver.
 
-## Comprendre l'interface Unity
+## Comprendre l'interface Unity {/*#comprendre-linterface-unity*/}
 
 ![Schéma des zones Hierarchy, Scene, Game, Inspector et Project de l'éditeur Unity](/img/tutorials/info/unity/02-reperes-interface-unity.png)
 _Les zones principales de l'éditeur Unity._
@@ -38,7 +38,7 @@ _Vue générale d'une scène Unity vide avec ses panneaux principaux._
 | **Inspector** | Affiche les propriétés de l'objet sélectionné : Transform, composants, matériaux, scripts.                |
 | **Project**   | Affiche les fichiers du projet dans Assets : scènes, scripts, matériaux, modèles, sons.                   |
 
-### Objets présents dans une nouvelle scène
+### Objets présents dans une nouvelle scène {/*#objets-présents-dans-une-nouvelle-scène*/}
 
 Une scène 3D contient généralement **Main Camera** et **Directional Light**. Main Camera filme la scène et produit l'image visible dans Game. Directional Light éclaire la scène comme une lumière de soleil : sans lumière, les objets peuvent paraître trop sombres.
 
@@ -51,23 +51,23 @@ _Dans Scene, l'icône caméra permet de repérer l'objet Main Camera._
 ![Vue Game affichant le rendu de la caméra](/img/tutorials/info/unity/06-game-view.png)
 _La Game View montre le rendu de la caméra pendant le jeu._
 
-## Organiser le projet et créer une scène
+## Organiser le projet et créer une scène {/*#organiser-le-projet-et-créer-une-scène*/}
 
-### Organisation des fichiers
+### Organisation des fichiers {/*#organisation-des-fichiers*/}
 
 Dans la fenêtre **Project**, les fichiers du jeu sont stockés dans `Assets`. Même pour un petit projet, il vaut mieux créer quelques dossiers : `Scenes` pour les scènes, `Scripts` pour le code, `Materials` pour les couleurs et textures, `Editor` seulement pour des outils internes si besoin.
 
 ![Dossier Assets contenant Editor, Materials, Scenes et Scripts](/img/tutorials/info/unity/07-organisation-assets.png)
 _Exemple d'organisation simple du dossier Assets._
 
-### Créer une scène
+### Créer une scène {/*#créer-une-scène*/}
 
 Une scène est un niveau ou un écran du jeu. Elle contient les objets visibles et invisibles nécessaires au fonctionnement : joueur, murs, plateformes, lumière, caméra, zones de mort et zone de victoire. Pour créer une scène : clic droit dans `Assets`, puis **Create > Scene**. La scène est ensuite enregistrée dans le dossier `Scenes`.
 
 ![Menu contextuel Create ouvert dans le dossier Assets](/img/tutorials/info/unity/08-menu-create.png)
 _Le menu Create sert à créer une Scene, un Material, un C# Script et d'autres ressources._
 
-## Créer un GameObject
+## Créer un GameObject {/*#créer-un-gameobject*/}
 
 Un **GameObject** est un objet de base dans Unity. Il peut être visible, comme un cube, ou invisible, comme un point de spawn. Pour créer un cube : clic droit dans la **Hierarchy**, puis **3D Object > Cube**.
 
@@ -82,11 +82,11 @@ Le composant **Transform** existe sur tous les GameObjects. Il définit la posit
 ![Inspector d'un cube affichant Transform, Mesh Renderer et Box Collider](/img/tutorials/info/unity/11-inspector-cube.png)
 _Dans l'Inspector, le cube possède déjà Transform, Mesh Renderer et Box Collider._
 
-### Mesh Renderer, Material et Collider
+### Mesh Renderer, Material et Collider {/*#mesh-renderer-material-et-collider*/}
 
 **Mesh Renderer** affiche l'objet à l'écran. Il utilise un **Material** pour savoir quelle couleur ou texture afficher. **Box Collider** donne au cube une zone de contact : sans Collider, les collisions du mini-jeu ne peuvent pas fonctionner correctement.
 
-## Créer et appliquer un Material
+## Créer et appliquer un Material {/*#créer-et-appliquer-un-material*/}
 
 Un Material définit l'apparence d'un objet : couleur, brillance, texture. Dans le mini-jeu, les couleurs servent aussi de feedback : rouge pour le sol mortel, vert pour la plaque activée, orange pour le joueur.
 
@@ -103,9 +103,9 @@ Pour appliquer un Material sur un cube, il suffit de le glisser depuis **Project
 ![Comparaison avant/après de l'application d'un Material orange sur un cube](/img/tutorials/info/unity/14-material-avant-apres.png)
 _Avant/après : le cube blanc reçoit un Material orange._
 
-## Préparer le code C #
+## Préparer le code C # {/*#préparer-le-code-c-*/}
 
-### Package Manager et éditeur de code
+### Package Manager et éditeur de code {/*#package-manager-et-éditeur-de-code*/}
 
 Avant d'écrire du code, Unity doit être relié à un éditeur comme Visual Studio Code ou Visual Studio. Le **Package Manager** permet d'installer le paquet adapté : **Visual Studio Code Editor** pour VS Code, ou **Visual Studio Editor** pour Visual Studio.
 
@@ -115,7 +115,7 @@ _Ouverture du Package Manager depuis Window > Package Manager._
 ![Package Manager affichant le paquet Visual Studio Code Editor](/img/tutorials/info/unity/16-package-visual-studio-code-editor.png)
 _Paquet Visual Studio Code Editor dans le Package Manager._
 
-### Créer un script et l'ajouter à un objet
+### Créer un script et l'ajouter à un objet {/*#créer-un-script-et-lajouter-à-un-objet*/}
 
 Un script C# est un fichier qui ajoute un comportement à un GameObject. Par exemple, `PlayerBehavior` contrôle le déplacement du cube joueur. Un script peut être créé depuis **Assets > Create > C# Script** ou depuis le bouton **Add Component** de l'Inspector.
 
@@ -128,9 +128,9 @@ _Add Component donne accès aux catégories de composants Unity._
 ![Recherche « script » dans Add Component avec l'entrée New script](/img/tutorials/info/unity/19-recherche-script.png)
 _La recherche Script permet de créer ou ajouter un script._
 
-## Notions Unity appliquées au mini-jeu
+## Notions Unity appliquées au mini-jeu {/*#notions-unity-appliquées-au-mini-jeu*/}
 
-### Rigidbody et physique
+### Rigidbody et physique {/*#rigidbody-et-physique*/}
 
 **Rigidbody** rend un objet contrôlé par la physique. Sur le joueur, il permet d'utiliser la gravité, les collisions et les forces. **Freeze Rotation** sert à éviter que le cube bascule sur les côtés après une collision.
 
@@ -153,7 +153,7 @@ void FixedUpdate()
 
 `MovePosition` déplace le Rigidbody proprement pendant la physique. `AddForce` applique une force, ici pour le saut. `FixedUpdate` est utilisé car le déplacement dépend de la physique.
 
-### Input clavier et souris
+### Input clavier et souris {/*#input-clavier-et-souris*/}
 
 Les inputs sont les actions du joueur : touches du clavier, souris, manette ou clics. Dans un jeu, on peut configurer ZQSD pour déplacer un personnage, `E` pour ouvrir un inventaire, `R` pour lancer une attaque spéciale, ou la souris pour orienter la caméra et le joueur.
 
@@ -170,7 +170,7 @@ transform.Rotate(Vector3.up * mouseX * mouseSensitivity);
 
 `Input.GetKey` vérifie si une touche est maintenue. `Input.GetAxis("Mouse X")` lit le mouvement horizontal de la souris. `transform.Rotate` modifie la rotation du joueur.
 
-### Collider, Trigger et événements
+### Collider, Trigger et événements {/*#collider-trigger-et-événements*/}
 
 Un Collider définit une zone de contact. Si **Is Trigger** est désactivé, l'objet bloque ou entre en collision. Si **Is Trigger** est activé, l'objet détecte le passage sans bloquer physiquement.
 
@@ -201,7 +201,7 @@ void OnTriggerEnter(Collider other)
 
 `OnCollisionEnter` réagit à une vraie collision, par exemple avec le sol rouge mortel. `OnTriggerEnter` réagit au passage dans une zone, par exemple la plaque de pression. `CompareTag` évite de confondre le joueur avec d'autres objets.
 
-### Raycast pour détecter le sol sous le joueur
+### Raycast pour détecter le sol sous le joueur {/*#raycast-pour-détecter-le-sol-sous-le-joueur*/}
 
 ![Schéma d'un raycast vert détectant un sol et d'un raycast rouge dans le vide](/img/tutorials/info/unity/23-raycast-sol.png)
 _Raycast vert : un sol est détecté sous le joueur. Raycast rouge : aucun sol détecté dessous._
@@ -216,7 +216,7 @@ isGrounded = Physics.Raycast(
 
 `Physics.Raycast` lance un rayon invisible. Dans cet exemple, il part du joueur vers le bas. Si un sol est détecté sous le joueur, il peut sauter ; sinon, il est considéré en l'air.
 
-### Booléens, reset et GameManager
+### Booléens, reset et GameManager {/*#booléens-reset-et-gamemanager*/}
 
 Un booléen stocke une réponse vraie ou fausse. Dans le mini-jeu, `active` indique si la plaque est pressée, `unlocked` si la porte peut s'ouvrir, `dead` ou `touched` si le joueur doit être replacé au spawn.
 
@@ -231,7 +231,7 @@ public void ResetLevel()
 
 `Reset` remet les objets dans leur état de départ. Le GameManager évite de disperser toute la logique : il centralise le respawn, l'ouverture de la porte et la remise à zéro.
 
-## Application : mini-jeu de plateforme
+## Application : mini-jeu de plateforme {/*#application--mini-jeu-de-plateforme*/}
 
 Le niveau se compose d'une zone de spawn sécurisée, de plateformes à atteindre, d'une plateforme mobile, d'un sol rouge mortel, d'une plaque de pression, d'une porte et d'une salle finale de victoire. Le joueur apprend à se déplacer, sauter, timer son saut et activer un mécanisme.
 
@@ -248,7 +248,7 @@ _Vue générale du niveau de plateforme 3D._
 | **Porte**              | GameObject activé ou déplacé selon l'état de la plaque |
 | **Salle finale**       | Zone sûre qui marque la réussite du niveau             |
 
-## Ressources et utilisation de l'IA
+## Ressources et utilisation de l'IA {/*#ressources-et-utilisation-de-lia*/}
 
 Unity est un outil complet : l'interface, la physique, les composants et le code demandent du temps. Il est donc pertinent de combiner documentation officielle, tutoriels vidéo et assistants IA. Des outils comme Codex ou Claude Code peuvent aider à expliquer une erreur, proposer un script, structurer un niveau ou améliorer une documentation. Le résultat doit cependant toujours être testé dans Unity, car une IA peut se tromper de version, de package ou de réglage.
 

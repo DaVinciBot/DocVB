@@ -21,13 +21,13 @@ Dans ce tutoriel, nous allons créer une application simple avec Node.js et la c
 Cette formation se déroule sur un VPS Linux sur lequel vous êtes l'utilisateur root. **Note :** Utiliser root directement est une mauvaise pratique en production, mais acceptable pour l'apprentissage.
 :::
 
-## Prérequis
+## Prérequis {/* #prérequis */}
 
 - Un serveur Linux (VPS ou machine virtuelle)
 - Accès SSH avec les droits root
 - Connexion Internet
 
-## Étape 1 : Installation des outils nécessaires
+## Étape 1 : Installation des outils nécessaires {/* #installation-des-outils-nécessaires */}
 
 Commençons par installer Docker et quelques outils utiles pour la formation.
 
@@ -39,7 +39,7 @@ Vous pouvez télécharger l'application d'exemple directement :
 </DownloadButton>
 :::
 
-### 1.1 Télécharger le script d'installation de Docker
+### 1.1 Télécharger le script d'installation de Docker {/* #télécharger-le-script-dinstallation-de-docker */}
 
 ```bash
 curl -fsSL https://get.docker.com -o get-docker.sh
@@ -47,7 +47,7 @@ curl -fsSL https://get.docker.com -o get-docker.sh
 
 Cette commande télécharge le script officiel d'installation de Docker.
 
-### 1.2 Télécharger l'application d'exemple
+### 1.2 Télécharger l'application d'exemple {/* #télécharger-lapplication-dexemple */}
 
 ```bash
 wget https://docs.davincibot.fr/files/tutorials/info/docker/app.zip
@@ -55,7 +55,7 @@ wget https://docs.davincibot.fr/files/tutorials/info/docker/app.zip
 
 Ce fichier ZIP contient une application Node.js simple que nous allons conteneuriser.
 
-### 1.3 Installer les outils supplémentaires
+### 1.3 Installer les outils supplémentaires {/* #installer-les-outils-supplémentaires */}
 
 ```bash
 apt install micro btop unzip -y
@@ -65,7 +65,7 @@ apt install micro btop unzip -y
 - **btop** : moniteur système interactif
 - **unzip** : pour décompresser notre application
 
-### 1.4 Installer Docker
+### 1.4 Installer Docker {/* #installer-docker */}
 
 ```bash
 sh get-docker.sh
@@ -77,17 +77,17 @@ Attendez que l'installation se termine. Vous pouvez vérifier l'installation ave
 docker --version
 ```
 
-### 1.5 Décompresser l'application
+### 1.5 Décompresser l'application {/* #décompresser-lapplication */}
 
 ```bash
 unzip app.zip
 ```
 
-## Étape 2 : Comprendre le Dockerfile
+## Étape 2 : Comprendre le Dockerfile {/* #comprendre-le-dockerfile */}
 
 Créons un fichier `Dockerfile` à la racine de notre projet. Ce fichier décrit comment construire notre image Docker.
 
-### 2.1 Créer le Dockerfile
+### 2.1 Créer le Dockerfile {/* #créer-le-dockerfile */}
 
 Utilisez l'éditeur `micro` pour créer le fichier :
 
@@ -95,7 +95,7 @@ Utilisez l'éditeur `micro` pour créer le fichier :
 micro Dockerfile
 ```
 
-### 2.2 Contenu du Dockerfile
+### 2.2 Contenu du Dockerfile {/* #contenu-du-dockerfile */}
 
 Copiez le contenu suivant dans le fichier :
 
@@ -122,7 +122,7 @@ EXPOSE 80
 CMD ["node", "index.js"]
 ```
 
-### 2.3 Explication du Dockerfile ligne par ligne
+### 2.3 Explication du Dockerfile ligne par ligne {/* #explication-du-dockerfile-ligne-par-ligne */}
 
 - **FROM node:18-alpine** : On utilise une image Node.js légère basée sur Alpine Linux
 - **WORKDIR /usr/src/app** : Définit le répertoire de travail dans le conteneur
@@ -136,11 +136,11 @@ CMD ["node", "index.js"]
 On copie d'abord `package.json` et on installe les dépendances avant de copier le reste du code. Cela permet à Docker de mettre en cache cette étape et d'accélérer les builds futurs.
 :::
 
-## Étape 3 : Construire l'image Docker
+## Étape 3 : Construire l'image Docker {/* #construire-limage-docker */}
 
 Maintenant que notre Dockerfile est prêt, construisons notre image Docker.
 
-### 3.1 Commande de build
+### 3.1 Commande de build {/* #commande-de-build */}
 
 ```bash
 docker build -t "dvb/sample" .
@@ -152,7 +152,7 @@ docker build -t "dvb/sample" .
 - `-t "dvb/sample"` : donne un nom (tag) à notre image
 - `.` : indique que le Dockerfile est dans le répertoire courant
 
-### 3.2 Vérifier l'image créée
+### 3.2 Vérifier l'image créée {/* #vérifier-limage-créée */}
 
 ```bash
 docker images
@@ -160,9 +160,9 @@ docker images
 
 Vous devriez voir votre image `dvb/sample` dans la liste.
 
-## Étape 4 : Exécuter le conteneur
+## Étape 4 : Exécuter le conteneur {/* #exécuter-le-conteneur */}
 
-### 4.1 Lancer le conteneur
+### 4.1 Lancer le conteneur {/* #lancer-le-conteneur */}
 
 ```bash
 docker run -p 80:80 "dvb/sample"
@@ -174,11 +174,11 @@ docker run -p 80:80 "dvb/sample"
 - `-p 80:80` : mappe le port 80 du conteneur vers le port 80 de l'hôte
 - `"dvb/sample"` : nom de l'image à utiliser
 
-### 4.2 Tester l'application
+### 4.2 Tester l'application {/* #tester-lapplication */}
 
 Ouvrez un navigateur et accédez à l'adresse IP de votre serveur. L'application Node.js devrait être accessible !
 
-### 4.3 Arrêter le conteneur
+### 4.3 Arrêter le conteneur {/* #arrêter-le-conteneur */}
 
 Utilisez `Ctrl+C` pour arrêter le conteneur, ou dans un autre terminal :
 
@@ -187,7 +187,7 @@ docker ps  # Liste les conteneurs en cours
 docker stop <container_id>  # Arrête un conteneur spécifique
 ```
 
-### 4.4 Exécuter en arrière-plan
+### 4.4 Exécuter en arrière-plan {/* #exécuter-en-arrière-plan */}
 
 Pour lancer le conteneur en mode détaché (arrière-plan) :
 
@@ -198,17 +198,17 @@ docker run -d -p 80:80 --name mon-app "dvb/sample"
 - `-d` : mode détaché (daemon)
 - `--name mon-app` : donne un nom au conteneur
 
-## Étape 5 : Docker Compose (Avancé)
+## Étape 5 : Docker Compose (Avancé) {/* #docker-compose-avancé */}
 
 Pour des applications plus complexes avec plusieurs services, on utilise Docker Compose.
 
-### 5.1 Créer docker-compose.yml
+### 5.1 Créer docker-compose.yml {/* #créer-docker-composeyml */}
 
 ```bash
 micro docker-compose.yml
 ```
 
-### 5.2 Configuration avec PostgreSQL
+### 5.2 Configuration avec PostgreSQL {/* #configuration-avec-postgresql */}
 
 Voici un exemple de configuration avec une application Node.js et une base de données PostgreSQL :
 
@@ -260,7 +260,7 @@ networks:
     driver: bridge
 ```
 
-### 5.3 Explication de Docker Compose
+### 5.3 Explication de Docker Compose {/* #explication-de-docker-compose */}
 
 Ce fichier définit une application multi-conteneurs :
 
@@ -279,7 +279,7 @@ Ce fichier définit une application multi-conteneurs :
 - **volumes** : persiste les données de la BD
 - **secrets** : récupère le mot de passe depuis un fichier sécurisé
 
-### 5.4 Créer le fichier de secrets
+### 5.4 Créer le fichier de secrets {/* #créer-le-fichier-de-secrets */}
 
 ```bash
 mkdir secrets
@@ -290,7 +290,7 @@ echo "mon_mot_de_passe_securise" > secrets/db_password.txt
 En production, ne stockez jamais les secrets dans Git ! Ajoutez `secrets/` à votre `.gitignore`.
 :::
 
-### 5.5 Lancer avec Docker Compose
+### 5.5 Lancer avec Docker Compose {/* #lancer-avec-docker-compose */}
 
 ```bash
 docker-compose up -d
@@ -302,7 +302,7 @@ Cette commande :
 - Crée les réseaux et volumes
 - Démarre tous les services en arrière-plan
 
-### 5.6 Vérifier les services
+### 5.6 Vérifier les services {/* #vérifier-les-services */}
 
 ```bash
 docker-compose ps
@@ -310,7 +310,7 @@ docker-compose logs app
 docker-compose logs postgres
 ```
 
-### 5.7 Arrêter tous les services
+### 5.7 Arrêter tous les services {/* #arrêter-tous-les-services */}
 
 ```bash
 docker-compose down
@@ -322,9 +322,9 @@ Pour supprimer aussi les volumes (données) :
 docker-compose down -v
 ```
 
-## Commandes Docker utiles
+## Commandes Docker utiles {/* #commandes-docker-utiles */}
 
-### Gestion des conteneurs
+### Gestion des conteneurs {/* #gestion-des-conteneurs */}
 
 ```bash
 # Lister les conteneurs actifs
@@ -349,7 +349,7 @@ docker rm <container_id>
 docker container prune
 ```
 
-### Gestion des images
+### Gestion des images {/* #gestion-des-images */}
 
 ```bash
 # Lister les images
@@ -365,7 +365,7 @@ docker image prune
 docker image prune -a
 ```
 
-### Logs et débogage
+### Logs et débogage {/* #logs-et-débogage */}
 
 ```bash
 # Voir les logs d'un conteneur
@@ -384,7 +384,7 @@ docker inspect <container_id>
 docker stats
 ```
 
-### Nettoyage complet
+### Nettoyage complet {/* #nettoyage-complet */}
 
 ```bash
 # Supprimer tous les conteneurs, images, réseaux et volumes non utilisés
@@ -395,7 +395,7 @@ docker system prune -a --volumes
 Cette commande supprime TOUT ce qui n'est pas utilisé. Utilisez avec précaution !
 :::
 
-## Bonnes pratiques
+## Bonnes pratiques {/* #bonnes-pratiques */}
 
 1. **Utilisez des images officielles** : Préférez les images officielles depuis Docker Hub
 2. **Images légères** : Utilisez les variantes Alpine quand c'est possible
@@ -406,7 +406,7 @@ Cette commande supprime TOUT ce qui n'est pas utilisé. Utilisez avec précautio
 7. **Limitez les ressources** : Utilisez `--memory` et `--cpus` en production
 8. **Logs** : Configurez une rotation des logs pour éviter de saturer le disque
 
-## Pour aller plus loin
+## Pour aller plus loin {/* #pour-aller-plus-loin */}
 
 - **Docker Hub** : Explorez le registre d'images Docker
 - **Multi-stage builds** : Optimisez vos images Docker
@@ -415,9 +415,9 @@ Cette commande supprime TOUT ce qui n'est pas utilisé. Utilisez avec précautio
 - **Docker Swarm / Kubernetes** : Orchestration de conteneurs à grande échelle
 - **CI/CD avec Docker** : Intégrez Docker dans vos pipelines
 
-## Ressources
+## Ressources {/* #ressources */}
 
-### Téléchargements
+### Téléchargements {/* #téléchargements */}
 
 <DownloadGroup title="Fichiers de la formation">
   <DownloadButton href="/files/tutorials/info/docker/app.zip" icon="📦">
@@ -428,7 +428,7 @@ Cette commande supprime TOUT ce qui n'est pas utilisé. Utilisez avec précautio
   </DownloadButton>
 </DownloadGroup>
 
-### Liens utiles
+### Liens utiles {/* #liens-utiles */}
 
 - [Documentation officielle Docker](https://docs.docker.com/)
 - [Docker Hub](https://hub.docker.com/)

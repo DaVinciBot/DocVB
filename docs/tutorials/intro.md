@@ -15,7 +15,7 @@ additional_contributors:
 
 Bienvenue. Ce hub regroupe tous les parcours et guides pour apprendre rapidement et en autonomie.
 
-## Besoin d'aide ?
+## Besoin d'aide ? {/*#besoin-daide*/}
 
 - Contacter l'équipe via discord
 

@@ -12,7 +12,7 @@ additional_contributors:
     avatar_url: https://github.com/UrbsKali.png
 ---
 
-## Introduction
+## Introduction {/*#introduction*/}
 
 Rust est un langage qui vise à remplacer les langages bas-niveau, comme le C. Il est axé sur la performance, la concurrence, mais surtout la sûreté.
 
@@ -31,39 +31,39 @@ Rust peut être utilisé pour les mêmes usages que le C/C++, on peut le retrouv
 **Niveau** : Débutant • **Durée estimée** : 3-4 heures • **Projet pratique** : Application CLI de téléchargement de vidéos YouTube
 :::
 
-## Prérequis & Installation
+## Prérequis & Installation {/*#prérequis--installation*/}
 
-### Connaissances préalables
+### Connaissances préalables {/*#connaissances-préalables*/}
 
 - Logique de programmation de base
 - Familiarité avec un environnement de développement (IDE)
 
-### Outils requis
+### Outils requis {/*#outils-requis*/}
 
 | Outil                 | Version         | Lien                                                                                      | Description                    |
 | --------------------- | --------------- | ----------------------------------------------------------------------------------------- | ------------------------------ |
 | Rust (rustup + cargo) | Dernière stable | [rustup.rs](https://www.rust-lang.org/fr/learn/get-started)                               | Toolchain Rust complète        |
 | IDE                   | -               | [VS Code](https://code.visualstudio.com/) ou [RustRover](https://www.jetbrains.com/rust/) | Environnement de développement |
 
-### Installation
+### Installation {/*#installation*/}
 
 L'installateur va mettre `rustup` et `cargo` sur votre ordinateur :
 
 - `rustup` permet de gérer tout ce qui touche à Rust sur votre machine, notamment la mise à jour des composants avec `rustup update`
 - `cargo` permet de générer des projets, les exécuter, et les publier
 
-### Vérification de l'installation
+### Vérification de l'installation {/*#vérification-de-linstallation*/}
 
 ```bash
 rustc --version  # Devrait afficher la version du compilateur Rust
 cargo --version  # Devrait afficher la version de Cargo
 ```
 
-## Utilisation de Cargo
+## Utilisation de Cargo {/*#utilisation-de-cargo*/}
 
 Cargo est l'outil de gestion de projets et de dépendances pour Rust.
 
-### Commandes essentielles
+### Commandes essentielles {/*#commandes-essentielles*/}
 
 ```bash
 # Création d'un projet
@@ -79,7 +79,7 @@ cargo build [--release]
 cargo check
 ```
 
-### Le fichier `Cargo.toml`
+### Le fichier `Cargo.toml` {/*#le-fichier-cargotoml*/}
 
 Exemple de fichier `Cargo.toml` :
 
@@ -97,28 +97,28 @@ Quand on crée un projet avec `cargo`, un fichier `Cargo.toml` (Tom's Obvious, M
 
 [Plus d'info sur Cargo.toml](https://doc.rust-lang.org/cargo/reference/manifest.html)
 
-## Syntaxe et structures de base
+## Syntaxe et structures de base {/*#syntaxe-et-structures-de-base*/}
 
-### Point-virgule ou pas ?
+### Point-virgule ou pas ? {/*#point-virgule-ou-pas-*/}
 
 Rust a besoin de point-virgule à la fin de chaque ligne pour séparer les instructions, mais il est possible de voir des lignes sans point-virgule dans les fonctions, car si une ligne n'a pas de point-virgule, alors elle est considérée comme un return.
 
-### Macro ? Késako ?
+### Macro ? Késako ? {/*#macro--késako-*/}
 
 Une macro est une instruction qui termine par `!` (ex : `println!("hehe boi")`), ce n'est pas une fonction classique, mais pas loin.
 
-### Point d'entrée du programme
+### Point d'entrée du programme {/*#point-dentrée-du-programme*/}
 
 Un programme Rust commence toujours par la fonction `main`.
 
-### Expression vs instruction
+### Expression vs instruction {/*#expression-vs-instruction*/}
 
 - **Expression** → renvoie une valeur
 - **Instruction** → ne renvoie rien
 
-### Types de données
+### Types de données {/*#types-de-données*/}
 
-#### Entiers
+#### Entiers {/*#entiers*/}
 
 | Entier relatif | Entier naturel |
 | -------------- | -------------- |
@@ -135,7 +135,7 @@ Un programme Rust commence toujours par la fonction `main`.
 Séparateur virtuel : `1_000` représente 1000, ce qui facilite la lecture et la compréhension des nombres.
 :::
 
-#### Autres types
+#### Autres types {/*#autres-types*/}
 
 - **float** : `f32`, `f64`
 - **bool** : 1 bit
@@ -166,9 +166,9 @@ s.push_str(", world!"); // push_str() ajoute un literal à une String
 println!("{}", s); // Affiche `hello, world!`
 ```
 
-### Structures de contrôle
+### Structures de contrôle {/*#structures-de-contrôle*/}
 
-#### Fonctions
+#### Fonctions {/*#fonctions*/}
 
 ```rust
 fn hehe(x: i32) {
@@ -180,14 +180,14 @@ fn nombre() -> i32 {
 }
 ```
 
-#### Assignation
+#### Assignation {/*#assignation*/}
 
 ```rust
 let x = 42;       // Constante
 let mut y = 10;   // Variable mutable
 ```
 
-#### Conditions
+#### Conditions {/*#conditions*/}
 
 ```rust
 if x > 0 {
@@ -206,7 +206,7 @@ let condition = true;
 let x = if condition { 5 } else { 0 };
 ```
 
-#### Boucles
+#### Boucles {/*#boucles*/}
 
 **Boucle infinie :**
 
@@ -283,7 +283,7 @@ for i in (1..4) {
 // i=3
 ```
 
-#### Scope
+#### Scope {/*#scope*/}
 
 ```rust
 let y = {
@@ -293,11 +293,11 @@ let y = {
 // y est égal à 4
 ```
 
-## Ownership (Système d'appartenance)
+## Ownership (Système d'appartenance) {/*#ownership-système-dappartenance*/}
 
 La particularité de Rust, c'est son système d'appartenance qui lui permet d'être sécurisé par défaut, ET QUI EMPÊCHE DE COMPILER QUAND ÇA DEVRAIT.
 
-### Les trois règles d'ownership
+### Les trois règles d'ownership {/*#les-trois-règles-downership*/}
 
 1. Toute valeur a un propriétaire
 2. Il n'y a qu'un seul propriétaire à la fois
@@ -305,7 +305,7 @@ La particularité de Rust, c'est son système d'appartenance qui lui permet d'ê
 
 Cela conduit à des erreurs de compilation, alors que d'autres langages ne poseraient pas de problème. Pour bien comprendre la subtilité de l'ownership, il faut comprendre les différentes mémoires, le Stack et le Heap.
 
-### Stack vs Heap
+### Stack vs Heap {/*#stack-vs-heap*/}
 
 Un programme a accès à deux types de mémoire :
 
@@ -316,7 +316,7 @@ On ne peut mettre de la mémoire dans le Stack seulement si l'on connaît à l'a
 
 On utilise donc le Heap, et l'allocateur mémoire doit trouver un espace libre où stocker nos données, ce qui est plus long.
 
-### Cas pratiques
+### Cas pratiques {/*#cas-pratiques*/}
 
 **Variables sur le Stack :**
 
@@ -336,16 +336,16 @@ let y = x;
 
 Mais dans celui-là, la variable `x` est stockée sur le Heap, la copie pouvant être coûteuse, elle n'est pas effectuée. Rust supprime `x` et garde `y`, on dit que l'ownership est transféré.
 
-### Cas des fonctions
+### Cas des fonctions {/*#cas-des-fonctions*/}
 
 De la même manière, mettre une variable du Heap dans une fonction lui fait perdre son ownership, mais une variable du Stack est seulement copiée.
 
-## Solution à l'Ownership : les Références
+## Solution à l'Ownership : les Références {/*#solution-à-lownership--les-références*/}
 
 - `&` = référence
 - `*` = déréférence
 
-### Règles des références
+### Règles des références {/*#règles-des-références*/}
 
 1. On peut avoir une référence modifiable OU n références statiques à tout moment
 2. Une référence doit toujours pointer vers une valeur (c'est pas évident)
@@ -364,7 +364,7 @@ fn trust_me(x: &mut String) {
 }
 ```
 
-## Durée de vie (Lifetimes)
+## Durée de vie (Lifetimes) {/*#durée-de-vie-lifetimes*/}
 
 Chaque variable possède une durée de vie limitée, par exemple :
 
@@ -398,13 +398,13 @@ Dans ce cas, la référence pointe vers une valeur inexistante, ce que Rust n'au
 **FAITES CONFIANCE AU COMPILATEUR**
 :::
 
-## Exercices pratiques
+## Exercices pratiques {/*#exercices-pratiques*/}
 
 | #   | Énoncé                                                        | Objectif pédagogique                                   |
 | --- | ------------------------------------------------------------- | ------------------------------------------------------ |
 | 1   | Créer une application CLI pour télécharger des vidéos YouTube | Maîtriser Cargo, les dépendances et la syntaxe de base |
 
-### Projet : Application CLI YouTube Downloader
+### Projet : Application CLI YouTube Downloader {/*#projet--application-cli-youtube-downloader*/}
 
 Durant cette formation nous allons réaliser une application CLI pour télécharger des vidéos YouTube. ([lien du code](https://gist.github.com/UrbsKali/67e09af49d42791a27a58e896677bcad))
 
@@ -425,7 +425,7 @@ Durant cette formation nous allons réaliser une application CLI pour téléchar
 3. Bip Boup coder en Rust
 4. TADA c'est finito
 
-## Ressources
+## Ressources {/*#ressources*/}
 
 - [The Rust Book](https://doc.rust-lang.org/book/) - Documentation officielle complète
 - [Rust Book en vidéo](https://www.youtube.com/playlist?list=PLai5B987bZ9CoVR-QEIN9foz4QCJ0H2Y8) - Version vidéo du livre officiel

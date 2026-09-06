@@ -15,11 +15,11 @@ additional_contributors:
 import TabItem from '@theme/TabItem';
 import Tabs from '@theme/Tabs';
 
-## Introduction
+## Introduction {/*#introduction*/}
 
 $\LaTeX$ est **la référence universelle** pour rédiger des expressions mathématiques. Couplé à des éditeurs modernes comme **VS Code**, **Obsidian** ou **Overleaf**, il permet d'écrire des mathématiques efficacement sur PC.
 
-### Pourquoi LaTeX ?
+### Pourquoi LaTeX ? {/*#pourquoi-latex-*/}
 
 Avec LaTeX, vous pouvez écrire **absolument tout** en mathématiques :
 
@@ -36,7 +36,7 @@ Avec LaTeX, vous pouvez écrire **absolument tout** en mathématiques :
 Ne vous inquiétez pas si vous ne retenez pas tout immédiatement. La maîtrise vient avec la pratique. Les commandes que vous utilisez souvent (fractions, sommes, intégrales) se graveront naturellement dans votre mémoire. Pour le reste, il existe des outils !
 :::
 
-### Detexify : votre meilleur allié
+### Detexify : votre meilleur allié {/*#detexify--votre-meilleur-allié*/}
 
 **[Detexify](https://detexify.kirelabs.org/classify.html)** est un outil magique qui reconnaît les symboles dessinés à la souris :
 
@@ -90,7 +90,7 @@ $$
 Ce qu'il y a écrit ci-dessus est faux, c'est uniquement à but démonstratif !
 :::
 
-## Prérequis & Installation
+## Prérequis & Installation {/*#prérequis--installation*/}
 
 Plusieurs options sont possibles pour écrire des expressions mathématiques en LaTeX.
 
@@ -135,11 +135,11 @@ Plusieurs options sont possibles pour écrire des expressions mathématiques en 
   </TabItem>
 </Tabs>
 
-## Modes mathématiques
+## Modes mathématiques {/*#modes-mathématiques*/}
 
 LaTeX propose deux modes pour écrire des mathématiques. Comprendre ces modes est essentiel car ils influencent le rendu des symboles et des espacements.
 
-### Mode Inline vs Display
+### Mode Inline vs Display {/*#mode-inline-vs-display*/}
 
 | Mode        | Syntaxe                    | Usage                                    | Rendu                                               |
 | ----------- | -------------------------- | ---------------------------------------- | --------------------------------------------------- |
@@ -162,7 +162,7 @@ $$
 > \int_{0}^{\infty} e^{-x^2} dx = \frac{\sqrt{\pi}}{2}
 > $$
 
-### Forcer le style display en mode inline
+### Forcer le style display en mode inline {/*#forcer-le-style-display-en-mode-inline*/}
 
 Utilisez `\displaystyle` pour obtenir un rendu agrandi même en mode inline :
 
@@ -176,9 +176,9 @@ Comparez $\sum_{i=1}^{n} i$ avec $\displaystyle\sum_{i=1}^{n} i$ dans le texte.
 En mode inline, évitez `\displaystyle` car il perturbe l'interligne. Préférez plutôt basculer en mode display avec `$$ ... $$` pour les expressions complexes.
 :::
 
-## Référence rapide des symboles
+## Référence rapide des symboles {/*#référence-rapide-des-symboles*/}
 
-### Opérateurs de base
+### Opérateurs de base {/*#opérateurs-de-base*/}
 
 | Commande LaTeX   | Rendu                         | Description          |
 | ---------------- | ----------------------------- | -------------------- |
@@ -191,7 +191,7 @@ En mode inline, évitez `\displaystyle` car il perturbe l'interligne. Préférez
 | `\prod_{i=1}^n`  | $\displaystyle\prod_{i=1}^n$  | Produit              |
 | `\lim_{x \to 0}` | $\displaystyle\lim_{x \to 0}$ | Limite               |
 
-### Ensembles et relations
+### Ensembles et relations {/*#ensembles-et-relations*/}
 
 | Commande     | Rendu        | Description       |
 | ------------ | ------------ | ----------------- |
@@ -208,7 +208,7 @@ En mode inline, évitez `\displaystyle` car il perturbe l'interligne. Préférez
 | `\mathbb{R}` | $\mathbb{R}$ | Réels             |
 | `\mathbb{C}` | $\mathbb{C}$ | Complexes         |
 
-### Délimiteurs adaptatifs
+### Délimiteurs adaptatifs {/*#délimiteurs-adaptatifs*/}
 
 Les délimiteurs `\left` et `\right` s'adaptent automatiquement à la taille du contenu :
 
@@ -225,9 +225,9 @@ $\displaystyle( \frac{a}{b} )$ vs $\displaystyle\left( \frac{a}{b} \right)$
 | Accolades   | `\{ \}`  | `\left\{ \right\}` |
 | Barres      | `\| \|`  | `\left\| \right\|` |
 
-## Environnements mathématiques avancés
+## Environnements mathématiques avancés {/*#environnements-mathématiques-avancés*/}
 
-### Environnement `align`
+### Environnement `align` {/*#environnement-align*/}
 
 Pour aligner plusieurs équations sur le symbole `&` :
 
@@ -249,7 +249,7 @@ Pour aligner plusieurs équations sur le symbole `&` :
 `align` numérote automatiquement chaque ligne. Pour éviter la numérotation, utilisez `align*` ou ajoutez `\nonumber` sur une ligne spécifique.
 :::
 
-### Environnement `cases` : fonctions par morceaux
+### Environnement `cases` : fonctions par morceaux {/*#environnement-cases--fonctions-par-morceaux*/}
 
 Idéal pour définir des fonctions conditionnelles :
 
@@ -283,7 +283,7 @@ P(X = k) = \begin{cases}
 > \end{cases}
 > $$
 
-### Matrices : types et variantes
+### Matrices : types et variantes {/*#matrices--types-et-variantes*/}
 
 LaTeX offre plusieurs environnements de matrices avec différents délimiteurs :
 
@@ -346,19 +346,19 @@ La matrice $\left(\begin{smallmatrix} a & b \\ c & d \end{smallmatrix}\right)$ e
 > \end{pmatrix}
 > $$
 
-## Accélérer la saisie avec les Snippets
+## Accélérer la saisie avec les Snippets {/*#accélérer-la-saisie-avec-les-snippets*/}
 
-Les _snippets_ transforment un raccourci en code prédéfini. Exemple : `fr` + `Tab` → `\frac{•}{•}`
+Les *snippets* transforment un raccourci en code prédéfini. Exemple : `fr` + `Tab` → `\frac{•}{•}`
 
-### Snippets dans VS Code
+### Snippets dans VS Code {/*#snippets-dans-vs-code*/}
 
-#### Configuration initiale
+#### Configuration initiale {/*#configuration-initiale*/}
 
 1. `Ctrl/Cmd + Shift + P` → **Preferences: Configure User Snippets**
 2. Choisir `latex.json` (ou `markdown.json` pour Markdown)
 3. Ajouter vos snippets au format JSON
 
-#### Anatomie d'un snippet VS Code
+#### Anatomie d'un snippet VS Code {/*#anatomie-dun-snippet-vs-code*/}
 
 ```json
 "sum": {
@@ -378,7 +378,7 @@ Les _snippets_ transforment un raccourci en code prédéfini. Exemple : `fr` + `
 
 **Valeurs par défaut** : `${1:valeur}` définit une valeur par défaut pour le tab stop.
 
-#### Exemples de snippets utiles
+#### Exemples de snippets utiles {/*#exemples-de-snippets-utiles*/}
 
 Ajoutez ces snippets dans votre configuration `latex.json` ou `markdown.json` :
 
@@ -440,7 +440,7 @@ Ajoutez ces snippets dans votre configuration `latex.json` ou `markdown.json` :
 La syntaxe `${1|option1,option2,option3|}` affiche un menu déroulant lors de l'insertion. Utilisé dans le snippet `mat` ci-dessus pour choisir le type de matrice.
 :::
 
-### Snippets dans Obsidian avec Latex Suite
+### Snippets dans Obsidian avec Latex Suite {/*#snippets-dans-obsidian-avec-latex-suite*/}
 
 **Latex Suite** est l'extension de référence pour écrire des mathématiques rapidement dans Obsidian. Elle transforme l'expérience d'écriture en permettant une saisie aussi fluide qu'avec un stylo sur papier.
 
@@ -460,7 +460,7 @@ La syntaxe `${1|option1,option2,option3|}` affiche un menu déroulant lors de l'
 | **Regex triggers** | Patterns avancés pour auto-formatage          | `x2` → `x_{2}` automatiquement              |
 | **Variables**      | Symboles prédéfinis pour simplifier les regex | `${GREEK}` pour toutes les lettres grecques |
 
-#### Anatomie d'un snippet Latex Suite
+#### Anatomie d'un snippet Latex Suite {/*#anatomie-dun-snippet-latex-suite*/}
 
 Un snippet Latex Suite est un objet JavaScript avec 4 propriétés principales :
 
@@ -543,7 +543,7 @@ Utilisation dans un snippet :
 }
 ```
 
-#### Ma configuration personnelle
+#### Ma configuration personnelle {/*#ma-configuration-personnelle*/}
 
 J'ai créé une configuration complète avec **plus de 250 snippets** optimisés pour les mathématiques et la physique. Cette configuration est le fruit de deux années de prise de notes quotidiennes.
 
@@ -577,14 +577,14 @@ Je vous conseille vivement d'utiliser ma configuration comme base, puis de la pe
 <details>
 <summary>Exemples de snippets de ma configuration</summary>
 
-##### 1. Entrée rapide en mode math
+##### 1. Entrée rapide en mode math {/*#1-entrée-rapide-en-mode-math*/}
 
 | Raccourci | Résultat            | Description                        |
 | --------- | ------------------- | ---------------------------------- |
 | `ml`      | `$\displaystyle •$` | Mode math inline avec displaystyle |
 | `dm`      | `$$\n•\n$$`         | Mode math display (bloc)           |
 
-##### 2. Fractions et opérations
+##### 2. Fractions et opérations {/*#2-fractions-et-opérations*/}
 
 | Raccourci | Résultat      | Description     |
 | --------- | ------------- | --------------- |
@@ -594,7 +594,7 @@ Je vous conseille vivement d'utiliser ma configuration comme base, puis de la pe
 | `sq`      | `\sqrt{•}`    | Racine carrée   |
 | `ee`      | `e^{•}`       | Exponentielle   |
 
-##### 3. Lettres grecques avec `@`
+##### 3. Lettres grecques avec `@` {/*#3-lettres-grecques-avec-*/}
 
 Le préfixe `@` permet d'insérer rapidement des lettres grecques :
 
@@ -611,7 +611,7 @@ Le préfixe `@` permet d'insérer rapidement des lettres grecques :
 | `@o`      | `\omega`      |           |           |
 | `@s`      | `\sigma`      |           |           |
 
-##### 4. Ensembles et symboles avec majuscules doublées
+##### 4. Ensembles et symboles avec majuscules doublées {/*#4-ensembles-et-symboles-avec-majuscules-doublées*/}
 
 | Raccourci | Résultat      | Description         |
 | --------- | ------------- | ------------------- |
@@ -623,7 +623,7 @@ Le préfixe `@` permet d'insérer rapidement des lettres grecques :
 | `LL`      | $\mathcal{L}$ | Espace de fonctions |
 | `MM`      | $\mathcal{M}$ | Espace de matrices  |
 
-##### 5. Indices automatiques
+##### 5. Indices automatiques {/*#5-indices-automatiques*/}
 
 Les snippets détectent automatiquement les indices courants :
 
@@ -634,7 +634,7 @@ xip1   →  x_{i+1}         (indices avec +)
 xim2   →  x_{i-2}         (indices avec -)
 ```
 
-##### 6. Accents et modificateurs
+##### 6. Accents et modificateurs {/*#6-accents-et-modificateurs*/}
 
 Tapez une lettre suivie de :
 
@@ -646,7 +646,7 @@ Tapez une lettre suivie de :
 | `bar`   | `\bar{•}`  | `xbar` → `\bar{x}`   | $\bar{x}$  |
 | `hat`   | `\hat{•}`  | `xhat` → `\hat{x}`   | $\hat{x}$  |
 
-##### 7. Dérivées et intégrales
+##### 7. Dérivées et intégrales {/*#7-dérivées-et-intégrales*/}
 
 | Raccourci | Résultat                                | Exemple d'aperçu                        | Description               |
 | --------- | --------------------------------------- | --------------------------------------- | ------------------------- |
@@ -657,7 +657,7 @@ Tapez une lettre suivie de :
 | `oinf`    | `\int_{0}^{\infty} • \, d•`             | $\int_{0}^{\infty} f(x) \, dx$          | Intégrale de 0 à l'infini |
 | `infi`    | `\int_{-\infty}^{+\infty} • \, d•`      | $\int_{-\infty}^{+\infty} f(x) \, dx$   | Intégrale sur R           |
 
-##### 8. Matrices rapides
+##### 8. Matrices rapides {/*#8-matrices-rapides*/}
 
 | Raccourci | Résultat                            | Exemple d'aperçu                                             | Description              |
 | --------- | ----------------------------------- | ------------------------------------------------------------ | ------------------------ |
@@ -666,7 +666,7 @@ Tapez une lettre suivie de :
 | `vmat`    | `\begin{vmatrix}\n•\n\end{vmatrix}` | $\begin{vmatrix} a&b\\c&d \end{vmatrix}$                     | Déterminant              |
 | `cases`   | `\begin{cases}\n•\n\end{cases}`     | $\begin{cases} 0&\text{si } x=0\\1&\text{sinon} \end{cases}$ | Fonction par morceaux    |
 
-##### 9. Mode visuel : transformations de sélection
+##### 9. Mode visuel : transformations de sélection {/*#9-mode-visuel--transformations-de-sélection*/}
 
 Sélectionnez du texte puis appuyez sur :
 
@@ -679,7 +679,7 @@ Sélectionnez du texte puis appuyez sur :
 
 </details>
 
-## Exercices pratiques
+## Exercices pratiques {/*#exercices-pratiques*/}
 
 | #   | Énoncé                                                           | Objectif pédagogique                            |
 | --- | ---------------------------------------------------------------- | ----------------------------------------------- |
@@ -687,9 +687,9 @@ Sélectionnez du texte puis appuyez sur :
 | 2   | Créer un snippet VS Code pour l'environnement `matrix`           | Automatiser la saisie                           |
 | 3   | Importer le document sur Overleaf et partager avec un camarade   | Découvrir le mode révision                      |
 
-## Ressources
+## Ressources {/*#ressources*/}
 
-### Documentation et outils en ligne
+### Documentation et outils en ligne {/*#documentation-et-outils-en-ligne*/}
 
 - [Overleaf – Learn LaTeX in 30 Minutes](https://www.overleaf.com/learn/latex/Learn_LaTeX_in_30_minutes) - Introduction complète
 - [Detexify - Find LaTeX symbols by drawing](https://detexify.kirelabs.org/classify.html) - Dessinez un symbole pour trouver la commande LaTeX
@@ -698,11 +698,12 @@ Sélectionnez du texte puis appuyez sur :
 - [LaTeX Math Cheat Sheet](https://wch.github.io/latexsheet/latexsheet.pdf) - Référence rapide
 - [LaTeX Wikibook](https://en.wikibooks.org/wiki/LaTeX) - Documentation communautaire
 
-### Fichiers de configuration Obsidian
+### Fichiers de configuration Obsidian {/*#fichiers-de-configuration-obsidian*/}
 
 - <a href="/assets/docs/latex/default_snippets.js" target="_blank">**Ouvrir default_snippets.js**</a> - Configuration des snippets Latex Suite
 - <a href="/assets/docs/latex/default_snippet_variables.js" target="_blank">**Ouvrir default_snippet_variables.js**</a> - Variables et symboles pour Latex Suite
 
 :::tip
-Ces fichiers contiennent plus de 250 snippets optimisés pour la saisie rapide de mathématiques, physique et chimie dans Obsidian. Voir la section [Snippets dans Obsidian](#snippets-dans-obsidian-avec-latex-suite) pour les instructions d'installation.
+Ces fichiers contiennent plus de 250 snippets optimisés pour la saisie rapide de mathématiques, physique et chimie dans Obsidian.
+Voir la section [Snippets dans Obsidian](#snippets-dans-obsidian-avec-latex-suite) pour les instructions d'installation.
 :::

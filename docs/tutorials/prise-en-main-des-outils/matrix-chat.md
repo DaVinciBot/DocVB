@@ -16,7 +16,7 @@ Prérequis:
 - Un jeton d'inscription valide fourni par l'administrateur du serveur (ne jamais le partager).
 - Connexion Internet et droits d'installation.
 
-## Télécharger Cinny Desktop
+## Télécharger Cinny Desktop {/*#télécharger-cinny-desktop*/}
 
 - Ouvrir: [https://github.com/cinnyapp/cinny-desktop/releases](https://github.com/cinnyapp/cinny-desktop/releases)
 - Choisir le package selon votre OS:
@@ -28,7 +28,7 @@ Images:
 
 - ![Page des releases Cinny](/img/tutorials/prise-en-main-des-outils/cinny-releases.png)
 
-## Installer
+## Installer {/*#installer*/}
 
 - Windows: exécuter l'installeur et suivre l'assistant.
 - macOS: ouvrir le .dmg, glisser Cinny dans Applications.
@@ -36,7 +36,7 @@ Images:
   - AppImage: chmod +x puis lancer le fichier.
   - DEB/RPM: installer via votre gestionnaire de paquets.
 
-## Premier lancement et configuration du serveur
+## Premier lancement et configuration du serveur {/*#premier-lancement-et-configuration-du-serveur*/}
 
 - Ouvrir Cinny.
 - Cliquer sur homeserver entrer l'URL du homeserver: [https://chat.davincibot.fr](https://chat.davincibot.fr)
@@ -48,7 +48,7 @@ Images:
 - ![Écran d'accueil de Cinny](/img/tutorials/prise-en-main-des-outils/cinny-homepage.png)
 - ![Saisie du homeserver chat.davincibot.fr](/img/tutorials/prise-en-main-des-outils/cinny-login-chat.png)
 
-## Créer un compte avec un token privé (registration token)
+## Créer un compte avec un token privé (registration token) {/*#créer-un-compte-avec-un-token-privé-registration-token*/}
 
 - Cliquer Créer un compte.
 - Renseigner:
@@ -66,7 +66,7 @@ Images:
 
 - ![Formulaire de création de compte](/img/tutorials/prise-en-main-des-outils/register.png)
 
-## Connexion
+## Connexion {/*#connexion*/}
 
 - Identifiant: @votre_utilisateur:chat.davincibot.fr ou juste votre_utilisateur si Cinny est déjà pointé sur chat.davincibot.fr.
 - Mot de passe: celui défini à l'étape précédente.
@@ -75,12 +75,12 @@ Images:
 
 - ![Écran de connexion](/img/tutorials/prise-en-main-des-outils/login.png)
 
-## Sécuriser le compte
+## Sécuriser le compte {/*#sécuriser-le-compte*/}
 
 - Activer la Sauvegarde sécurisée (Secure Backup) pour chiffrer les clés de session E2EE.
 - Sauvegarder la clé de récupération (Security Key) hors ligne (papier ou coffre-fort chiffré).
 
-## Rejoindre des salons et démarrer une discussion
+## Rejoindre des salons et démarrer une discussion {/*#rejoindre-des-salons-et-démarrer-une-discussion*/}
 
 - Rechercher un salon via l'explorateur de Cinny.
 - Démarrer un message direct en recherchant un utilisateur.

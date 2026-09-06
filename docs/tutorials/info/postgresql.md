@@ -24,7 +24,7 @@ ces mécanismes, sans en ajouter. Quand une de leurs conventions est utile pour 
 encart **Supabase** comme celui-ci, et jamais dans le fil principal.
 :::
 
-## De quoi on parle
+## De quoi on parle {/*#de-quoi-on-parle*/}
 
 Une base de données ne se contente pas de stocker des lignes. Elle décide aussi **qui a le droit de les lire et de les
 écrire**, et **ce qui doit rester vrai** après chaque écriture. PostgreSQL propose quatre outils pour ça. Ce sont les
@@ -32,13 +32,13 @@ quatre briques du document, et il vaut mieux savoir à quoi elles servent avant 
 
 **1. Les privilèges — qui peut faire quoi, à l'échelle d'une table.**
 C'est le contrôle d'accès classique : on accorde (`GRANT`) ou on retire (`REVOKE`) le droit de lire, insérer, modifier
-ou supprimer, table par table et rôle par rôle. Un _rôle_, en PostgreSQL, c'est ce que d'autres systèmes appellent un
+ou supprimer, table par table et rôle par rôle. Un *rôle*, en PostgreSQL, c'est ce que d'autres systèmes appellent un
 utilisateur ou un groupe. C'est du tout-ou-rien : soit un rôle peut lire la table `task`, soit il ne peut pas.
 
 **2. Le RLS — qui voit quelles lignes.**
-RLS est l'abréviation de _Row Level Security_, « sécurité au niveau de la ligne ». C'est la réponse au problème que les
+RLS est l'abréviation de *Row Level Security*, « sécurité au niveau de la ligne ». C'est la réponse au problème que les
 privilèges ne savent pas traiter : on veut souvent qu'un membre puisse lire la table `task`, **mais seulement ses
-propres tâches**. Le RLS permet d'attacher à une table des règles, appelées _policies_, qui sont des conditions SQL
+propres tâches**. Le RLS permet d'attacher à une table des règles, appelées *policies*, qui sont des conditions SQL
 évaluées **ligne par ligne**. Une ligne qui ne satisfait aucune policy est simplement invisible, comme si elle
 n'existait pas. C'est le seul mécanisme qui tienne quand le client parle directement à la base, sans couche applicative
 entre les deux pour filtrer.
@@ -49,7 +49,7 @@ répète dans quarante policies (`has_permission('task.admin')`), et exposer une
 appelle en un seul aller-retour.
 
 **4. Les triggers — du code exécuté automatiquement à chaque écriture.**
-Un _trigger_ (« déclencheur ») rattache une fonction à une table et à un événement : « avant chaque `INSERT` sur `task`,
+Un *trigger* (« déclencheur ») rattache une fonction à une table et à un événement : « avant chaque `INSERT` sur `task`,
 exécute ceci ». Il sert à ce qu'aucune autre construction ne sait faire : refuser une écriture selon une règle métier
 complexe, remplir une colonne calculée, ou tracer qui a modifié quoi. Contrairement au RLS, un trigger s'applique **à
 tout le monde**, y compris aux scripts d'administration.
@@ -78,7 +78,7 @@ Une règle écrite dans une application est contournée par les trois autres ; u
 toutes, y compris face à une correction faite à la main en SQL.
 :::
 
-## Plan
+## Plan {/*#plan*/}
 
 | Partie                                                                  | Contenu                                                                                 |
 | ----------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
@@ -91,7 +91,7 @@ toutes, y compris face à une correction faite à la main en SQL.
 | [7 — Extensions](#extensions)                                           | `pgcrypto`, `pg_net`, `pg_cron`, où les installer, secrets                              |
 | [Aide-mémoire](#aide-memoire)                                           | tableau « ligne rencontrée → ce qu'elle fait »                                          |
 
-## Glossaire
+## Glossaire {/*#glossaire*/}
 
 À parcourir en diagonale maintenant, à revenir consulter ensuite.
 
@@ -100,7 +100,7 @@ toutes, y compris face à une correction faite à la main en SQL.
 | **Rôle**                     | Identité PostgreSQL, à la fois utilisateur et groupe. Une requête s'exécute toujours sous un rôle.                       |
 | **Privilège**                | Droit d'effectuer une opération sur un objet (`SELECT` sur une table, `EXECUTE` sur une fonction).                       |
 | **`GRANT` / `REVOKE`**       | Instructions qui accordent et retirent un privilège.                                                                     |
-| **RLS**                      | _Row Level Security_. Filtrage des lignes accessibles, activé table par table.                                           |
+| **RLS**                      | *Row Level Security*. Filtrage des lignes accessibles, activé table par table.                                           |
 | **Policy**                   | Règle RLS : une condition SQL nommée, attachée à une table, évaluée pour chaque ligne.                                   |
 | **`USING`**                  | Partie d'une policy qui filtre les lignes **déjà présentes** (lecture, modification, suppression).                       |
 | **`WITH CHECK`**             | Partie d'une policy qui valide les lignes **produites** (insertion, résultat d'une modification).                        |
@@ -130,13 +130,13 @@ Et, pour situer les encarts Supabase, quatre termes qui n'appartiennent pas à P
 | **`anon` / `authenticated` / `service_role`** | Les trois rôles pré-créés par Supabase : visiteur, utilisateur connecté, serveur de confiance.         |
 | **RPC**                                       | Nom donné par PostgREST et Supabase à l'appel HTTP d'une fonction de la base.                          |
 
-## Prérequis
+## Prérequis {/*#prérequis*/}
 
 - Un serveur PostgreSQL 13+ (local, Docker ou VPS)
 - Un client SQL (psql, DBeaver ou DataGrip)
 - Connaissances SQL de base
 
-## Installation rapide
+## Installation rapide {/*#installation-rapide*/}
 
 ```bash
 # Debian/Ubuntu
@@ -153,7 +153,7 @@ Connexion rapide :
 sudo -u postgres psql
 ```
 
-## Le schéma de démo
+## Le schéma de démo {/*#le-schéma-de-démo*/}
 
 **Tous les exemples du document portent sur ce schéma.** Il n'est pas là pour être lu en entier maintenant : c'est une
 référence à laquelle revenir quand un exemple mentionne une table.
@@ -230,7 +230,7 @@ CREATE TABLE app.activity_change (
 );
 ```
 
-### Les rôles et l'identité de l'appelant
+### Les rôles et l'identité de l'appelant {/*#les-rôles-et-lidentité-de-lappelant*/}
 
 Trois rôles, sans droit de connexion : les comptes de service s'y rattacheront par `GRANT role TO login`.
 
@@ -293,7 +293,7 @@ reviendront toutes en partie 4 :
 
 ---
 
-## Partie 1 — Rôles et privilèges {#roles-et-privileges}
+## Partie 1 — Rôles et privilèges {/*#roles-et-privileges*/}
 
 Le RLS ne se comprend pas isolément : c'est la **seconde** couche d'autorisation. La première, ce sont les privilèges
 (`GRANT` / `REVOKE`).
@@ -316,15 +316,15 @@ requête d'un rôle
 
 Autrement dit :
 
-- **Le `GRANT` définit le plafond** : quelles _opérations_ un rôle peut tenter sur une _table entière_.
-- **Le RLS définit le filtre** : quelles _lignes_ de cette table il voit ou écrit réellement.
+- **Le `GRANT` définit le plafond** : quelles *opérations* un rôle peut tenter sur une *table entière*.
+- **Le RLS définit le filtre** : quelles *lignes* de cette table il voit ou écrit réellement.
 
 :::danger Les deux sont nécessaires Une policy sans `GRANT` ne donne rien (erreur `42501` avant même d'évaluer la
 policy). Un `GRANT` sans RLS donne **tout**. C'est le trou classique d'une base laissée dans sa configuration initiale :
 la moindre table oubliée est intégralement exposée à qui peut s'y connecter.
 :::
 
-### Les rôles
+### Les rôles {/*#les-rôles*/}
 
 Un rôle PostgreSQL est à la fois un « utilisateur » et un « groupe » : il n'y a qu'un seul objet, et l'attribut `LOGIN`
 décide s'il peut ouvrir une connexion.
@@ -371,7 +371,7 @@ migrations, elles, s'exécutent en `postgres` ou `supabase_admin`, tous deux pro
 `app_anon` / `app_user` / `app_admin` de ce document leur correspondent un pour un.
 :::
 
-### `GRANT` et `REVOKE`
+### `GRANT` et `REVOKE` {/*#grant-et-revoke*/}
 
 ```sql
 GRANT USAGE ON SCHEMA app TO app_anon, app_user, app_admin;
@@ -394,7 +394,7 @@ Points à retenir :
 - `GRANT ... ON ALL TABLES IN SCHEMA` agit sur les tables **existantes au moment de l'exécution**. Une table créée après
   n'est pas couverte.
 
-#### Privilèges par colonne
+#### Privilèges par colonne {/*#privilèges-par-colonne*/}
 
 `GRANT` accepte une liste de colonnes. C'est le mécanisme à connaître pour rendre une colonne sensible — typiquement une
 colonne de permissions — non modifiable directement :
@@ -406,7 +406,7 @@ GRANT UPDATE (email) ON app.member TO app_user;
 
 Le rôle peut faire un `UPDATE`, mais **uniquement** sur ces colonnes ; toucher `permissions` renvoie `42501`.
 
-#### `arwdDxt`
+#### `arwdDxt` {/*#arwddxt*/}
 
 `psql \dp` et les colonnes `relacl` affichent les privilèges sous forme de lettres :
 
@@ -429,7 +429,7 @@ autrui**. `REFERENCES` permet de créer une clé étrangère qui révèle indire
 n'a de justification pour un rôle client.
 :::
 
-### `ALTER DEFAULT PRIVILEGES`
+### `ALTER DEFAULT PRIVILEGES` {/*#alter-default-privileges*/}
 
 ```sql
 ALTER DEFAULT PRIVILEGES FOR ROLE postgres IN SCHEMA public
@@ -453,11 +453,11 @@ Trois pièges :
 
 ---
 
-## Partie 2 — RLS (Row Level Security) {#rls}
+## Partie 2 — RLS (Row Level Security) {/*#rls*/}
 
 Le RLS filtre les **lignes** accessibles selon le rôle ou le contexte de la session.
 
-### Activation
+### Activation {/*#activation*/}
 
 ```sql
 ALTER TABLE app.task
@@ -471,7 +471,7 @@ Trois conséquences immédiates :
 - **Le propriétaire de la table n'est pas soumis au RLS.** Idem pour tout rôle `BYPASSRLS`.
 - Les policies ne s'appliquent qu'aux commandes DML (`SELECT`/`INSERT`/`UPDATE`/`DELETE`), pas au DDL.
 
-#### `FORCE` et `NO FORCE`
+#### `FORCE` et `NO FORCE` {/*#force-et-no-force*/}
 
 ```sql
 ALTER TABLE app.api_token
@@ -484,7 +484,7 @@ ALTER TABLE app.project
 détenue par `postgres` de lire la table hors policy. À réserver aux tables les plus sensibles (jetons, secrets,
 hachages), en défense en profondeur.
 
-#### Activation en masse
+#### Activation en masse {/*#activation-en-masse*/}
 
 Activer le RLS sur toutes les tables d'un schéma se fait par un bloc anonyme parcourant le catalogue :
 
@@ -517,7 +517,7 @@ Décodage :
 L'avantage sur une liste écrite à la main : une table ajoutée plus tard dans le même schéma est couverte au prochain
 passage, et aucun oubli n'est possible.
 
-### Anatomie complète d'une policy
+### Anatomie complète d'une policy {/*#anatomie-complète-dune-policy*/}
 
 ```sql
 CREATE POLICY nom_policy
@@ -540,7 +540,7 @@ WITH check (expression_booleenne) ];
 | `USING`      | filtre les lignes **existantes**                         |
 | `WITH CHECK` | valide les lignes **produites**                          |
 
-#### `USING` contre `WITH CHECK`
+#### `USING` contre `WITH CHECK` {/*#using-contre-with-check*/}
 
 C'est la distinction centrale, et la source d'erreur la plus fréquente.
 
@@ -575,7 +575,7 @@ lisible : un auteur qui fait passer sa tâche de `draft` à `open` échouerait s
 autre branche du `OR` le couvre. Le contrôle fin des transitions est à déporter dans un trigger, ce qui est le bon
 découpage : **RLS pour l'accès, trigger pour l'invariant**.
 
-#### `PERMISSIVE` contre `RESTRICTIVE`
+#### `PERMISSIVE` contre `RESTRICTIVE` {/*#permissive-contre-restrictive*/}
 
 Plusieurs policies peuvent viser la même table et la même commande. Elles se combinent ainsi :
 
@@ -609,7 +609,7 @@ CREATE POLICY project_write ON app.project
 La policy `project_write` est en `FOR ALL`, donc elle couvre aussi `SELECT` — mais comme `project_read` est permissive
 et vaut `true`, la lecture reste ouverte. L'écriture, elle, n'est couverte que par `project_write`.
 
-#### Absence de policy d'écriture
+#### Absence de policy d'écriture {/*#absence-de-policy-décriture*/}
 
 ```sql
 CREATE POLICY activity_read ON app.activity
@@ -622,7 +622,7 @@ Aucune policy `INSERT`/`UPDATE`/`DELETE` : **la table n'est écrivable par aucun
 par un trigger en `SECURITY DEFINER`, qui s'exécute sous une identité privilégiée. C'est une manière déclarative de
 dire « donnée dérivée, non saisissable ».
 
-### Le contexte de la session
+### Le contexte de la session {/*#le-contexte-de-la-session*/}
 
 Une policy est une expression SQL évaluée **ligne par ligne**, dans laquelle on peut lire :
 
@@ -667,7 +667,7 @@ ou `service_role`), et `auth.jwt()` l'objet `jsonb` entier. Pour tester explicit
 confiance », on écrit `coalesce(auth.role(), '') <> 'service_role'`.
 :::
 
-### Références à d'autres tables
+### Références à d'autres tables {/*#références-à-dautres-tables*/}
 
 Une policy peut faire des sous-requêtes. Le motif le plus courant, « je vois le projet s'il porte au moins une de mes
 tâches » :
@@ -697,7 +697,7 @@ lignes qu'une lecture directe refuserait. Il faut donc que la sous-requête ne r
 d'existence**, jamais des données.
 :::
 
-### Fonctions d'aide dans les policies {#fonctions-daide-dans-les-policies}
+### Fonctions d'aide dans les policies {/*#fonctions-daide-dans-les-policies*/}
 
 Répéter une jointure de permissions dans quarante policies est ingérable. Le projet centralise dans deux fonctions :
 
@@ -739,7 +739,7 @@ Chaque mot-clé de la signature est là pour une raison précise :
 
 | Clause                        | Pourquoi                                                                                  |
 | ----------------------------- | ----------------------------------------------------------------------------------------- |
-| `LANGUAGE sql`                | corps mono-expression, _inlinable_ par le planificateur                                   |
+| `LANGUAGE sql`                | corps mono-expression, *inlinable* par le planificateur                                   |
 | `STABLE`                      | résultat constant pour un même instantané → **évalué une fois**, pas une fois par ligne   |
 | `SECURITY DEFINER`            | lit `profile_global_roles` sans que l'appelant y ait accès, et **casse la récursion RLS** |
 | `SET search_path TO 'public'` | protection contre le détournement de résolution de noms                                   |
@@ -750,7 +750,7 @@ les droits du propriétaire, lise **sa** table. Toute fonction `SECURITY DEFINER
 non négociable : les deux mots-clés vont ensemble, systématiquement, sans exception.
 :::
 
-#### Le problème de récursion
+#### Le problème de récursion {/*#le-problème-de-récursion*/}
 
 Si la policy de `app.member` appelait `has_permission()`, qui lit `app.member`, qui déclenche sa policy, qui appelle
 `has_permission()`… PostgreSQL lèverait `infinite recursion detected in policy for relation "member"`.
@@ -758,7 +758,7 @@ Si la policy de `app.member` appelait `has_permission()`, qui lit `app.member`, 
 `SECURITY DEFINER` résout cela : la fonction s'exécute comme le propriétaire, qui n'est pas soumis au RLS, donc la
 lecture interne ne réévalue aucune policy.
 
-#### Performance
+#### Performance {/*#performance*/}
 
 Une fonction `STABLE` ou `VOLATILE` appelée dans une policy est, par défaut, réévaluée **pour chaque ligne examinée**.
 Sur une grande table, c'est le principal facteur de lenteur du RLS.
@@ -780,7 +780,7 @@ USING
 - **indexer les colonnes utilisées dans les policies** (`author_id`, `project_id`, `parent_id`) ;
 - éviter les fonctions `VOLATILE` dans une policy, qui interdisent toute mise en cache.
 
-### RLS et vues
+### RLS et vues {/*#rls-et-vues*/}
 
 :::warning Une vue n'a pas de policies
 `ALTER VIEW ... ENABLE ROW LEVEL SECURITY` n'existe pas. Par défaut, une vue s'exécute avec les droits de **son
@@ -801,7 +801,7 @@ l'oubli sur une seule suffit à ouvrir la table qu'elle expose.
 
 Pour les vues matérialisées, l'option n'existe pas : il faut restreindre par `GRANT`.
 
-### Le RLS s'applique aussi aux tables qu'on n'a pas écrites
+### Le RLS s'applique aussi aux tables qu'on n'a pas écrites {/*#le-rls-sapplique-aussi-aux-tables-quon-na-pas-écrites*/}
 
 Rien ne limite le RLS aux tables de son propre schéma. Toute table sur laquelle on a le droit de poser une policy peut
 en recevoir une, y compris celles créées par une extension ou par une plateforme.
@@ -829,7 +829,7 @@ Enfin, `storage.buckets` porte les garde-fous qui ne dépendent pas des lignes �
 servir depuis une origine légitime, c'est du XSS stocké.
 :::
 
-### Inspecter et déboguer
+### Inspecter et déboguer {/*#inspecter-et-déboguer*/}
 
 ```sql
 -- toutes les policies visibles
@@ -876,9 +876,9 @@ dès qu'on remplace des policies posées ailleurs que dans le dépôt de migrati
 
 ---
 
-## Partie 3 — Fonctions PostgreSQL {#fonctions}
+## Partie 3 — Fonctions PostgreSQL {/*#fonctions*/}
 
-### Syntaxe
+### Syntaxe {/*#syntaxe*/}
 
 ```sql
 CREATE
@@ -926,16 +926,16 @@ Paramètres de la fonction :
 de la sortir d'une boucle. Dans une policy RLS, cela transforme un appel en un appel par ligne.
 :::
 
-#### `CREATE OR REPLACE` et signature
+#### `CREATE OR REPLACE` et signature {/*#create-or-replace-et-signature*/}
 
 `CREATE OR REPLACE FUNCTION` conserve le propriétaire et les `GRANT` **si la signature est identique**. Changer un type
 d'argument crée une **nouvelle** fonction surchargée : l'ancienne subsiste, avec ses anciens droits. D'où les
 `DROP FUNCTION IF EXISTS` explicites dans les migrations qui modifient une signature.
 
 Le corollaire est utile : quand une migration se contente de réécrire un corps pour ajouter un `USING errcode`,
-`CREATE OR REPLACE` suffit et rien n'est à re- _granter_.
+`CREATE OR REPLACE` suffit et rien n'est à re- *granter*.
 
-#### Exemple
+#### Exemple {/*#exemple*/}
 
 ```sql
 -- combien de tâches ce membre a-t-il terminées ?
@@ -952,7 +952,7 @@ SELECT count(*)::int
 $$;
 ```
 
-### Éléments de PL/pgSQL utiles à la lecture
+### Éléments de PL/pgSQL utiles à la lecture {/*#éléments-de-plpgsql-utiles-à-la-lecture*/}
 
 | Construction                    | Signification                                                               |
 | ------------------------------- | --------------------------------------------------------------------------- |
@@ -979,11 +979,11 @@ se fait donc **toujours** avec `IS DISTINCT FROM`, y compris sur des `jsonb`.
 
 ---
 
-## Partie 4 — Triggers {#triggers}
+## Partie 4 — Triggers {/*#triggers*/}
 
 Un trigger déclenche une fonction lors d'un événement (`INSERT`/`UPDATE`/`DELETE`/`TRUNCATE`).
 
-### Les deux étapes
+### Les deux étapes {/*#les-deux-étapes*/}
 
 1. **Une fonction de trigger**, qui ne prend aucun argument déclaré et renvoie `trigger` :
 
@@ -1018,7 +1018,7 @@ EXECUTE FUNCTION app.task_set_created_at();
  1. Les deux se croisent dans un même dépôt : les anciens dumps portent la première, tout code récent la seconde.
     :::
 
-### Syntaxe complète
+### Syntaxe complète {/*#syntaxe-complète*/}
 
 ```sql
 CREATE
@@ -1034,7 +1034,7 @@ ON TABLE
 EXECUTE function nom_fonction ( arguments );
 ```
 
-#### Timing et niveau
+#### Timing et niveau {/*#timing-et-niveau*/}
 
 |              | `FOR EACH ROW`                                     | `FOR EACH STATEMENT`                                                  |
 | ------------ | -------------------------------------------------- | --------------------------------------------------------------------- |
@@ -1054,7 +1054,7 @@ AFTER STATEMENT
 À l'intérieur d'une même catégorie, les triggers s'exécutent dans l'**ordre alphabétique de leur nom**. C'est le seul
 levier pour ordonner deux triggers sur la même table : les renommer.
 
-#### Valeurs de retour
+#### Valeurs de retour {/*#valeurs-de-retour*/}
 
 | Type de trigger            | Retour attendu                 | Effet                                                        |
 | -------------------------- | ------------------------------ | ------------------------------------------------------------ |
@@ -1087,7 +1087,7 @@ concernée », quelle que soit l'opération.
 | `DELETE`        | ligne à supprimer | `NULL`          |
 | statement-level | indisponible      | indisponible    |
 
-#### Variables spéciales
+#### Variables spéciales {/*#variables-spéciales*/}
 
 Toute fonction de trigger PL/pgSQL reçoit implicitement :
 
@@ -1136,7 +1136,7 @@ EXECUTE FUNCTION app.log_activity('membership', 'member_id');
 explicitement (`::bigint`).
 :::
 
-#### `UPDATE OF colonne`
+#### `UPDATE OF colonne` {/*#update-of-colonne*/}
 
 ```sql
 -- recalcule project.total_effort
@@ -1155,7 +1155,7 @@ pas, même si un trigger antérieur a modifié `state` dans `NEW`. `UPDATE OF` e
 un test de changement — pour tester un vrai changement, comparer `OLD.x IS DISTINCT FROM NEW.x` dans le corps.
 :::
 
-#### `WHEN (condition)`
+#### `WHEN (condition)` {/*#when-condition*/}
 
 ```sql
 CREATE TRIGGER task_on_done
@@ -1171,7 +1171,7 @@ Filtre évalué **avant** d'appeler la fonction : moins coûteux qu'un `IF ... T
 Restrictions : pas de sous-requête ; `NEW` interdit sur `DELETE` et `OLD` sur `INSERT` ; interdit sur les triggers
 `FOR EACH STATEMENT` ; sur un `BEFORE` on ne peut pas y tester une valeur qu'un autre trigger modifierait ensuite.
 
-#### Tables de transition (`REFERENCING`)
+#### Tables de transition (`REFERENCING`) {/*#tables-de-transition-referencing*/}
 
 ```sql
 -- invariant : une sous-tâche est dans le même projet que sa tâche parente
@@ -1220,7 +1220,7 @@ niveau instruction, l'état est cohérent. Et la table de transition borne le co
 touchées : sans elle, il faudrait revalider toute la table à chaque écriture.
 :::
 
-#### Triggers de contrainte
+#### Triggers de contrainte {/*#triggers-de-contrainte*/}
 
 ```sql
 CREATE CONSTRAINT TRIGGER task_effort_guard
@@ -1250,7 +1250,7 @@ messages d'erreur précis.
 
 Pour forcer une évaluation anticipée en debug : `SET CONSTRAINTS ALL IMMEDIATE;`.
 
-### Ce que les triggers savent faire (et le RLS non)
+### Ce que les triggers savent faire (et le RLS non) {/*#ce-que-les-triggers-savent-faire-et-le-rls-non*/}
 
 C'est le partage de responsabilités à garder en tête, et il vaut d'être explicite :
 
@@ -1272,7 +1272,7 @@ privilégié ; le même contrôle écrit en trigger tient face à lui, face aux 
 corrections faites à la main en SQL.
 :::
 
-### Le motif d'audit générique
+### Le motif d'audit générique {/*#le-motif-daudit-générique*/}
 
 Un seul trigger générique peut journaliser toutes les tables d'un schéma, colonne par colonne :
 
@@ -1318,7 +1318,7 @@ Ce trigger est en `SECURITY DEFINER` : la table de journal n'a **aucune policy d
 insérer directement, mais le trigger le peut. La trace est alors inviolable par construction — y compris pour l'auteur
 de l'écriture tracée.
 
-### Récursion et cascades
+### Récursion et cascades {/*#récursion-et-cascades*/}
 
 Un trigger qui écrit dans une table portant elle-même un trigger déclenche celui-ci. Trois outils :
 
@@ -1343,7 +1343,7 @@ END IF;
   idempotente, appelée par `PERFORM` depuis un trigger qui se contente de déterminer **quels** projets recalculer. Le
   calcul devient testable en isolation.
 
-### Désactiver un trigger
+### Désactiver un trigger {/*#désactiver-un-trigger*/}
 
 ```sql
 ALTER TABLE app.task
@@ -1360,7 +1360,7 @@ SET session_replication_role = replica; -- désactive tous les triggers de la se
 vivante laisse entrer des lignes qu'aucune règle n'a validées, et rien ne les signalera ensuite.
 :::
 
-### Triggers et appels HTTP
+### Triggers et appels HTTP {/*#triggers-et-appels-http*/}
 
 PostgreSQL ne sait pas faire de requête HTTP nativement ; il faut une extension, `pg_net` étant la plus courante :
 
@@ -1405,7 +1405,7 @@ l'argument `headers` — exactement le cas visé par l'avertissement ci-dessus. 
 préférable, et le secret se lit alors dans `vault.decrypted_secrets`.
 :::
 
-### Inspecter les triggers
+### Inspecter les triggers {/*#inspecter-les-triggers*/}
 
 ```sql
 -- les triggers d'une table
@@ -1423,9 +1423,9 @@ SELECT pg_get_functiondef('app.log_activity()'::regprocedure);
 
 ---
 
-## Partie 5 — Erreurs et codes SQLSTATE {#erreurs}
+## Partie 5 — Erreurs et codes SQLSTATE {/*#erreurs*/}
 
-### `RAISE`
+### `RAISE` {/*#raise*/}
 
 ```sql
 RAISE EXCEPTION 'tâche % : % points saisis pour % attendus', faute.id, faute.somme, faute.effort
@@ -1443,7 +1443,7 @@ d'une saisie invalide qu'en comparant des **chaînes de caractères** — rédig
 versionnées. Une comparaison de message est une dépendance qui casse au premier reformulage.
 :::
 
-### Choisir un code
+### Choisir un code {/*#choisir-un-code*/}
 
 Bonne règle :
 
@@ -1480,7 +1480,7 @@ Un SQLSTATE fait cinq caractères alphanumériques ; les deux premiers forment l
 code par famille d'invariant**, pas un par message, et **un registre écrit quelque part**, sinon la numérotation dérive
 au bout de trois migrations.
 
-### Capturer une erreur
+### Capturer une erreur {/*#capturer-une-erreur*/}
 
 ```sql
 BEGIN
@@ -1502,7 +1502,7 @@ programmation.
 
 ---
 
-## Partie 6 — Blocs anonymes et SQL dynamique {#blocs-anonymes-et-sql-dynamique}
+## Partie 6 — Blocs anonymes et SQL dynamique {/*#blocs-anonymes-et-sql-dynamique*/}
 
 ```sql
 DO
@@ -1521,7 +1521,7 @@ $$;
 - `EXECUTE 'chaîne'` exécute du SQL construit à l'exécution. Nécessaire car un nom de table ne peut pas être un
   paramètre.
 
-#### Échapper correctement
+#### Échapper correctement {/*#échapper-correctement*/}
 
 | Marqueur `format()` | Usage                                                 | Exemple                                |
 | ------------------- | ----------------------------------------------------- | -------------------------------------- |
@@ -1534,7 +1534,7 @@ $$;
 déjà échappé, d'où son usage plus haut).
 :::
 
-#### Dumper les policies existantes
+#### Dumper les policies existantes {/*#dumper-les-policies-existantes*/}
 
 Utile pour reprendre en migration des policies posées à la main : le SQL est régénéré depuis le catalogue, donc conforme
 à ce qui tourne réellement.
@@ -1554,7 +1554,7 @@ SELECT format('CREATE POLICY %I ON %I.%I AS %s FOR %s TO %s USING (%s);',
 
 ---
 
-## Partie 7 — Extensions {#extensions}
+## Partie 7 — Extensions {/*#extensions*/}
 
 | Extension            | Apport                                                  |
 | -------------------- | ------------------------------------------------------- |
@@ -1595,7 +1595,7 @@ recommandation ci-dessus.
 
 ---
 
-## Aide-mémoire : décoder une migration {#aide-memoire}
+## Aide-mémoire : décoder une migration {/*#aide-memoire*/}
 
 | Ligne rencontrée                                       | Ce qu'elle fait                                            |
 | ------------------------------------------------------ | ---------------------------------------------------------- |
@@ -1626,7 +1626,7 @@ recommandation ci-dessus.
 
 ---
 
-## Ressources
+## Ressources {/*#ressources*/}
 
 - [Documentation officielle](https://www.postgresql.org/docs/current/)
 - [Sécurité au niveau des lignes](https://www.postgresql.org/docs/current/ddl-rowsecurity.html)

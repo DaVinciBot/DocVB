@@ -18,7 +18,7 @@ Dans cette formation, vous apprendrez les bases de Linux en ligne de commande, �
 Un système d'exploitation (OS) est le logiciel qui permet d'utiliser le matériel (CPU, mémoire, disque, réseau, périphériques). Ici, on se concentre sur Linux. Android, par exemple, est basé sur Linux.
 :::
 
-## Prérequis
+## Prérequis {/* #prérequis */}
 
 - Une distribution Linux (VM, VPS, WSL ou machine dédiée)
 - Un terminal (bash/zsh) et des droits sudo si possible
@@ -28,7 +28,7 @@ Un système d'exploitation (OS) est le logiciel qui permet d'utiliser le matéri
 Chemins absolus: commencent par `/` (ex: `/home/user`). Chemins relatifs: par rapport au dossier courant. Raccourcis utiles: `~` (home), `.` (courant), `..` (parent).
 :::
 
-## Étape 1 — Se repérer et naviguer
+## Étape 1 — Se repérer et naviguer {/* #se-repérer-et-naviguer */}
 
 - `pwd` — Affiche le dossier courant
 
@@ -59,7 +59,7 @@ cd -                 # revenir au dossier précédent
 file /bin/ls
 ```
 
-## Étape 2 — Lire et chercher dans des fichiers
+## Étape 2 — Lire et chercher dans des fichiers {/* #lire-et-chercher-dans-des-fichiers */}
 
 - `cat` — Affiche un fichier
 
@@ -89,7 +89,7 @@ grep -i "erreur" fichier.log      # insensible à la casse
 grep -R "TODO" .                  # récursif dans l'arborescence
 ```
 
-## Étape 3 — Créer, copier, déplacer, renommer
+## Étape 3 — Créer, copier, déplacer, renommer {/* #créer-copier-déplacer-renommer */}
 
 - `touch` — Créer un fichier vide ou mettre à jour sa date
 
@@ -122,7 +122,7 @@ mv ancien_nom.txt nouveau_nom.txt  # renommer
 `*` remplace plusieurs caractères, `?` un seul. Exemple: `cp *.txt dossier/` copie tous les .txt.
 :::
 
-## Étape 4 — Supprimer en sécurité
+## Étape 4 — Supprimer en sécurité {/* #supprimer-en-sécurité */}
 
 - `rm` — Supprimer un fichier
 
@@ -146,7 +146,7 @@ rm -r src_backup
 `rm -rf /` peut détruire un système. Vérifiez toujours le chemin avant de supprimer.
 :::
 
-## Étape 5 — Comprendre et modifier les permissions
+## Étape 5 — Comprendre et modifier les permissions {/* #comprendre-et-modifier-les-permissions */}
 
 Chaque fichier/dossier a des permissions pour 3 catégories: utilisateur (u), groupe (g), autres (o). Les permissions: lecture (r), écriture (w), exécution (x).
 
@@ -181,7 +181,7 @@ sudo chgrp dev dossier
 `umask` définit les permissions par défaut à la création des fichiers. Exemple commun: `umask 022`.
 :::
 
-## Étape 6 — Utilisateurs et groupes
+## Étape 6 — Utilisateurs et groupes {/* #utilisateurs-et-groupes */}
 
 Selon la distribution, utilisez `adduser`/`addgroup` (Debian/Ubuntu) ou `useradd`/`groupadd` (commandes bas niveau). Voici des commandes génériques:
 
@@ -208,7 +208,7 @@ sudo delgroup dev         # Debian/Ubuntu
 Évitez d'utiliser root directement. Préférez `sudo` avec un utilisateur standard membre du groupe `sudo`/`wheel`.
 :::
 
-## Étape 7 — Processus et gestion des tâches
+## Étape 7 — Processus et gestion des tâches {/* #processus-et-gestion-des-tâches */}
 
 - `ps` / `top` / `htop` — Lister les processus
 
@@ -238,7 +238,7 @@ bg %1              # continuer en arrière-plan
 `nice` et `renice` ajustent la priorité CPU d'un processus.
 :::
 
-## Étape 8 — Aide intégrée et documentation
+## Étape 8 — Aide intégrée et documentation {/* #aide-intégrée-et-documentation */}
 
 - `man <commande>` — Manuel complet (flèches pour naviguer, q pour quitter)
 - `commande --help` — Aide rapide
@@ -255,7 +255,7 @@ man -k network
 Les pages `tldr` proposent des exemples concis. Installation (Debian/Ubuntu): `sudo apt install tldr` puis `tldr tar`.
 :::
 
-## Étape 9 — Redirections, pipes et flux
+## Étape 9 — Redirections, pipes et flux {/* #redirections-pipes-et-flux */}
 
 - Redirections de sortie/entrée
 
@@ -274,7 +274,7 @@ commande > out.txt 2>&1        # stdout et stderr vers le même fichier
 commande | tee out.txt         # afficher et enregistrer
 ```
 
-## Étape 10 — Archives et transferts utiles
+## Étape 10 — Archives et transferts utiles {/* #archives-et-transferts-utiles */}
 
 ```bash
 # Créer/extraire une archive tar.gz
@@ -293,7 +293,7 @@ curl -LO https://exemple.org/fichier
 scp fichier user@hote:/chemin/destination
 ```
 
-## Exercices pratiques
+## Exercices pratiques {/* #exercices-pratiques */}
 
 1. Créez une arborescence `projets/demo/src` et un fichier `main.txt` avec du texte, puis copiez-la en `projets/demo_backup`.
 2. Listez les fichiers `.log` récents dans `/var/log` contenant le mot « error » (insensible à la casse) et enregistrez le résultat dans `errors.txt`.
@@ -301,7 +301,7 @@ scp fichier user@hote:/chemin/destination
 4. Créez un groupe `web` et ajoutez-y votre utilisateur, puis vérifiez avec `groups`.
 5. Lancez une commande longue en arrière-plan, affichez-la avec `jobs`, et terminez-la proprement.
 
-## Ressources
+## Ressources {/* #ressources */}
 
 - Documentation Ubuntu: https://help.ubuntu.com/
 - GNU Coreutils (manuels): https://www.gnu.org/software/coreutils/manual/

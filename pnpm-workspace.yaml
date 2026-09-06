@@ -2,6 +2,11 @@ blockExoticSubdeps: true
 
 overrides:
   webpack: 5.105.4
+  # Deux versions de postcss dans le graphe suffisent à dédoubler la clé de
+  # peer-resolution de @docusaurus/utils, donc de @docusaurus/theme-common :
+  # le ColorModeProvider de theme-classic et le useColorMode de src/theme/*
+  # tombent alors sur deux contextes React différents.
+  postcss: 8.5.28
 
 strictDepBuilds: true
 allowBuilds:

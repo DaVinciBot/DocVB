@@ -33,6 +33,10 @@ piège de l'installation, et l'objet principal de ce tutoriel.
 Un compte GitHub **membre de l'organisation [DaVinciBot](https://github.com/DaVinciBot)**
 (demandez l'invitation au pôle info), Git installé, et des bases en ligne de commande.
 Les repos sont privés : sans l'invitation, ni le clone ni les packages ne fonctionneront.
+
+Si Git ou GitHub ne vous sont pas encore familiers, commencez par la formation
+[Git & GitHub — les bases](../tutorials/info/git.mdx) : compte GitHub, clone, branches et
+pull requests y sont repris depuis zéro.
 :::
 
 ## <Boxes /> Les repos
@@ -59,6 +63,10 @@ Les packages partagés consommés par les apps :
 - **`@davincibot/lib`** — code partagé (client Supabase, helpers serveur, types).
 - **`@davincibot/components`** — bibliothèque de composants Svelte 5.
 - **`@davincibot/database-types`** — types TypeScript générés depuis la base (repo `Supabased`).
+
+Derrière Supabase, la base est un **PostgreSQL** classique : les migrations, les rôles et
+les politiques RLS du repo `Supabased` se lisent avec la formation
+[PostgreSQL — fondamentaux et sécurité](../tutorials/info/postgresql.md).
 
 :::tip Par où commencer ?
 Pour une première contribution, clonez **`davincibot.fr`** : c'est le repo le plus
@@ -353,6 +361,8 @@ ce que la CI exécutera.
 
 ## Ressources
 
+- [Git & GitHub — les bases](../tutorials/info/git.mdx) — la formation à faire avant de cloner un repo.
+- [PostgreSQL — fondamentaux et sécurité](../tutorials/info/postgresql.md) — pour comprendre la base derrière Supabase.
 - [Working with the npm registry (GitHub Packages)](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-npm-registry)
 - [Créer un personal access token](https://docs.github.com/en/authentication/keeping-your-account-secure/managing-your-personal-access-tokens)
 - [Documentation SvelteKit](https://svelte.dev/docs/kit)

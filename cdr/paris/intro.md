@@ -40,7 +40,6 @@ réapprendre la navigation :
 | **Modules** | Une fiche par brique de code |
 | **État des lieux** | Ce qui marche, ce qui marche à moitié, ce qui ne marche pas |
 | **Débug** | Les pannes de la saison et comment les diagnostiquer |
-| **À transmettre** | Ce qui n'entre dans aucune autre case |
 | **Tutoriels** | Les procédures propres à ce sous-projet et à cette saison |
 
 Les tutoriels **génériques** (Git, Docker, PlatformIO, LaTeX…) ne sont pas ici : ils vivent dans les

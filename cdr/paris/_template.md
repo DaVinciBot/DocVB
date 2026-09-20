@@ -16,8 +16,7 @@ cdr/paris/<sous-projet>/
 ├── info/
 │   ├── modules.md            section 3
 │   ├── etat-des-lieux.md     section 4
-│   ├── debug.md              section 5
-│   └── a-transmettre.md      section 8
+│   └── debug.md              section 5
 ├── elek/                     si le sous-projet a ses propres cartes
 └── tutos/                    procédures propres à ce sous-projet et à cette saison
 ```
@@ -141,12 +140,3 @@ Cette partie est optionnelle mais fortement recommandée.
 - fonctionnalités à finir
 - fonctionnalités à repenser
 - ordre de priorité conseillé
-
-## 8. Informations à transmettre → `info/a-transmettre.md` {/* #section-8 */}
-
-Tout ce que vous voulez transmettre et qui **n'entre dans aucune des rubriques précédentes** :
-conseils, notions mal comprises cette année, contexte utile, pièges d'organisation, ce que vous
-auriez aimé qu'on vous dise en arrivant.
-
-Ce n'est pas une liste de documentation à écrire : c'est de l'information de passation à part
-entière. Même une seule phrase utile vaut mieux qu'une page vide.

@@ -78,6 +78,6 @@ Conséquence pratique : compiler un PAMI avec `ENABLE_LORA true` sans Jetson qui
 
 ## Pour aller plus loin {/* #pour-aller-plus-loin */}
 
-- [Setup de l'environnement de dev](./setup.md) — les outils communs à tous les sous-projets.
+- [Setup de l'environnement de dev](./setup_dev.md) — les outils communs à tous les sous-projets.
 - [Power delivery](./elek/power-delivery.md) — la carte d'alimentation.
 - Les pages *Vue d'ensemble* de chaque sous-projet, pour l'architecture interne de chacun.

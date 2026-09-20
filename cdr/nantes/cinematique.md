@@ -22,9 +22,9 @@ Et pour l'odométrie, il faut faire l'inverse : reconstruire la position du robo
 
 Une roue omnidirectionnelle (roue omni ou roue suédoise) est une roue motrice qui peut **aussi glisser latéralement**, grâce à des rouleaux passifs montés perpendiculairement sur son pourtour.
 
-```
+```plaintext
     ┌──────────────────┐
-    │  ● ● ● ● ● ● ●  │   ← rouleaux passifs (roulent librement)
+    │  ● ● ● ● ● ● ●   │   ← rouleaux passifs (roulent librement)
     └──────────────────┘
            ↕ direction motrice
 ```
@@ -42,7 +42,7 @@ Une roue omnidirectionnelle (roue omni ou roue suédoise) est une roue motrice q
 
 Le robot holonome Nantes dispose de **trois roues** disposées à 120° les unes des autres autour du centre du robot, à équidistance `d` du centre.
 
-```
+```plaintext
          Y+ (avant)
           ^
           |
@@ -78,7 +78,7 @@ Le PID travaille dans le repère Monde (consigne de position absolue). Les roues
 
 La conversion se fait via la matrice de rotation d'angle θ (cap du robot) :
 
-```
+```plaintext
 Vx_robot =  cos(θ) × Vx_monde + sin(θ) × Vy_monde
 Vy_robot = -sin(θ) × Vx_monde + cos(θ) × Vy_monde
 ```
@@ -102,7 +102,7 @@ Chaque roue omni, orientée à un angle αi par rapport à l'axe X du robot, con
 
 En projetant géométriquement la vitesse de chaque roue sur les axes du robot, on obtient les équations de cinématique directe. Pour notre configuration (W1 à 120°, W2 à 240°, W3 à 0°) :
 
-```
+```plaintext
 Vx = ( 1/2) × W1 + ( 1/2) × W2 + (-1  ) × W3   } divisé par 3 après sommation
 Vy = (-√3/2) × W1 + (√3/2) × W2 + ( 0  ) × W3
 Ω  = -1/(3d) × (W1 + W2 + W3)
@@ -110,7 +110,7 @@ Vy = (-√3/2) × W1 + (√3/2) × W2 + ( 0  ) × W3
 
 Ce qui donne le système :
 
-```
+```plaintext
 Vx =  (1/3) × W1 + (1/3) × W2 - (2/3) × W3
 Vy = -(√3/3) × W1 + (√3/3) × W2
 Ω  = -1/(3d) × (W1 + W2 + W3)
@@ -124,13 +124,13 @@ où `d` est la distance entre le centre du robot et l'axe de chaque roue (rayon 
 
 On réécrit ce système sous forme AX = Λ :
 
-```
-     A              X       Λ
-┌              ┐ ┌    ┐   ┌    ┐
-│  1/3  1/3 -2/3 │ │ W1 │   │ Vx │
-│ -√3/3 √3/3  0  │ │ W2 │ = │ Vy │
+```plaintext
+     A                 X        Λ
+┌                  ┐ ┌    ┐   ┌    ┐
+│  1/3  1/3 -2/3   │ │ W1 │   │ Vx │
+│ -√3/3 √3/3  0    │ │ W2 │ = │ Vy │
 │ -1/3d -1/3d -1/3d│ │ W3 │   │ Ω  │
-└              ┘ └    ┘   └    ┘
+└                  ┘ └    ┘   └    ┘
 ```
 
 Le déterminant de A est non nul (det(A) = 2√3 / 9d), ce qui garantit que le système est **inversible** — il existe bien une solution unique à la cinématique inverse.
@@ -150,19 +150,19 @@ On cherche X = A⁻¹ × Λ. Avec la règle de Cramer, on remplace successivemen
 On remplace la 1ʳᵉ colonne de A par (Vx, Vy, Ω) et on calcule det(A1) / det(A).
 Après développement :
 
-```
+```plaintext
 W1 = (1/2) × Vx - (√3/2) × Vy - d × Ω
 ```
 
 **Pour W2 (V_BF) :**
 
-```
+```plaintext
 W2 = (1/2) × Vx + (√3/2) × Vy - d × Ω
 ```
 
 **Pour W3 (V_CF) :**
 
-```
+```plaintext
 W3 = -Vx - d × Ω
 ```
 
@@ -170,7 +170,7 @@ W3 = -Vx - d × Ω
 
 En remplaçant √3/2 ≈ 0.866 (convention Nantes actuelle) :
 
-```
+```plaintext
 W1 = -0.5 × Vx + 0.866 × Vy - d × Ω     // α = 120°
 W2 = -0.5 × Vx - 0.866 × Vy - d × Ω     // α = 240°
 W3 = +1.0 × Vx + 0.0   × Vy - d × Ω     // α = 0°
@@ -205,7 +205,7 @@ La cinématique directe sert aussi à l'odométrie : à partir des distances par
 
 On repart des équations de cinématique directe et on les applique aux incréments de position ΔW1, ΔW2, ΔW3 (en mm) depuis le dernier pas :
 
-```
+```plaintext
 dx_enc =  (-ΔW1 - ΔW2 + 2×ΔW3) / 3
 dy_enc =  (ΔW1 - ΔW2) / √3
 dθ_enc = -(ΔW1 + ΔW2 + ΔW3) / (3 × d)
@@ -217,7 +217,7 @@ Ces formules sont exactement les équations de cinématique directe, appliquées
 
 Ces déplacements sont dans le repère local du robot. Pour mettre à jour la position absolue, on les reprojette dans le repère monde via la rotation d'angle θ :
 
-```
+```plaintext
 X += dx_enc × cos(θ) - dy_enc × sin(θ)
 Y += dx_enc × sin(θ) + dy_enc × cos(θ)
 θ += dθ_enc
@@ -233,7 +233,7 @@ Appliquer brutalement un changement de vitesse de consigne crée des à-coups m�
 
 On applique un **filtre passe-bas** sur les vitesses calculées avant de les envoyer aux moteurs :
 
-```
+```plaintext
 W_filtered[k] = α × W_new[k] + (1 - α) × W_filtered[k-1]
 ```
 
@@ -251,34 +251,34 @@ Après filtrage, on applique une **normalisation proportionnelle** : si la vites
 
 ## 9. Boucle complète
 
-```
+```plaintext
 ┌────────────────────────────────────────────────────────────────────────┐
-│  CONSIGNE (Xc, Yc, θc)                                                │
+│  CONSIGNE (Xc, Yc, θc)                                                 │
 │       │                                                                │
 │       ▼                                                                │
-│  [PID X] [PID Y] [PID θ]   →   (Vx_monde, Vy_monde, Ω)              │
+│  [PID X] [PID Y] [PID θ]   →   (Vx_monde, Vy_monde, Ω)                 │
 │                                          │                             │
 │       ┌──────────────────────────────────┘                             │
 │       ▼                                                                │
-│  Rotation repère monde → repère robot  (matrice R(θ))                 │
+│  Rotation repère monde → repère robot  (matrice R(θ))                  │
 │       │                                                                │
 │       ▼                                                                │
-│  Cinématique inverse  →   (W1, W2, W3)    [équations section 6]       │
+│  Cinématique inverse  →   (W1, W2, W3)    [équations section 6]        │
 │       │                                                                │
 │       ▼                                                                │
-│  Filtre passe-bas (α = 0.3) + normalisation                           │
+│  Filtre passe-bas (α = 0.3) + normalisation                            │
 │       │                                                                │
 │       ▼                                                                │
-│  Moteurs (MKS SERVO57D — RS485 — steps/s)                             │
+│  Moteurs (MKS SERVO57D — RS485 — steps/s)                              │
 │       │                                                                │
 │       ▼                                                                │
-│  Encodeurs  →  ΔW1, ΔW2, ΔW3                                         │
+│  Encodeurs  →  ΔW1, ΔW2, ΔW3                                           │
 │       │                                                                │
 │       ▼                                                                │
-│  Cinématique directe  →  (dx, dy, dθ)    [équations section 7]       │
+│  Cinématique directe  →  (dx, dy, dθ)    [équations section 7]         │
 │       │                                                                │
 │       ▼                                                                │
-│  Intégration position  →  (X, Y, θ)  ───────────────────► retour PID │
+│  Intégration position  →  (X, Y, θ)  ───────────────────► retour PID   │
 └────────────────────────────────────────────────────────────────────────┘
 ```
 
@@ -290,7 +290,7 @@ Les équations de cinématique travaillent en mm/s. Les moteurs pas-à-pas reço
 
 ### 10.1 Facteur de conversion
 
-```
+```plaintext
 steps_par_tour = steps_moteur × microstepping = 200 × 32 = 6 400
 
 périmètre_roue = π × diamètre = π × 60 mm ≈ 188.5 mm
@@ -300,14 +300,14 @@ steps_par_mm = steps_par_tour / périmètre_roue = 6 400 / 188.5 ≈ 33.95 steps
 
 Donc pour envoyer une vitesse en mm/s au moteur :
 
-```
+```plaintext
 vitesse_steps_par_s = vitesse_mm_par_s × steps_par_mm
                     = vitesse_mm_par_s × 33.95
 ```
 
 Et pour convertir un déplacement d'encodeur (steps) en mm pour l'odométrie :
 
-```
+```plaintext
 déplacement_mm = steps_lus / steps_par_mm
                = steps_lus / 33.95
 ```
@@ -349,7 +349,7 @@ float error_theta = normalize_angle(theta_consigne - theta_actuel);
 
 On force les consignes à zéro dès que l'erreur est sous un seuil :
 
-```
+```plaintext
 si |erreur_distance| < 10 mm  ET  |erreur_theta| < 0.15 rad (~8.6°)
     → Vx = Vy = Ω = 0   (robot considéré en position)
 ```
@@ -446,7 +446,7 @@ Les roues omni sont conçues pour des sols lisses. Sur une toile de match standa
 
 ## Résumé
 
-```
+```plaintext
 CINÉMATIQUE DIRECTE  (roues → mouvement)
   Vx = (1/3)W1   + (1/3)W2  - (2/3)W3
   Vy = -(√3/3)W1 + (√3/3)W2

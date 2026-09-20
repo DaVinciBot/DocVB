@@ -16,7 +16,7 @@ Si vous arrivez dans l'équipe, lisez dans cet ordre :
 
 1. **[Architecture globale](./transverse/architecture-globale.md)** — les trois systèmes, ce qui
    circule entre eux, et ce qu'il faut retenir en premier.
-2. **[Setup de l'environnement de dev](./transverse/setup.md)** — les outils à installer avant
+2. **[Setup de l'environnement de dev](./transverse/setup_dev.md)** — les outils à installer avant
    d'écrire la moindre ligne.
 3. La page **Vue d'ensemble** du sous-projet qui vous concerne : elle se lit en entier, une fois.
 

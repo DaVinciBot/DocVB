@@ -25,7 +25,7 @@ C'est exactement ce que fait le filtre de Kalman.
 
 Le filtre de Kalman repose sur deux étapes qui se répètent en boucle :
 
-```
+```plaintext
 ┌─────────────────────────────────────────────────────────┐
 │  1. PRÉDICTION                                          │
 │     "D'après ce que j'ai commandé, où devrais-je être?" │
@@ -37,7 +37,7 @@ Le filtre de Kalman repose sur deux étapes qui se répètent en boucle :
 │  2. MISE À JOUR (correction)                            │
 │     "D'après ce que mes capteurs mesurent,              │
 │      où suis-je vraiment ?"                             │
-│     → on corrige la prédiction avec le gain de Kalman  │
+│     → on corrige la prédiction avec le gain de Kalman   │
 └─────────────────────────────────────────────────────────┘
 ```
 
@@ -66,7 +66,7 @@ On travaille en temps discret (comme le PID). À chaque pas k :
 
 ### 3.2 Étape 1 — Prédiction
 
-```
+```plaintext
 x̂[k|k-1] = F × x̂[k-1|k-1]          // état prédit
 P[k|k-1]  = F × P[k-1|k-1] × Fᵀ + Q  // covariance prédite
 ```
@@ -76,7 +76,7 @@ P[k|k-1]  = F × P[k-1|k-1] × Fᵀ + Q  // covariance prédite
 
 ### 3.3 Étape 2 — Mise à jour
 
-```
+```plaintext
 y[k] = z[k] - H × x̂[k|k-1]                          // innovation (écart mesure / prédiction)
 S[k] = H × P[k|k-1] × Hᵀ + R                         // covariance de l'innovation
 K[k] = P[k|k-1] × Hᵀ × S[k]⁻¹                        // gain de Kalman
@@ -125,7 +125,7 @@ Le filtre de Kalman classique suppose que le système est **linéaire**. Or un r
 - On remplace F par la **jacobienne** du modèle d'évolution, calculée à chaque pas
 - C'est la version la plus utilisée en robotique mobile
 
-```
+```plaintext
 F[k] = ∂f/∂x |x̂[k-1]     // jacobienne du modèle f, évaluée au point courant
 ```
 
@@ -147,7 +147,7 @@ F[k] = ∂f/∂x |x̂[k-1]     // jacobienne du modèle f, évaluée au point co
 - Utilise un ensemble de points déterministes appelés **sigma points** pour propager l'incertitude à travers la fonction non-linéaire
 - Plus précis que l'EKF sur les systèmes fortement non-linéaires
 
-```
+```plaintext
 Sigma points = ensemble de 2n+1 points choisis autour de x̂
 → on les propage à travers f (pas de jacobienne)
 → on recalcule moyenne et covariance à partir des points propagés
@@ -197,7 +197,7 @@ Résultat : **l'odométrie seule dérive beaucoup plus vite** que sur un différ
 
 ### 6.3 Ce que chaque capteur observe
 
-```
+```plaintext
 x̂ = [ x, y, θ, vx, vy, ω ]ᵀ
 
   x, y   : position dans le repère terrain (mm)
@@ -251,7 +251,7 @@ x̂ = [ x, y, θ, vx, vy, ω ]ᵀ
 
 ## Résumé
 
-```
+```plaintext
 1. Prédire l'état           →  x̂[k|k-1] = F × x̂[k-1]
 2. Prédire l'incertitude    →  P[k|k-1]  = F × P × Fᵀ + Q
 3. Calculer le gain         →  K = P × Hᵀ × (H × P × Hᵀ + R)⁻¹

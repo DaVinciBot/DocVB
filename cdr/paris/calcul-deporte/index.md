@@ -63,26 +63,35 @@ Voir « Modules principaux » pour le détail de chaque fiche. L'orchestrateur `
 
 Chaîne de traitement, de la caméra jusqu'au robot :
 
-```
-Caméra CSI IMX219 ──(GStreamer / nvargus, GPU)──▶ CSICamera (thread capture)
-        │
-        ▼
-   main.py : boucle de détection (~15 fps)
-        │
-        ▼
-   ArucoDetector.analyze_frame(frame)
-     ├─ détection ArUco (DICT_4X4_100) + fallback multi-échelle
-     ├─ homographie image vers monde (marqueurs de référence, avec cache)
-     ├─ projection : (id, position en m, yaw)
-     ├─ filtrage warm-up + lissage temporel (carry-forward)
-     └─ rendu 2D de l'arène (matplotlib puis GStreamer)
-        │
-        ▼
-   detected_world = [(id, position, angle), ...]
-        │
-        ├─▶ historique de positions puis calcul de vitesse (m/s)
-        │
-        └─▶ build_lora_message(...) → LoRa.queue_send → /dev/ttyTHS1 → robot / PAMIs
+```mermaid
+flowchart TB
+    CAM["Caméra CSI IMX219"]
+    CSI["CSICaméra<br/>thread de capture"]
+    LOOP["main.py<br/>boucle de détection, ~15 fps"]
+    DET["ArucoDetector.analyze_frame(frame)"]
+    WORLD["detected_world<br/>liste de (id, position, angle)"]
+    SPEED["Historique de positions<br/>puis calcul de vitesse (m/s)"]
+    LORA["build_lora_message(...)<br/>puis LoRa.queue_send"]
+    OUT["/dev/ttyTHS1<br/>robot et PAMIs"]
+
+    subgraph STEPS["Étapes de analyze_frame"]
+        direction TB
+        S1["Détection ArUco (DICT_4X4_100)<br/>+ fallback multi-échelle"]
+        S2["Homographie image vers monde<br/>(marqueurs de référence, avec cache)"]
+        S3["Projection : id, position en m, yaw"]
+        S4["Filtrage warm-up<br/>+ lissage temporel (carry-forward)"]
+        S5["Rendu 2D de l'arène<br/>(matplotlib puis GStreamer)"]
+        S1 --> S2 --> S3 --> S4 --> S5
+    end
+
+    CAM -- "GStreamer / nvargus, GPU" --> CSI
+    CSI --> LOOP
+    LOOP --> DET
+    DET --> STEPS
+    STEPS --> WORLD
+    WORLD --> SPEED
+    WORLD --> LORA
+    LORA --> OUT
 ```
 
 ### Ordre de lancement

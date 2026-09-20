@@ -14,16 +14,16 @@ Tu veux que ton robot avance de 1 mètre. Tu envoies une commande aux moteurs pe
 
 On appelle ça une **boucle fermée** (par opposition à la boucle ouverte où on envoie une commande sans vérifier ce qui se passe).
 
-```
+```plaintext
           ┌─────────────┐        ┌──────────┐        ┌──────────┐
-Consigne  │             │Commande │          │ Action  │          │  Mesure
-─────────►│  Correcteur ├────────►  Actionneur├────────►  Système ├────────┐
-          │   (PID)     │        │ (moteurs) │        │ (robot)  │        │
+Consigne  │             │Commande│          │ Action │          │  Mesure
+─────────►│  Correcteur ├────────►Actionneur├────────►  Système ├────────┐
+          │   (PID)     │        │(moteurs) │        │ (robot)  │        │
           └──────┬──────┘        └──────────┘        └──────────┘        │
-                 │                                                         │
-                 │ Erreur                            ┌──────────┐         │
-                 └───────────────────────────────────┤ Capteurs │◄────────┘
-                                                     └──────────┘
+                 │                                                       │
+                 │ Erreur                           ┌──────────┐         │
+                 └──────────────────────────────────┤ Capteurs │◄────────┘
+                                                    └──────────┘
 ```
 
 ### 1.2 Le vocabulaire de base
@@ -52,7 +52,7 @@ L'encodeur génère des **impulsions** (tops) à chaque fraction de tour de la r
 
 Exemple : roue odométrique de 60 mm de diamètre, encodeur 1024 PPR :
 
-```
+```plaintext
 Périmètre = π × 60 mm ≈ 188,5 mm
 Résolution = 188,5 / 1024 ≈ 0,184 mm par top
 ```
@@ -99,7 +99,7 @@ Soit `e(t)` l'erreur à l'instant `t` = Consigne − Mesure.
 
 #### P — Proportionnel
 
-```
+```plaintext
 sortie_P = Kp × e(t)
 ```
 
@@ -109,7 +109,7 @@ sortie_P = Kp × e(t)
 
 #### I — Intégral
 
-```
+```plaintext
 sortie_I = Ki × ∫e(t)dt    ≈    Ki × somme des erreurs × dt
 ```
 
@@ -122,7 +122,7 @@ sortie_I = Ki × ∫e(t)dt    ≈    Ki × somme des erreurs × dt
 
 #### D — Dérivé
 
-```
+```plaintext
 sortie_D = Kd × de(t)/dt    ≈    Kd × (e(t) - e(t-1)) / dt
 ```
 
@@ -135,7 +135,7 @@ sortie_D = Kd × de(t)/dt    ≈    Kd × (e(t) - e(t-1)) / dt
 
 #### Commande totale
 
-```
+```plaintext
 commande(t) = Kp × e(t) + Ki × ∫e(t)dt + Kd × de(t)/dt
 ```
 
@@ -147,7 +147,7 @@ commande(t) = Kp × e(t) + Ki × ∫e(t)dt + Kd × de(t)/dt
 
 Le choix de la fréquence d'appel du PID est aussi important que le réglage des gains. Règle générale :
 
-```
+```plaintext
 fs ≥ 10 × bande passante utile du système
 ```
 
@@ -167,7 +167,7 @@ fs ≥ 10 × bande passante utile du système
 
 Le terme D amplifie naturellement le bruit des capteurs. On lui applique systématiquement un **filtre passe-bas du premier ordre**, caractérisé par un facteur **N** (coefficient de filtrage) :
 
-```
+```plaintext
 Df[k] = (Df[k-1] + Td × (-dy[k])) / (1 + N × Ts)
 
 avec :
@@ -192,7 +192,7 @@ Méthode empirique, rapide, suffisante pour la plupart des cas en compétition.
 
 **Étape 1 — Partir de zéro**
 
-```
+```plaintext
 Kp = 0  |  Ki = 0  |  Kd = 0
 ```
 
@@ -287,7 +287,7 @@ Variante de Z-N réponse indicielle, plus adaptée quand le **temps mort est sig
 
 **Solution — Anti-windup back-calculation (méthode robuste) :** On compare la commande calculée et la commande réellement appliquée (saturée). La différence est réinjectée dans l'intégrateur avec un gain Kaw pour le corriger.
 
-```
+```plaintext
 u_brut  = PID calculé
 u_sat   = constrain(u_brut, Umin, Umax)   // commande réellement appliquée
 I_state += Kaw × (u_sat - u_brut)          // correction de l'intégrateur
@@ -341,7 +341,7 @@ Kaw ≈ 0.3 à 1.0 — à ajuster selon le système
 
 Architecture recommandée pour un robot précis :
 
-```
+```plaintext
 Position (consigne) → [PID position] → Vitesse (consigne) → [PID vitesse] → Moteur
                         (lente)                                (rapide)
 ```
@@ -356,7 +356,7 @@ Règles de conception pour la cascade :
 
 ## Résumé
 
-```
+```plaintext
 1. Mesurer l'erreur         →  e = consigne - mesure
 2. Calculer P               →  Kp × e
 3. Calculer I               →  Ki × somme(e × dt)  [avec anti-windup]

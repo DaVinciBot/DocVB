@@ -1,0 +1,10 @@
+{
+  "key": "calcul-deporte-info",
+  "label": "Informatique",
+  "position": 1,
+  "link": {
+    "type": "generated-index",
+    "description": "Code de la Jetson : modules, état des lieux, debug.",
+    "slug": "/calcul-deporte/info"
+  }
+}

@@ -93,7 +93,7 @@ L'arborescence sous `static/img/` **reflète le chemin du document** qui utilise
 |------------------------------------------------|--------------------------------------------------|
 | `docs/tutorials/info/unity.md`                 | `static/img/tutorials/info/unity/`               |
 | `docs/tutorials/prise-en-main-des-outils/*.md` | `static/img/tutorials/prise-en-main-des-outils/` |
-| `cdr/paris/elek/*.md`                          | `static/img/cdr/paris/elek/`                     |
+| `cdr/paris/pami/elek/*.md`                     | `static/img/cdr/paris/pami/elek/`                |
 | `cdr/nantes/*.md`                              | `static/img/cdr/nantes/`                         |
 
 La racine `static/img/` est réservée aux éléments d'identité du site (logo, favicon, image Open Graph) : ne rien y

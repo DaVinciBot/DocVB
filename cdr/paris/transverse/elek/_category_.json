@@ -1,0 +1,10 @@
+{
+  "key": "transverse-elek",
+  "label": "Électronique",
+  "position": 3,
+  "link": {
+    "type": "generated-index",
+    "description": "Cartes et circuits communs a plusieurs robots.",
+    "slug": "/transverse/elek"
+  }
+}

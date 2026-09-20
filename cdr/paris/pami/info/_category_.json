@@ -1,0 +1,10 @@
+{
+  "key": "pami-info",
+  "label": "Informatique",
+  "position": 1,
+  "link": {
+    "type": "generated-index",
+    "description": "Firmware des PAMIs : modules, état des lieux, debug.",
+    "slug": "/pami/info"
+  }
+}

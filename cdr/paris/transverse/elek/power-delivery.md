@@ -11,7 +11,7 @@ additional_contributors:
 
 PCB KiCad fournissant un rail stable de 5 V, 5 A adapté au Raspberry Pi 5.
 
-![Rendu 3D de la carte](/img/cdr/paris/elek/pd-3d-f.png)
+![Rendu 3D de la carte](/img/cdr/paris/transverse/elek/pd-3d-f.png)
 
 ## Résumé {/* #résumé */}
 
@@ -51,11 +51,11 @@ lol
 
 ## Aperçu du schéma {/* #aperçu-du-schéma */}
 
-![Aperçu du schéma](/img/cdr/paris/elek/pd-schematics.png)
+![Aperçu du schéma](/img/cdr/paris/transverse/elek/pd-schematics.png)
 
 ## Notes de routage PCB {/* #notes-de-routage-pcb */}
 
-![Couche supérieure](/img/cdr/paris/elek/pd-pcb.png)
+![Couche supérieure](/img/cdr/paris/transverse/elek/pd-pcb.png)
 
 ## Règles et contraintes électriques (KiCad) {/* #règles-et-contraintes-électriques-kicad */}
 

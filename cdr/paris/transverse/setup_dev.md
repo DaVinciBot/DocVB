@@ -2,6 +2,8 @@
 title: Setup de l'environnement de dev
 description: Guide d'installation et de configuration des outils de développement du projet CDR — VS Code, Git, uv, choco, clang-format, Make, formatage/lint et conventions de nommage.
 slug: setup-info
+sidebar_label: Setup dev
+sidebar_position: 2
 tags: [cdr, paris, info, git]
 last_update:
   date: 2025-10-15

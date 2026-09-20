@@ -139,3 +139,17 @@ nantes:
   label: Nantes
   permalink: /nantes
   description: Équipe DaVinciBot Nantes (ESILV Nantes).
+
+# --- Sous-projets CDR Paris ---
+pami:
+  label: PAMI
+  permalink: /pami
+  description: Les petits robots autonomes (PAMIs) de l'équipe Paris.
+calcul-deporte:
+  label: Calcul déporté
+  permalink: /calcul-deporte
+  description: Vision par caméra zénithale et calcul déporté sur Jetson.
+robot-principal:
+  label: Robot principal
+  permalink: /robot-principal
+  description: Le robot principal de l'équipe Paris (Bot Ladyyy).

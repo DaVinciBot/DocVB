@@ -1,0 +1,10 @@
+{
+  "key": "robot-principal-info",
+  "label": "Informatique",
+  "position": 1,
+  "link": {
+    "type": "generated-index",
+    "description": "Code du robot principal : modules, état des lieux, debug.",
+    "slug": "/robot-principal/info"
+  }
+}

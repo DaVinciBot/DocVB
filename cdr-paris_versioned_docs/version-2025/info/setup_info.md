@@ -329,13 +329,13 @@ Pour faciliter la collaboration et garder un historique clair, merci de respecte
 
 - Utilisez des noms explicites et courts, séparés par des tirets.
 - Privilégiez le format :
-    - `feature/nom-fonctionnalite`
-    - `fix/description-bug`
-    - `docs/ajout-ou-modif-doc`
-    - `refactor/nom-refactor`
+  - `feature/nom-fonctionnalite`
+  - `fix/description-bug`
+  - `docs/ajout-ou-modif-doc`
+  - `refactor/nom-refactor`
 - Exemple :
-    - `feature/add-basic-trajectory-planner`
-    - `refactor/change-coordinate-system`
+  - `feature/add-basic-trajectory-planner`
+  - `refactor/change-coordinate-system`
 
 ### Commits {/* #commits */}
 

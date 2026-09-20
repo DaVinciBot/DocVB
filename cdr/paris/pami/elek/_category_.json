@@ -1,0 +1,10 @@
+{
+  "key": "pami-elek",
+  "label": "Électronique",
+  "position": 2,
+  "link": {
+    "type": "generated-index",
+    "description": "Cartes électroniques des PAMIs.",
+    "slug": "/pami/elek"
+  }
+}

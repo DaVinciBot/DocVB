@@ -15,6 +15,10 @@ electronique:
   label: Électronique
   permalink: /electronique
   description: Électronique, cartes et circuits imprimés.
+mecanique:
+  label: Mécanique
+  permalink: /mecanique
+  description: Conception mécanique — châssis, transmission, pièces imprimées.
 sysadmin:
   label: Sysadmin
   permalink: /sysadmin

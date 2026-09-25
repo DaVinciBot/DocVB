@@ -73,10 +73,6 @@ gazebo:
   label: Gazebo
   permalink: /gazebo
   description: Simulation robotique avec Gazebo.
-webots:
-  label: Webots
-  permalink: /webots
-  description: Simulation robotique avec Webots.
 matrix:
   label: Matrix
   permalink: /matrix

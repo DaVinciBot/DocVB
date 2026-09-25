@@ -41,7 +41,6 @@ L'arborescence racine (`robot1/rasp/`) contient le cœur décisionnel en Python 
 
 - `main.py` et `robot.py` : Point d'entrée et objet global du robot, centralisant la gestion des sous-modules (mouvement, Lidar, terrain).
 - `loader.py` : Utilitaire de chargement dynamique des classes de communication (permettant l'injection de dépendances pour la simulation).
-- `switch_mode.py` : Script utilitaire pour basculer facilement l'environnement entre la simulation Webots et le matériel réel (modifie `config.json`).
 - Modèles mathématiques de l'environnement (ex: `terrain_jeu.py`).
 
 ### 2.2. Côté Teensy Moteur (Bas Niveau)

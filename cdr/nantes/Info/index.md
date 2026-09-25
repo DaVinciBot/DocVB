@@ -51,9 +51,7 @@ Utilisez la barre latérale pour naviguer à travers les différentes sections :
    - [Modèles de cinématique holonomique](./modules/cinematique.md)
    - [Odométrie, fusion de capteurs et PID](./modules/odometrie_pid.md)
    - [Navigation et stratégie globale](./modules/navigation_haut_niveau.md)
-3. **Périphériques et Simulation** :
-   - [Simulation Webots](./modules/simulation_webots.md)
-4. **Composants Expérimentaux** :
+3. **Composants Expérimentaux** :
    - [Détection Lidar](./modules/lidar_detection.md)
    - [Implémentation Caméra](./features/camera.md)
    - [Télémétrie avec Rerun.io](./features/rerun.md)

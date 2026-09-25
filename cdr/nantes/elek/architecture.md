@@ -16,7 +16,7 @@ additional_contributors:
 ![Schéma électronique général](/img/cdr/nantes/elek/architecture/schema-general.png)
 
 Le but est :
-La RPi fais une décision de trajectoire (path finding) → envoie l'instruction correspondante à la teensy → la teensy envoie les instructions correspondantes aux drivers → les drivers alimentent correctement les moteurs pour qu'ils tournent de la manière décrite → le mouvement est fait - les capteurs recup la data → data envoyé à la teensy (IMU + CO + encodeurs) → teensy fait lidar + IMU + CO pour calculer position actuelle et PID → envoie position à la rasp → Rasp récupère Lidar pour trouver robot adverse → path finding → boucle
+La RPi fais une décision de trajectoire (path finding) → envoie l'instruction correspondante à la teensy → la teensy envoie les instructions correspondantes aux drivers → les drivers alimentent correctement les moteurs pour qu'ils tournent de la manière décrite → le mouvement est fait - les capteurs recup la data → data envoyé à la teensy (IMU + CO + encodeurs) → teensy fait IMU + CO pour calculer position actuelle(odométrie) et PID → envoie position à la rasp → Rasp récupère Lidar pour trouver robot adverse → path finding → boucle
 
 ## Schéma Elek Teensy
 

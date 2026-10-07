@@ -23,7 +23,6 @@ additional_contributors:
 
 - **Python 3.10+**
 - **PlatformIO** (via VSCode ou CLI) pour compiler et flasher les Teensy.
-- **Webots** (optionnel, pour la simulation). Le fichier de monde à ouvrir est `simulation/worlds/my_world.wbt`.
 
 ## 2. Installation des Dépendances
 
@@ -42,17 +41,6 @@ Les identifiants matériels uniques (comme le Serial Number USB de la Teensy) ne
 
 - Modifiez (ou créez) le fichier `config.json` ou utilisez les variables d'environnement pour définir les identifiants, par exemple le serial_number (ex: `17795370`).
 
-## Lancer en simulation
-
-Pour basculer le système en mode simulation :
-
-1. Exécutez le script de bascule de mode pour configurer l'accès virtuel (port série défini sur `COM1`) :
-
-   ```bash
-   python robot1/rasp/switch_mode.py simulation
-   ```
-
-2. Lancez le simulateur Webots et chargez le monde de simulation prévu.
 
 ## Lancer sur le vrai robot (Hardware)
 

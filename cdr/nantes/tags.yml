@@ -15,6 +15,10 @@ electronique:
   label: Électronique
   permalink: /electronique
   description: Électronique, cartes et circuits imprimés.
+mecanique:
+  label: Mécanique
+  permalink: /mecanique
+  description: Conception mécanique — châssis, transmission, pièces imprimées.
 sysadmin:
   label: Sysadmin
   permalink: /sysadmin
@@ -69,10 +73,6 @@ gazebo:
   label: Gazebo
   permalink: /gazebo
   description: Simulation robotique avec Gazebo.
-webots:
-  label: Webots
-  permalink: /webots
-  description: Simulation robotique avec Webots.
 matrix:
   label: Matrix
   permalink: /matrix

@@ -92,4 +92,4 @@ L'intégration de Rerun a démontré de grandes capacités, mais la décision fi
 - L'outil a un coût d'encodage et de transmission des données (surtout pour le nuage de points Lidar à haute fréquence) qui pourrait solliciter dangereusement le CPU de la Raspberry Pi 5.
 
 **Recommandation pour l'année prochaine :**
-Mener un test de charge CPU (Stress Test) en conditions réelles avec le Pathfinding actif. Si la boucle principale de 20 Hz arrive à maintenir sa cadence sans ralentissement, cette branche devra absolument être mergée.
+Mener un test de charge CPU (Stress Test) en conditions réelles avec le Pathfinding actif. Si la boucle principale de 20 Hz arrive à maintenir sa cadence sans ralentissement, cette branche pourra être mergée.

@@ -8,7 +8,7 @@ tags: [cdr, paris, info, robot-principal, robotique]
 
 Ce document liste les problèmes rencontrés sur le **robot principal**, et comment les diagnostiquer ou les corriger. Il est fait pour être lu en panique au bord de la table : chaque fiche va du symptôme vers la solution.
 
-## Le robot « ne fait rien » : dummies activés {/* #dummies */}
+## Le robot « ne fait rien » : dummies activés {/*#dummies*/}
 
 - Symptômes : le code tourne sans erreur, la stratégie s'exécute (logs normaux, visualisation matplotlib cohérente), mais le robot réel ne bouge pas / les actionneurs restent inertes.
 - Causes probables : les flags de simulation de `.env` pointent sur les versions **dummy** (`ROLLING_BASIS_DUMMY`, `ACTUATORS_DUMMY`, `LIDAR_DUMMY`) au lieu du vrai matériel — typiquement après une session de dev sur un seul point du matériel.
@@ -17,7 +17,7 @@ Ce document liste les problèmes rencontrés sur le **robot principal**, et comm
 - Fichiers/modules concernés : `.env`, `robot1/rasp/main.py` (sélection des implémentations), `controllers/rolling_basis/rolling_basis_dummy.py`, `controllers/actuators/actuators_dummy.py`, `sensors/lidar/lidar_dummy.py`.
 - Remarques : c'est le premier réflexe à avoir quand « rien ne marche mais rien ne plante ».
 
-## Teensy non détectée ou mauvais port série {/* #teensy-port */}
+## Teensy non détectée ou mauvais port série {/*#teensy-port*/}
 
 - Symptômes : erreur à l'initialisation de `RollingBasis` ou `ActuatorsShow`, port série introuvable, ou la mauvaise carte répond (les deux Teensy sont identiques vues de l'USB).
 - Causes probables : câble/hub USB défectueux ; Teensy pas flashée ou plantée ; identification incorrecte — les deux Teensy 4.1 partagent le même VID/PID (5824/1155) et ne se distinguent que par leur **numéro de série** défini dans `config.json` : une carte remplacée = un numéro de série à mettre à jour.
@@ -26,7 +26,7 @@ Ce document liste les problèmes rencontrés sur le **robot principal**, et comm
 - Fichiers/modules concernés : `config.json` (VID/PID/serials), `common/usb_com/python/com/com.py`, `common/teensy/` (`BaseComTeensy`), firmwares `robot1/teensy_moteur/` et `robot1/teensy_actuator/`.
 - Remarques : étiqueter physiquement les deux Teensy (« moteur » / « actuator ») avec leur numéro de série évite de déboguer à l'aveugle.
 
-## Messages Rasp↔Teensy incompris (protocole désynchronisé) {/* #protocole-desync */}
+## Messages Rasp↔Teensy incompris (protocole désynchronisé) {/*#protocole-desync*/}
 
 - Symptômes : NACK répétés, commandes ignorées par la Teensy, valeurs aberrantes dans les retours d'odométrie, comportements incohérents juste après une modification du protocole.
 - Causes probables : le protocole `usb_com` a été modifié côté Python mais le **firmware n'a pas été recompilé/reflashé** (ou inversement) ; les liens symboliques qui partagent le code C++ de `common/usb_com/cpp/` dans les deux firmwares sont cassés (attention aux checkouts sous Windows : les symlinks peuvent devenir des fichiers texte).
@@ -35,7 +35,7 @@ Ce document liste les problèmes rencontrés sur le **robot principal**, et comm
 - Fichiers/modules concernés : `common/usb_com/` (python + cpp), `robot1/teensy_moteur/platformio.ini`, `robot1/teensy_actuator/platformio.ini`.
 - Remarques : le partage du code C++ par symlink est justement là pour rendre cette désynchronisation impossible *à condition* de reflasher. Le maillon faible est humain, pas technique.
 
-## État partagé multi-process qui ne se propage pas / crash pyserial {/* #multiprocess */}
+## État partagé multi-process qui ne se propage pas / crash pyserial {/*#multiprocess*/}
 
 - Symptômes : une valeur mise à jour dans une tâche (position, statut, consigne UI) n'est jamais vue par la boucle `run()` (ou l'inverse) ; ou exceptions étranges de sérialisation/pickling au démarrage d'une tâche ; ou plantage dès qu'un objet contrôleur est touché depuis le mauvais processus.
 - Causes probables : la boucle `run()` tourne dans un **processus séparé** (contrainte `taskbrain`). Deux règles absolues : (1) les objets qui possèdent un port série (`RollingBasis`, `ActuatorsShow`) doivent être **créés dans le processus qui les utilise** — les handles pyserial ne se partagent pas ; (2) tout état partagé passe par `DictProxyAccessor`, et chaque type transporté doit être **enregistré comme sérialisable** dans `main.py`. Un type non enregistré ou un accès direct inter-processus viole silencieusement ces règles.
@@ -44,7 +44,7 @@ Ce document liste les problèmes rencontrés sur le **robot principal**, et comm
 - Fichiers/modules concernés : `robot1/rasp/main.py` (enregistrement des types), `robot1/rasp/brains/main_brain.py` (`run()` et les autres tâches), lib `taskbrain`.
 - Remarques : c'est le piège n°1 du projet pour un nouveau membre. En cas de doute, relire la section « multi-process » de la documentation principale.
 
-## Une tâche du brain ne boucle pas (métaprogrammation taskbrain) {/* #taskbrain-loop */}
+## Une tâche du brain ne boucle pas (métaprogrammation taskbrain) {/*#taskbrain-loop*/}
 
 - Symptômes : une tâche censée tourner en continu ne s'exécute qu'une fois, ou du code placé « avant la boucle » s'exécute à chaque itération.
 - Causes probables : `taskbrain` transforme le corps d'une méthode en boucle à partir du marqueur `# --- MetaProg is insane (loop) --- #` : tout ce qui est au-dessus est de l'init exécutée une fois, tout ce qui est en dessous devient le corps de la boucle. Marqueur absent, mal orthographié ou mal placé = comportement inattendu, sans erreur.
@@ -53,16 +53,16 @@ Ce document liste les problèmes rencontrés sur le **robot principal**, et comm
 - Fichiers/modules concernés : `robot1/rasp/brains/main_brain.py`, lib `taskbrain`.
 - Remarques : mécanisme puissant mais opaque — identifié dans la documentation principale comme dette à documenter/simplifier.
 
-## PID instables : oscillations, dépassements, comportement changé {/* #pid-instables */}
+## PID instables : oscillations, dépassements, comportement changé {/*#pid-instables*/}
 
 - Symptômes : le robot oscille autour de sa consigne, dépasse ses points d'arrivée, tremble à l'arrêt, ou un réglage qui marchait ne marche plus.
-- Causes probables : gains PID inadaptés à la **masse actuelle** du robot. Erreur vécue cette année : les PID ont été réglés sur un châssis sans le poids définitif (actionneurs, batterie…) — l'inertie finale a tout invalidé. Toute modification mécanique significative (masse, roues, centre de gravité) invalide le réglage.
+- Causes probables : gains PID inadaptés à la **masse actuelle** du robot. Erreur vécue cette année : les PID ont été réglés sur un châssis sans le poids définitif (actionneurs, batterie, ...) — l'inertie finale a tout invalidé. Toute modification mécanique significative (masse, roues, centre de gravité) invalide le réglage.
 - Comment vérifier : utiliser le `debug_recorder` de la base roulante pour enregistrer consigne vs réponse et visualiser le comportement, plutôt que de juger à l'œil ; la WebUI permet d'envoyer des consignes PID de test.
 - Solution ou contournement : suivre le protocole du tutoriel `documentations/tuto_reglage_pids_rolling_basis.md` (les 4 boucles : gauche/droite puis linéaire/angulaire) ; ne considérer un réglage comme définitif que sur le robot **en configuration de match**.
 - Fichiers/modules concernés : `config.json` (gains), `controllers/rolling_basis/pids.py`, `controllers/rolling_basis/debug_recorder.py`, firmware `robot1/teensy_moteur/` (lib pid), WebUI (réglage en live).
 - Remarques : chronophage par nature — c'est la raison pour laquelle la roadmap demande une base roulante à la masse cible tôt dans l'année.
 
-## Odométrie qui dérive : le robot se croit ailleurs {/* #odometrie-derive */}
+## Odométrie qui dérive : le robot se croit ailleurs {/*#odometrie-derive*/}
 
 - Symptômes : après quelques déplacements, la position estimée ne correspond plus à la position réelle ; les trajectoires visent des points décalés ; l'arène (et donc l'évitement) raisonne sur une position fausse.
 - Causes probables : glissement des roues (accélérations trop fortes, obstacle heurté, tapis de la table) ; paramètres d'odométrie (entraxe, diamètre de roues) imprécis ; odométrie non réinitialisée à la bonne position de départ ; dérive cumulative normale sans recalage ; roues encodeuses sales, mal fixées ou que la résolution configurée sur le matériel est fausse.
@@ -71,7 +71,7 @@ Ce document liste les problèmes rencontrés sur le **robot principal**, et comm
 - Fichiers/modules concernés : firmware `robot1/teensy_moteur/` (odométrie), `controllers/rolling_basis/`, `robot1/rasp/brains/main_brain.py` (séquence d'init), `config.json` (positions de départ par équipe, profils de vitesse).
 - Remarques : une odométrie fiable est le prérequis de tout le reste (navigation, évitement, actionneurs) — d'où la priorité « exactitude des déplacements » de la roadmap.
 
-## Robot immobilisé par l'évitement (ACS) alors que la voie est libre {/* #acs-bloque */}
+## Robot immobilisé par l'évitement (ACS) alors que la voie est libre {/*#acs-bloque*/}
 
 - Symptômes : le robot s'arrête ou refuse d'avancer sans adversaire devant lui ; ou au contraire il évite trop tard.
 - Causes probables : faux obstacles vus par le lidar (éléments de décor, bordures, poussière sur la vitre du SICK TiM) ; profil ACS trop conservateur pour ce type de déplacement ; position du robot fausse (voir fiche odométrie : l'arène projette le scan lidar depuis la position estimée) ; buffers d'obstacle trop grands dans l'arène.
@@ -80,7 +80,7 @@ Ce document liste les problèmes rencontrés sur le **robot principal**, et comm
 - Fichiers/modules concernés : `sensors/lidar/`, `common/navigation/avoidance/`, `common/arena/` (projection des obstacles), `config.json` (profils ACS par type de déplacement), `robot1/rasp/debug_lidar.py`.
 - Remarques : un robot qui s'arrête à tort perd le match aussi sûrement qu'une collision — les profils ACS méritent d'être validés en simulation avec un adversaire simulé.
 
-## Le match ne démarre pas : tirette / BAU {/* #tirette-bau */}
+## Le match ne démarre pas : tirette / BAU {/*#tirette-bau*/}
 
 - Symptômes : tirette retirée mais le robot ne part pas ; ou le robot part avant le retrait ; ou tout s'arrête sans raison apparente (BAU).
 - Causes probables : câblage/faux contact sur la tirette (GPIO pin 17) ou le bouton d'arrêt d'urgence (pin 16) ; séquence non respectée côté opérateur — `run()` attend **d'abord la tirette branchée**, réinitialise alors PID et odométrie, **puis** attend le retrait ; brancher/débrancher dans le désordre bloque l'attente ; la WebUI n'a pas encore fourni mode et couleur, donc `start()` n'a jamais lancé `run()`.
@@ -89,7 +89,7 @@ Ce document liste les problèmes rencontrés sur le **robot principal**, et comm
 - Fichiers/modules concernés : `sensors/inputs/inputs.py`, `robot1/rasp/brains/main_brain.py` (`start()`, `wait_jack_plug()`, `wait_jack_trigger()`), `robot1/rasp/debug_gpio_inputs.py`.
 - Remarques : transformer cette séquence en checklist papier affichée sur le robot — en compétition, personne ne relit le code.
 
-## WebUI inaccessible : impossible de configurer le robot {/* #webui */}
+## WebUI inaccessible : impossible de configurer le robot {/*#webui*/}
 
 - Symptômes : l'écran/la tablette n'affiche rien ou ne se connecte pas ; impossible de choisir équipe et mode, donc le robot ne démarrera jamais (voir fiche précédente).
 - Causes probables : serveur WebSocket pas encore lancé ou planté au démarrage (une exception dans `main.py` avant `ws_server.run()` empêche tout) ; mauvais port/adresse (port 8080, routes `/cmd` et `/ui`) ; Chromium non lancé (l'option `i` de `main.py` ne s'ouvre que si demandée) ; problème réseau entre la tablette et la Rasp.

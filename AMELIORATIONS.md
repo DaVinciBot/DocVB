@@ -21,7 +21,7 @@ classés par priorité indicative : 🔴 important, 🟠 souhaitable, 🟢 confo
   (Teensy Capteur) — regénérer les schémas depuis l'état réel du code.
 - `docs/tutorials/pcb-design/pcb-design.md` : le plan annonce 11 chapitres
   (principes fondamentaux, outils, processus de conception, routage avancé,
-  thermique, DFM, tests…) mais seuls le glossaire, les bonnes pratiques EMC et
+  thermique, DFM, tests, ...) mais seuls le glossaire, les bonnes pratiques EMC et
   les bibliothèques KiCad existent. Écrire les chapitres manquants ou réduire
   le plan à ce qui existe.
 
@@ -55,7 +55,7 @@ classés par priorité indicative : 🔴 important, 🟠 souhaitable, 🟢 confo
 ### 🔴 Conventions de nommage restantes
 
 Les fichiers en majuscules/espaces ont été renommés (`BRANCHES.md`,
-`NixOS Config.md`, `PCB Design/`…), mais il reste un mélange
+`NixOS Config.md`, `PCB Design/`, ...), mais il reste un mélange
 `snake_case`/`kebab-case` : `getting_started.md`, `setup_info.md`,
 `communication_usb.md`, `env_docker_full.mdx`, `find_footprint.md`,
 `ajouter_bibliotheques_kicad.md`, `best_practices.md`. Uniformiser en

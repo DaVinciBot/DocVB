@@ -6,14 +6,14 @@ L'objectif est de garder une documentation **cohérente, accessible et pédagogi
 > Ce fichier est préfixé par `_` : il n'est **pas** publié comme page du site, il sert
 > uniquement de référence aux contributeur·ice·s.
 
-## Philosophie {/* #philosophie */}
+## Philosophie {/*#philosophie*/}
 
 - **Accessible** : langage clair, progression logique du simple vers le complexe.
 - **Pratique** : exemples concrets et exercices applicables.
 - **Complet** : du prérequis à la mise en pratique, sans trou dans le raisonnement.
 - **Cohérent** : même structure et mêmes conventions partout.
 
-## Structure obligatoire {/* #structure-obligatoire */}
+## Structure obligatoire {/*#structure-obligatoire*/}
 
 Chaque tutoriel doit suivre cet ordre :
 
@@ -26,7 +26,7 @@ Chaque tutoriel doit suivre cet ordre :
 Sections optionnelles (si elles apportent de la valeur) : *Exercices pratiques*, *Bonnes pratiques*, *Erreurs
 courantes*, *Aller plus loin*.
 
-## Frontmatter {/* #frontmatter */}
+## Frontmatter {/*#frontmatter*/}
 
 Modèle complet à copier en tête de fichier :
 
@@ -50,15 +50,15 @@ additional_contributors:
   manuelle (pas de récupération automatique via GitHub).
 - Pour masquer ce bloc sur une page, ajouter `show_contributors: false`.
 
-## Convention de tags {/* #convention-de-tags */}
+## Convention de tags {/*#convention-de-tags*/}
 
 Toujours combiner, dans cet ordre de granularité :
 
-- **Type** : `info`, `electronique`, `mecanique`, `sysadmin`…
-- **Technologie** : `docker`, `git`, `latex`, `python`…
-- **Domaine** : `web`, `data`, `devops`, `securite`…
+- **Type** : `info`, `electronique`, `mecanique`, `sysadmin`, ...
+- **Technologie** : `docker`, `git`, `latex`, `python`...
+- **Domaine** : `web`, `data`, `devops`, `securite`...
 
-## Titres de section {/* #titres-de-section */}
+## Titres de section {/*#titres-de-section*/}
 
 Les titres `##` (H2) servent de **séparateurs de section** : ils affichent automatiquement une bordure colorée. Le
 premier H2 sous l'en-tête de page n'a pas de bordure (comportement géré par le CSS, rien à faire).
@@ -71,7 +71,7 @@ import { Package } from "lucide-react";
 ## <Package /> Prérequis
 ```
 
-## Admonitions {/* #admonitions */}
+## Admonitions {/*#admonitions*/}
 
 Utiliser les blocs d'avertissement Docusaurus selon le contexte :
 
@@ -81,16 +81,16 @@ Utiliser les blocs d'avertissement Docusaurus selon le contexte :
 - `:::warning` — risque ou point d'attention.
 - `:::danger` — point critique.
 
-## Images {/* #images */}
+## Images {/*#images*/}
 
 Toutes les images du site sont centralisées dans `static/img/`. On ne place **jamais**
-d'image à côté d'un fichier `.md` : `static/` est copié tel quel à la racine du site, donc un fichier `static/img/…` est
-servi à l'URL `/img/…`.
+d'image à côté d'un fichier `.md` : `static/` est copié tel quel à la racine du site, donc un fichier `static/img/...` est
+servi à l'URL `/img/...`.
 
 L'arborescence sous `static/img/` **reflète le chemin du document** qui utilise l'image :
 
 | Document                                       | Dossier d'images                                 |
-|------------------------------------------------|--------------------------------------------------|
+| ---------------------------------------------- | ------------------------------------------------ |
 | `docs/tutorials/info/unity.md`                 | `static/img/tutorials/info/unity/`               |
 | `docs/tutorials/prise-en-main-des-outils/*.md` | `static/img/tutorials/prise-en-main-des-outils/` |
 | `cdr/paris/pami/elek/*.md`                     | `static/img/cdr/paris/pami/elek/`                |
@@ -107,11 +107,11 @@ _Légende affichée sous l'image._
 ```
 
 - Nommer les fichiers en minuscules, sans espace ni accent (`kebab-case`). Pour une série qui suit l'ordre du tutoriel,
-  préfixer par un numéro : `01-…`, `02-…`.
+  préfixer par un numéro : `01-...`, `02-...`.
 - Le texte alternatif décrit **ce que montre** l'image (il sert aux lecteurs d'écran) ; la légende en italique, sur la
   ligne suivante, apporte le commentaire.
 - Les fichiers téléchargeables (archives, PDF) suivent la même logique dans
-  `static/files/`, référencés par `/files/…`.
+  `static/files/`, référencés par `/files/...`.
 
 :::warning[Versions archivées]
 Les images d'une doc CDR versionnée ne sont **pas** recopiées par
@@ -120,14 +120,14 @@ d'images vers `static/img/cdr/<équipe>-<année>/` et corriger les liens dans le
 l'archive affichera les images de la saison en cours.
 :::
 
-## Exemples de code {/* #exemples-de-code */}
+## Exemples de code {/*#exemples-de-code*/}
 
 - Noms de variables explicites.
 - Commentaires utiles (pas redondants).
 - Exemples autonomes et exécutables.
 - Sortie attendue indiquée en commentaire quand c'est pertinent.
 
-## Ressources {/* #ressources */}
+## Ressources {/*#ressources*/}
 
 Ordre de priorité des liens :
 

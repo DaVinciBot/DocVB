@@ -28,13 +28,13 @@ Consigne  │             │Commande│          │ Action │          │  M
 
 ### 1.2 Le vocabulaire de base
 
-| Terme                   | Définition                                    |
-| ----------------------- | --------------------------------------------- |
-| **Consigne** (setpoint) | Ce qu'on veut atteindre (ex : 1000 mm)        |
-| **Mesure**              | Ce que les capteurs nous disent (ex : 940 mm) |
-| **Erreur**              | Consigne − Mesure (ex : 60 mm)                |
-| **Commande**            | Ce qu'on envoie aux actionneurs pour corriger |
-| **Actionneur**          | Ce qui agit sur le système (moteurs, servos…) |
+| Terme                   | Définition                                        |
+| ----------------------- | ------------------------------------------------- |
+| **Consigne** (setpoint) | Ce qu'on veut atteindre (ex : 1000 mm)            |
+| **Mesure**              | Ce que les capteurs nous disent (ex : 940 mm)     |
+| **Erreur**              | Consigne − Mesure (ex : 60 mm)                    |
+| **Commande**            | Ce qu'on envoie aux actionneurs pour corriger     |
+| **Actionneur**          | Ce qui agit sur le système (moteurs, servos, ...) |
 
 ### 1.3 Les capteurs utilisés en robotique
 

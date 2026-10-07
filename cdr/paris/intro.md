@@ -10,7 +10,7 @@ tags: [cdr, paris]
 Bienvenue sur la documentation de la **Coupe de France de Robotique** de l'équipe DaVinciBot Paris
 (ESILV). Elle rassemble la passation technique de la saison **2026** (*Winter is Coming*).
 
-## Par où commencer {/* #par-ou-commencer */}
+## Par où commencer {/*#par-ou-commencer*/}
 
 Si vous arrivez dans l'équipe, lisez dans cet ordre :
 
@@ -20,29 +20,29 @@ Si vous arrivez dans l'équipe, lisez dans cet ordre :
    d'écrire la moindre ligne.
 3. La page **Vue d'ensemble** du sous-projet qui vous concerne : elle se lit en entier, une fois.
 
-## Les sous-projets {/* #sous-projets */}
+## Les sous-projets {/*#sous-projets*/}
 
-| Sous-projet | De quoi il s'agit |
-| --- | --- |
-| [Robot principal](./robot-principal/index.md) | Bot Ladyyy : Raspberry Pi, deux Teensy, lidar, stratégie en graphe |
-| [PAMIs](./pami/index.md) | Les petits robots autonomes sur ESP32-S3 |
-| [Calcul déporté](./calcul-deporte/index.md) | La vision par caméra zénithale sur Jetson |
-| [Transverse](./transverse/architecture-globale.md) | Ce qui ne relève d'aucun robot en particulier |
+| Sous-projet                                        | De quoi il s'agit                                                  |
+| -------------------------------------------------- | ------------------------------------------------------------------ |
+| [Robot principal](./robot-principal/index.md)      | Bot Ladyyy : Raspberry Pi, deux Teensy, lidar, stratégie en graphe |
+| [PAMIs](./pami/index.md)                           | Les petits robots autonomes sur ESP32-S3                           |
+| [Calcul déporté](./calcul-deporte/index.md)        | La vision par caméra zénithale sur Jetson                          |
+| [Transverse](./transverse/architecture-globale.md) | Ce qui ne relève d'aucun robot en particulier                      |
 
-## Comment cette documentation est organisée {/* #organisation */}
+## Comment cette documentation est organisée {/*#organisation*/}
 
 Chaque sous-projet suit **le même moule**, pour qu'on puisse passer de l'un à l'autre sans
 réapprendre la navigation :
 
-| Page | Ce qu'on y trouve |
-| --- | --- |
+| Page               | Ce qu'on y trouve                                            |
+| ------------------ | ------------------------------------------------------------ |
 | **Vue d'ensemble** | Le récit : objectif, architecture, choix techniques, roadmap |
-| **Modules** | Une fiche par brique de code |
-| **État des lieux** | Ce qui marche, ce qui marche à moitié, ce qui ne marche pas |
-| **Débug** | Les pannes de la saison et comment les diagnostiquer |
-| **Tutoriels** | Les procédures propres à ce sous-projet et à cette saison |
+| **Modules**        | Une fiche par brique de code                                 |
+| **État des lieux** | Ce qui marche, ce qui marche à moitié, ce qui ne marche pas  |
+| **Débug**          | Les pannes de la saison et comment les diagnostiquer         |
+| **Tutoriels**      | Les procédures propres à ce sous-projet et à cette saison    |
 
-Les tutoriels **génériques** (Git, Docker, PlatformIO, LaTeX…) ne sont pas ici : ils vivent dans les
+Les tutoriels **génériques** (Git, Docker, PlatformIO, LaTeX, ...) ne sont pas ici : ils vivent dans les
 [tutoriels de l'association](/tutorials/intro), qui ne sont pas versionnés par saison.
 
 :::note[Documentation incomplète par endroits]

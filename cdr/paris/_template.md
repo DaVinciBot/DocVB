@@ -7,7 +7,7 @@ Chaque sous-projet (PAMIs, calcul déporté, robot principal, et tout nouveau so
 documente avec **les mêmes cinq pages**, au même endroit. Pour démarrer un nouveau sous-projet,
 copier l'arborescence d'un sous-projet existant et vider les pages.
 
-## Où va quoi {/* #ou-va-quoi */}
+## Où va quoi {/*#ou-va-quoi*/}
 
 ```text
 cdr/paris/<sous-projet>/
@@ -24,14 +24,14 @@ cdr/paris/<sous-projet>/
 Si `modules.md` dépasse six modules copieux, il devient un dossier `info/modules/` avec un `index.md`
 et un fichier par module.
 
-## Conventions de rédaction {/* #conventions */}
+## Conventions de rédaction {/*#conventions*/}
 
 - Noms de fichiers en `kebab-case`, sans accent.
 - Frontmatter complet : `title`, `description`, `sidebar_label`, `sidebar_position`, `tags`, et
   `additional_contributors` pour créditer les auteurs. Voir `docs/tutorials/_GUIDELINES.md`.
 - Ancres explicites sur les titres `##` : `## Mon titre {#mon-ancre}`. Elles gardent les liens
   valides même si le titre est reformulé.
-- Images dans `static/img/cdr/paris/<sous-projet>/…`, référencées par `/img/cdr/paris/…`.
+- Images dans `static/img/cdr/paris/<sous-projet>/...`, référencées par `/img/cdr/paris/...`.
 - Un tutoriel qui sera encore vrai l'an prochain avec du matériel différent va dans
   `docs/tutorials/`, pas ici.
 
@@ -40,7 +40,7 @@ et un fichier par module.
 **Contenu attendu, section par section.** Le titre de chaque section indique le fichier de
 destination.
 
-## 1. Objectif de la sous-équipe → `index.md` {/* #section-1 */}
+## 1. Objectif de la sous-équipe → `index.md` {/*#section-1*/}
 
 Décrire en quelques paragraphes le rôle de cette sous-équipe dans la CDR.
 
@@ -51,7 +51,7 @@ Décrire en quelques paragraphes le rôle de cette sous-équipe dans la CDR.
 - avec quelles autres parties elle interagit
 - ce qu'un nouveau membre doit comprendre en premier
 
-## 2. Vision globale de l'architecture → `index.md` {/* #section-2 */}
+## 2. Vision globale de l'architecture → `index.md` {/*#section-2*/}
 
 Présenter le fonctionnement général du projet.
 
@@ -67,7 +67,7 @@ Présenter le fonctionnement général du projet.
 L'objectif n'est pas d'expliquer chaque ligne de code, mais de permettre à quelqu'un de comprendre
 comment le système fonctionne dans son ensemble.
 
-## 3. Modules principaux → `info/modules.md` {/* #section-3 */}
+## 3. Modules principaux → `info/modules.md` {/*#section-3*/}
 
 Pour chaque module important :
 
@@ -82,7 +82,7 @@ Pour chaque module important :
 - Limites connues :
 - Points à améliorer :
 
-## 4. État des lieux → `info/etat-des-lieux.md` {/* #section-4 */}
+## 4. État des lieux → `info/etat-des-lieux.md` {/*#section-4*/}
 
 ### Ce qui fonctionne
 
@@ -100,7 +100,7 @@ Pour chaque module important :
 
 - ...
 
-## 5. Débug et problèmes fréquents → `info/debug.md` {/* #section-5 */}
+## 5. Débug et problèmes fréquents → `info/debug.md` {/*#section-5*/}
 
 Lister les problèmes rencontrés pendant l'année et expliquer comment les diagnostiquer ou les
 corriger. Pour chaque problème :
@@ -114,7 +114,7 @@ corriger. Pour chaque problème :
 - Fichiers/modules concernés :
 - Remarques :
 
-## 6. Choix techniques et erreurs historiques → `index.md` {/* #section-6 */}
+## 6. Choix techniques et erreurs historiques → `index.md` {/*#section-6*/}
 
 Expliquer les décisions importantes prises pendant l'année.
 
@@ -127,7 +127,7 @@ Expliquer les décisions importantes prises pendant l'année.
 - les choix qui ont bien fonctionné
 - les compromis acceptés
 
-## 7. Roadmap et vision pour l'année prochaine → `index.md` {/* #section-7 */}
+## 7. Roadmap et vision pour l'année prochaine → `index.md` {/*#section-7*/}
 
 Cette partie est optionnelle mais fortement recommandée.
 

@@ -10,7 +10,7 @@ tags: [cdr, paris, info, robot-principal, robotique, lidar]
 **Bot Ladyyy** est la sous-équipe informatique du **robot principal** (dossier `robot1/`) pour la Coupe de France de Robotique **2026**, thème *Winter is Coming*.
 :::
 
-## Objectif de la sous-équipe {/* #objectif */}
+## Objectif de la sous-équipe {/*#objectif*/}
 
 La sous-équipe Bot Ladyyy est responsable de **toute l'intelligence embarquée du robot principal** : elle transforme un châssis avec des moteurs, des servos et un lidar en un robot capable de jouer un match de la Coupe de France de Robotique de manière autonome.
 
@@ -27,7 +27,7 @@ Les interactions avec les autres sous-équipes : la **méca/élec** fournit le c
 
 Ce qu'un nouveau membre doit comprendre en premier : le robot est piloté par une Raspberry Pi qui exécute `robot1/rasp/main.py`. Toute la logique haut niveau (stratégie, navigation, évitement) est en Python sur la Pi ; tout le temps réel (PID moteurs, odométrie, servos) est en C++ sur des Teensy. La lecture de `main.py` puis de `brains/main_brain.py` donne le fil conducteur de tout le système.
 
-## Vision globale de l'architecture {/* #architecture */}
+## Vision globale de l'architecture {/*#architecture*/}
 
 ### Vue d'ensemble matérielle
 
@@ -52,7 +52,7 @@ Le code Python est réparti entre `robot1/rasp/` (spécifique au robot) et `comm
 - **`common/navigation/`** : la chaîne de navigation exécutée à chaque tick d'une tâche de navigation : **path planner** (A* sur la grille de l'arène) → **trajectory planner** (segments ligne droite / rotation / lissé, avec profils de vitesse) → **évitement « ACS »** (profils de détection configurables par type de déplacement) → commande de trajectoire envoyée à la base roulante.
 - **`common/arena/`** : le modèle de la table : zones, grille pour l'A*, obstacles dynamiques issus du lidar. `WinterArena` est la déclinaison du règlement 2026 : **zones Jenga** (où ramasser/retourner/empiler les blocs), **zones de dépôt** (drop zones), **zone d'arrivée « ninja stage »**, et zones réservées jaune/bleue selon l'équipe.
 - **`controllers/`** : les pilotes côté Pi des deux Teensy : `RollingBasis` (base roulante) et `ActuatorsShow` (actionneurs). Chacun a un **jumeau « dummy »** (dont une simulation temps réel de la base roulante) pour développer sans matériel.
-- **`common/usb_com/`** : le protocole série Rasp↔Teensy, avec une implémentation Python et une implémentation C++ **partagées par lien symbolique dans les deux firmwares**, ce qui garantit la symétrie du protocole. Messages à identifiant sur 1 octet (0–127 Pi→Teensy : consignes de position, PID, PWM, servos… ; 128–255 Teensy→Pi : odométrie, états de switches, logs), trame terminée par une signature de fin et CRC8 optionnel.
+- **`common/usb_com/`** : le protocole série Rasp↔Teensy, avec une implémentation Python et une implémentation C++ **partagées par lien symbolique dans les deux firmwares**, ce qui garantit la symétrie du protocole. Messages à identifiant sur 1 octet (0–127 Pi→Teensy : consignes de position, PID, PWM, servos, ... ; 128–255 Teensy→Pi : odométrie, états de switches, logs), trame terminée par une signature de fin et CRC8 optionnel.
 - **`config.json`** (racine) : la configuration unique de tout le robot : ports, identifiants USB des Teensy, gains PID, profils de vitesse, angles des servos, zones par équipe, profils d'évitement, activation des dummies.
 
 ### Qui appelle quoi
@@ -102,11 +102,11 @@ Point important : la boucle `run()` tourne dans **son propre processus** et c'es
 - **Séparation framework / jeu de l'année** : `common/` (strategy, navigation, arena, usb_com) est réutilisable d'une année sur l'autre ; seuls le pack `_strategy/` et l'arène (`WinterArena` cette année) changent avec le règlement.
 - **Dummies partout** : chaque périphérique (base roulante, actionneurs, lidar) a une version simulée activable par la config, ce qui permet de développer et tester la stratégie complète sur un PC sans robot, avec visualisation matplotlib de l'arène.
 
-## Choix techniques et erreurs historiques {/* #choix-techniques */}
+## Choix techniques et erreurs historiques {/*#choix-techniques*/}
 
 ### Choix qui ont bien fonctionné
 
-- **La stratégie en graphe plutôt qu'en script linéaire.** Les stratégies sont des graphes de nœuds reliés par des transitions conditionnelles et des fonctions de score : si une zone devient inaccessible (adversaire), le runner choisit une autre branche. Les sous-graphes (`pickup`, `construct`…) sont réutilisables entre stratégies, ce qui a permis d'assembler plusieurs stratégies sans dupliquer de code.
+- **La stratégie en graphe plutôt qu'en script linéaire.** Les stratégies sont des graphes de nœuds reliés par des transitions conditionnelles et des fonctions de score : si une zone devient inaccessible (adversaire), le runner choisit une autre branche. Les sous-graphes (`pickup`, `construct`, ...) sont réutilisables entre stratégies, ce qui a permis d'assembler plusieurs stratégies sans dupliquer de code.
 - **Le protocole USB partagé Python/C++** (`common/usb_com/`) : la même définition des messages est utilisée côté Pi et compilée dans les deux firmwares via des liens symboliques dans `platformio.ini`. Impossible de désynchroniser les deux côtés du protocole.
 - **Le contrôle bas niveau dans les Teensy** : les PID tournent à la fréquence du firmware, indépendamment de la charge de la Pi.
 - **Les jumeaux « dummy »** avec simulation temps réel de la base roulante : la stratégie a pu être développée et déboguée sans accès au robot — d'autant plus précieux que le robot physique a été disponible tard (voir plus bas).
@@ -122,7 +122,7 @@ Point important : la boucle `run()` tourne dans **son propre processus** et c'es
 
 - **Le multi-process est une nécessité, pas un luxe.** La boucle de contrôle à 100 Hz ne pouvait pas tenir dans la boucle asyncio principale (GIL, latence) : `run()` a été déportée dans un processus séparé. Conséquence à connaître absolument : **les objets qui possèdent un port série doivent être créés dans le processus qui les utilise** (les handles pyserial ne se partagent pas), et tout état partagé doit passer par `DictProxyAccessor` avec des types sérialisables enregistrés dans `main.py`. Oublier cette règle donne des bugs difficiles à diagnostiquer.
 - **La métaprogrammation de `taskbrain`** (marqueur `# --- MetaProg is insane (loop) --- #` qui transforme la suite d'une méthode en corps de boucle) est puissante mais opaque : il faut la connaître pour comprendre `main_brain.py`.
-- **Le vocabulaire 2025 conservé dans le code 2026** : le pack stratégie a été adapté au règlement *Winter is Coming* mais en gardant des noms de l'ancien jeu (`banner_deployment`, `go_backstage`…). C'est fonctionnel mais trompeur pour un nouveau lecteur — ne pas se fier aux noms, lire les docstrings et les tâches réellement exécutées.
+- **Le vocabulaire 2025 conservé dans le code 2026** : le pack stratégie a été adapté au règlement *Winter is Coming* mais en gardant des noms de l'ancien jeu (`banner_deployment`, `go_backstage`, ...). C'est fonctionnel mais trompeur pour un nouveau lecteur — ne pas se fier aux noms, lire les docstrings et les tâches réellement exécutées.
 
 ### Ce qu'il ne faut pas refaire
 
@@ -131,7 +131,7 @@ Point important : la boucle `run()` tourne dans **son propre processus** et c'es
 - **Ne pas documenter au fil de l'eau** : le `README.md` du dépôt est resté vide toute l'année ; cette documentation est la première vue d'ensemble écrite du système.
 - **Dépendre du calendrier méca / elek pour commencer à tester** : sans robot assemblé tôt, ni le réglage PID ni les tests réalistes ne peuvent avoir lieu. Prévoir dès le début d'année une base roulante de test représentative (ou un lest à la masse cible).
 
-## Roadmap et vision pour l'année prochaine {/* #roadmap */}
+## Roadmap et vision pour l'année prochaine {/*#roadmap*/}
 
 ### Démarche conseillée : des déplacements fiables d'abord
 

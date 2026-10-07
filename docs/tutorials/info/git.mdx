@@ -15,18 +15,18 @@ additional_contributors:
 import TabItem from "@theme/TabItem";
 import Tabs from "@theme/Tabs";
 import {
-    BookOpen,
-    Cloud,
-    Code,
-    Download,
-    Dumbbell,
-    GitBranch,
-    GitMerge,
-    HardDrive,
-    LifeBuoy,
-    ListChecks,
-    Save,
-    Users,
+  BookOpen,
+  Cloud,
+  Code,
+  Download,
+  Dumbbell,
+  GitBranch,
+  GitMerge,
+  HardDrive,
+  LifeBuoy,
+  ListChecks,
+  Save,
+  Users,
 } from "lucide-react";
 
 **Git** est un logiciel qui enregistre l'histoire d'un projet : qui a changé quoi, quand,
@@ -104,6 +104,7 @@ se déplacer dans des dossiers. Si ce n'est pas encore le cas, la formation
         ```
 
     </TabItem>
+
 </Tabs>
 
 Vérifiez ensuite l'installation :
@@ -168,7 +169,7 @@ Deux conséquences immédiates :
 
 - Supprimez `.git`, et vous perdez tout l'historique en gardant les fichiers actuels.
 - Copiez le dossier entier sur une clé USB, et vous emportez **l'historique complet** avec
-vous. Pas besoin de réseau pour consulter un commit d'il y a trois mois.
+  vous. Pas besoin de réseau pour consulter un commit d'il y a trois mois.
 
 :::info[Git est décentralisé]
 Contrairement aux anciens systèmes de version, il n'existe pas de « serveur central » qui
@@ -213,7 +214,7 @@ vous pouvez faire deux commits séparés au lieu d'un fourre-tout.
 Un commit n'est pas « la liste des lignes modifiées ». C'est une **photo complète du
 projet** à un instant donné, accompagnée de :
 
-- un **identifiant** unique, le _hash_ (`a3f7b21…`, souvent abrégé aux 7 premiers caractères) ;
+- un **identifiant** unique, le _hash_ (`a3f7b21...`, souvent abrégé aux 7 premiers caractères) ;
 - un **auteur** et une **date** ;
 - un **message** qui explique le pourquoi ;
 - un **parent** : le commit qui précède.
@@ -500,7 +501,7 @@ def vitesse_max():
 La résolution se fait en trois temps :
 
 1. **Éditer** le fichier : supprimer les marqueurs `<<<<<<<`, `=======`, `>>>>>>>` et ne
-laisser que le code voulu — l'une des versions, l'autre, ou une combinaison des deux.
+   laisser que le code voulu — l'une des versions, l'autre, ou une combinaison des deux.
 2. **Stager** le fichier résolu : `git add moteur.py`.
 3. **Conclure** la fusion : `git commit` (le message est pré-rempli).
 
@@ -571,6 +572,7 @@ Deux façons de vous authentifier auprès de GitHub :
         ```
 
     </TabItem>
+
 </Tabs>
 
 ### `git fetch` — regarder sans toucher {/* #git-fetch */}
@@ -580,7 +582,7 @@ git fetch origin
 ```
 
 `fetch` télécharge les nouveaux commits du distant et met à jour des branches de suivi
-locales nommées `origin/main`, `origin/feat/lidar`… **Vos fichiers et votre branche ne
+locales nommées `origin/main`, `origin/feat/lidar`, ... **Vos fichiers et votre branche ne
 bougent pas d'un octet.**
 
 C'est l'opération la plus sûre de Git : elle ne peut rien casser. Après un `fetch`, vous
@@ -681,7 +683,7 @@ passer de l'un à l'autre sans se perdre :
 | Icône **+** sur l'en-tête **Changes**                            | `git add .`                   |
 | Icône **−** (_Unstage Changes_)                                  | `git restore --staged`        |
 | Icône **↩** (_Discard Changes_)                                  | `git restore fichier`         |
-| Zone de message + **Commit** (<kbd>Ctrl</kbd>+<kbd>Entrée</kbd>) | `git commit -m "…"`           |
+| Zone de message + **Commit** (<kbd>Ctrl</kbd>+<kbd>Entrée</kbd>) | `git commit -m "..."`         |
 | Bouton **Sync Changes**                                          | `git pull` puis `git push`    |
 | **⋯ → Pull** / **⋯ → Push** / **⋯ → Fetch**                      | `git pull` / `push` / `fetch` |
 | Nom de branche en bas à gauche                                   | `git switch`                  |
@@ -707,7 +709,7 @@ Le message de commit se saisit dans la zone de texte en haut du panneau, et
 <kbd>Ctrl</kbd>+<kbd>Entrée</kbd> valide.
 
 ![Zone de saisie du message de commit et bouton Commit](/img/tutorials/info/git/03-vscode-commit.png)
-*Le bouton Commit ne prend que les Staged Changes, exactement comme en ligne de commande.\*
+_Le bouton Commit ne prend que les Staged Changes, exactement comme en ligne de commande._
 
 :::warning[Le bouton « Commit » quand rien n'est stagé]
 Si la zone **Staged Changes** est vide, VS Code propose de committer **toutes** les
@@ -747,18 +749,18 @@ gauche le tracé des branches et des fusions. C'est l'équivalent visuel de
 `git log --oneline --graph --all`, en cliquable.
 
 ![Le panneau Source Control avec sa section Graph à gauche, et l'onglet de l'extension Git Graph à droite](/img/tutorials/info/git/06-vscode-graph.png)
-_À gauche la section Graph intégrée, à droite l'onglet Git Graph : les étiquettes colorées (`dev`, `origin/homologation`, `origin/jetson_rewrite_cpp`…) marquent où pointe chaque branche, locale comme distante._
+_À gauche la section Graph intégrée, à droite l'onglet Git Graph : les étiquettes colorées (`dev`, `origin/homologation`, `origin/jetson_rewrite_cpp`, ...) marquent où pointe chaque branche, locale comme distante._
 
 Quelques repères sur cet onglet :
 
 - **Show Remote Branches** affiche aussi les branches `origin/*` — c'est ce qui permet de voir
-d'un coup si votre branche locale est en avance ou en retard sur GitHub.
+  d'un coup si votre branche locale est en avance ou en retard sur GitHub.
 - La ligne **Uncommitted Changes** tout en haut représente votre répertoire de travail : ce qui
-n'est pas encore committé, donc pas encore dans l'historique.
+  n'est pas encore committé, donc pas encore dans l'historique.
 - Un clic sur un commit affiche les fichiers qu'il modifie ; un clic droit donne accès à
-`checkout`, `merge`, `revert`, `cherry-pick` et à la création d'une branche depuis ce commit.
+  `checkout`, `merge`, `revert`, `cherry-pick` et à la création d'une branche depuis ce commit.
 - Les lignes de couleur qui se séparent puis se rejoignent, ce sont exactement les branches et
-les merges des schémas plus haut — sur un vrai dépôt.
+  les merges des schémas plus haut — sur un vrai dépôt.
 
 ### Extensions utiles {/* #extensions-utiles */}
 
@@ -949,26 +951,28 @@ Ce parcours reprend tout ce qui précède. Comptez une trentaine de minutes.
 
 1. Créez un dépôt vide nommé `apprentissage-git` sur GitHub, **sans** README.
 2. En local, créez un dossier du même nom, initialisez-le avec `git init`, ajoutez un
-fichier `README.md` contenant une ligne de présentation.
+   fichier `README.md` contenant une ligne de présentation.
 3. Vérifiez l'état avec `git status`, stagez le fichier, commitez-le, puis relisez
-l'historique avec `git log --oneline`.
+   l'historique avec `git log --oneline`.
 4. Reliez le dépôt local à GitHub et publiez :
+
 ```bash
 git remote add origin <url-de-votre-depot>
 git push -u origin main
-   ```
+```
+
 5. Créez une branche `feat/presentation`, ajoutez-y un fichier `presentation.md`, commitez,
-puis poussez la branche avec `-u`.
+   puis poussez la branche avec `-u`.
 6. Ouvrez une **pull request** sur GitHub, écrivez-y une description, puis fusionnez-la.
 7. Revenez sur `main` en local, faites `git pull` : le fichier `presentation.md` apparaît.
-Supprimez la branche locale devenue inutile.
+   Supprimez la branche locale devenue inutile.
 8. **Provoquez un conflit volontairement** : modifiez la première ligne du `README.md`
-directement sur GitHub (bouton crayon) et commitez ; modifiez **la même ligne**
-différemment en local, commitez, puis lancez `git pull`.
+   directement sur GitHub (bouton crayon) et commitez ; modifiez **la même ligne**
+   différemment en local, commitez, puis lancez `git pull`.
 9. Résolvez le conflit — une fois dans l'éditeur de fusion de VS Code, une fois à la main
-dans le fichier pour voir les marqueurs — puis `git add`, `git commit`, `git push`.
+   dans le fichier pour voir les marqueurs — puis `git add`, `git commit`, `git push`.
 10. Terminez avec `git log --oneline --graph --all` : vous devez y reconnaître vos branches,
-votre commit de fusion et la position de `HEAD`.
+    votre commit de fusion et la position de `HEAD`.
 
 Si l'étape 10 est lisible pour vous, l'essentiel est acquis.
 

@@ -1,6 +1,6 @@
 ---
 title: Glossaire
-description: Définitions des termes clés du design de PCB — CEM, EMI, plans de masse et d'alimentation, découplage, blindage…
+description: Définitions des termes clés du design de PCB — CEM, EMI, plans de masse et d'alimentation, découplage, blindage, ...
 slug: glossary
 sidebar_position: 2
 tags: [electronique, pcb]

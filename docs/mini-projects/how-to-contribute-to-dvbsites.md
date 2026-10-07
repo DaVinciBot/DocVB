@@ -37,15 +37,15 @@ Si Git ou GitHub ne vous sont pas encore familiers, commencez par la formation
 depuis zéro.
 :::
 
-## <Boxes /> Les repos {/* les-repos */}
+## <Boxes /> Les repos {/*les-repos*/}
 
 Chaque dossier est un **repo git indépendant** (pas de submodules) : on en clone un seul pour commencer, pas besoin de
 tout récupérer.
 
 | Repo                                                                 | Rôle                                                                    | Port de dev |
-|----------------------------------------------------------------------|-------------------------------------------------------------------------|-------------|
+| -------------------------------------------------------------------- | ----------------------------------------------------------------------- | ----------- |
 | [`davincibot.fr`](https://github.com/DaVinciBot/davincibot.fr)       | Le site public de l'association, servi à la racine `/`                  | 5174        |
-| [`cash`](https://github.com/DaVinciBot/cash)                         | Le panel d'administration (finances, membres…), servi sous `/admin`     | 5175        |
+| [`cash`](https://github.com/DaVinciBot/cash)                         | Le panel d'administration (finances, membres, ...), servi sous `/admin` | 5175        |
 | [`formation`](https://github.com/DaVinciBot/formation)               | L'application de gestion des formations, servie sous `/formation`       | 5176        |
 | [`auth`](https://github.com/DaVinciBot/auth)                         | Le service d'authentification centralisé (`auth.davincibot.fr`)         | 5177        |
 | [`packages`](https://github.com/DaVinciBot/packages)                 | Le workspace pnpm des packages partagés `@davincibot/*`                 | —           |
@@ -71,7 +71,7 @@ Pour une première contribution, clonez **`davincibot.fr`** : c'est le repo le p
 lancer `auth` pour afficher les pages publiques).
 :::
 
-## <Package /> Installer Node et pnpm {/* #installer-node-et-pnpm */}
+## <Package /> Installer Node et pnpm {/*#installer-node-et-pnpm*/}
 
 Les repos épinglent leurs versions et **refusent de s'installer si elles ne correspondent pas** (`engine-strict=true` et
 `package-manager-strict=true` dans le `.npmrc`) :
@@ -167,7 +167,7 @@ Vous vous retrouveriez avec une version figée qui finira par diverger du champ
 repo.
 :::
 
-## <KeyRound /> Générer un PAT `read:packages` {/* #générer-un-pat-readpackages */}
+## <KeyRound /> Générer un PAT `read:packages` {/*#générer-un-pat-readpackages*/}
 
 Les packages `@davincibot/*` sont **privés** : il faut un *Personal Access Token* GitHub pour les télécharger.
 
@@ -186,7 +186,7 @@ Le registre npm de GitHub Packages **ne fonctionne pas avec les tokens *fine-gra
 Le token est un **secret** : il ne se commit jamais, ne se colle pas dans un fichier du repo, ne se partage pas. En cas
 de fuite, révoquez-le depuis la même page.
 
-## <KeyRound /> S'authentifier auprès de GitHub Packages {/* #sauthentifier-auprès-de-github-packages */}
+## <KeyRound /> S'authentifier auprès de GitHub Packages {/*#sauthentifier-auprès-de-github-packages*/}
 
 Cette commande enregistre le token dans votre `.npmrc` **personnel** (dans votre dossier utilisateur), en dehors de tout
 repo :
@@ -198,7 +198,7 @@ repo :
 Trois informations vous sont demandées :
 
 | Champ      | Valeur à saisir                           |
-|------------|-------------------------------------------|
+| ---------- | ----------------------------------------- |
 | `Username` | votre pseudo GitHub, **en minuscules**    |
 | `Password` | le **PAT** généré à l'étape précédente    |
 | `Email`    | votre adresse e-mail (n'importe laquelle) |
@@ -220,7 +220,7 @@ Vérifiez que ça marche :
     # doit afficher votre pseudo GitHub
     ```
 
-## <KeyRound /> Exporter `NPM_TOKEN` {/* #exporter-npm_token */}
+## <KeyRound /> Exporter `NPM_TOKEN` {/*#exporter-npm_token*/}
 
 Le `.npmrc` versionné dans chaque repo lit le token depuis une **variable d'environnement** :
 
@@ -302,7 +302,7 @@ Les workflows GitHub Actions utilisent le secret d'organisation
 `PACKAGES_READ_TOKEN` : vous n'avez rien à configurer côté CI.
 :::
 
-## <Rocket /> Cloner, installer, lancer {/* #cloner-installer-lancer */}
+## <Rocket /> Cloner, installer, lancer {/*#cloner-installer-lancer*/}
 
     ```bash
     git clone https://github.com/DaVinciBot/davincibot.fr.git
@@ -339,19 +339,19 @@ depuis `auth/` (port 5177).
 
 Avant d'ouvrir une pull request, faites tourner `pnpm ci-workflow` : c'est exactement ce que la CI exécutera.
 
-## <TriangleAlert /> Dépannage {/* #dépannage */}
+## <TriangleAlert /> Dépannage {/*#dépannage*/}
 
 | Symptôme                                             | Cause probable et solution                                                                                         |
-|------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------|
-| `ERR_PNPM_FETCH_401` sur `@davincibot/…`             | `NPM_TOKEN` absent, mal orthographié ou expiré. Vérifiez avec `pnpm whoami --registry=https://npm.pkg.github.com`. |
+| ---------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
+| `ERR_PNPM_FETCH_401` sur `@davincibot/...`           | `NPM_TOKEN` absent, mal orthographié ou expiré. Vérifiez avec `pnpm whoami --registry=https://npm.pkg.github.com`. |
 | 401 alors que le token est bien défini               | Token *fine-grained* au lieu de *classic*, ou SSO non autorisé pour l'organisation.                                |
-| `404 Not Found` sur `@davincibot/…`                  | Vous n'êtes pas membre de l'organisation, ou le scope `read:packages` manque.                                      |
+| `404 Not Found` sur `@davincibot/...`                | Vous n'êtes pas membre de l'organisation, ou le scope `read:packages` manque.                                      |
 | La variable n'est pas vue sous Windows               | Terminal ouvert avant le `setx` : fermez-le et rouvrez-en un (VS Code compris).                                    |
 | `ERR_PNPM_UNSUPPORTED_ENGINE`                        | Mauvaise version de Node : `fnm use` dans le repo pour suivre le `.nvmrc`.                                         |
 | pnpm refuse de démarrer à cause de sa propre version | `corepack enable pnpm`, puis relancez la commande depuis le repo.                                                  |
 | Svelte se plaint de « two instances »                | Arrive avec `pnpm link` : ajoutez `resolve.dedupe: ['svelte']` dans la config Vite de l'app.                       |
 
-## Ressources {/* #ressources */}
+## Ressources {/*#ressources*/}
 
 - [Git & GitHub — les bases](../tutorials/info/git.mdx) — la formation à faire avant de cloner un repo.
 - [PostgreSQL — fondamentaux et sécurité](../tutorials/info/postgresql.md) — pour comprendre la base derrière Supabase.

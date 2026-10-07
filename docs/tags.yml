@@ -119,6 +119,14 @@ web:
   label: Web
   permalink: /web
   description: Développement web — sites et applications de l'association.
+devops:
+  label: DevOps
+  permalink: /devops
+  description: Déploiement, CI/CD et exploitation des services.
+securite:
+  label: Sécurité
+  permalink: /securite
+  description: Sécurité informatique, secrets et authentification.
 database:
   label: Base de données
   permalink: /database

@@ -474,22 +474,12 @@ Un snippet Latex Suite est un objet JavaScript avec 4 propriétés principales :
 
 ```js
 {
-    trigger: "//",                    // Déclencheur : texte qui active le snippet
-        replacement
-:
-    "\\frac{$0}{$1}$2",  // Remplacement : code LaTeX généré
-        options
-:
-    "mA",                    // Options : contexte et comportement
-        priority
-:
-    1,                      // Priorité d'exécution. En cas de conflit, le snippet avec la plus haute priorité sera préféré (optionnelle)
-        description
-:
-    "Fraction rapide",   // Description (optionnelle)
-        flags
-:
-    "i"                        // Flags regex (optionnels)
+    trigger: "//",                  // Déclencheur : texte qui active le snippet
+    replacement: "\\frac{$0}{$1}$2", // Remplacement : code LaTeX généré
+    options: "mA",                  // Options : contexte et comportement
+    priority: 1,                    // Priorité d'exécution. En cas de conflit, le snippet avec la plus haute priorité sera préféré (optionnelle)
+    description: "Fraction rapide", // Description (optionnelle)
+    flags: "i"                      // Flags regex (optionnels)
 }
 ```
 
@@ -511,13 +501,11 @@ Un snippet Latex Suite est un objet JavaScript avec 4 propriétés principales :
 
 Comme dans VS Code, les tab stops définissent où le curseur se positionne après l'expansion :
 
-```js
+```json
 {
-    trigger: "sum", replacement
-:
-    "\\sum_{${0:k}=${1:0}}^{${2:n}} $3", options
-:
-    "mA"
+    trigger: "sum",
+    replacement: "\\sum_{${0:k}=${1:0}}^{${2:n}} $3",
+    options: "mA"
 }
 ```
 
@@ -527,11 +515,9 @@ Comme dans VS Code, les tab stops définissent où le curseur se positionne apr�
 
 ```js
 {
-    trigger: "begin", replacement
-:
-    "\\begin{$1}\n  $2\n\\end{$1}", options
-:
-    "MA"
+    trigger: "begin",
+    replacement: "\\begin{$1}\n  $2\n\\end{$1}",
+    options: "MA"
 }
 ```
 
@@ -543,13 +529,9 @@ Les snippets peuvent utiliser des regex pour détecter des patterns :
 
 ```js
 {
-    trigger: "([A-Za-z])(\\d)",      // Détecte lettre + chiffre
-        replacement
-:
-    "[[0]]_{[[1]]}",    // [[0]] = lettre, [[1]] = chiffre
-        options
-:
-    "rmA"                   // r = regex
+    trigger: "([A-Za-z])(\\d)",   // Détecte lettre + chiffre
+    replacement: "[[0]]_{[[1]]}", // [[0]] = lettre, [[1]] = chiffre
+    options: "rmA"                // r = regex
 }
 ```
 
@@ -561,15 +543,9 @@ Le fichier `default_snippet_variables.js` définit des constantes pour simplifie
 
 ```js
 {
-    "${GREEK}"
-:
-    "alpha|beta|gamma|delta|...",
-        "${SYMBOL}"
-:
-    "parallel|nabla|hbar|...",
-        "${UNITS}"
-:
-    "V|A|Hz|kg|m|..."
+    "${GREEK}": "alpha|beta|gamma|delta|...",
+    "${SYMBOL}": "parallel|nabla|hbar|...",
+    "${UNITS}": "V|A|Hz|kg|m|..."
 }
 ```
 
@@ -578,12 +554,8 @@ Utilisation dans un snippet :
 ```js
 {
     trigger: "\\\\(${GREEK})([A-Za-z])",
-        replacement
-:
-    "\\[[0]] [[1]]",    // Insère un espace après les lettres grecques
-        options
-:
-    "rmA"
+    replacement: "\\[[0]] [[1]]", // Insère un espace après les lettres grecques
+    options: "rmA"
 }
 ```
 

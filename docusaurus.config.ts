@@ -16,6 +16,18 @@ const config: Config = {
       crossorigin: "anonymous",
     },
   ],
+  // Statistiques de visite (Rybbit auto-hébergé, sans cookie). Chargé
+  // uniquement en build de production pour ne pas polluer les stats avec
+  // le développement local.
+  scripts:
+    process.env.NODE_ENV === "production"
+      ? [
+          {
+            src: "https://rybbit.davincibot.fr/api/script.js?siteId=059bee9c8131",
+            defer: true,
+          },
+        ]
+      : [],
   tagline: "Documentation officielle de DaVinciBot",
   favicon: "img/favicon.ico",
 

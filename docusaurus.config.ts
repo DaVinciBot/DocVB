@@ -263,10 +263,6 @@ const config: Config = {
               href: "https://davincibot.fr",
             },
             {
-              label: "Documentation",
-              to: "/",
-            },
-            {
               label: "Licences et attributions",
               to: "/licences",
             },

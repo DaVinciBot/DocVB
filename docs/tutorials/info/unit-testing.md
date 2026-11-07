@@ -12,6 +12,11 @@ additional_contributors:
     avatar_url: https://github.com/aust-1.png
 ---
 
+:::info[Licence]
+Cette page est adaptée de [aust-1/lectures-notes](https://github.com/aust-1/lectures-notes), © 2024 Eliott A.
+Roussille, sous [licence MIT](/licences#lectures-notes).
+:::
+
 ## Introduction {/* #introduction */}
 
 Les tests unitaires sont des programmes qui vérifient automatiquement que chaque partie de votre code fonctionne comme

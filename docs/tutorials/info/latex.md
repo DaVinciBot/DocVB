@@ -14,6 +14,11 @@ additional_contributors:
 
 import TabItem from '@theme/TabItem'; import Tabs from '@theme/Tabs';
 
+:::info[Licence]
+Cette page est adaptée de [aust-1/lectures-notes](https://github.com/aust-1/lectures-notes), © 2024 Eliott A.
+Roussille, sous [licence MIT](/licences#lectures-notes).
+:::
+
 ## Introduction {/*#introduction*/}
 
 $\LaTeX$ est **la référence universelle** pour rédiger des expressions mathématiques. Couplé à des éditeurs modernes

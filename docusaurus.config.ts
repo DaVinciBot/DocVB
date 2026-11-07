@@ -266,6 +266,10 @@ const config: Config = {
               label: "Documentation",
               to: "/",
             },
+            {
+              label: "Licences et attributions",
+              to: "/licences",
+            },
           ],
         },
       ],

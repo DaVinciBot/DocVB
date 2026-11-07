@@ -9,6 +9,13 @@ import dvbTagsData from "./src/plugins/dvb-tags-data";
 
 const config: Config = {
   title: "DaVinciBot",
+  stylesheets: [
+    {
+      href: "https://cdn.jsdelivr.net/npm/katex@0.16.47/dist/katex.min.css",
+      type: "text/css",
+      crossorigin: "anonymous",
+    },
+  ],
   tagline: "Documentation officielle de DaVinciBot",
   favicon: "img/favicon.ico",
 
@@ -56,7 +63,7 @@ const config: Config = {
         showLastUpdateTime: true,
         showLastUpdateAuthor: false,
         remarkPlugins: [remarkMath],
-        rehypePlugins: [[rehypeKatex, { output: "html" }]],
+        rehypePlugins: [rehypeKatex],
         // Versionnage année par année : la doc de travail (cdr/paris)
         // correspond à la saison en cours, les saisons passées sont archivées
         // via `pnpm run docusaurus docs:version:cdr-paris <année>`.
@@ -85,7 +92,7 @@ const config: Config = {
         showLastUpdateTime: true,
         showLastUpdateAuthor: false,
         remarkPlugins: [remarkMath],
-        rehypePlugins: [[rehypeKatex, { output: "html" }]],
+        rehypePlugins: [rehypeKatex],
         // Mêmes paramètres que CDR Paris ; les archives se créeront via
         // `pnpm run docusaurus docs:version:cdr-nantes <année>` en fin de saison.
         lastVersion: "current",
@@ -142,7 +149,7 @@ const config: Config = {
           showLastUpdateTime: true,
           showLastUpdateAuthor: false,
           remarkPlugins: [remarkMath],
-          rehypePlugins: [[rehypeKatex, { output: "html" }]],
+          rehypePlugins: [rehypeKatex],
         },
         blog: false,
         theme: {
